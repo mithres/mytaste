@@ -8,4 +8,5 @@
   <groupId>Taste</groupId>
   <artifactId>Crawler</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
 </project>
