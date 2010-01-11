@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/red5-web.properties" />
+	</bean>
+	
+	<!-- ROOT web context -->
+	<bean id="web.context" class="org.red5.server.Context">
+		<property name="scopeResolver" ref="red5.scopeResolver" />
+		<property name="clientRegistry" ref="global.clientRegistry" />
+		<property name="serviceInvoker" ref="global.serviceInvoker" />
+		<property name="mappingStrategy" ref="global.mappingStrategy" />
+	</bean>
+	
+	<bean id="web.scope" class="org.red5.server.WebScope" init-method="register">
+		<property name="server" ref="red5.server" />
+		<property name="parent" ref="global.scope" />
+		<property name="context" ref="web.context" />
+		<property name="handler" ref="global.handler" />
+		<property name="contextPath" value="/" />
+		<property name="virtualHosts" value="*,localhost, localhost:8080, 127.0.0.1:8080" />
+	</bean>
+	
+	<bean id="web.context.videoconference" class="org.red5.server.Context">
+		<property name="scopeResolver" ref="red5.scopeResolver" />
+		<property name="clientRegistry" ref="global.clientRegistry" />
+		<property name="serviceInvoker" ref="global.serviceInvoker" />
+		<property name="mappingStrategy" ref="global.mappingStrategy" />
+	</bean>
+    
+	<bean id="web.scope.videoconference" class="org.red5.server.WebScope" init-method="register">
+		<property name="server" ref="red5.server" />
+		<property name="parent" ref="global.scope" />
+		<property name="context" ref="web.context.videoconference" />
+		<property name="handler" ref="web.handler.videoconference" />
+		<property name="contextPath" value="/vc" />
+		<property name="virtualHosts" value="*" />
+	</bean>
+    
+	<!-- 暂不注册SERVICE属性 -->
+	<bean id="web.handler.videoconference" 
+		class="com.vc.core.adapter.CoreApplicationAdapter"/>
+	
+	
+</beans>
