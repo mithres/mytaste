@@ -44,5 +44,15 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+	<!-- Use annotation to define transaction -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+	
+	<aop:aspectj-autoproxy />
+
+	<context:annotation-config />
+	<context:component-scan	base-package="com.comodo.loginpro.dao,com.comodo.loginpro.service"/>
+
 	
 </beans>
