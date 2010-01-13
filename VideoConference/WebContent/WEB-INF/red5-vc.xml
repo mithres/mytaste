@@ -35,7 +35,9 @@
 		<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
 		<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
 	</bean-->
-
+	
+	<!-- JPA support-->
+	<import resource="applicationContext-jpa.xml"/>
 
 	<import resource="red5-vod.xml"/>
 	
