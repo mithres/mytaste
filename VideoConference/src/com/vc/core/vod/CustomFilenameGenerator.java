@@ -7,7 +7,7 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 
 	// Path that will store recorded videos.
 	private String recordPath = "recordedStreams/";
-	
+
 	// Path that contains VOD streams.
 	private String playbackPath = "videoStreams/";
 
@@ -32,16 +32,16 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 		return filename;
 	}
 
-	@Override
-	public boolean resolvesToAbsolutePath() {
-		return true;
-	}
-
 	public void setRecordPath(String recordPath) {
 		this.recordPath = recordPath;
 	}
 
 	public void setPlaybackPath(String playbackPath) {
 		this.playbackPath = playbackPath;
+	}
+
+	@Override
+	public boolean resolvesToAbsolutePath() {
+		return true;
 	}
 }

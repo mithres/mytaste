@@ -1,61 +1,6 @@
 <library>
-	<!-- Datasets -->
-	<method name="videosListFeatured"><![CDATA[
-		var ds = ds_videoList;
-		ds.abort();
-		ds.setQueryParams(null);
-		ds.setQueryParam("method", "videosListFeatured");
-		ds.doRequest();
-	]]>
-	</method>
 
-
-	<attribute name="searchTag" type="string" value=""/>
-
-
-	<attribute name="searchUser" type="string" value=""/>
-
-
-	<method name="videosListByTag" args="tag"><![CDATA[
-		canvas.setAttribute("searchTag", tag);
-		tag = tag.split(" ").join(",").split(";").join(",");
-		var ds = ds_videoList;
-		ds.abort();
-		ds.setQueryParams(null);
-		ds.setQueryParam("method", "videosListByTag");
-		ds.setQueryParam("tag", tag);
-		ds.doRequest();
-	]]>
-	</method>
-
-
-	<method name="videosListByUser" args="user"><![CDATA[
-		canvas.setAttribute("searchUser", user);
-		var ds = ds_videoList;
-		ds.abort();
-		ds.setQueryParams(null);
-		ds.setQueryParam("method", "videosListByUser");
-		ds.setQueryParam("user", user);
-		ds.doRequest();
-	]]>
-	</method>
-
-
-	<method name="videoGetFlvUrl" args="id"><![CDATA[
-		var ds = ds_videoGetFlvUrl;
-		ds.abort();
-		ds.setQueryParams(null);
-		ds.setQueryParam("method", "videoGetFlvUrl");
-		ds.setQueryParam("id", id);
-		ds.doRequest();
-	]]>
-	</method>
-
-
-	<class name="vodlibrarypanel"
-		visible="${this.width &gt; 0}"
-		clip="true"
-		>
+	<class name="vodlibrarypanel" visible="${this.width &gt; 0}" clip="true">
 
 
 		<attribute name="ms" value="null"/>
@@ -66,13 +11,10 @@
 
 		<attribute name="videoIdCache" value="$once{{}}"/>
 
-
-
 		<handler name="onheight" reference="classroot"><![CDATA[
 			this.resizeHeight(this.height, 0);
 		]]>
 		</handler>
-
 
 		<handler name="ondata" reference="ds_videoGetFlvUrl"><![CDATA[
 			var ds = ds_videoGetFlvUrl;

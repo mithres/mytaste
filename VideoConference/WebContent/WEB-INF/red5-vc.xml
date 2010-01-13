@@ -30,9 +30,10 @@
 		<property name="playListService" ref="playListService" />
 	</bean>
 	
+	<!-- This bean use for change vod and record video path, support absolutePath-->
 	<!--bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-		<property name="recordPath" value="recordedStreams/" />
-		<property name="playbackPath" value="videoStreams/" />
+		<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
+		<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
 	</bean-->
 
 

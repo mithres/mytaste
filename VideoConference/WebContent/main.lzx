@@ -1,7 +1,6 @@
-
- 
-<canvas height="400" width="400" debug ="true">
+<canvas>
 	<rtmpconnection src="rtmp://localhost/vc/" autoconnect="true"/>
-	<videoview id="vvRecVideoStreaming" url="terminator.flv" type="rtmp" autoplay="true" oninit="this.play()" x="0" height="50" width="50">
-	</videoview>
-</canvas> 
+	<videoplayer url="terminator.flv" type="rtmp" autoplay="true" width="320" height="240"/>
+</canvas>
+
+
