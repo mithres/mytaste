@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:lang="http://www.springframework.org/schema/lang"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-	http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd">
+	http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd" default-autowire="byName">
 	
 	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="/WEB-INF/red5-web.properties" />
@@ -25,20 +25,131 @@
 		<property name="contextPath" value="${webapp.contextPath}" />
 		<property name="virtualHosts" value="${webapp.virtualHosts}" />
 	</bean>
-
+	
 	<bean id="web.handler.vc" class="com.vc.core.adapter.CoreApplicationAdapter">
-		<property name="playListService" ref="playListService" />
+		<!--property name="playListService" ref="playListService" /-->
 	</bean>
 	
 	<!-- This bean use for change vod and record video path, support absolutePath-->
 	<!--bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-		<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
-		<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
-	</bean-->
+			<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
+			<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
+		</bean-->
 	
-	<!-- JPA support-->
-	<import resource="applicationContext-jpa.xml"/>
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${db.driver}"/>
+		<property name="url" value="${db.jdbcurl}"/>
+		<property name="username" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
+	</bean>  
+    
+	<bean id="sessionFactory" 
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				
+				<prop key="use_sql_comments">true</prop>
+			
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">100</prop>
+			
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.cache.use_structured_entries">true</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.vc.entity.PlayList</value>
+			</list>
+		</property>
 
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
 	<import resource="red5-vod.xml"/>
+	
+	<!--
+		<bean id="usersDao" class="org.red5.server.webapps.hibernateTest.dao.UsersDaoImpl">
+			<property name="sessionFactory">
+				<ref local="sessionFactory"/>
+			</property>
+		</bean>
+
+
+		<bean id="usersService" class="org.red5.server.webapps.hibernateTest.dao.UsersServiceImpl">
+			<property name="usersDao" ref="usersDao"/>
+		</bean>
+
+		<bean id="streamClientRegistry" 
+			class="org.red5.server.webapps.hibernateTest.client.StreamClientRegistry">
+			<property name="usersService" ref="usersService"/>
+		</bean>
+		-->
+	<!--
+		   <bean id="usersService"
+			  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+			<property name="transactionManager" ref="transactionManager"/>
+			<property name="target">
+			  <bean class="org.red5.server.webapps.hibernateTest.dao.UsersServiceImpl">
+				<property name="usersDao" ref="usersDao"/>
+			  </bean>
+			</property>
+			<property name="transactionAttributes">
+			  <props>
+				<prop key="get*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED,readOnly</prop>
+			  </props>
+			</property>
+		  </bean>-->
+	<!--
+			<aop:config>
+				<aop:pointcut id="usersServiceMethods" expression="execution(* org.red5.server.webapps.hibernateTest.dao.*IUsersDao.*(..))"/>
+				<aop:advisor advice-ref="txAdvice" pointcut-ref="usersServiceMethods"/>
+			</aop:config>
+
+			<tx:advice id="txAdvice" transaction-manager="transactionManager">
+				<tx:attributes>
+					<tx:method name="get*" propagation="REQUIRED"/>
+					<tx:method name="add*" propagation="REQUIRED"/>
+					<tx:method name="delete*" propagation="REQUIRED"/>
+				</tx:attributes>
+			</tx:advice>
+
+
+			<bean id="jmxExporter"
+				class="org.springframework.jmx.export.MBeanExporter">
+				<property name="beans">
+					<map>
+						<entry key="Hibernate:name=statistics">
+							<ref local="statisticsBean" />
+						</entry>
+					</map>
+				</property>
+			</bean> 
+
+			<bean id="statisticsBean" class="org.hibernate.jmx.StatisticsService">
+				<property name="statisticsEnabled">
+					<value>true</value>
+				</property>
+				<property name="sessionFactory">
+					<ref local="sessionFactory"/>
+				</property>
+			</bean>
+		  -->
+	
 	
 </beans>

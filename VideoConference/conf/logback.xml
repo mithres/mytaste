@@ -220,6 +220,9 @@
 	<logger name="com.whirlycott.cache.policy">
 		<level value="WARN" />
 	</logger>
+	<logger name="org.hibernate">
+		<level value="DEBUG" />
+	</logger>
 	<!-- My program -->
 	<logger name="com.vc">
 		<level value="DEBUG" />
