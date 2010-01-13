@@ -4,7 +4,7 @@
 	xmlns:lang="http://www.springframework.org/schema/lang"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd">
-
+	
 	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="/WEB-INF/red5-web.properties" />
 	</bean>
@@ -26,6 +26,16 @@
 		<property name="virtualHosts" value="${webapp.virtualHosts}" />
 	</bean>
 
-	<bean id="web.handler.vc" class="com.vc.core.adapter.CoreApplicationAdapter"/>
+	<bean id="web.handler.vc" class="com.vc.core.adapter.CoreApplicationAdapter">
+		<property name="playListService" ref="playListService" />
+	</bean>
+	
+	<!--bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
+		<property name="recordPath" value="recordedStreams/" />
+		<property name="playbackPath" value="videoStreams/" />
+	</bean-->
 
+
+	<import resource="red5-vod.xml"/>
+	
 </beans>
