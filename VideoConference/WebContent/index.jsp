@@ -38,7 +38,7 @@
 			autoBuffering: true,
 			controlBarBackgroundColor:'0x2e8860',
 			initialScale: 'scale',
-			videoFile: 'rtmp://172.0.2.193/vc/terminator.flv'
+			videoFile: 'rtmp://localhost/vc/terminator.flv'
 		}} 
 	);
 	</script>	

@@ -13,7 +13,8 @@ import com.vc.service.vod.IPlayListService;
 
 public class CoreApplicationAdapter extends ApplicationAdapter {
 
-	private static final Logger log = Red5LoggerFactory.getLogger(CoreApplicationAdapter.class, "VideoConference");
+	private static final Logger log = Red5LoggerFactory.getLogger(
+			CoreApplicationAdapter.class, "VideoConference");
 
 	private IPlayListService playListService = null;
 
@@ -33,8 +34,9 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 	}
 
 	@Override
-	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
-		log.info("App connect start--------------------");
+	public synchronized boolean connect(IConnection conn, IScope scope,
+			Object[] params) {
+		log.info("App connect start--------------------" + conn.getSessionId());
 		try {
 			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
 		} catch (IOException e) {
