@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<constant name="struts.devMode" value="true" />
+	
+	<constant name="struts.action.extension" value="action,,"/>
+	
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.objectFactory.spring.autoWire" value="name" />
+	<constant name="struts.objectFactory.spring.useClassCache" value="true" />
+	
+	<constant name="struts.i18n.reload" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.custom.i18n.resources" value="global-messages" />
+	
+	<package name="default" extends="struts-default" namespace="/">
+	
+		<global-results>
+			<result name="runtime"></result>
+			<result name="needlogin"></result>
+		</global-results>
+		
+		<action name="playList" class="com.vc.presentatioin.vod.action.PlayListIndexAction">
+			<result></result>
+		</action>
+	
+	
+	</package>
+	
+</struts>

@@ -1,52 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<consolePlugin/>
-	<!-- Appenders http://logback.qos.ch/manual/appenders.html -->
-	<appender name="CONSOLE"
+	
+	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
-		<filter class="ch.qos.logback.classic.filter.LevelFilter">
-      		<level>INFO</level>
-      		<onMatch>ACCEPT</onMatch>
-      		<onMismatch>DENY</onMismatch>
-    	</filter>		
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<Pattern>		
-			%date [%thread] %-5level %logger - %msg%n
-			</Pattern>
-		</layout>
-	</appender>
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<File>../logs/red5.log</File>
-		<Append>false</Append>
-		<Encoding>UTF-8</Encoding>
-		<BufferedIO>false</BufferedIO>
-		<ImmediateFlush>true</ImmediateFlush>
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>
-				%date [%thread] %-5level %logger{35} - %msg%n
+        %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
 			</Pattern>
 		</layout>
 	</appender>
-	<appender name="ERRORFILE" class="ch.qos.logback.core.FileAppender">
-		<File>../logs/error.log</File>
-		<Append>false</Append>
-		<Encoding>UTF-8</Encoding>
-		<BufferedIO>false</BufferedIO>
-		<ImmediateFlush>true</ImmediateFlush>
-    	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      		<level>WARN</level>
-    	</filter>
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<Pattern>
-				%date [%thread] %-5level %logger{35} - %msg%n
-			</Pattern>
-		</layout>
-	</appender>
+
 	<root>
 		<level value="DEBUG" />
-		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="FILE" />
-		<appender-ref ref="ERRORFILE" />
+		<appender-ref ref="STDOUT" />
 	</root>	<!-- Red5 -->
 	<logger name="org.red5.io">
 		<level value="INFO" />
@@ -133,12 +100,12 @@
 	<logger name="org.red5.server.stream">
 		<level value="INFO" />
 	</logger>
-    <logger name="org.red5.server.stream.consumer">
-        <level value="WARN" />
-    </logger>
-    <logger name="org.red5.server.war">
-        <level value="DEBUG" />
-    </logger>
+	<logger name="org.red5.server.stream.consumer">
+		<level value="WARN" />
+	</logger>
+	<logger name="org.red5.server.war">
+		<level value="DEBUG" />
+	</logger>
 	<!-- Red5 demos -->
 	<logger name="org.red5.server.webapp.oflaDemo">
 		<level value="WARN" />
@@ -222,6 +189,15 @@
 	</logger>
 	<logger name="org.hibernate">
 		<level value="DEBUG" />
+	</logger>
+	<logger name="org.hibernate.jdbc">
+		<level value="DEBUG"/>
+	</logger>
+	<logger name="org.hibernate.SQL">
+		<level value="DEBUG"/>
+	</logger>
+	<logger name="org.hibernate.tool.hbm2ddl">
+		<level value="DEBUG"/>
 	</logger>
 	<!-- My program -->
 	<logger name="com.vc">

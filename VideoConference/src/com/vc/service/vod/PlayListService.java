@@ -13,12 +13,19 @@ import org.red5.server.api.IScope;
 import org.red5.server.api.Red5;
 import org.slf4j.Logger;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
 
-@Service
+import com.vc.dao.vod.PlayListDao;
+import com.vc.entity.PlayList;
+
 public class PlayListService implements IPlayListService {
 
 	private static Logger log = Red5LoggerFactory.getLogger(PlayListService.class, "VideoConference");
+
+	@Override
+	public PlayList savePlayList(PlayList playList) {
+		PlayListDao.getInstance().savePlayList(playList);
+		return playList;
+	}
 
 	@Override
 	public Map<String, Map<String, Object>> getPlayList() {
