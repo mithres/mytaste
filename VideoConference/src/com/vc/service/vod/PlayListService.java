@@ -12,18 +12,27 @@ import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.api.IScope;
 import org.red5.server.api.Red5;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vc.dao.vod.PlayListDao;
 import com.vc.entity.PlayList;
 
+@Service
 public class PlayListService implements IPlayListService {
 
 	private static Logger log = Red5LoggerFactory.getLogger(PlayListService.class, "VideoConference");
 
+	@Autowired
+	private PlayListDao playListDao = null;
+	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) {
-		PlayListDao.getInstance().savePlayList(playList);
+		playListDao.create(playList);
 		return playList;
 	}
 

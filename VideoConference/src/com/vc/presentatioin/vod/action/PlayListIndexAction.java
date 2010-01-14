@@ -1,5 +1,7 @@
 package com.vc.presentatioin.vod.action;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vc.core.action.BaseAction;
 import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
@@ -8,6 +10,7 @@ public class PlayListIndexAction extends BaseAction{
 
 	private static final long serialVersionUID = 6373087375653567380L;
 	
+	@Autowired
 	private IPlayListService playListService = null;
 	
 	@Override
@@ -19,15 +22,5 @@ public class PlayListIndexAction extends BaseAction{
 		playListService.savePlayList(pl);
 		return null;
 	}
-
-	public IPlayListService getPlayListService() {
-		return playListService;
-	}
-
-	public void setPlayListService(IPlayListService playListService) {
-		this.playListService = playListService;
-	}
-	
-	
-	
+		
 }

@@ -7,57 +7,6 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
 	default-autowire="byName">
- 
- 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<property name="driverClass" value="org.postgresql.Driver" />
-		<property name="jdbcUrl" value="jdbc:postgresql://localhost/videoconference"/>
-		<property name="user" value="sa" />
-		<property name="password" value="passed" />
-		<property name="acquireIncrement">
-			<value>5</value>
-		</property>
-		<property name="minPoolSize">
-			<value>5</value>
-		</property>
-		<property name="maxPoolSize">
-			<value>30</value>
-		</property>
-		<property name="maxStatementsPerConnection">
-			<value>100</value>
-		</property>
-		<property name="breakAfterAcquireFailure" value="true" />
-		<property name="numHelperThreads">
-			<value>20</value>
-		</property>
-		<property name="maxIdleTime" value="60" />
-		<property name="idleConnectionTestPeriod" value="60" />
-	</bean>
-	
-	<!-- JPA config,load pu from persistence.xml -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="VideoConference" />
-		<property name="dataSource" ref="dataSource" />
-		<property name="loadTimeWeaver">
-			<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
-		</property>
-	</bean>
-	<!-- Transaction Config -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-
-	<!-- Use annotation to define transaction -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
-	
-	<aop:aspectj-autoproxy />
-
-	<context:annotation-config />
-	<context:component-scan	base-package="com.huayn.signup.dao,com.huayn.signup.service"/>
-
 
 	<!-- DEFAULT GLOBAL CONTEXT -->
 	<bean id="global.clientRegistry" class="org.red5.server.ClientRegistry" />
