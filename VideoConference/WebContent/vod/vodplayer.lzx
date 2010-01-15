@@ -182,7 +182,7 @@
 			x="5"
 			y="${(parent.height - this.height) / 2}"
 			text="Featured"
-			onclick="canvas.videosListFeatured()"
+			onclick="canvas.playVideoId()"
 			/>
 
 		<text name="taglabel"
