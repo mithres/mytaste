@@ -36,7 +36,7 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 	@Override
 	public synchronized boolean connect(IConnection conn, IScope scope,
 			Object[] params) {
-		log.info("App connect start--------------------" + conn.getSessionId());
+		log.info("App connect start--------------------" + conn.getClient().getId());
 		try {
 			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
 		} catch (IOException e) {

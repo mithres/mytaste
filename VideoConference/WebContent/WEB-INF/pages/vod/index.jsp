@@ -23,10 +23,10 @@
 <body onload="initPlayer();">
 <script>
 	lz.embed.swf( {
-		url : '<web.page:path/>/vod/player.lzx?lzt=swf',
+		url : '<web.page:path/>/vod/player.lzx.swf8.swf',
 		allowfullscreen : 'false',
-		width : '400',
-		height : '400',
+		width : '1000',
+		height : '1000',
 		id : 'lzapp'
 	});
 </script>

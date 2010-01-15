@@ -1,5 +1,19 @@
 <canvas>
-	<attribute name="id" value="hello" type="string"/>
-	<rtmpconnection src="rtmp://localhost/vod/" autoconnect="true"/>
-	<videoplayer url="terminator.flv" type="rtmp" autoplay="true" width="320" height="240"/>
+	
+	<script>
+		// Hide the right click menu
+		canvas.setDefaultContextMenu(new LzContextMenu())
+
+		function init(name) {
+			conn.connect();
+			player.setAttribute("url", name);
+		}
+	</script>
+	
+	<rtmpconnection id="conn" src="rtmp://localhost/vod/" autoconnect="false"/>
+	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
+	
+	<!--videothumbnail thumbnailtime="10" type="rtmp" url="watchmen.flv" width="100" height="100" x="0" y="240" /-->
+	<!--videotogglebutton x="0" y="240" /-->
+	
 </canvas>
