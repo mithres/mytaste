@@ -5,7 +5,7 @@ import javax.persistence.Query;
 
 /**
  * 
- * @author Yaroslav Pogrebnyak
+ * @author Ammen
  *
  * Represents some data length and offset
  */

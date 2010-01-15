@@ -13,7 +13,7 @@ import javax.persistence.Query;
 /**
  * JPA query hints
  * 
- * @author vgorbunov
+ * @author Ammen
  * @see HintConstants
  */
 @SuppressWarnings("unchecked")

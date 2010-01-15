@@ -10,8 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.util.Assert;
@@ -23,7 +23,7 @@ import org.springframework.util.Assert;
  */
 public class GenericDAO<T, PK extends Serializable> extends JpaDaoSupport {
 
-    protected final Log logger = LogFactory.getLog(getClass());
+    protected final Logger log = Red5LoggerFactory.getLogger(getClass(), "VideoConference");
 
     protected Class<T> entityClass;
 
