@@ -25,7 +25,7 @@
 		</global-results>
 		
 		<action name="playList" class="com.vc.presentatioin.vod.action.PlayListIndexAction">
-			<result></result>
+			<result>/WEB-INF/pages/vod/index.jsp</result>
 		</action>
 	
 	

@@ -1,6 +1,0 @@
-<canvas>
-	<rtmpconnection src="rtmp://localhost/vc/" autoconnect="true"/>
-	<videoplayer url="terminator.flv" type="rtmp" autoplay="true" width="320" height="240"/>
-</canvas>
-
-

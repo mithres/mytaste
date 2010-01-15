@@ -2,8 +2,8 @@ package com.vc.presentatioin.vod.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
-import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
 
 public class PlayListIndexAction extends BaseAction{
@@ -15,12 +15,8 @@ public class PlayListIndexAction extends BaseAction{
 	
 	@Override
 	public String process() {
-		log.info("Hello World");
-		PlayList pl = new PlayList();
-		pl.setId("001");
-		pl.setName("My Playlist");
-		playListService.savePlayList(pl);
-		return null;
+		this.getActionContext().getSession().put("UserName", "Ammen");
+		return Action.SUCCESS;
 	}
 		
 }
