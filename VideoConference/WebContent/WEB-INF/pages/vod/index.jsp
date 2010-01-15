@@ -12,26 +12,25 @@
 <script type="text/javascript"
 	src="<web.page:path/>/lps/includes/embed-compressed.js "></script>
 <script>
-	function initPlayer(id) {
-		//lz.flashapp.setCanvasAttribute("id", id, true);
+	function initPlayer() {
+		var vodPlayer = lz.embed.lzapp; 
+		vodPlayer.callMethod('init(watchmen.flv)');
 	}
 </script>
 
 </head>
 
-<body onLoad="initPlayer('001')">
+<body onload="initPlayer();">
 <script>
 	lz.embed.swf( {
 		url : '<web.page:path/>/vod/player.lzx?lzt=swf',
 		allowfullscreen : 'false',
-		bgcolor : '#ffffff',
 		width : '400',
 		height : '400',
-		id : 'lzapp',
-		accessible : 'false'
+		id : 'lzapp'
 	});
 </script>
-
+<input type="button" onclick="initPlayer();" value="button" name="button"/>
 </body>
 
 </html>
