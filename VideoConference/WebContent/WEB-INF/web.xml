@@ -13,7 +13,7 @@
 	</context-param>
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>/vc</param-value>
+		<param-value>/vod</param-value>
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
