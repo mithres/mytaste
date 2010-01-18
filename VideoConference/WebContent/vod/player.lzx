@@ -1,8 +1,16 @@
 <canvas debug="true">
 	
 	<include href="../lps/utils/aescryptlz.lzx" />
-  	
+
 	<script>
+
+
+		nc = new NetConnection();
+		nc.connect("rtmp://localhost/vod");
+		nc.onResult = function(obj) {
+			trace("The result is " + obj);
+		}
+		nc.call("say", nc, "ammen");
 
 		// Hide the right click menu
 		canvas.setDefaultContextMenu(new LzContextMenu());
@@ -18,13 +26,18 @@
 			userName = aes.decryptByAscii(userName, key);
 			var srcSignature = userName + "-" + key;
 			var signature = aes.encryptByAscii(srcSignature, key);
-			Debug.write(signature);
 			conn.setAttribute("connectionparams", signature);
 			conn.connect(signature);
-			player.setAttribute("url", filmName);
+			conn.callMethod("say");
+			//player.setAttribute("url", filmName);
 		}
 	</script>
 	
+	<view name="buttons" visible="false" layout="spacing: 10" x="0" y="300">
+		<button text="test" onclick="types_example_rpc.test.invoke()"/>
+	</view>
+        
+    
 	<dataset name ="sessionInfo" src ="sessionHelper" type ="http" request ="true" />
 	
 	<datapointer name="remotedatapt" xpath="sessionInfo:/sessionContent[1]">
