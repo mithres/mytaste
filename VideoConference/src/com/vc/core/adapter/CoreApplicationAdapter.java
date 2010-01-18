@@ -1,7 +1,6 @@
 package com.vc.core.adapter;
 
 import java.io.IOException;
-import java.util.Date;
 
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
@@ -54,6 +53,10 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 
 	// Check whether the connection is legal
 	private boolean checkConnection(IConnection conn, IScope scope, Object[] params) {
+		
+		String encryptedMes = params[0].toString();
+		//TODO: get user name from http session
+		
 		if ("Hello Server".equals(params[0].toString())) {
 			return true;
 		}
@@ -67,13 +70,11 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 
 	@Override
 	public synchronized boolean join(IClient client, IScope scope) {
-		// TODO Auto-generated method stub
 		return super.join(client, scope);
 	}
 
 	@Override
 	public synchronized void leave(IClient client, IScope scope) {
-		// TODO Auto-generated method stub
 		super.leave(client, scope);
 	}
 

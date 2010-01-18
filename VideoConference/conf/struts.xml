@@ -27,7 +27,9 @@
 		<action name="playList" class="com.vc.presentatioin.vod.action.PlayListIndexAction">
 			<result>/WEB-INF/pages/vod/index.jsp</result>
 		</action>
-	
+		
+		<action name="sessionHelper" class="com.vc.presentatioin.util.SessionHelper"/>
+		
 	
 	</package>
 	

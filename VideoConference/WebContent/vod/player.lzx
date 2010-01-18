@@ -1,32 +1,49 @@
 <canvas debug="true">
-	
+
 	<include href="../lps/utils/aescryptlz.lzx" />
-	<include href="myclass.lzx"/>
+  	
+	<attribute name="userName" value="userName"/>
+	<attribute name="uuid" value="uuid"/>
+  	
+	<dataset name ="sessionInfo" src ="sessionHelper" type ="http" request ="true" />
 	
-	<handler name="oninit">
-		
-		var m = new my(null);
-	</handler>
-    
+	<datapointer name="remotedatapt" xpath="sessionInfo:/sessionContent[1]">
+		<handler name="ondata">
+			canvas.setAttribute("userName",this.xpathQuery('userName/text()'));
+			canvas.setAttribute("uuid",this.xpathQuery('uuid/text()'));
+			Debug.debug(canvas.getAttribute("userName"));
+			Debug.debug(canvas.getAttribute("uuid"));
+		</handler>
+	</datapointer> 
+  	
 	<script>
 
+
+		//TODO: username+"-"+ Server NO that stored in users session
+		var key = "UserName-ServerNO";
+		//TODO: use current server time + "-" + userName as message
+		var message = "UserName";
+
+		aes = new lz.AESCryptLz();
+		var signature = aes.encryptByAscii(message, key);
+
 		// Hide the right click menu
-		canvas.setDefaultContextMenu(new LzContextMenu())
-	
-		var signature = new Date().getTime().toString();
+		canvas.setDefaultContextMenu(new LzContextMenu());
+
 		signature = "Hello Server";
-		
+
 		function init(name) {
+			conn.setAttribute("connectionparams", signature);
 			conn.connect(signature);
 			player.setAttribute("url", name);
 		}
 	</script>
 
 	
+
+	
 	<rtmpconnection id="conn" src="rtmp://localhost/vod/" autoconnect="false"/>
 	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
-	
-	
 	
 	<!--videothumbnail thumbnailtime="10" type="rtmp" url="watchmen.flv" width="100" height="100" x="0" y="240" /-->
 	<!--videotogglebutton x="0" y="240" /-->

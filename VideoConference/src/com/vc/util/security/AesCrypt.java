@@ -1,5 +1,8 @@
 package com.vc.util.security;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -7,7 +10,7 @@ public class AesCrypt {
 	/*
 	 * The key used for the encryption
 	 */
-	byte[] key = hexToByte("0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f");
+	private byte[] key = hexToByte("0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f 0f");
 
 	public String encrypt(String str) {
 		try {
@@ -86,4 +89,9 @@ public class AesCrypt {
 		}
 		return bts;
 	}
+
+	public void setKey(byte[] key) {
+		this.key = key;
+	}
+
 }

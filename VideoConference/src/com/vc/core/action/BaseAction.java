@@ -39,7 +39,7 @@ public abstract class BaseAction extends ActionSupport implements Preparable, Se
 		try {
 			return process();
 		} catch (RuntimeException e) {
-			e.printStackTrace();
+			log.error("BaseAction error", e);
 			addActionError(e.getMessage());
 			return RUNTIME_ERROR_PAGE;
 		}
@@ -69,10 +69,6 @@ public abstract class BaseAction extends ActionSupport implements Preparable, Se
 		StringBuffer sb = new StringBuffer(request.getScheme() + ":" + "//" + request.getServerName() + ":" + request.getServerPort());
 		sb.append(request.getContextPath());
 		return sb.toString();
-	}
-
-	public static String getComodoCopyRight() {
-		return "Copyright Comodo Group 2008-" + java.util.GregorianCalendar.getInstance().get(java.util.Calendar.YEAR);
 	}
 
 	public String getBackToUrl() {
