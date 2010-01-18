@@ -1,17 +1,32 @@
-<canvas>
+<canvas debug="true">
 	
+	<include href="../lps/utils/aescryptlz.lzx" />
+	<include href="myclass.lzx"/>
+	
+	<handler name="oninit">
+		
+		var m = new my(null);
+	</handler>
+    
 	<script>
+
 		// Hide the right click menu
 		canvas.setDefaultContextMenu(new LzContextMenu())
-
+	
+		var signature = new Date().getTime().toString();
+		signature = "Hello Server";
+		
 		function init(name) {
-			conn.connect();
+			conn.connect(signature);
 			player.setAttribute("url", name);
 		}
 	</script>
+
 	
 	<rtmpconnection id="conn" src="rtmp://localhost/vod/" autoconnect="false"/>
 	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
+	
+	
 	
 	<!--videothumbnail thumbnailtime="10" type="rtmp" url="watchmen.flv" width="100" height="100" x="0" y="240" /-->
 	<!--videotogglebutton x="0" y="240" /-->

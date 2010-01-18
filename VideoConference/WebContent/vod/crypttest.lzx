@@ -4,7 +4,7 @@
         of AESCryptLz. Have a look into aescryptlz.lzx to get
         to know, how it works.
       -->
-    <include href="aescryptlz.lzx" />
+    <include href="../lps/utils/aescryptlz.lzx" />
     <attribute name="cr" type="expression" value="null" />
     <handler name="oninit">
         canvas.cr = new AESCryptLz();

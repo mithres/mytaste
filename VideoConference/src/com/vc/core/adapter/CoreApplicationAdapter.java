@@ -1,6 +1,7 @@
 package com.vc.core.adapter;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
@@ -13,8 +14,7 @@ import com.vc.service.vod.IPlayListService;
 
 public class CoreApplicationAdapter extends ApplicationAdapter {
 
-	private static final Logger log = Red5LoggerFactory.getLogger(
-			CoreApplicationAdapter.class, "VideoConference");
+	private static final Logger log = Red5LoggerFactory.getLogger(CoreApplicationAdapter.class, "VideoConference");
 
 	private IPlayListService playListService = null;
 
@@ -34,21 +34,34 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 	}
 
 	@Override
-	public synchronized boolean connect(IConnection conn, IScope scope,
-			Object[] params) {
-		log.info("App connect start--------------------" + conn.getClient().getId());
+	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
+
+		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
+
+		if (!checkConnection(conn, scope, params)) {
+			return false;
+		}
+
 		try {
 			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
 		} catch (IOException e) {
 			log.error("App start error:", e);
 		}
 		log.debug("webAppPath : " + webAppPath);
+		
 		return true;
+	}
+
+	// Check whether the connection is legal
+	private boolean checkConnection(IConnection conn, IScope scope, Object[] params) {
+		if ("Hello Server".equals(params[0].toString())) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public synchronized void disconnect(IConnection conn, IScope scope) {
-		log.info("App disconnect start--------------------");
 		super.disconnect(conn, scope);
 	}
 

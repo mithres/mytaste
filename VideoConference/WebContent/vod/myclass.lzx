@@ -1,0 +1,14 @@
+<library>
+	<class name="my">
+		
+		<method name="my">
+			Debug.write("fuck");
+		</method>
+		
+		<method name="say">
+			Debug.write("Hello world");
+		</method>
+	
+	</class>
+
+</library>
