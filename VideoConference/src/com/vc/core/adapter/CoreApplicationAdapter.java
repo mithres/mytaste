@@ -47,16 +47,16 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 			log.error("App start error:", e);
 		}
 		log.debug("webAppPath : " + webAppPath);
-		
+
 		return true;
 	}
 
 	// Check whether the connection is legal
 	private boolean checkConnection(IConnection conn, IScope scope, Object[] params) {
-		
+
 		String encryptedMes = params[0].toString();
-		//TODO: get user name from http session
-		
+		// TODO: get user name from http session
+
 		if ("Hello Server".equals(params[0].toString())) {
 			return true;
 		}

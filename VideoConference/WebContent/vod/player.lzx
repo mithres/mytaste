@@ -1,46 +1,39 @@
 <canvas debug="true">
-
+	
 	<include href="../lps/utils/aescryptlz.lzx" />
   	
-	<attribute name="userName" value="userName"/>
-	<attribute name="uuid" value="uuid"/>
-  	
-	<dataset name ="sessionInfo" src ="sessionHelper" type ="http" request ="true" />
-	
-	<datapointer name="remotedatapt" xpath="sessionInfo:/sessionContent[1]">
-		<handler name="ondata">
-			canvas.setAttribute("userName",this.xpathQuery('userName/text()'));
-			canvas.setAttribute("uuid",this.xpathQuery('uuid/text()'));
-			Debug.debug(canvas.getAttribute("userName"));
-			Debug.debug(canvas.getAttribute("uuid"));
-		</handler>
-	</datapointer> 
-  	
 	<script>
-
-
-		//TODO: username+"-"+ Server NO that stored in users session
-		var key = "UserName-ServerNO";
-		//TODO: use current server time + "-" + userName as message
-		var message = "UserName";
-
-		aes = new lz.AESCryptLz();
-		var signature = aes.encryptByAscii(message, key);
 
 		// Hide the right click menu
 		canvas.setDefaultContextMenu(new LzContextMenu());
 
-		signature = "Hello Server";
+		var filmName = null;
 
 		function init(name) {
+			filmName = name;
+		}
+
+		function loadFilm(userName, key) {
+			aes = new lz.AESCryptLz();
+			userName = aes.decryptByAscii(userName, key);
+			var srcSignature = userName + "-" + key;
+			var signature = aes.encryptByAscii(srcSignature, key);
+			Debug.write(signature);
 			conn.setAttribute("connectionparams", signature);
 			conn.connect(signature);
-			player.setAttribute("url", name);
+			player.setAttribute("url", filmName);
 		}
 	</script>
-
 	
-
+	<dataset name ="sessionInfo" src ="sessionHelper" type ="http" request ="true" />
+	
+	<datapointer name="remotedatapt" xpath="sessionInfo:/sessionContent[1]">
+		<handler name="ondata">
+			userName = this.xpathQuery('userName/text()');
+			key = this.xpathQuery('uuid/text()');
+			loadFilm(userName, key);
+		</handler>
+	</datapointer> 
 	
 	<rtmpconnection id="conn" src="rtmp://localhost/vod/" autoconnect="false"/>
 	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
