@@ -1,5 +1,5 @@
 <!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
-* Copyright 2006-2009 Laszlo Systems, Inc.  All Rights Reserved.              *
+* Copyright 2006-2010 Laszlo Systems, Inc.  All Rights Reserved.              *
 * Use is subject to license terms.                                            *
 * X_LZ_COPYRIGHT_END ****************************************************** -->
 <library>
@@ -50,14 +50,13 @@
     -->
     <attribute name="url" value="" type="string"/>
     
-    <!--- Protocol "rtmp" or "http" (default: "http").
+    <!--- Protocol "rtmp" or "http".
           @type String
           @access public
     -->
     <attribute name="type" value="http" type="string"/>
 
     <!--- If true, video will start playing as soon as url is set.
-          Default: false.
           @type Boolean
           @access public
     -->
@@ -65,7 +64,6 @@
 
     <!--- If true, video will automatically rewind to the beginning
           (and remain in a paused state) when playback ends.
-          Default: false.
           @type Boolean
           @access public
     -->
@@ -74,7 +72,6 @@
 
     <!--- Autoplay start argument passed to mediastream.play().
           See the mediastream.play documentation for its values. 
-          Default: 'either'.
           @type String
           @accesss public
     -->
@@ -82,7 +79,6 @@
 
     <!--- Autoplay pause argument passed to mediastream.play().
           See the mediastream.play documentation for its values. 
-          Default: false.
           @type Boolean
           @access public
      -->
@@ -90,7 +86,6 @@
 
     <!--- Autoplay length argument passed to mediastream.play(). 
           See the mediastream.play documentation for its values. 
-          Default: 'end'.
           @type String
           @access public
     -->
@@ -98,7 +93,6 @@
 
     <!--- Autoplay reset argument passed to mediastream.play(). 
           See the mediastream.play documentation for its values. 
-          Default: true.
           @type Boolean
           @access public
     -->
@@ -842,8 +836,12 @@
             return;
         }
         if (! this._nc) {
-            // note: null nc is creted when setting the type for 'http'
-            if ($debug) Debug.warn("No netconnection defined for %w.", this);
+            if ($debug) {
+                // note: null nc is creted when setting the type for 'http'
+                if (this.type && this.type != 'http') {
+                    Debug.warn("No netconnection defined for %w.", this, this._nc);
+                }
+            }
             return;
         }
         if ($as3) {
@@ -855,7 +853,7 @@
                 this._nc.addEventListener(NetStatusEvent.NET_STATUS, this._onNetStatusAS3);
                 this._nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this._onSecurityError);
                 this._creationCallback = {methodName: callbackName, args: callbackArgs};
-                setTimeout(this._doconnect, 1);
+                setTimeout(this.rtmp._doconnect, 1);
             }
         } else {
             this._flashstream = new NetStream(this._nc);
@@ -870,12 +868,6 @@
         //the following does not compile in swf9 since error is undefined
         //not sure where that used to come from
         //if ($debug) Debug.warn("mediastream _onSecurityError() " + error);
-    </method> 
-
-    <!--- flash callback used by swf9 to connect - called by setTimeout - see LPP-7999
-          @keywords private -->
-    <method name="_doconnect">
-        this._nc.connect(this._srcurl);
     </method> 
 
     <!--- flash callback

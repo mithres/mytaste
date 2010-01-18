@@ -99,20 +99,21 @@
 
     <class name="windowpanel" extends="basewindow">
         <!--- the title of a window : this string appears at the top
-              of the window.  Default: none -->
+              of the window. -->
         <attribute name="title" value="" type="string"/>
-        <!--- If true, the window will have a close control.  Default: false -->
+        <!--- If true, the window will have a close control. -->
         <attribute name="closeable" value="false"/>
-        <!--- The left inset for the window content area.  Default: 6 -->
+        <!--- The left inset for the window content area. -->
         <attribute name="inset_left" value="6"/>
-        <!--- The top inset for the window content area.  Default: 22 -->
+        <!--- The top inset for the window content area. -->
         <attribute name="inset_top" value="22"/>
-        <!--- The right inset for the window content area.  Default: 11 -->
+        <!--- The right inset for the window content area. -->
         <attribute name="inset_right" value="11"/>
-        <!--- The bottom inset for the window content area.  Default: 20 -->
+        <!--- The bottom inset for the window content area. -->
         <attribute name="inset_bottom" value="20"/>
-        <!--- The top inset for the window title area.  Default: 6 -->
+        <!--- The top inset for the window title area. -->
         <attribute name="titlearea_inset_top" value="6"/>
+        <!--- @access private -->
         <attribute name="defaultplacement" value="content" type="string"/>
 
         <state applied="${parent._usecontentwidth}">
@@ -148,8 +149,14 @@
         ]]> </method>
 
         <!--- @keywords private -->
-        <method name="init"> <![CDATA[
+        <method name="init"> 
             super.init();
+            checkMinSize();
+        </method>
+
+        <!--- @keywords private -->
+        <method name="checkMinSize">
+          <![CDATA[
             // need to check minwidth/height after subviews have inited
             // just in case the window is sized by content, yet too small
             if (this.width <  this.minwidth ) {
@@ -158,17 +165,16 @@
                                  " ignored: "+ this);
                 }
                 this.setAttribute('width', this.minwidth);
-                setAttribute('_usecontentwidth', false );
             }
-            if (this.height <  this.minheight && !this._usecontentheight ) {
+            if (this.height <  this.minheight) {
                 if ( !this._usecontentheight ){
                     Debug.write( "requested height smaller than minheight," +
                                 " ignored: "+ this );
                 }
                 this.setAttribute('height', this.minheight);
-                setAttribute('_usecontentheight', false );
             }
-        ]]> </method>
+           ]]> 
+        </method>
 
         <resizeview_x name="top" width="100%" frame="${parent.state}" height="13.9"
             left="window_TL_rsc" middle="window_TM_rsc" right="window_TR_rsc">
@@ -190,9 +196,10 @@
             x="${classroot.inset_left}" y="${classroot.titlearea_inset_top}"
             width="${classroot.width-classroot.inset_left-classroot.inset_right}">
             <layout name="titlelayout">
-                <handler name="oninit">
+                <method name="init">
+                    super.init();
                     this.updateDelegate.register( parent,  "onwidth");
-                </handler>
+                </method>
                 <method name="addSubview" args="newsub">
                     if (newsub.name == "title") {
                         this.updateDelegate.register( newsub,  "ontext");
