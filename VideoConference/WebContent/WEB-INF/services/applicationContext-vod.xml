@@ -6,6 +6,6 @@
 	http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd" default-autowire="byName">
 	
 	
-	<bean id="playListService" class="com.vc.service.vod.PlayListService"/>
+	<bean id="vod.handler" class="com.vc.core.vod.VODSecurityHandler"/>
 
 </beans>
