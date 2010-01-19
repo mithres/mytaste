@@ -1,22 +1,18 @@
 package com.vc.core.adapter;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
-import org.red5.server.api.Red5;
 import org.red5.server.api.service.IPendingServiceCall;
 import org.red5.server.api.service.IPendingServiceCallback;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
-import org.red5.server.api.stream.ISubscriberStream;
 import org.slf4j.Logger;
 
+import com.vc.core.vod.VODPlaybackSecurityHandler;
 import com.vc.core.vod.VODSecurityHandler;
 
 public class CoreApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback, IStreamAwareScopeHandler {
@@ -25,9 +21,7 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 	// The Global WebApp Path
 	public static String webAppPath = "";
-	
-	public static ConcurrentMap<String,String> VOD_CLIENT_SIGNATURE = new  ConcurrentHashMap<String,String>();
-	
+
 	private static CoreApplicationAdapter instance = null;
 
 	public static synchronized CoreApplicationAdapter getInstance() {
@@ -36,14 +30,15 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 	@Override
 	public synchronized boolean start(IScope scope) {
-		
+
 		log.info("App start--------------------");
-		
+
 		instance = this;
 		
-		Object handler = new VODSecurityHandler();
-		scope.registerServiceHandler("vod", handler);
+		//registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
 		
+		scope.registerServiceHandler("vod", new VODSecurityHandler());
+
 		return super.start(scope);
 	}
 
@@ -58,10 +53,6 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
 
-		// if (!checkConnection(conn, scope, params)) {
-		// return false;
-		// }
-
 		try {
 			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
 		} catch (IOException e) {
@@ -69,19 +60,11 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 		}
 		log.debug("webAppPath : " + webAppPath);
 
-		return true;
-	}
-
-	// Check whether the connection is legal
-	private boolean checkConnection(IConnection conn, IScope scope, Object[] params) {
-
-		String encryptedMes = params[0].toString();
-		// TODO: get user name from http session
-
-		if ("Hello Server".equals(params[0].toString())) {
-			return true;
+		if (params.length > 0) {
+			scope.setAttribute("Signature", (String)params[0]);
 		}
-		return false;
+
+		return true;
 	}
 
 	@Override
@@ -128,34 +111,4 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 	}
 
-	@Override
-	public void streamSubscriberClose(ISubscriberStream stream) {
-		log.info("----------------------streamSubscriberClose-----------------------");
-		super.streamSubscriberClose(stream);
-	}
-
-	@Override
-	public void streamSubscriberStart(ISubscriberStream stream) {
-		log.info("----------------------streamSubscriberStart-----------------------");
-		
-		IConnection conn = Red5.getConnectionLocal();
-		IClient client = conn.getClient();
-		Map<String,Object> paras = conn.getConnectParams();
-		
-		String key = VOD_CLIENT_SIGNATURE.get(client.getId());
-
-
-//		AesCrypt ac = new AesCrypt();
-//		try {
-//			ac.setKey(ac.hexToByte(MD5.do_checksum(uuid)));
-//		} catch (NoSuchAlgorithmException e) {
-//			log.error("Make MD5 key error", e);
-//		}
-//
-//		String signature = client.getId() + "-" + uuid;
-//		String encryptedSignature = ac.encrypt(signature);
-//		log.debug("Encrypted signature is:" + encryptedSignature);
-		
-		super.streamSubscriberStart(stream);
-	}
 }

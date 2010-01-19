@@ -1,5 +1,6 @@
-<canvas debug="true">
-
+<canvas>
 	
+	<rtmpconnection id="conn" src="rtmp://localhost/vod/" autoconnect="true"/>
+	<videoplayer id="player" type="rtmp" url="terminator.flv" autoplay="true" width="320" height="240"/>
 	
 </canvas>

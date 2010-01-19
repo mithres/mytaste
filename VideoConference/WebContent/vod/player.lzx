@@ -6,6 +6,7 @@
 	
 	<attribute name="filmName" value="null"/>
 	
+	
 	<script>
 
 
@@ -18,7 +19,7 @@
 		}
 	</script>
 	
-	<remoteconnection name="rc" debug="true" src="rtmp://172.0.2.193/vod/" autoconnect="true">
+	<remoteconnection name="rc" debug="true" src="rtmp://192.168.0.119/vod/" autoconnect="true">
 		
 		<handler name="onconnect">
 			Debug.write("connected");
@@ -36,22 +37,26 @@
 					</method>
 				</netparam-->  
 			<method name="onResult" args="value">
-				Debug.write("key: ", value);
 				aes = new lz.AESCryptLz();
 				var encryptedName = aes.encryptByAscii(canvas.filmName, value);
-				Debug.write(encryptedName);
-				var url = "rtmp://172.0.2.193/vod/"+ encryptedName;
-//				player.setAttribute("url", ");
-				player.playVideo(url,"rtmp");
+				canvas.loadPlayer(encryptedName);
 			</method>  
 			
 		</netremotecall>
     	
 	</remoteconnection>
 	
-
-	<!--rtmpconnection id="conn" src="rtmp://172.0.2.193/vod/" autoconnect="true"/-->
-	<videoplayer id="player" type="rtmp" autoplay="false" width="320" height="240"/>
+	
+	<method name="loadPlayer" args="params">
+		Debug.write("Load player start");
+		conn.setAttribute("connectionparams",params);
+		conn.connect();
+		player.setAttribute("url",canvas.filmName);
+		Debug.write("Load player end");
+	</method>
+	
+	<rtmpconnection id="conn" src="rtmp://192.168.0.119/vod/" autoconnect="false"/>
+	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
 	
 	<!--videothumbnail thumbnailtime="10" type="rtmp" url="watchmen.flv" width="100" height="100" x="0" y="240" /-->
 	<!--videotogglebutton x="0" y="240" /-->
