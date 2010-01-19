@@ -1,55 +1,57 @@
 <canvas debug="true">
 	
 	<include href="../lps/utils/aescryptlz.lzx" />
-
+	
+	<include href="remoteconnection.lzx"/>
+	
+	<attribute name="filmName" value="null"/>
+	
 	<script>
 
 
-		nc = new NetConnection();
-		nc.connect("rtmp://localhost/vod");
-		nc.onResult = function(obj) {
-			trace("The result is " + obj);
-		}
-		nc.call("say", nc, "ammen");
-
-		// Hide the right click menu
 		canvas.setDefaultContextMenu(new LzContextMenu());
 
-		var filmName = null;
-
-		function init(name) {
-			filmName = name;
-		}
-
-		function loadFilm(userName, key) {
-			aes = new lz.AESCryptLz();
-			userName = aes.decryptByAscii(userName, key);
-			var srcSignature = userName + "-" + key;
-			var signature = aes.encryptByAscii(srcSignature, key);
-			conn.setAttribute("connectionparams", signature);
-			conn.connect(signature);
-			conn.callMethod("say");
-			//player.setAttribute("url", filmName);
+		function init(filmName) {
+			Debug.write("Film name :" + filmName);
+			canvas.setAttribute("filmName", filmName);
+			canvas.rc.getSignature.callRPC();
 		}
 	</script>
 	
-	<view name="buttons" visible="false" layout="spacing: 10" x="0" y="300">
-		<button text="test" onclick="types_example_rpc.test.invoke()"/>
-	</view>
-        
-    
-	<dataset name ="sessionInfo" src ="sessionHelper" type ="http" request ="true" />
-	
-	<datapointer name="remotedatapt" xpath="sessionInfo:/sessionContent[1]">
-		<handler name="ondata">
-			userName = this.xpathQuery('userName/text()');
-			key = this.xpathQuery('uuid/text()');
-			loadFilm(userName, key);
+	<remoteconnection name="rc" debug="true" src="rtmp://172.0.2.193/vod/" autoconnect="true">
+		
+		<handler name="onconnect">
+			Debug.write("connected");
 		</handler>
-	</datapointer> 
+		
+		<handler name="onerror">
+			Debug.write("error ", this.status);
+		</handler>
+		
+		<netremotecall name="getSignature" funcname="vod.getSignature">
+			<!--attribute name="param1" value="ammen" type="string" />      
+				<netparam name="vars1">
+					<method name="getValue">
+						return parent.param1;
+					</method>
+				</netparam-->  
+			<method name="onResult" args="value">
+				Debug.write("key: ", value);
+				aes = new lz.AESCryptLz();
+				var encryptedName = aes.encryptByAscii(canvas.filmName, value);
+				Debug.write(encryptedName);
+				var url = "rtmp://172.0.2.193/vod/"+ encryptedName;
+//				player.setAttribute("url", ");
+				player.playVideo(url,"rtmp");
+			</method>  
+			
+		</netremotecall>
+    	
+	</remoteconnection>
 	
-	<rtmpconnection id="conn" src="rtmp://localhost/vod/" autoconnect="false"/>
-	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
+
+	<!--rtmpconnection id="conn" src="rtmp://172.0.2.193/vod/" autoconnect="true"/-->
+	<videoplayer id="player" type="rtmp" autoplay="false" width="320" height="240"/>
 	
 	<!--videothumbnail thumbnailtime="10" type="rtmp" url="watchmen.flv" width="100" height="100" x="0" y="240" /-->
 	<!--videotogglebutton x="0" y="240" /-->

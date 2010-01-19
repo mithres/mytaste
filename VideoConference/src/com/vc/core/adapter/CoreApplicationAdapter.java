@@ -1,28 +1,49 @@
 package com.vc.core.adapter;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
+import org.red5.server.api.Red5;
+import org.red5.server.api.service.IPendingServiceCall;
+import org.red5.server.api.service.IPendingServiceCallback;
+import org.red5.server.api.stream.IStreamAwareScopeHandler;
+import org.red5.server.api.stream.ISubscriberStream;
 import org.slf4j.Logger;
 
-import com.vc.service.vod.IPlayListService;
+import com.vc.core.vod.VODSecurityHandler;
 
-public class CoreApplicationAdapter extends ApplicationAdapter {
+public class CoreApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback, IStreamAwareScopeHandler {
 
 	private static final Logger log = Red5LoggerFactory.getLogger(CoreApplicationAdapter.class, "VideoConference");
 
-	private IPlayListService playListService = null;
-
 	// The Global WebApp Path
 	public static String webAppPath = "";
+	
+	public static ConcurrentMap<String,String> VOD_CLIENT_SIGNATURE = new  ConcurrentHashMap<String,String>();
+	
+	private static CoreApplicationAdapter instance = null;
+
+	public static synchronized CoreApplicationAdapter getInstance() {
+		return instance;
+	}
 
 	@Override
 	public synchronized boolean start(IScope scope) {
+		
 		log.info("App start--------------------");
+		
+		instance = this;
+		
+		Object handler = new VODSecurityHandler();
+		scope.registerServiceHandler("vod", handler);
+		
 		return super.start(scope);
 	}
 
@@ -37,9 +58,9 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 
 		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
 
-		if (!checkConnection(conn, scope, params)) {
-			return false;
-		}
+		// if (!checkConnection(conn, scope, params)) {
+		// return false;
+		// }
 
 		try {
 			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
@@ -65,25 +86,76 @@ public class CoreApplicationAdapter extends ApplicationAdapter {
 
 	@Override
 	public synchronized void disconnect(IConnection conn, IScope scope) {
+		log.info("----------------------disconnect-----------------------");
 		super.disconnect(conn, scope);
 	}
 
 	@Override
 	public synchronized boolean join(IClient client, IScope scope) {
+		log.info("----------------------Join start-----------------------");
 		return super.join(client, scope);
 	}
 
 	@Override
 	public synchronized void leave(IClient client, IScope scope) {
+		log.info("----------------------leave start-----------------------");
 		super.leave(client, scope);
 	}
 
-	public IPlayListService getPlayListService() {
-		return playListService;
+	@Override
+	public boolean appConnect(IConnection conn, Object[] arg1) {
+		log.info("----------------------appConnect-----------------------");
+		return super.appConnect(conn, arg1);
 	}
 
-	public void setPlayListService(IPlayListService playListService) {
-		this.playListService = playListService;
+	@Override
+	public void appDisconnect(IConnection arg0) {
+		log.info("----------------------appDisconnect-----------------------");
+		super.appDisconnect(arg0);
 	}
 
+	@Override
+	public void resultReceived(IPendingServiceCall call) {
+		try {
+			log.info("resultReceived " + call);
+			log.info("resultReceived Arguments " + call.getArguments());
+			log.info("resultReceived Arguments Number " + call.getArguments().length);
+			log.info("resultReceived Result " + call.getResult());
+			log.info("resultReceived ServiceMethod Name " + call.getServiceMethodName());
+		} catch (Exception err) {
+			log.error("resultReceived", err);
+		}
+
+	}
+
+	@Override
+	public void streamSubscriberClose(ISubscriberStream stream) {
+		log.info("----------------------streamSubscriberClose-----------------------");
+		super.streamSubscriberClose(stream);
+	}
+
+	@Override
+	public void streamSubscriberStart(ISubscriberStream stream) {
+		log.info("----------------------streamSubscriberStart-----------------------");
+		
+		IConnection conn = Red5.getConnectionLocal();
+		IClient client = conn.getClient();
+		Map<String,Object> paras = conn.getConnectParams();
+		
+		String key = VOD_CLIENT_SIGNATURE.get(client.getId());
+
+
+//		AesCrypt ac = new AesCrypt();
+//		try {
+//			ac.setKey(ac.hexToByte(MD5.do_checksum(uuid)));
+//		} catch (NoSuchAlgorithmException e) {
+//			log.error("Make MD5 key error", e);
+//		}
+//
+//		String signature = client.getId() + "-" + uuid;
+//		String encryptedSignature = ac.encrypt(signature);
+//		log.debug("Encrypted signature is:" + encryptedSignature);
+		
+		super.streamSubscriberStart(stream);
+	}
 }

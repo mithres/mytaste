@@ -1,7 +1,5 @@
 package com.vc.presentatioin.vod.action;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
