@@ -14,7 +14,7 @@
 <script>
 	function initPlayer() {
 		var vodPlayer = lz.embed.lzapp; 
-		vodPlayer.callMethod('init(watchmen.flv)');
+		vodPlayer.callMethod('init(terminator.flv)');
 	}
 </script>
 

@@ -6,17 +6,17 @@
 	http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd">
 	<!-- This context holds all the networking: mina -->
 
-    <bean id="customEditorConfigurer"
-        class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-        <property name="customEditors">
-            <map>
-                <entry key="java.net.SocketAddress">
-                    <bean
-                        class="org.apache.mina.integration.beans.InetSocketAddressEditor" />
-                </entry>
-            </map>
-        </property>
-    </bean>
+	<bean id="customEditorConfigurer"
+		class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.net.SocketAddress">
+					<bean
+						class="org.apache.mina.integration.beans.InetSocketAddressEditor" />
+				</entry>
+			</map>
+		</property>
+	</bean>
 	   
 	<!-- RTMP Handler -->
 	<bean id="rtmpHandler"
@@ -40,20 +40,20 @@
 	<!-- RTMP Mina Transport -->
 	<bean id="rtmpTransport" class="org.red5.server.net.rtmp.RTMPMinaTransport" init-method="start" destroy-method="stop">
 		<property name="ioHandler" ref="rtmpMinaIoHandler" />
-        <property name="connectors">
-            <list>
-                <bean class="java.net.InetSocketAddress">
-                    <constructor-arg index="0" type="java.lang.String" value="0.0.0.0" />  
-                    <constructor-arg index="1" type="int" value="1935" />  
-                </bean>
-                <!-- You can now add additional ports and ip addresses
-                <bean class="java.net.InetSocketAddress">
-                    <constructor-arg index="0" type="java.lang.String" value="0.0.0.0" />  
-                    <constructor-arg index="1" type="int" value="1936" />  
-                </bean>
-                 -->
-            </list>
-        </property>		
+		<property name="connectors">
+			<list>
+				<bean class="java.net.InetSocketAddress">
+					<constructor-arg index="0" type="java.lang.String" value="0.0.0.0" />  
+					<constructor-arg index="1" type="int" value="1935" />  
+				</bean>
+				<!-- You can now add additional ports and ip addresses
+					<bean class="java.net.InetSocketAddress">
+						<constructor-arg index="0" type="java.lang.String" value="0.0.0.0" />  
+						<constructor-arg index="1" type="int" value="1936" />  
+					</bean>
+					 -->
+			</list>
+		</property>		
 		<property name="receiveBufferSize" value="65536" />
 		<property name="sendBufferSize" value="271360" />
 		<property name="eventThreadsCore" value="4" />
@@ -61,11 +61,11 @@
 		<property name="eventThreadsQueue" value="-1 " />
 		<property name="eventThreadsKeepalive" value="60" />
 		<!-- This is the interval at which the sessions are polled for stats. If mina monitoring is not
-				enabled, polling will not occur. -->
+			enabled, polling will not occur. -->
 		<property name="jmxPollInterval" value="1000" />
 		<property name="tcpNoDelay" value="true" />
 	</bean>
-	
+
 	<!-- RTMP Mina Connection -->
 	<bean id="rtmpMinaConnection" scope="prototype"
 		class="org.red5.server.net.rtmp.RTMPMinaConnection">

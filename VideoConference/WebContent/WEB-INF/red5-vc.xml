@@ -72,9 +72,9 @@
 	<bean id="web.handler.vod" class="com.vc.core.adapter.CoreApplicationAdapter"/>
 	
 	<!-- This bean use to change vod and record video path, support absolutePath-->
-	<!--bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-			<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
-			<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
-		</bean-->
+	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
+		<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
+		<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
+	</bean>	
 	
 </beans>

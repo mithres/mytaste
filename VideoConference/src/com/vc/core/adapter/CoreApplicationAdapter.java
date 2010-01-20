@@ -11,9 +11,11 @@ import org.red5.server.api.service.IPendingServiceCall;
 import org.red5.server.api.service.IPendingServiceCallback;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vc.core.vod.VODPlaybackSecurityHandler;
 import com.vc.core.vod.VODSecurityHandler;
+import com.vc.service.vod.IVODClientManager;
+
 
 public class CoreApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback, IStreamAwareScopeHandler {
 
@@ -21,7 +23,10 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 	// The Global WebApp Path
 	public static String webAppPath = "";
-
+	
+	@Autowired
+	private IVODClientManager vodClientManager = null;
+	
 	private static CoreApplicationAdapter instance = null;
 
 	public static synchronized CoreApplicationAdapter getInstance() {
@@ -34,10 +39,12 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 		log.info("App start--------------------");
 
 		instance = this;
+
+		// registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
 		
-		//registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
-		
-		scope.registerServiceHandler("vod", new VODSecurityHandler());
+		VODSecurityHandler vodHandler = new VODSecurityHandler();
+		vodHandler.setVodClientManager(vodClientManager);
+		scope.registerServiceHandler("vod", vodHandler);
 
 		return super.start(scope);
 	}
@@ -52,24 +59,20 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
 
 		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
-
+		
 		try {
 			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
 		} catch (IOException e) {
 			log.error("App start error:", e);
 		}
 		log.debug("webAppPath : " + webAppPath);
-
-		if (params.length > 0) {
-			scope.setAttribute("Signature", (String)params[0]);
-		}
-
 		return true;
 	}
 
 	@Override
 	public synchronized void disconnect(IConnection conn, IScope scope) {
 		log.info("----------------------disconnect-----------------------");
+		vodClientManager.removeClient(conn.getClient().getId());
 		super.disconnect(conn, scope);
 	}
 

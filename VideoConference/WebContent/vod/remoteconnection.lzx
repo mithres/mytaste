@@ -1,6 +1,6 @@
 <library>
 	
-	<class name="remoteconnection" extends="node">
+	<class name="remoteconnection" extends="rtmpconnection">
 		
 		<attribute name="debug" value="false" type="boolean" />
 		
@@ -10,12 +10,6 @@
 		
 		<event name="onconnect"/>
 		<event name="onerror"/>
-		
-		<handler name="oninit">
-			if (autoconnect) {
-				this.connect();
-			}
-		</handler>
 		
 		<method name="connect">
 

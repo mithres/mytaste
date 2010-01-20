@@ -118,8 +118,8 @@
 
        <simplelayout axis="y" spacing="${parent.sliderGap}"/>  
        <videoscreen name="vscreen" debug="${parent.debug}" 
-            width="${parent.width}"
-            height="${parent.height - parent.sliderGap - parent.sliderHeight}"
+            width="400"
+            height="400"
             visible="${parent.showscreen}"
             type="${classroot.type}"
             autoplay="${classroot.autoplay}"
