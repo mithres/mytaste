@@ -23,14 +23,9 @@
 			<result name="runtime"></result>
 			<result name="needlogin"></result>
 		</global-results>
-		
-		<action name="playList" class="com.vc.presentatioin.vod.action.PlayListIndexAction">
-			<result>/WEB-INF/pages/vod/index.jsp</result>
-		</action>
-		
-		<action name="sessionHelper" class="com.vc.presentatioin.util.SessionHelper"/>
-		
 	
 	</package>
+	
+	<include file="struts-model/struts-vod.xml" />
 	
 </struts>

@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
+import com.vc.core.constants.Constants;
 
 public abstract class BaseAction extends ActionSupport implements Preparable, ServletRequestAware, ServletResponseAware {
 
@@ -93,5 +94,64 @@ public abstract class BaseAction extends ActionSupport implements Preparable, Se
 	public void prepare() throws Exception {
 
 	}
+	
+	public int getStartRow() {
+        return this.getPageCount() * (this.getPageNumber() - 1);
+    }
+
+    /**
+     * the next page number
+     * 
+     * @return
+     */
+    public int getPageNumber() {
+        String page = this.request.getParameter("page");
+        int pageNumber = 1;
+        try {
+            if (page != null && page.length() > 0) {
+                pageNumber = Integer.parseInt(page);
+            }
+            if (pageNumber <= 0) {
+                pageNumber = 1;
+            }
+        } catch (Exception e) {
+        }
+        return pageNumber;
+    }
+
+    /**
+     * The number of displaying items per page. Returned value will more or equals
+     * then <code>null</code> and less than value returnd by {@link #getMaxPossibleCount()}
+     * @return
+     */
+    public int getPageCount() {
+        return getCustomizePageCount(Constants.DEFAULT_COUNT);
+    }
+
+    /**
+     * Page count from request parameter <code>count</code>. Returned value will more or equals
+     * then <code>null</code> and less than value returnd by {@link #getMaxPossibleCount()}  
+     * @param defaultCount value  for return if parameter <code>count</code> 
+     * @return
+     */
+    public int getCustomizePageCount(int defaultCount) {
+        String pageCount = this.request.getParameter("count");
+        int count = defaultCount;
+        try {
+            if (pageCount != null && pageCount.length() > 0) {
+                count = Integer.parseInt(pageCount);
+            }
+            if (count <= 0) {
+                count = defaultCount;
+            }
+        } catch (Exception e) {
+        }   
+        
+        if (count > Constants.DEFAULT_COUNT ) {
+        	count = Constants.DEFAULT_COUNT; 	
+        }
+        return count;
+    }
+
 
 }

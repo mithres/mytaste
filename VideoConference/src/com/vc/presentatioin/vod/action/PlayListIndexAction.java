@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
+import com.vc.core.dao.Hints;
+import com.vc.core.entity.IPageList;
+import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
 
 public class PlayListIndexAction extends BaseAction {
@@ -12,11 +15,17 @@ public class PlayListIndexAction extends BaseAction {
 
 	@Autowired
 	private IPlayListService playListService = null;
-
+	
+	private IPageList<PlayList> playList = null;
+	
 	@Override
 	public String process() {
-		getActionContext().getSession().put("UserName", "Ammen");
+		playList = playListService.findPlayList(new Hints(getStartRow(),getPageCount()));
 		return Action.SUCCESS;
+	}
+
+	public IPlayListService getPlayListService() {
+		return playListService;
 	}
 
 }
