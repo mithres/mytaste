@@ -9,13 +9,14 @@ import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
 import org.red5.server.api.service.IPendingServiceCall;
 import org.red5.server.api.service.IPendingServiceCallback;
+import org.red5.server.api.stream.IBroadcastStream;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
+import org.red5.server.api.stream.ISubscriberStream;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.vod.IVODClientManager;
-
 
 public class CoreApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback, IStreamAwareScopeHandler {
 
@@ -23,10 +24,10 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 	// The Global WebApp Path
 	public static String webAppPath = "";
-	
+
 	@Autowired
 	private IVODClientManager vodClientManager = null;
-	
+
 	private static CoreApplicationAdapter instance = null;
 
 	public static synchronized CoreApplicationAdapter getInstance() {
@@ -41,7 +42,7 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 		instance = this;
 
 		// registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
-		
+
 		VODSecurityHandler vodHandler = new VODSecurityHandler();
 		vodHandler.setVodClientManager(vodClientManager);
 		scope.registerServiceHandler("vod", vodHandler);
@@ -59,7 +60,7 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
 
 		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
-		
+
 		try {
 			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
 		} catch (IOException e) {
@@ -112,6 +113,77 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 			log.error("resultReceived", err);
 		}
 
+	}
+
+	@Override
+	public void streamBroadcastClose(IBroadcastStream arg0) {
+		// TODO Auto-generated method stub
+		super.streamBroadcastClose(arg0);
+	}
+
+	@Override
+	public void streamBroadcastStart(IBroadcastStream stream) {
+		log.info("stream object = " + stream);
+		log.info("stream broadcast start: " + stream.getPublishedName());
+		log.info("has audio? " + stream.getCodecInfo().hasAudio());
+		log.info("codec = " + stream.getCodecInfo().getAudioCodecName());
+		log.info("stream name = " + stream.getName());
+
+		super.streamBroadcastStart(stream);
+	}
+
+	@Override
+	public void streamPublishStart(IBroadcastStream stream) {
+		log.info("stream publish start: " + stream.getPublishedName());
+		super.streamPublishStart(stream);
+	}
+
+	@Override
+	public boolean roomConnect(IConnection arg0, Object[] arg1) {
+		log.info("roomConnect start: " + arg0.getClient().getId());
+		return super.roomConnect(arg0, arg1);
+	}
+
+	@Override
+	public void roomDisconnect(IConnection arg0) {
+		log.info("roomDisconnect start: " + arg0.getClient().getId());
+		super.roomDisconnect(arg0);
+	}
+
+	@Override
+	public boolean roomJoin(IClient arg0, IScope arg1) {
+		log.info("roomJoin start: " + arg0.getId());
+		return super.roomJoin(arg0, arg1);
+	}
+
+	@Override
+	public void roomLeave(IClient arg0, IScope arg1) {
+		log.info("roomLeave start: " + arg0.getId());
+		super.roomLeave(arg0, arg1);
+	}
+
+	@Override
+	public boolean roomStart(IScope arg0) {
+		log.info("---------------------roomStart------------");
+		return super.roomStart(arg0);
+	}
+
+	@Override
+	public void roomStop(IScope arg0) {
+		log.info("---------------------roomStop------------");
+		super.roomStop(arg0);
+	}
+
+	@Override
+	public void streamSubscriberClose(ISubscriberStream stream) {
+		log.info("---------------------streamSubscriberClose------------");
+		super.streamSubscriberClose(stream);
+	}
+
+	@Override
+	public void streamSubscriberStart(ISubscriberStream stream) {
+		log.info("---------------------streamSubscriberStart------------");
+		super.streamSubscriberStart(stream);
 	}
 
 }

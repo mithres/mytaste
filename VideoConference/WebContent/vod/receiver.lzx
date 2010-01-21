@@ -1,0 +1,41 @@
+<canvas debug="true">
+	
+	<rtmpconnection src="rtmp://172.0.2.193/vod" autoconnect="true"/>
+	<videoplayer id="player" url="room1" type="rtmp" autoplay="true" width="320" height="240"/>
+	
+	<button text="Receive" y="20" >
+		<handler name="onclick">
+			parent.receive();
+		</handler>
+	</button>
+	
+	<method name="receive">
+		
+		this._nc = new NetConnection();
+		this._nc.connect("rtmp://172.0.2.193/vod/room1");
+		this._nc.onStatus = function(info) {
+			Debug.write(info.code, info);
+		}
+		
+		this._nsBroadCast = new NetStream(this._nc);
+		this._nsBroadCast.onStatus = function(info) {
+			Debug.write("simpleNetStream onStatus", info);
+		};
+		this._nsBroadCast.onCuePoint = function(info) {
+			Debug.write("simpleNetStream onCuePoint", info);
+		};
+		this._nsBroadCast.onPlayStatus = function(info) {
+			Debug.write("simpleNetStream onPlayStatus", info);
+		};
+		this._nsBroadCast.onMetaData = function(info) {
+			Debug.write("simpleNetStream onMetaData", info);
+		};
+		this._nsBroadCast.receiveVideo(true);
+		
+		Debug.write(this._nsBroadCast);
+
+		
+	</method>
+	
+	
+</canvas>

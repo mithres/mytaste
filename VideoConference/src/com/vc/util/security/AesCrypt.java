@@ -1,8 +1,5 @@
 package com.vc.util.security;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 

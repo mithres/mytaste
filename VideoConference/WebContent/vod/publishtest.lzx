@@ -1,0 +1,48 @@
+<canvas debug="true">
+	
+	
+	<button text="Publish" y="20" >
+		<handler name="onclick">
+			parent.publish();
+		</handler>
+	</button>
+	
+			
+	<method name="publish">
+
+
+		dev = Camera.get(0);
+		Debug.write(dev);
+		
+		micro = Microphone.get(0);
+		micro.setRate(22);
+		micro.setUseEchoSuppression(true);
+
+		this._nc = new NetConnection();
+		this._nc.connect("rtmp://172.0.2.193/vod/room1");
+		this._nc.onStatus = function(info) {
+			Debug.write(info.code, info);
+		}
+
+		this._nsBroadCast = new NetStream(this._nc);
+		this._nsBroadCast.onStatus = function(info) {
+			Debug.write("simpleNetStream onStatus", info);
+		};
+		this._nsBroadCast.onCuePoint = function(info) {
+			Debug.write("simpleNetStream onCuePoint", info);
+		};
+		this._nsBroadCast.onPlayStatus = function(info) {
+			Debug.write("simpleNetStream onPlayStatus", info);
+		};
+		this._nsBroadCast.onMetaData = function(info) {
+			Debug.write("simpleNetStream onMetaData", info);
+		};
+
+		this._nsBroadCast.attachVideo(dev);
+		this._nsBroadCast.attachAudio(micro);
+
+		this._nsBroadCast.publish("firstPublishStream", "live");
+
+	</method>
+	
+</canvas>

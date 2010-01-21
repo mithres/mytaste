@@ -24,10 +24,10 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 
 	// Path that contains VOD streams.
 	private String playbackPath = "videoStreams/";
-	
+
 	@Autowired
 	private IVODClientManager vodClientManager = null;
-	
+
 	@Override
 	public String generateFilename(IScope scope, String name, GenerationType type) {
 		return generateFilename(scope, name, null, type);
@@ -37,26 +37,29 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 	public String generateFilename(IScope scope, String name, String extension, GenerationType type) {
 
 		String filename = null;
-		
+
 		IConnection conn = Red5.getConnectionLocal();
 		VODClient client = vodClientManager.getClientByID(conn.getClient().getId());
-		
-		if(client != null){
+
+		if (client != null) {
+			//TODO: Sometimes this method couldn't decrypt the encrypted message from client. 
 			AesCrypt ac = new AesCrypt();
 			try {
-				ac.setKey(ac.hexToByte(MD5.do_checksum(client.getClientKey())));
-				if(name.endsWith(".flv")){
+				String key = MD5.do_checksum(client.getClientKey());
+				ac.setKey(ac.hexToByte(key));
+				if (name.endsWith(".flv")) {
 					name = name.substring(0, name.indexOf(".flv"));
 				}
+				log.info("Use :" + key + " to decrypt :"+name);
 				name = ac.decrypt(name);
 				log.info("Decrypted file name is:" + name);
 			} catch (NoSuchAlgorithmException e) {
 				log.error("Decrypted film name error", e);
 			}
-		}else{
+		} else {
 			return "";
 		}
-		
+
 		if (type == GenerationType.RECORD) {
 			filename = recordPath + name;
 		} else {
