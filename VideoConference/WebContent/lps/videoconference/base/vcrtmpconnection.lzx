@@ -1,6 +1,6 @@
 <library>
 	
-	<class name="remoteconnection" extends="rtmpconnection">
+	<class name="vcrtmpconnection" extends="rtmpconnection">
 		
 		<attribute name="debug" value="false" type="boolean" />
 		
@@ -31,7 +31,7 @@
 		
 		<method name="_onStatus" args="info"><![CDATA[
 			if (this.debug) {
-				Debug.write("remoteconnection", this, "_onStatus", info.code);
+				Debug.write("vcrtmpconnection", this, "_onStatus", info.code);
 			}
 
 			var msg = "";
@@ -176,16 +176,18 @@
 
 			////Debug.write("call", this, this.parent, this.parent.status);
 			var rtmpObject = null;
-			if (this.parent instanceof lz.remoteconnection) {
+			if (this.parent instanceof lz.vcrtmpconnection) {
 				rtmpObject = this.parent;
-			} else if (this.remotecontext instanceof lz.remoteconnection) {
+			} else if (this.remotecontext instanceof lz.vcrtmpconnection) {
 				rtmpObject = this.remotecontext;
 			} else {
 				Debug.warn("ERROR: no remotecontext availible abort call");
 			}
 
 			if (rtmpObject.debug) {
-				Debug.write('call', this, rtmpObject, params,rtmpObject.status);
+				Debug
+						.write('call', this, rtmpObject, params,
+								rtmpObject.status);
 			}
 			rtmpObject.lastCalled = this;
 			rtmpObject.callRPC(this.funcname, this, params);

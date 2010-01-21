@@ -1,16 +1,15 @@
 <canvas debug="true">
 	
-	<include href="../lps/utils/aescryptlz.lzx" />
+	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
 	
-	<include href="remoteconnection.lzx"/>
+	<include href="../lps/videoconference/security/aescryptlz.lzx" />
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
 	<attribute name="filmName" value="null"/>
 	
 	<script>
-
-
 		canvas.setDefaultContextMenu(new LzContextMenu());
-
+		
 		function init(filmName) {
 			Debug.write("Film name :" + filmName);
 			canvas.setAttribute("filmName", filmName);
@@ -18,7 +17,14 @@
 		}
 	</script>
 	
-	<remoteconnection name="rc" debug="true" src="rtmp://172.0.2.193/vod/" autoconnect="true">
+	<handler name="oninit">
+		var url = "rtmp://"+ canvas.serverIP + "/" + canvas.rtmpAddress;
+		Debug.write(url);
+		rc.setAttribute("src",url);
+		rc.connect();
+	</handler>
+	
+	<vcrtmpconnection name="rc" autoconnect="false">
 		
 		<handler name="onconnect">
 			Debug.write("connected");
@@ -44,7 +50,7 @@
 			
 		</netremotecall>
     	
-	</remoteconnection>
+	</vcrtmpconnection>
 	
 	<method name="loadPlayer" args="params">
 		Debug.write("Load player start:" + params);

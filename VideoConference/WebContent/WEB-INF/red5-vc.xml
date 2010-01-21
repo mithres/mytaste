@@ -53,7 +53,7 @@
 		<property name="location" value="/WEB-INF/red5-web.properties" />
 	</bean>
 	
-	<bean id="web.context.vod" class="org.red5.server.Context">
+	<bean id="web.context.videoconference" class="org.red5.server.Context">
 		<property name="scopeResolver" ref="red5.scopeResolver" />
 		<property name="clientRegistry" ref="global.clientRegistry" />
 		<property name="serviceInvoker" ref="global.serviceInvoker" />
@@ -63,18 +63,18 @@
 	<bean id="web.scope.vod" class="org.red5.server.WebScope" init-method="register">
 		<property name="server" ref="red5.server" />
 		<property name="parent" ref="global.scope" />
-		<property name="context" ref="web.context.vod" />
-		<property name="handler" ref="web.handler.vod" />
+		<property name="context" ref="web.context.videoconference" />
+		<property name="handler" ref="web.handler.videoconference" />
 		<property name="contextPath" value="${webapp.contextPath}" />
 		<property name="virtualHosts" value="${webapp.virtualHosts}" />
 	</bean>
 	
-	<bean id="web.handler.vod" class="com.vc.core.adapter.CoreApplicationAdapter"/>
+	<bean id="web.handler.videoconference" class="com.vc.core.adapter.CoreApplicationAdapter"/>
 	
 	<!-- This bean use to change vod and record video path, support absolutePath-->
 	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-		<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
-		<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
+		<property name="recordPath" value="/home/ammen/Test/recordedStreams/" />
+		<property name="playbackPath" value="/home/ammen/Test/videoStreams/" />
 	</bean>	
 	
 </beans>
