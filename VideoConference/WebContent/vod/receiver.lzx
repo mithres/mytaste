@@ -1,8 +1,5 @@
 <canvas debug="true">
 	
-	<rtmpconnection src="rtmp://172.0.2.193/vod" autoconnect="true"/>
-	<videoplayer id="player" url="room1" type="rtmp" autoplay="true" width="320" height="240"/>
-	
 	<button text="Receive" y="20" >
 		<handler name="onclick">
 			parent.receive();
@@ -12,7 +9,7 @@
 	<method name="receive">
 		
 		this._nc = new NetConnection();
-		this._nc.connect("rtmp://172.0.2.193/vod/room1");
+		this._nc.connect("rtmp://172.0.2.193/vod");
 		this._nc.onStatus = function(info) {
 			Debug.write(info.code, info);
 		}

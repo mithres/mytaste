@@ -1,12 +1,17 @@
 <canvas debug="true">
 	
 	
-	<button text="Publish" y="20" >
+	<button text="Publish" y="0" >
 		<handler name="onclick">
 			parent.publish();
 		</handler>
 	</button>
 	
+		<button text="Receive" y="20" >
+		<handler name="onclick">
+			parent.receive();
+		</handler>
+	</button>
 			
 	<method name="publish">
 
@@ -18,31 +23,60 @@
 		micro.setRate(22);
 		micro.setUseEchoSuppression(true);
 
-		this._nc = new NetConnection();
-		this._nc.connect("rtmp://172.0.2.193/vod/room1");
-		this._nc.onStatus = function(info) {
+		nc = new NetConnection();
+		nc.connect("rtmp://172.0.2.193/vod");
+		nc.onStatus = function(info) {
 			Debug.write(info.code, info);
 		}
 
-		this._nsBroadCast = new NetStream(this._nc);
-		this._nsBroadCast.onStatus = function(info) {
+		nsBroadCast = new NetStream(nc);
+		nsBroadCast.onStatus = function(info) {
 			Debug.write("simpleNetStream onStatus", info);
 		};
-		this._nsBroadCast.onCuePoint = function(info) {
+		nsBroadCast.onCuePoint = function(info) {
 			Debug.write("simpleNetStream onCuePoint", info);
 		};
-		this._nsBroadCast.onPlayStatus = function(info) {
+		nsBroadCast.onPlayStatus = function(info) {
 			Debug.write("simpleNetStream onPlayStatus", info);
 		};
-		this._nsBroadCast.onMetaData = function(info) {
+		nsBroadCast.onMetaData = function(info) {
 			Debug.write("simpleNetStream onMetaData", info);
 		};
 
-		this._nsBroadCast.attachVideo(dev);
-		this._nsBroadCast.attachAudio(micro);
+		nsBroadCast.attachVideo(dev);
+		nsBroadCast.attachAudio(micro);
 
-		this._nsBroadCast.publish("firstPublishStream", "live");
+		nsBroadCast.publish("firstPublishStream", "live");
 
+	</method>
+	
+
+	
+	<method name="receive">
+		
+		nc2 = new NetConnection();
+		nc2.connect("rtmp://172.0.2.193/vod");
+		nc2.onStatus = function(info) {
+			Debug.write(info.code, info);
+		}
+		
+		nsBroadCast2 = new NetStream(nc2);
+		nsBroadCast2.onStatus = function(info) {
+			Debug.write("simpleNetStream onStatus", info);
+		};
+		nsBroadCast2.onCuePoint = function(info) {
+			Debug.write("simpleNetStream onCuePoint", info);
+		};
+		nsBroadCast2.onPlayStatus = function(info) {
+			Debug.write("simpleNetStream onPlayStatus", info);
+		};
+		nsBroadCast2.onMetaData = function(info) {
+			Debug.write("simpleNetStream onMetaData", info);
+		};
+		nsBroadCast2.play("firstPublishStream",-1);
+		Debug.write(nsBroadCast2);
+
+		
 	</method>
 	
 </canvas>
