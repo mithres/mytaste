@@ -17,7 +17,7 @@ public class PlayListServiceTest extends BaseTest {
 
 	@Autowired
 	private IPlayListService playListService = null;
-
+ 
 	@Test
 	public void testPlayListManage() {
 
@@ -30,9 +30,9 @@ public class PlayListServiceTest extends BaseTest {
 		list.setScreenShot("screenshotpath");
 
 		playListService.savePlayList(list);
-
+		
 		IPageList<PlayList> plist = playListService.findPlayList(new Hints(0));
-		this.assertEquals(1, plist.getRecordTotal());
+		assertEquals(1, plist.getRecordTotal());
 
 	}
 
