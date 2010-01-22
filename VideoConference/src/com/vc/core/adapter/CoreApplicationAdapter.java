@@ -28,22 +28,10 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 	@Autowired
 	private IVODClientManager vodClientManager = null;
-
-	private static CoreApplicationAdapter instance = null;
-
-	public static synchronized CoreApplicationAdapter getInstance() {
-		return instance;
-	}
-
 	@Override
 	public synchronized boolean start(IScope scope) {
-
-		log.info("App start--------------------");
-
-		instance = this;
-
+		
 		// registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
-
 		VODSecurityHandler vodHandler = new VODSecurityHandler();
 		vodHandler.setVodClientManager(vodClientManager);
 		scope.registerServiceHandler("vod", vodHandler);
@@ -62,21 +50,19 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
 
-		// TODO: get user credential from params
-		// UsernamePasswordAuthenticationToken t = new
-		// UsernamePasswordAuthenticationToken(m.get("name"),
-		// m.get("password"));
-		
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "passed");
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin","passed");
+
+		// UsernamePasswordAuthenticationToken auth = new
+		// UsernamePasswordAuthenticationToken("admin", "passed");
 		ProviderManager providerManager = (ProviderManager) scope.getContext().getBean("authenticationManager");
-		
+
 		try {
 			auth = (UsernamePasswordAuthenticationToken) providerManager.authenticate(auth);
 		} catch (BadCredentialsException ex) {
 			// rejectClient("Wrong login information");
 			return false;
 		}
-		
+
 		if (auth.isAuthenticated()) {
 			conn.getClient().setAttribute("authInformation", auth);
 			// The client is authenticated
@@ -85,7 +71,7 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 			log.debug("YESS!!! AUTHENTICATED!!!!!");
 			return true;
 		}
-		
+
 		return false;
 	}
 

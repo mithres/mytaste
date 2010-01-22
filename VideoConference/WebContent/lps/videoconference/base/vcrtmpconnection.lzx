@@ -2,8 +2,6 @@
 	
 	<class name="vcrtmpconnection" extends="rtmpconnection">
 		
-		<attribute name="debug" value="false" type="boolean" />
-		
 		<attribute name="src" value="" type="string"/>
 		
 		<attribute name="autoconnect" value="false" type="boolean" />
@@ -11,23 +9,24 @@
 		<event name="onconnect"/>
 		<event name="onerror"/>
 		
-		<method name="connect">
-
+		<method name="connect" args="params">
 
 			this._nc = new NetConnection();
+			this._nc
 			// local reference to rtmpconnection
 			this._nc.t = this;
 
-			var ok = this._nc.connect(src == "null" ? null : src);
-
-			if (this.debug) {
-				Debug.write("Ok:", ok);
+			if (params == null) {
+				this._nc.connect(src == "null" ? null : src);
+			} else {
+				this._nc.connect(src == "null" ? null : src, params);
 			}
 
 			this._nc.onStatus = function(info) {
 				this.t._onStatus(info);
 			}
 		</method>
+		
 		
 		<method name="_onStatus" args="info"><![CDATA[
 			if (this.debug) {

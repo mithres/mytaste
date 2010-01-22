@@ -1,16 +1,16 @@
 <canvas debug="true">
 	
 	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
-	
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
 	<handler name="oninit">
-		var url = "rtmp://"+ canvas.serverIP + "/" + canvas.rtmpAddress;
+		var url = "rtmp://" + canvas.serverIP + "/" + canvas.rtmpAddress;
 		Debug.write(url);
-		rc.setAttribute("src",url);
-		rc.connect();
+		rc.setAttribute("src", url);
+		rc.connect("{name: 'admin', password: 'passed'}");
 	</handler>
 	
-	<rtmpconnection id="rc" autoconnect="false"/>
+	<vcrtmpconnection id="rc" autoconnect="false"/>
 	<mediastream name="s1" type="rtmp"/>
 	<mediastream name="s2" type="rtmp"/>
 	
