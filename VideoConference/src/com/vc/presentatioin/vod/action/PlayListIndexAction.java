@@ -1,5 +1,10 @@
 package com.vc.presentatioin.vod.action;
 
+import java.io.IOException;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
@@ -23,7 +28,25 @@ public class PlayListIndexAction extends BaseAction {
 		playList = playListService.findPlayList(new Hints(getStartRow(),getPageCount()));
 		return Action.SUCCESS;
 	}
-
+	
+	public String getInfo(){
+		this.getSession().setAttribute("name", "abc");
+		Document doc = DocumentHelper.createDocument();
+		Element root = doc.addElement("Info");
+		root.addElement("name").setText("abc");
+		try {
+			write(doc.asXML());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Action.NONE;
+	}
+	
+	public String getS(){
+		log.info("xxxxxxxxxxxxxxxxxxxxxxxxxx"+this.getSession().getAttribute("name"));
+		return Action.NONE;
+	}
+	
 	public IPlayListService getPlayListService() {
 		return playListService;
 	}

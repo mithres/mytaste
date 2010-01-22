@@ -11,7 +11,10 @@
 			<result>/WEB-INF/pages/vod/playlist.jsp</result>
 		</action>
 		
+		<action name="getInfo" method="getInfo" class="com.vc.presentatioin.vod.action.PlayListIndexAction"/>
 		
+		<action name="getS" method="getS" class="com.vc.presentatioin.vod.action.PlayListIndexAction"/>
+			
 	</package>
 	
 	

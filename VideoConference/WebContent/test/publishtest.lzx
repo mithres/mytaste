@@ -3,16 +3,24 @@
 	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
+	<dataset src="http://172.0.2.193:8080/VideoConference/vod/getInfo" name="myset" request="true"/>
+
+	  <view name="rowOfData" datapath="myset:/Info[1]" x="100" y="50">
+	    <simplelayout axis="x"/>
+	    <text datapath="name/text()"/> 
+	  </view>
+  
+	
+	<vcrtmpconnection id="rc" autoconnect="false"/>
+	<mediastream name="s1" type="rtmp"/>
+	<mediastream name="s2" type="rtmp"/>
+	
 	<handler name="oninit">
 		var url = "rtmp://" + canvas.serverIP + "/" + canvas.rtmpAddress;
 		Debug.write(url);
 		rc.setAttribute("src", url);
 		rc.connect("{name: 'admin', password: 'passed'}");
 	</handler>
-	
-	<vcrtmpconnection id="rc" autoconnect="false"/>
-	<mediastream name="s1" type="rtmp"/>
-	<mediastream name="s2" type="rtmp"/>
 	
 	<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
 		<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
