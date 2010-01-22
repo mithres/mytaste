@@ -1,4 +1,4 @@
-package com.vc.presentatioin.helper;
+package com.vc.presentation.helper;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;

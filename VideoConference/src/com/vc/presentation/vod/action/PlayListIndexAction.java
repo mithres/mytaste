@@ -1,4 +1,4 @@
-package com.vc.presentatioin.vod.action;
+package com.vc.presentation.vod.action;
 
 import java.io.IOException;
 

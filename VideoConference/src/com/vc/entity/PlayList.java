@@ -29,7 +29,7 @@ public class PlayList {
 	
 	private PlayListType playListType = PlayListType.NoType;
 	
-	private FilmType fileType = FilmType.Normal;
+	private FilmType filmType = FilmType.Normal;
 
 	public String getId() {
 		return id;
@@ -79,14 +79,12 @@ public class PlayList {
 		this.addedTime = addedTime;
 	}
 
-	public FilmType getFileType() {
-		return fileType;
+	public FilmType getFilmType() {
+		return filmType;
 	}
 
-	public void setFileType(FilmType fileType) {
-		this.fileType = fileType;
+	public void setFilmType(FilmType filmType) {
+		this.filmType = filmType;
 	}
-	
-	
 	
 }

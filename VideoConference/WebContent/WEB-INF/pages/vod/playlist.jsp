@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="decorator" content="maindecorator" />
 <title>Show PlayList</title>
 </head>
 <body>

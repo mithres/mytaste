@@ -6,7 +6,7 @@
 	<shortname>tagTest</shortname>
 	<tag>
 		<name>page</name>
-		<tagclass>com.vc.presentatioin.tags.PageViewTag</tagclass>
+		<tagclass>com.vc.presentation.tags.PageViewTag</tagclass>
 		<bodycontent>JSP</bodycontent>
 		<attribute>
 			<name>pageCount</name>

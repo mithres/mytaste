@@ -1,6 +1,6 @@
 <library>
 	
-	<attribute name="serverIP" value="172.0.2.193" type="string"/>
+	<attribute name="serverIP" value="127.0.0.1" type="string"/>
 	
 	<attribute name="rtmpAddress" value="videoconference" type="string"/>
 	

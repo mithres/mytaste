@@ -25,7 +25,7 @@ public class PlayListServiceTest extends BaseTest {
 		list.setAddedTime(new Timestamp(System.currentTimeMillis()));
 		list.setDescription("PlayList001");
 		list.setFileName("fileName001");
-		list.setFileType(FilmType.Normal);
+		list.setFilmType(FilmType.Normal);
 		list.setPlayListType(PlayListType.Game);
 		list.setScreenShot("screenshotpath");
 
