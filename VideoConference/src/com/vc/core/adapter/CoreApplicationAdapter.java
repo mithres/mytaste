@@ -1,7 +1,8 @@
 package com.vc.core.adapter;
 
-import java.io.IOException;
-
+import org.acegisecurity.BadCredentialsException;
+import org.acegisecurity.providers.ProviderManager;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IClient;
@@ -61,13 +62,31 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
 
+		// TODO: get user credential from params
+		// UsernamePasswordAuthenticationToken t = new
+		// UsernamePasswordAuthenticationToken(m.get("name"),
+		// m.get("password"));
+		
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "passed");
+		ProviderManager providerManager = (ProviderManager) scope.getContext().getBean("authenticationManager");
+		
 		try {
-			webAppPath = scope.getResource("/").getFile().getAbsolutePath();
-		} catch (IOException e) {
-			log.error("App start error:", e);
+			auth = (UsernamePasswordAuthenticationToken) providerManager.authenticate(auth);
+		} catch (BadCredentialsException ex) {
+			// rejectClient("Wrong login information");
+			return false;
 		}
-		log.debug("webAppPath : " + webAppPath);
-		return true;
+		
+		if (auth.isAuthenticated()) {
+			conn.getClient().setAttribute("authInformation", auth);
+			// The client is authenticated
+			// You can use this in your functions called by the client
+			// or event the StreamPublish Security handler
+			log.debug("YESS!!! AUTHENTICATED!!!!!");
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
