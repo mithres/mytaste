@@ -1,8 +1,13 @@
 package com.vc.entity;
 
-import javax.persistence.GeneratedValue;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserInfo {
 	
 	@Id
@@ -10,11 +15,16 @@ public class UserInfo {
 	
 	private String passwrod = null;
 	
-	private String email = null;
+	private String firstName = null;
 	
-	@GeneratedValue(generator = "hibseq")
-	private Long userIndex = null;
+	private String lastName = null;
+	
+	private String email = null;
 
+	private Long userIndex = null;
+	
+	private UserLevel userLevel = UserLevel.User;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -45,6 +55,30 @@ public class UserInfo {
 
 	public void setUserIndex(Long userIndex) {
 		this.userIndex = userIndex;
+	}
+
+	public UserLevel getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(UserLevel userLevel) {
+		this.userLevel = userLevel;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	
