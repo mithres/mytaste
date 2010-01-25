@@ -104,5 +104,45 @@
 		<!-- Max. time in milliseconds to wait for a valid handshake. -->
 		<property name="maxHandshakeTimeout" value="5000" />
 	</bean>
+	
+	
+	<!-- Native RTMPS over SSL -->
+	<!-- Contributed by: Kevin Green (kevygreen at gmail dot com) -->
+	<bean id="nativeRtmpsMinaIoHandler"	class="com.vc.core.adapter.NativeRTMPSMinaIoHandler">
+		<property name="handler" ref="rtmpHandler" />
+		<property name="codecFactory" ref="rtmpCodecFactory" />
+		<property name="rtmpConnManager" ref="rtmpMinaConnManager" />
+	</bean>
+
+	<bean id="nativeRtmpsTransport"	class="org.red5.server.net.rtmp.RTMPMinaTransport" init-method="start"
+		destroy-method="stop">
+		<property name="ioHandler" ref="nativeRtmpsMinaIoHandler" />
+		<property name="connectors">
+			<list>
+				<bean class="java.net.InetSocketAddress">
+					<constructor-arg index="0" type="java.lang.String" value="0.0.0.0" />
+					<constructor-arg index="1" type="int" value="1936" />
+				</bean>
+			</list>
+		</property>
+		<property name="receiveBufferSize"
+			value="65536" />
+		<property name="sendBufferSize"
+			value="271360" />
+		<property name="eventThreadsCore"
+			value="16" />
+		<property name="eventThreadsMax"
+			value="64" />
+		<property name="eventThreadsQueue"
+			value="0" />
+		<property name="eventThreadsKeepalive"
+			value="60" />
+		<!-- This is the interval at which the sessions are polled for
+stats. If mina monitoring is not
+			enabled, polling will not occur. -->
+		<property name="jmxPollInterval" value="1000" />
+		<property name="tcpNoDelay" value="true" />
+	</bean>
+
 
 </beans>

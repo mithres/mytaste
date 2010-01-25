@@ -6,6 +6,9 @@ package com.vc.core.constants;
  */
 public class Constants {
 
+	public static final String VOD_SCOPE_NAME = "vod";
+	public static final String CONFERENCE_SCOPE_NAME = "conference";
+	
 	public static final String UTF8 = "UTF-8";
 	public static final String GBK = "GBK";
 

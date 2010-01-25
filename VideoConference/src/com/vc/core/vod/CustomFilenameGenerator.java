@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vc.bo.vod.VODClient;
 import com.vc.core.adapter.ApplicationAdapterHelper;
+import com.vc.core.constants.Constants;
 import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
 import com.vc.service.vod.IVODClientManager;
@@ -41,36 +42,40 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 	public String generateFilename(IScope scope, String name, String extension, GenerationType type) {
 
 		String filename = null;
-	
-		VODClient client = vodClientManager.getClientByID(ApplicationAdapterHelper.getCurrentConnection().getClient().getId());
 
-		if (client != null) {
-			//TODO: Sometimes this method couldn't decrypt the encrypted message from client. 
-			AesCrypt ac = new AesCrypt();
-			try {
-				String key = MD5.do_checksum(client.getClientKey());
-				ac.setKey(ac.hexToByte(key));
-				if (name.endsWith(".flv")) {
-					name = name.substring(0, name.indexOf(".flv"));
-				}
-				log.debug("Use :" + key + " to decrypt :"+name);
-				name = ac.decrypt(name);
-				log.debug("Decrypted file name is:" + name);
-				PlayList playList = playListService.findPlayListById(name);
-				if(playList == null){
+		if (scope.getName().endsWith(Constants.VOD_SCOPE_NAME)) {
+
+			VODClient client = vodClientManager.getClientByID(ApplicationAdapterHelper.getCurrentConnection().getClient().getId());
+
+			if (client != null) {
+				// TODO: Sometimes this method couldn't decrypt the encrypted
+				// message from client.
+				AesCrypt ac = new AesCrypt();
+				try {
+					String key = MD5.do_checksum(client.getClientKey());
+					ac.setKey(ac.hexToByte(key));
+					if (name.endsWith(".flv")) {
+						name = name.substring(0, name.indexOf(".flv"));
+					}
+					log.debug("Use :" + key + " to decrypt :" + name);
+					name = ac.decrypt(name);
+					log.debug("Decrypted file name is:" + name);
+					PlayList playList = playListService.findPlayListById(name);
+					if (playList == null) {
+						ApplicationAdapterHelper.disConnectClient();
+						return "";
+					}
+					name = playList.getFileName();
+				} catch (NoSuchAlgorithmException e) {
+					// Disconnect client
 					ApplicationAdapterHelper.disConnectClient();
-					return "";
+					log.error("Decrypted film name error", e);
 				}
-				name = playList.getFileName();
-			} catch (NoSuchAlgorithmException e) {
-				//Disconnect client
+			} else {
+				// Disconnect client
 				ApplicationAdapterHelper.disConnectClient();
-				log.error("Decrypted film name error", e);
+				return null;
 			}
-		} else {
-			//Disconnect client
-			ApplicationAdapterHelper.disConnectClient();
-			return null;
 		}
 
 		if (type == GenerationType.RECORD) {

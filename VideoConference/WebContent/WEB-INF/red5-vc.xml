@@ -53,7 +53,7 @@
 		<property name="location" value="/WEB-INF/red5-web.properties" />
 	</bean>
 	
-	<bean id="web.context.videoconference" class="org.red5.server.Context">
+	<bean id="web.context.vod" class="org.red5.server.Context">
 		<property name="scopeResolver" ref="red5.scopeResolver" />
 		<property name="clientRegistry" ref="global.clientRegistry" />
 		<property name="serviceInvoker" ref="global.serviceInvoker" />
@@ -63,13 +63,41 @@
 	<bean id="web.scope.vod" class="org.red5.server.WebScope" init-method="register">
 		<property name="server" ref="red5.server" />
 		<property name="parent" ref="global.scope" />
-		<property name="context" ref="web.context.videoconference" />
-		<property name="handler" ref="web.handler.videoconference" />
-		<property name="contextPath" value="${webapp.contextPath}" />
+		<property name="context" ref="web.context.vod" />
+		<property name="handler" ref="web.handler.vod" />
+		<property name="contextPath" value="${webapp.vod.contextPath}" />
 		<property name="virtualHosts" value="${webapp.virtualHosts}" />
 	</bean>
 	
-	<bean id="web.handler.videoconference" class="com.vc.core.adapter.CoreApplicationAdapter"/>
+	<bean id="web.handler.vod" class="com.vc.core.adapter.VODApplicationAdapter"/>
+	
+	<!-- video conference context -->
+	
+	<bean id="web.context.conference" class="org.red5.server.Context">
+		<property name="scopeResolver" ref="red5.scopeResolver" />
+		<property name="clientRegistry" ref="global.clientRegistry" />
+		<property name="serviceInvoker" ref="global.serviceInvoker" />
+		<property name="mappingStrategy" ref="global.mappingStrategy" />
+	</bean>
+
+	<bean id="web.scope.conference" class="org.red5.server.WebScope" init-method="register">
+		<property name="server" ref="red5.server" />
+		<property name="parent" ref="global.scope" />
+		<property name="context" ref="web.context.conference" />
+		<property name="handler" ref="web.handler.conference" />
+		<property name="contextPath" value="${webapp.conference.contextPath}" />
+		<property name="virtualHosts" value="${webapp.virtualHosts}" />
+	</bean>
+	
+	<bean id="web.handler.conference" class="com.vc.core.adapter.VideoConferenceApplicationAdapter"/>
+	
+	<!-- This bean use to change vod and record video path, support absolutePath-->
+	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
+		<property name="recordPath" value="/home/ammen/Test/recordedStreams/" />
+		<property name="playbackPath" value="/home/ammen/Test/videoStreams/" />
+	</bean>	
+	
+	<!-- end-->
 	
 	<bean id="ApplicationContextUtil" class="com.vc.core.spring.ApplicationContextUtil" lazy-init="false"/>	
 	

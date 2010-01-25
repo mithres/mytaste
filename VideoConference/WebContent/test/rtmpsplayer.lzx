@@ -1,0 +1,21 @@
+<canvas debug="true">
+	
+	<passthrough>
+		 import flash.system.Capabilities;
+	</passthrough>	
+	
+	<handler name="oninit">
+		nc = new NetConnection();
+		nc.proxyType = "best";
+		nc.connect("rtmps://192.168.0.119:1936/videoconference");
+		Debug.write(nc);
+		player.play();
+		
+		Debug.write(flash.system.Capabilities);
+		
+	</handler>
+	
+	<videoplayer id="player" url="terminator.flv" autoplay="false" width="320" height="240"/>
+	
+	
+</canvas>

@@ -1,7 +1,5 @@
 package com.vc.core.adapter;
 
-import static org.red5.server.api.ScopeUtils.getScopeService;
-
 import org.acegisecurity.BadCredentialsException;
 import org.acegisecurity.providers.ProviderManager;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
@@ -15,19 +13,15 @@ import org.red5.server.api.service.IPendingServiceCallback;
 import org.red5.server.api.stream.IBroadcastStream;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.red5.server.api.stream.ISubscriberStream;
-import org.red5.server.messaging.AbstractPipe;
-import org.red5.server.messaging.IMessageInput;
-import org.red5.server.stream.IProviderService;
-import org.red5.server.stream.ProviderService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.vod.IVODClientManager;
 
-public class CoreApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback, IStreamAwareScopeHandler {
+public class VideoConferenceApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback, IStreamAwareScopeHandler {
 
-	private static final Logger log = Red5LoggerFactory.getLogger(CoreApplicationAdapter.class, "VideoConference");
+	private static final Logger log = Red5LoggerFactory.getLogger(VideoConferenceApplicationAdapter.class, "VideoConference");
 
 	// The Global WebApp Path
 	public static String webAppPath = "";

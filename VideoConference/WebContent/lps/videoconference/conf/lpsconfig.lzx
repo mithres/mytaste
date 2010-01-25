@@ -1,7 +1,8 @@
 <library>
 	
-	<attribute name="serverIP" value="172.0.2.193" type="string"/>
+	<attribute name="serverIP" value="192.168.0.119" type="string"/>
 	
-	<attribute name="rtmpAddress" value="videoconference" type="string"/>
+	<attribute name="vodRTMPAddress" value="vod" type="string"/>
+	<attribute name="conferenceRTMPAddress" value="conference" type="string"/>
 	
 </library>

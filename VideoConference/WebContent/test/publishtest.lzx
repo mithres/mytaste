@@ -16,7 +16,7 @@
 	<mediastream name="s2" type="rtmp"/>
 	
 	<handler name="oninit">
-		var url = "rtmp://" + canvas.serverIP + "/" + canvas.rtmpAddress;
+		var url = "rtmp://"+ canvas.serverIP + "/" + canvas.conferenceRTMPAddress;
 		Debug.write(url);
 		rc.setAttribute("src", url);
 		rc.connect("{name: 'admin', password: 'passed'}");

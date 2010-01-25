@@ -18,7 +18,7 @@
 	</script>
 	
 	<handler name="oninit">
-		var url = "rtmp://"+ canvas.serverIP + "/" + canvas.rtmpAddress;
+		var url = "rtmp://"+ canvas.serverIP + "/" + canvas.vodRTMPAddress;
 		Debug.write(url);
 		rc.setAttribute("src",url);
 		rc.connect();

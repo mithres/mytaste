@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-@Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Entity
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserInfo {
 	
 	@Id

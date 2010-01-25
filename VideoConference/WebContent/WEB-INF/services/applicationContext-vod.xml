@@ -5,12 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd" default-autowire="byName">
 	
-	<!-- This bean use to change vod and record video path, support absolutePath-->
-	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-		<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
-		<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
-	</bean>	
-	
 	<bean id="fileUploader" class="com.vc.util.photo.FileSystemUploader"/>
 
 </beans>

@@ -10,8 +10,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
-@Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Entity
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Room {
 	
 	@Id
