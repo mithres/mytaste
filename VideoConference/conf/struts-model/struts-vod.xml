@@ -19,6 +19,10 @@
 			<result type="redirect">/vod/playListIndex</result>
 		</action>
 		
+		<action name="play" class="com.vc.presentation.vod.action.PlayVideoAction">
+			<result>/WEB-INF/pages/vod/player.jsp</result>
+		</action>
+		
 		<!-- Only for test -->
 		
 		<action name="getInfo" method="getInfo" class="com.vc.presentation.vod.action.PlayListIndexAction"/>

@@ -15,10 +15,9 @@
 <script>
 	function initPlayer() {
 		var vodPlayer = lz.embed.lzapp; 
-		vodPlayer.callMethod('init(terminator.flv)');
+		vodPlayer.callMethod('init(<s:property value="playListID"/>)');
 	}
 </script>
-
 </head>
 
 <body onload="initPlayer();">

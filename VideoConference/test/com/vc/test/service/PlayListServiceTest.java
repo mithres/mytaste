@@ -27,7 +27,6 @@ public class PlayListServiceTest extends BaseTest {
 		list.setFileName("fileName001");
 		list.setFilmType(FilmType.Normal);
 		list.setPlayListType(PlayListType.Game);
-		list.setScreenShot("screenshotpath");
 
 		playListService.savePlayList(list);
 		

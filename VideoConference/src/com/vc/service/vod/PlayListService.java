@@ -26,6 +26,7 @@ public class PlayListService implements IPlayListService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) {
 		playListDao.create(playList);
+		playList.setPlayListIndex(playListDao.findPlayListCount());
 		return playList;
 	}
 
@@ -47,6 +48,11 @@ public class PlayListService implements IPlayListService {
 			list.setRecords(playListDao.findPlayListByType(type, hints));
 		}
 		return list;
+	}
+
+	@Override
+	public PlayList findPlayListById(String playListID) {
+		return playListDao.findById(playListID);
 	}
 
 }

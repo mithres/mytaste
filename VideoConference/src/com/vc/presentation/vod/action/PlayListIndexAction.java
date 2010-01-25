@@ -51,4 +51,8 @@ public class PlayListIndexAction extends BaseAction {
 		return playListService;
 	}
 
+	public IPageList<PlayList> getPlayList() {
+		return playList;
+	}
+
 }

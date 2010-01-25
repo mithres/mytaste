@@ -11,11 +11,12 @@
 <body>
 
 <s:form namespace="/vod" action="savePlayList" enctype="multipart/form-data">
+	<s:textfield label="PlayListName" name="playList.playListName" />
 	<s:textfield label="FileName" name="playList.fileName" />
 	<s:file label="ScreenShot" name="screenShot" />
 	<s:select name="playList.playListType" label="Type"
 		list="#{'Movie':'Movie','News':'News','Sport':'Sport','No Type':'NoType'}" />
-	<s:select name="playList.fileType" label="FilmType"
+	<s:select name="playList.filmType" label="FilmType"
 		list="#{'Normal':'Normal','HD':'HD','Audio Only':'Audio'}" />
 	<s:textarea label="Description" cols="40" rows="6"
 		name="playList.description" />

@@ -7,13 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * Writes content to file.
  * 
  */
 public class FileSystemUploader implements IFileUploader {
+	
+	private static Logger log = Red5LoggerFactory.getLogger(FileSystemUploader.class, "VideoConference");
 
+	
 	@Override
 	public boolean preparePath(String uri, String authString) throws IOException {
 		String filePath = uri.substring(0, uri.lastIndexOf("/"));

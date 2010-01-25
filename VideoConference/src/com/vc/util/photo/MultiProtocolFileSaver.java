@@ -11,15 +11,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
 
 import com.vc.core.constants.Constants;
 import com.vc.core.spring.ApplicationContextUtil;
 
 public class MultiProtocolFileSaver {
 
-	private static Log log = LogFactory.getLog(MultiProtocolFileSaver.class);
+	private static Logger log = Red5LoggerFactory.getLogger(MultiProtocolFileSaver.class, "VideoConference");
 
 	private static final String FILE_UPLOAD_BEAN_SUFFIX = "Uploader";
 

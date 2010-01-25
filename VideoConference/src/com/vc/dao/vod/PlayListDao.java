@@ -10,7 +10,7 @@ import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
 
 @Repository
-public class PlayListDao extends GenericDAO<PlayList, Integer> {
+public class PlayListDao extends GenericDAO<PlayList, String> {
 
 	private static final String FIND_PLAYLIST = " from PlayList order by addedTime desc ";
 	private static final String FIND_PLAYLIST_COUNT = " select count(*) from PlayList ";

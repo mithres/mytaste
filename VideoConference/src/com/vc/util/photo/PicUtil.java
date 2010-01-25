@@ -8,22 +8,22 @@ import ij.process.ImageProcessor;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
 
 import com.vc.core.constants.Constants;
+import com.vc.entity.PlayList;
 import com.vc.entity.UserInfo;
 import com.vc.util.configuration.ServerConfiguration;
 
 public class PicUtil {
 
-	private static final Log logger = LogFactory.getLog(PicUtil.class);
+	private static Logger log = Red5LoggerFactory.getLogger(PicUtil.class, "VideoConference");
 
 	public static final long DEFAULT_AVATOR_SIZE = 2097152;
 
@@ -108,16 +108,12 @@ public class PicUtil {
 
 	public static final String loadPhotoUrl(long groupID, PhotoType photoType) {
 		
-		if (photoType.equals(PhotoType.FilmScreenShot)) {
-			return ServerConfiguration.getPhotoUrl(photoType);
-		} else {
-			int pathID = (int) groupID / 10000;
-			String photoPath = ServerConfiguration.getPhotoUrl(photoType);
-			StringBuffer sb = new StringBuffer(photoPath);
-			sb.append(String.valueOf(pathID));
-			sb.append(File.separator);
-			return sb.toString();
-		}
+		int pathID = (int) groupID / 10000;
+		String photoPath = ServerConfiguration.getPhotoUrl(photoType);
+		StringBuffer sb = new StringBuffer(photoPath);
+		sb.append(String.valueOf(pathID));
+		sb.append(File.separator);
+		return sb.toString();
 
 	}
 
@@ -141,40 +137,45 @@ public class PicUtil {
 	}
 
 	public static final boolean uploadImage(File file, UserInfo info) {
-
-		InputStream is;
-		try {
-			is = new FileInputStream(file);
-			return uploadImage(is, info);
-		} catch (FileNotFoundException e1) {
-			logger.warn("Image upload error", e1);
-			throw new RuntimeException("Save user photo fail.", e1);
-		}
+		return uploadImage(file, PhotoType.UserPhoto, info.getUserIndex());
 	}
 
-	public static final boolean uploadImage(InputStream is, UserInfo info) {
+	public static final boolean uploadImage(File file, PlayList playList) {
+		return uploadImage(file, PhotoType.FilmScreenShot, playList.getPlayListIndex());
+	}
 
+	private static final boolean uploadImage(File file, PhotoType photoType, Long index) {
+
+		InputStream is = null;
 		try {
-			String filePath = PicUtil.loadPhotoPath(info.getUserIndex(), PhotoType.UserPhoto);
+
+			is = new FileInputStream(file);
+			String filePath = PicUtil.loadPhotoPath(index, photoType);
 			StringBuffer sb = new StringBuffer(filePath);
-			sb.append(String.valueOf(info.getUserIndex()));
+			sb.append(String.valueOf(index));
 			sb.append(".jpg");
 			PicUtil.makePhotoJPEG(is, Constants.DEFAULT_WIDTH, Constants.DEFAULT_HEIGHT, sb.toString());
 			return Boolean.TRUE;
 		} catch (IOException e) {
-			logger.warn("Image upload error", e);
+			log.error("Image upload error", e);
 			throw new RuntimeException("Save user photo fail.", e);
 		} catch (RuntimeException e) {
-			logger.warn("Image upload error", e);
+			log.error("Image upload error", e);
 			return Boolean.FALSE;
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+				}
+			}
 		}
-
 	}
 
-	public static String getUserAvatarTag(Long profileID) {
+	public static String getPhotoAddress(Long index, PhotoType type) {
 
-		String imageName = profileID.toString() + ".jpg";
-		String filePath = loadPhotoUrl(profileID, PhotoType.UserPhoto);
+		String imageName = String.valueOf(index) + ".jpg";
+		String filePath = loadPhotoUrl(index, type);
 		filePath += imageName;
 		return filePath;
 	}

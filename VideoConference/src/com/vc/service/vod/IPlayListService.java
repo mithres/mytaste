@@ -6,7 +6,9 @@ import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
 
 public interface IPlayListService {
-
+	
+	public abstract PlayList findPlayListById(String playListID);
+	
 	public abstract PlayList savePlayList(PlayList playList);
 
 	public abstract IPageList<PlayList> findPlayList(Hints hints);

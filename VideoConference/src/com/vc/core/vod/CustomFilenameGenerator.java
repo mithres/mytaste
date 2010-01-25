@@ -3,14 +3,15 @@ package com.vc.core.vod;
 import java.security.NoSuchAlgorithmException;
 
 import org.red5.logging.Red5LoggerFactory;
-import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
-import org.red5.server.api.Red5;
 import org.red5.server.api.stream.IStreamFilenameGenerator;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vc.bo.vod.VODClient;
+import com.vc.core.adapter.ApplicationAdapterHelper;
+import com.vc.entity.PlayList;
+import com.vc.service.vod.IPlayListService;
 import com.vc.service.vod.IVODClientManager;
 import com.vc.util.security.AesCrypt;
 import com.vc.util.security.MD5;
@@ -28,6 +29,9 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 	@Autowired
 	private IVODClientManager vodClientManager = null;
 
+	@Autowired
+	private IPlayListService playListService = null;
+
 	@Override
 	public String generateFilename(IScope scope, String name, GenerationType type) {
 		return generateFilename(scope, name, null, type);
@@ -37,9 +41,8 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 	public String generateFilename(IScope scope, String name, String extension, GenerationType type) {
 
 		String filename = null;
-
-		IConnection conn = Red5.getConnectionLocal();
-		VODClient client = vodClientManager.getClientByID(conn.getClient().getId());
+	
+		VODClient client = vodClientManager.getClientByID(ApplicationAdapterHelper.getCurrentConnection().getClient().getId());
 
 		if (client != null) {
 			//TODO: Sometimes this method couldn't decrypt the encrypted message from client. 
@@ -50,13 +53,16 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 				if (name.endsWith(".flv")) {
 					name = name.substring(0, name.indexOf(".flv"));
 				}
-				log.info("Use :" + key + " to decrypt :"+name);
+				log.debug("Use :" + key + " to decrypt :"+name);
 				name = ac.decrypt(name);
-				log.info("Decrypted file name is:" + name);
+				log.debug("Decrypted file name is:" + name);
+				PlayList playList = playListService.findPlayListById(name);
+				name = playList.getFileName();
 			} catch (NoSuchAlgorithmException e) {
 				log.error("Decrypted film name error", e);
 			}
 		} else {
+			//Reject client
 			return "";
 		}
 

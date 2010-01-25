@@ -35,7 +35,6 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 		VODSecurityHandler vodHandler = new VODSecurityHandler();
 		vodHandler.setVodClientManager(vodClientManager);
 		scope.registerServiceHandler("vod", vodHandler);
-
 		return super.start(scope);
 	}
 

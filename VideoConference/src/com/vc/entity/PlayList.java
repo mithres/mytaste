@@ -13,22 +13,25 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PlayList {
-	
+
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id = null;
+
+	@GeneratedValue(generator = "hibseq")
+	private Long playListIndex = null;
 	
+	private String playListName = null;
+	// The real film name
 	private String fileName = null;
-	
-	private String screenShot = null;
-	
+
 	private String description = null;
-	
+
 	private Timestamp addedTime = null;
-	
+
 	private PlayListType playListType = PlayListType.NoType;
-	
+
 	private FilmType filmType = FilmType.Normal;
 
 	public String getId() {
@@ -45,14 +48,6 @@ public class PlayList {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
-	}
-
-	public String getScreenShot() {
-		return screenShot;
-	}
-
-	public void setScreenShot(String screenShot) {
-		this.screenShot = screenShot;
 	}
 
 	public String getDescription() {
@@ -86,5 +81,21 @@ public class PlayList {
 	public void setFilmType(FilmType filmType) {
 		this.filmType = filmType;
 	}
-	
+
+	public void setPlayListIndex(Long playListIndex) {
+		this.playListIndex = playListIndex;
+	}
+
+	public Long getPlayListIndex() {
+		return playListIndex;
+	}
+
+	public String getPlayListName() {
+		return playListName;
+	}
+
+	public void setPlayListName(String playListName) {
+		this.playListName = playListName;
+	}
+
 }

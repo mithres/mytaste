@@ -1,5 +1,6 @@
 package com.vc.entity;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 public class UserInfo {
@@ -11,7 +12,8 @@ public class UserInfo {
 	
 	private String email = null;
 	
-	private Integer userIndex = null;
+	@GeneratedValue(generator = "hibseq")
+	private Long userIndex = null;
 
 	public String getUserName() {
 		return userName;
@@ -37,12 +39,13 @@ public class UserInfo {
 		this.email = email;
 	}
 
-	public Integer getUserIndex() {
+	public Long getUserIndex() {
 		return userIndex;
 	}
 
-	public void setUserIndex(Integer userIndex) {
+	public void setUserIndex(Long userIndex) {
 		this.userIndex = userIndex;
 	}
+
 	
 }
