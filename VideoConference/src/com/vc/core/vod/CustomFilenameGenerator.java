@@ -57,13 +57,20 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 				name = ac.decrypt(name);
 				log.debug("Decrypted file name is:" + name);
 				PlayList playList = playListService.findPlayListById(name);
+				if(playList == null){
+					ApplicationAdapterHelper.disConnectClient();
+					return "";
+				}
 				name = playList.getFileName();
 			} catch (NoSuchAlgorithmException e) {
+				//Disconnect client
+				ApplicationAdapterHelper.disConnectClient();
 				log.error("Decrypted film name error", e);
 			}
 		} else {
-			//Reject client
-			return "";
+			//Disconnect client
+			ApplicationAdapterHelper.disConnectClient();
+			return null;
 		}
 
 		if (type == GenerationType.RECORD) {

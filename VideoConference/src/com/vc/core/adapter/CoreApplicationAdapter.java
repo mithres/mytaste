@@ -1,5 +1,7 @@
 package com.vc.core.adapter;
 
+import static org.red5.server.api.ScopeUtils.getScopeService;
+
 import org.acegisecurity.BadCredentialsException;
 import org.acegisecurity.providers.ProviderManager;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
@@ -13,6 +15,10 @@ import org.red5.server.api.service.IPendingServiceCallback;
 import org.red5.server.api.stream.IBroadcastStream;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.red5.server.api.stream.ISubscriberStream;
+import org.red5.server.messaging.AbstractPipe;
+import org.red5.server.messaging.IMessageInput;
+import org.red5.server.stream.IProviderService;
+import org.red5.server.stream.ProviderService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,9 +34,10 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 	@Autowired
 	private IVODClientManager vodClientManager = null;
+
 	@Override
 	public synchronized boolean start(IScope scope) {
-		
+
 		// registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
 		VODSecurityHandler vodHandler = new VODSecurityHandler();
 		vodHandler.setVodClientManager(vodClientManager);
@@ -49,7 +56,7 @@ public class CoreApplicationAdapter extends ApplicationAdapter implements IPendi
 
 		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
 
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin","passed");
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "passed");
 
 		// UsernamePasswordAuthenticationToken auth = new
 		// UsernamePasswordAuthenticationToken("admin", "passed");
