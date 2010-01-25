@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
@@ -76,5 +76,7 @@
 		<property name="recordPath" value="/home/ammen/Test/recordedStreams/" />
 		<property name="playbackPath" value="/home/ammen/Test/videoStreams/" />
 	</bean>	
+	
+	<bean id="ApplicationContextUtil" class="com.vc.core.spring.ApplicationContextUtil" lazy-init="false"/>	
 	
 </beans>
