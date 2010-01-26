@@ -203,4 +203,7 @@
 	<logger name="com.vc">
 		<level value="DEBUG" />
 	</logger>
+	<logger name="org.acegisecurity">
+		<level value="INFO" />
+	</logger>
 </configuration>

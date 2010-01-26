@@ -19,7 +19,7 @@ public class AuthedClientRegister extends ClientRegistry {
 	@Override
 	public IClient newClient(Object[] params) throws ClientNotFoundException, ClientRejectedException {
 
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "passed");
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "111111");
 		IConnection conn = Red5.getConnectionLocal();
 		ProviderManager providerManager = (ProviderManager) conn.getScope().getContext().getBean("authenticationManager");
 
