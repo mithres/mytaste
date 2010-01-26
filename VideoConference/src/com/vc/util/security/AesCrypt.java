@@ -1,9 +1,19 @@
 package com.vc.util.security;
 
+import java.security.NoSuchAlgorithmException;
+
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
+
 public class AesCrypt {
+
+	private static final Logger log = Red5LoggerFactory.getLogger(AesCrypt.class, "VideoConference");
+
 	/*
 	 * The key used for the encryption
 	 */
@@ -26,9 +36,6 @@ public class AesCrypt {
 				buff[i] = (byte) 0x00;
 			}
 
-			/*
-			 * encrypt
-			 */
 			Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
 			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
 			byte[] encrypted = cipher.doFinal(buff);
@@ -89,6 +96,23 @@ public class AesCrypt {
 
 	public void setKey(byte[] key) {
 		this.key = key;
+	}
+
+	public static String genKey() {
+		String key = null;
+		try {
+
+			AesCrypt ac = new AesCrypt();
+
+			KeyGenerator kgen = KeyGenerator.getInstance("AES");
+			kgen.init(128);
+			SecretKey skey = kgen.generateKey();
+			byte[] raw = skey.getEncoded();
+			key = ac.asHex(raw);
+		} catch (NoSuchAlgorithmException e) {
+			log.error("Generate aes key error.", e);
+		}
+		return key;
 	}
 
 }

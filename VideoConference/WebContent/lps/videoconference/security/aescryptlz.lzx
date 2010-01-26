@@ -107,7 +107,8 @@
 				return false;
 
 			// Generate MD5 out of the password
-			var md5Key = pmd5.hex_md5(key);
+			//var md5Key = pmd5.hex_md5(key);
+			var md5Key = key;
 
 			// Store the generated key
 			this.setAttribute("usedKey", md5Key);

@@ -1,7 +1,5 @@
 package com.vc.core.vod;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.api.IScope;
 import org.red5.server.api.stream.IStreamFilenameGenerator;
@@ -15,7 +13,6 @@ import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
 import com.vc.service.vod.IVODClientManager;
 import com.vc.util.security.AesCrypt;
-import com.vc.util.security.MD5;
 
 public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 
@@ -51,29 +48,23 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 				// TODO: Sometimes this method couldn't decrypt the encrypted
 				// message from client.
 				AesCrypt ac = new AesCrypt();
-				try {
-					String key = MD5.do_checksum(client.getClientKey());
-					ac.setKey(ac.hexToByte(key));
-					if (name.endsWith(".flv")) {
-						name = name.substring(0, name.indexOf(".flv"));
-					}
-					log.debug("Use :" + key + " to decrypt :" + name);
-					name = ac.decrypt(name);
-					log.debug("Decrypted file name is:" + name);
-					PlayList playList = playListService.findPlayListById(name);
-					if (playList == null) {
-						ApplicationAdapterHelper.disConnectClient();
-						return "";
-					}
-					name = playList.getFileName();
-				} catch (NoSuchAlgorithmException e) {
-					// Disconnect client
-					ApplicationAdapterHelper.disConnectClient();
-					log.error("Decrypted film name error", e);
+				String key = client.getClientKey();
+				ac.setKey(ac.hexToByte(key));
+				if (name.endsWith(".flv")) {
+					name = name.substring(0, name.indexOf(".flv"));
 				}
+				log.debug("Use :" + key + " to decrypt :" + name);
+				name = ac.decrypt(name);
+				log.debug("Decrypted file name is:" + name);
+				PlayList playList = playListService.findPlayListById(name);
+				if (playList == null) {
+					ApplicationAdapterHelper.disConnectVODClient();
+					return "";
+				}
+				name = playList.getFileName();
 			} else {
 				// Disconnect client
-				ApplicationAdapterHelper.disConnectClient();
+				ApplicationAdapterHelper.disConnectVODClient();
 				return null;
 			}
 		}

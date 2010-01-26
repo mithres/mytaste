@@ -53,9 +53,11 @@
 		<property name="location" value="/WEB-INF/red5-web.properties" />
 	</bean>
 	
+	<bean id="authedClientRegistry" class="com.vc.core.client.AuthedClientRegister"/>
+	
 	<bean id="web.context.vod" class="org.red5.server.Context">
 		<property name="scopeResolver" ref="red5.scopeResolver" />
-		<property name="clientRegistry" ref="global.clientRegistry" />
+		<property name="clientRegistry" ref="authedClientRegistry" />
 		<property name="serviceInvoker" ref="global.serviceInvoker" />
 		<property name="mappingStrategy" ref="global.mappingStrategy" />
 	</bean>
@@ -75,7 +77,7 @@
 	
 	<bean id="web.context.conference" class="org.red5.server.Context">
 		<property name="scopeResolver" ref="red5.scopeResolver" />
-		<property name="clientRegistry" ref="global.clientRegistry" />
+		<property name="clientRegistry" ref="authedClientRegistry" />
 		<property name="serviceInvoker" ref="global.serviceInvoker" />
 		<property name="mappingStrategy" ref="global.mappingStrategy" />
 	</bean>
@@ -93,8 +95,8 @@
 	
 	<!-- This bean use to change vod and record video path, support absolutePath-->
 	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-		<property name="recordPath" value="/home/ammen/Test/recordedStreams/" />
-		<property name="playbackPath" value="/home/ammen/Test/videoStreams/" />
+		<property name="recordPath" value="/home/ammen/wow/recordedStreams/" />
+		<property name="playbackPath" value="/home/ammen/wow/videoStreams/" />
 	</bean>	
 	
 	<!-- end-->

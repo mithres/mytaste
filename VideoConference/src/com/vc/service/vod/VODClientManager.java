@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.vc.bo.vod.VODClient;
-import com.vc.util.security.ServerSecurityUtil;
+import com.vc.util.security.AesCrypt;
 
 @Service("vodClientManager")
 public class VODClientManager implements IVODClientManager {
@@ -33,7 +33,7 @@ public class VODClientManager implements IVODClientManager {
 		client.setRemoteAddress(remoteAddress);
 		client.setRemotePort(remotePort);
 		client.setScopeName(scopeName);
-		client.setClientKey(ServerSecurityUtil.generateVODKey());
+		client.setClientKey(AesCrypt.genKey());
 
 		if (VOD_CLIENT_LIST.containsKey(streamId)) {
 			log.error("Tried to add an existing Client " + streamId);

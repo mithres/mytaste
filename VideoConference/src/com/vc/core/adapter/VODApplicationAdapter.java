@@ -1,8 +1,5 @@
 package com.vc.core.adapter;
 
-import org.acegisecurity.BadCredentialsException;
-import org.acegisecurity.providers.ProviderManager;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
@@ -13,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.vod.IVODClientManager;
 
-public class VODApplicationAdapter extends ApplicationAdapter{
+public class VODApplicationAdapter extends ApplicationAdapter {
 
 	private static final Logger log = Red5LoggerFactory.getLogger(VODApplicationAdapter.class, "VideoConference");
 
@@ -26,7 +23,6 @@ public class VODApplicationAdapter extends ApplicationAdapter{
 	@Override
 	public synchronized boolean start(IScope scope) {
 
-		// registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
 		VODSecurityHandler vodHandler = new VODSecurityHandler();
 		vodHandler.setVodClientManager(vodClientManager);
 		scope.registerServiceHandler("vod", vodHandler);
@@ -35,32 +31,8 @@ public class VODApplicationAdapter extends ApplicationAdapter{
 
 	@Override
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
-
-		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
-
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "passed");
-
-		// UsernamePasswordAuthenticationToken auth = new
-		// UsernamePasswordAuthenticationToken("admin", "passed");
-		ProviderManager providerManager = (ProviderManager) scope.getContext().getBean("authenticationManager");
-
-		try {
-			auth = (UsernamePasswordAuthenticationToken) providerManager.authenticate(auth);
-		} catch (BadCredentialsException ex) {
-			// rejectClient("Wrong login information");
-			return false;
-		}
-
-		if (auth.isAuthenticated()) {
-			conn.getClient().setAttribute("authInformation", auth);
-			// The client is authenticated
-			// You can use this in your functions called by the client
-			// or event the StreamPublish Security handler
-			log.debug("YESS!!! AUTHENTICATED!!!!!");
-			return true;
-		}
-
-		return false;
+		log.info("------Client connect to server with ----------");
+		return true;
 	}
 
 	@Override
