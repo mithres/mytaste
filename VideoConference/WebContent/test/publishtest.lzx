@@ -5,18 +5,19 @@
 	
 	<dataset src="http://172.0.2.193:8080/VideoConference/vod/getInfo" name="myset" request="true"/>
 
-	  <view name="rowOfData" datapath="myset:/Info[1]" x="100" y="50">
-	    <simplelayout axis="x"/>
-	    <text datapath="name/text()"/> 
-	  </view>
-  
+	<view name="rowOfData" datapath="myset:/Info[1]" x="100" y="50">
+		<simplelayout axis="x"/>
+		<text datapath="name/text()"/> 
+	</view>
+
 	
 	<vcrtmpconnection id="rc" autoconnect="false"/>
 	<mediastream name="s1" type="rtmp"/>
 	<mediastream name="s2" type="rtmp"/>
 	
 	<handler name="oninit">
-		var url = "rtmp://"+ canvas.serverIP + "/" + canvas.conferenceRTMPAddress;
+		var url = "rtmp://" + canvas.serverIP + "/"
+				+ canvas.conferenceRTMPAddress;
 		Debug.write(url);
 		rc.setAttribute("src", url);
 		rc.connect("{name: 'admin', password: 'passed'}");

@@ -2,6 +2,8 @@ package com.vc.presentation.vod.action;
 
 import java.io.IOException;
 
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -30,6 +32,7 @@ public class PlayListIndexAction extends BaseAction {
 	}
 	
 	public String getInfo(){
+				
 		this.getSession().setAttribute("name", "abc");
 		Document doc = DocumentHelper.createDocument();
 		Element root = doc.addElement("Info");

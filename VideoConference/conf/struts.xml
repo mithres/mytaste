@@ -23,7 +23,11 @@
 			<result name="runtime"></result>
 			<result name="needlogin"></result>
 		</global-results>
-	
+		
+		<action name="home" class="com.vc.presentation.home.action.HomeAction">
+			<result>/WEB-INF/pages/home/index.jsp</result>
+		</action>
+		
 	</package>
 	
 	<include file="struts-model/struts-vod.xml" />

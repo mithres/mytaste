@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Transient;
 
 import org.acegisecurity.GrantedAuthority;
@@ -43,8 +45,14 @@ public class UserInfo implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_name"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	private Set<Resource> resources = new HashSet<Resource>();
-	
+	private Set<Role> roles = new HashSet<Role>();
+
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OrderBy("purchaseDate desc")
+	private Set<PurchasesHistory> purchasesHistory = new HashSet<PurchasesHistory>();
+
+	private Long accountBalance = null;
+
 	@Transient
 	private GrantedAuthority[] authorities = null;
 
@@ -104,14 +112,6 @@ public class UserInfo implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public Set<Resource> getResources() {
-		return resources;
-	}
-
-	public void setResources(Set<Resource> resources) {
-		this.resources = resources;
-	}
-
 	public Boolean getEnable() {
 		return enable;
 	}
@@ -157,6 +157,30 @@ public class UserInfo implements UserDetails {
 
 	public void setAuthorities(GrantedAuthority[] authorities) {
 		this.authorities = authorities;
+	}
+
+	public Long getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(Long accountBalance) {
+		this.accountBalance = accountBalance;
+	}
+
+	public Set<PurchasesHistory> getPurchasesHistory() {
+		return purchasesHistory;
+	}
+
+	public void setPurchasesHistory(Set<PurchasesHistory> purchasesHistory) {
+		this.purchasesHistory = purchasesHistory;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }

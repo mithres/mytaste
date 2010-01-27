@@ -18,7 +18,7 @@ import com.vc.entity.PlayListType;
 public class PlayListService implements IPlayListService {
 
 	private static Logger log = Red5LoggerFactory.getLogger(PlayListService.class, "VideoConference");
-	
+
 	@Autowired
 	private PlayListDao playListDao = null;
 

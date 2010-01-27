@@ -1,6 +1,7 @@
 package com.vc.core.client;
 
 import org.acegisecurity.BadCredentialsException;
+import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.ProviderManager;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.red5.logging.Red5LoggerFactory;
@@ -25,6 +26,7 @@ public class AuthedClientRegister extends ClientRegistry {
 
 		try {
 			auth = (UsernamePasswordAuthenticationToken) providerManager.authenticate(auth);
+			SecurityContextHolder.getContext().setAuthentication(auth);
 		} catch (BadCredentialsException ex) {
 			throw new ClientRejectedException();
 		}

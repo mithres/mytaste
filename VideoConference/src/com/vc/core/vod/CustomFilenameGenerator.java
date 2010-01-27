@@ -1,5 +1,7 @@
 package com.vc.core.vod;
 
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.api.IScope;
 import org.red5.server.api.stream.IStreamFilenameGenerator;
@@ -39,7 +41,7 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 	public String generateFilename(IScope scope, String name, String extension, GenerationType type) {
 
 		String filename = null;
-
+		
 		if (scope.getName().endsWith(Constants.VOD_SCOPE_NAME)) {
 
 			VODClient client = vodClientManager.getClientByID(ApplicationAdapterHelper.getCurrentConnection().getClient().getId());

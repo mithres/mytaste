@@ -1,12 +1,17 @@
 package com.vc.service.user;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.acegisecurity.AuthenticationException;
 import org.acegisecurity.AuthenticationServiceException;
 import org.acegisecurity.BadCredentialsException;
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.providers.dao.AbstractUserDetailsAuthenticationProvider;
+import org.acegisecurity.userdetails.User;
 import org.acegisecurity.userdetails.UserDetails;
 import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
@@ -15,6 +20,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.vc.dao.user.UserInfoDao;
+import com.vc.entity.Role;
+import com.vc.entity.UserInfo;
 import com.vc.util.security.MD5;
 
 @Service
@@ -62,17 +69,30 @@ public class UserService extends AbstractUserDetailsAuthenticationProvider imple
 
 		try {
 
-			loadedUser = userInfoDao.findUserByName(userName, Boolean.TRUE);
+			UserInfo user = userInfoDao.findUserByName(userName, Boolean.TRUE);
+			if (user != null) {
+				GrantedAuthority[] grantedAuths = obtainGrantedAuthorities(user);
+				loadedUser = new User(user.getUsername(), user.getPassword(), user.getEnable(), true, true, true, grantedAuths);
+			} else {
+				throw new AuthenticationServiceException("UserDetailsService returned null, which is an interface contract violation");
+			}
 
 		} catch (DataAccessException repositoryProblem) {
 			throw new AuthenticationServiceException(repositoryProblem.getMessage(), repositoryProblem);
 		}
 
-		if (loadedUser == null) {
-			throw new AuthenticationServiceException("UserDetailsService returned null, which is an interface contract violation");
+		return loadedUser;
+	}
+
+	private GrantedAuthority[] obtainGrantedAuthorities(UserInfo user) {
+
+		Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
+
+		for (Role role : user.getRoles()) {
+			authSet.add(new GrantedAuthorityImpl(role.getRoleName()));
 		}
 
-		return loadedUser;
+		return authSet.toArray(new GrantedAuthority[authSet.size()]);
 	}
 
 	public boolean isIncludeDetailsObject() {
@@ -81,6 +101,12 @@ public class UserService extends AbstractUserDetailsAuthenticationProvider imple
 
 	public void setIncludeDetailsObject(boolean includeDetailsObject) {
 		this.includeDetailsObject = includeDetailsObject;
+	}
+
+	@Override
+	public UserInfo signIn(String userName, String password) {
+
+		return null;
 	}
 
 }
