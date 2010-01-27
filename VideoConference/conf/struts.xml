@@ -24,7 +24,11 @@
 			<result name="needlogin"></result>
 		</global-results>
 		
-		<action name="home" class="com.vc.presentation.home.action.HomeAction">
+		<action name="home" class="com.vc.presentation.action.home.HomeAction">
+			<result>/WEB-INF/pages/home/index.jsp</result>
+		</action>
+		
+		<action name="install" class="com.vc.presentation.action.home.InstallAction">
 			<result>/WEB-INF/pages/home/index.jsp</result>
 		</action>
 		

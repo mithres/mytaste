@@ -1,4 +1,4 @@
-package com.vc.presentation.home.action;
+package com.vc.presentation.action.home;
 
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;

@@ -7,27 +7,27 @@
 	
 	<package name="vod" extends="default" namespace="/vod">
 		
-		<action name="playListIndex" class="com.vc.presentation.vod.action.PlayListIndexAction">
+		<action name="playListIndex" class="com.vc.presentation.action.vod.PlayListIndexAction">
 			<result>/WEB-INF/pages/vod/playlist.jsp</result>
 		</action>
 		
-		<action name="newPlayList" class="com.vc.presentation.vod.action.NewPlayListAction">
+		<action name="newPlayList" class="com.vc.presentation.action.vod.NewPlayListAction">
 			<result>/WEB-INF/pages/vod/addplaylist.jsp</result>
 		</action>
 		
-		<action name="savePlayList" class="com.vc.presentation.vod.action.SavePlayListAction">
+		<action name="savePlayList" class="com.vc.presentation.action.vod.SavePlayListAction">
 			<result type="redirect">/vod/playListIndex</result>
 		</action>
 		
-		<action name="play" class="com.vc.presentation.vod.action.PlayVideoAction">
+		<action name="play" class="com.vc.presentation.action.vod.PlayVideoAction">
 			<result>/WEB-INF/pages/vod/player.jsp</result>
 		</action>
 		
 		<!-- Only for test -->
 		
-		<action name="getInfo" method="getInfo" class="com.vc.presentation.vod.action.PlayListIndexAction"/>
+		<action name="getInfo" method="getInfo" class="com.vc.presentation.action.vod.PlayListIndexAction"/>
 		
-		<action name="getS" method="getS" class="com.vc.presentation.vod.action.PlayListIndexAction"/>
+		<action name="getS" method="getS" class="com.vc.presentation.action.vod.PlayListIndexAction"/>
 			
 	</package>
 	
