@@ -5,23 +5,37 @@
 	<include href="../lps/videoconference/security/aescryptlz.lzx" />
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
+	<lpsConfig id="conf"/>
+	
 	<attribute name="filmName" value="null"/>
+	
+	<dataset name="authInfo" request="true"/>
+
+	<datapointer xpath="authInfo:/Credential">
+		<handler name="ondata">
+			var credential = this.getNodeText();
+			var url = "rtmp://"+ canvas.serverIP + "/" + canvas.vodRTMPAddress;
+			Debug.write(credential+":"+url);
+			rc.setAttribute("src",url);
+			rc.connect(credential);
+			rc.getSignature.callRPC();
+		</handler>
+	</datapointer>
 	
 	<script>
 		canvas.setDefaultContextMenu(new LzContextMenu());
-		
+	
 		function init(filmName) {
-			Debug.write("Film name :" + filmName);
+			Debug.write("Call init");
 			canvas.setAttribute("filmName", filmName);
-			canvas.rc.getSignature.callRPC();
 		}
 	</script>
 	
 	<handler name="oninit">
-		var url = "rtmp://"+ canvas.serverIP + "/" + canvas.vodRTMPAddress;
-		Debug.write(url);
-		rc.setAttribute("src",url);
-		rc.connect();
+		var url = conf.getWebPath() + "user/getAuthInfo"
+		Debug.write("request user auth:"+url);
+		authInfo.setAttribute("src", url);
+		authInfo.doRequest();
 	</handler>
 	
 	<vcrtmpconnection name="rc" autoconnect="false">

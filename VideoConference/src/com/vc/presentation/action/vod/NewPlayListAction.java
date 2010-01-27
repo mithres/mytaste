@@ -1,4 +1,4 @@
-package com.vc.presentation.actioin.vod;
+package com.vc.presentation.action.vod;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;

@@ -21,13 +21,8 @@
 		
 		<action name="play" class="com.vc.presentation.action.vod.PlayVideoAction">
 			<result>/WEB-INF/pages/vod/player.jsp</result>
+			<result name="input" type="redirect">/vod/playListIndex</result>
 		</action>
-		
-		<!-- Only for test -->
-		
-		<action name="getInfo" method="getInfo" class="com.vc.presentation.action.vod.PlayListIndexAction"/>
-		
-		<action name="getS" method="getS" class="com.vc.presentation.action.vod.PlayListIndexAction"/>
 			
 	</package>
 	

@@ -13,6 +13,8 @@ import org.red5.server.exception.ClientNotFoundException;
 import org.red5.server.exception.ClientRejectedException;
 import org.slf4j.Logger;
 
+import com.vc.util.security.ServerUtil;
+
 public class AuthedClientRegister extends ClientRegistry {
 
 	private static final Logger log = Red5LoggerFactory.getLogger(AuthedClientRegister.class, "VideoConference");
@@ -20,7 +22,12 @@ public class AuthedClientRegister extends ClientRegistry {
 	@Override
 	public IClient newClient(Object[] params) throws ClientNotFoundException, ClientRejectedException {
 
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "111111");
+		if(params.length == 0){
+			throw new ClientRejectedException();
+		}
+		String[] authStr = ServerUtil.getUserAuthInfo((String)params[0]);
+		
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authStr[0], authStr[1]);
 		IConnection conn = Red5.getConnectionLocal();
 		ProviderManager providerManager = (ProviderManager) conn.getScope().getContext().getBean("authenticationManager");
 

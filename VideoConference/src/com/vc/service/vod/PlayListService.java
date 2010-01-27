@@ -1,5 +1,6 @@
 package com.vc.service.vod;
 
+import org.acegisecurity.Authentication;
 import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.core.entity.PageListImpl;
+import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
+import com.vc.entity.UserInfo;
 
 @Service
 public class PlayListService implements IPlayListService {
@@ -21,6 +24,8 @@ public class PlayListService implements IPlayListService {
 
 	@Autowired
 	private PlayListDao playListDao = null;
+	@Autowired
+	private UserInfoDao userInfoDao = null;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -53,6 +58,23 @@ public class PlayListService implements IPlayListService {
 	@Override
 	public PlayList findPlayListById(String playListID) {
 		return playListDao.findById(playListID);
+	}
+
+	@Override
+	public Boolean canPlay(Authentication auth, String playListID) {
+		
+		UserInfo user = userInfoDao.findById(auth.getName());
+		if (user == null) {
+			return Boolean.FALSE;
+		}
+
+		PlayList playList = playListDao.findById(playListID);
+		if (playList == null) {
+			return Boolean.FALSE;
+		}
+		
+		
+		return user.getAccountBalance().longValue() >= playList.getPrice().longValue();
 	}
 
 }

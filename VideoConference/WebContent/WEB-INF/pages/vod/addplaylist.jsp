@@ -13,6 +13,7 @@
 <s:form namespace="/vod" action="savePlayList" enctype="multipart/form-data">
 	<s:textfield label="PlayListName" name="playList.playListName" />
 	<s:textfield label="FileName" name="playList.fileName" />
+	<s:textfield label="Price" name="playList.price" />
 	<s:file label="ScreenShot" name="screenShot" />
 	<s:select name="playList.playListType" label="Type"
 		list="#{'Movie':'Movie','News':'News','Sport':'Sport','No Type':'NoType'}" />

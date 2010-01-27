@@ -27,4 +27,12 @@ public class MD5 {
 
 		return strbuf.toString();
 	}
+	
+	public static void main(String[] a){
+		try {
+			System.out.println(MD5.do_checksum("111111"));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	}
 }

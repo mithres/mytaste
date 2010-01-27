@@ -109,4 +109,9 @@ public class UserService extends AbstractUserDetailsAuthenticationProvider imple
 		return null;
 	}
 
+	@Override
+	public UserInfo findUserByName(String userName) {
+		return userInfoDao.findById(userName);
+	}
+
 }

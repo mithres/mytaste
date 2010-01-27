@@ -1,6 +1,6 @@
 package com.vc.core.vod;
 
-import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.api.IScope;
@@ -42,10 +42,12 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 
 		String filename = null;
 		
+		Authentication a = SecurityContextHolder.getContext().getAuthentication();
+		
 		if (scope.getName().endsWith(Constants.VOD_SCOPE_NAME)) {
 
 			VODClient client = vodClientManager.getClientByID(ApplicationAdapterHelper.getCurrentConnection().getClient().getId());
-
+			
 			if (client != null) {
 				// TODO: Sometimes this method couldn't decrypt the encrypted
 				// message from client.

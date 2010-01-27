@@ -6,4 +6,6 @@ public interface IUserService {
 	
 	public abstract UserInfo signIn(String userName,String password);
 	
+	public abstract UserInfo findUserByName(String userName);
+	
 }

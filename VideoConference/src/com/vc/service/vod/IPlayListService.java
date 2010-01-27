@@ -1,5 +1,6 @@
 package com.vc.service.vod;
 
+import org.acegisecurity.Authentication;
 import org.acegisecurity.annotation.Secured;
 
 import com.vc.core.dao.Hints;
@@ -20,5 +21,8 @@ public interface IPlayListService {
 
 	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract IPageList<PlayList> findPlayListByType(Hints hints, PlayListType type);
+
+	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
+	public abstract Boolean canPlay(Authentication auth, String playListID);
 
 }

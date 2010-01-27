@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Welcome</title>
+</head>
+<body>
+
+
+<s:form namespace="/" action="saveConf">
+
+	<s:textfield label="Admin Name" name="conf.adminName" />
+	<s:password label="Admin Password" name="conf.adminPassword" />
+	<s:textfield label="Admin Email" name="conf.adminEmail" />
+	<s:submit label="Save" />
+
+</s:form>
+
+
+</body>
+</html>

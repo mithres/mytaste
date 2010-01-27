@@ -26,7 +26,8 @@ public abstract class BaseAction extends ActionSupport implements Preparable, Se
 
 	public static final String ERROR_PAGE = "error";
 	public static final String RUNTIME_ERROR_PAGE = "runtime";
-	public static final String NEED_LOGIN = "needlogin";
+	public static final String NEED_LOGIN = "login";
+	public static final String HOME = "home";
 
 	protected HttpServletRequest request = null;
 	protected HttpServletResponse response = null;

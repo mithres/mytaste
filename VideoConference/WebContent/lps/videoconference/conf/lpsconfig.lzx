@@ -1,8 +1,25 @@
 <library>
 	
 	<attribute name="serverIP" value="192.168.0.119" type="string"/>
+	<attribute name="httpPort" value="8080" type="string"/>
+	<attribute name="rtmp" value="" type="string"/>
+	
+	<attribute name="webRootKey" value="VideoConference" type="string"/>
 	
 	<attribute name="vodRTMPAddress" value="vod" type="string"/>
 	<attribute name="conferenceRTMPAddress" value="conference" type="string"/>
+	
+	<class name="lpsConfig" extends="node">
+	
+		<method name="getWebPath">
+		<![CDATA[
+			var key = canvas.webRootKey == "" ? "" : canvas.webRootKey + "/";
+			var port = canvas.httpPort == "" ? 80 : canvas.httpPort;
+			var webPath = "http://" + canvas.serverIP + ":" + port + "/" + key;
+			return webPath;
+		]]>
+		</method>
+		
+	</class>
 	
 </library>

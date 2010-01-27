@@ -5,7 +5,9 @@ package com.vc.core.constants;
  * 
  */
 public class Constants {
-
+	
+	public static final String USER_CREDENTIAL_AES_KEY = "UserCredential";
+	
 	public static final String VOD_SCOPE_NAME = "vod";
 	public static final String CONFERENCE_SCOPE_NAME = "conference";
 	

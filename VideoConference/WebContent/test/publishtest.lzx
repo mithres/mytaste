@@ -3,19 +3,30 @@
 	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
-	<dataset src="http://172.0.2.193:8080/VideoConference/vod/getInfo" name="myset" request="true"/>
+	<lpsConfig id="conf"/>
+	
+	<dataset name="authInfo" request="true"/>
 
-	<view name="rowOfData" datapath="myset:/Info[1]" x="100" y="50">
-		<simplelayout axis="x"/>
-		<text datapath="name/text()"/> 
-	</view>
-
+	<datapointer xpath="authInfo:/Credential">
+		<handler name="ondata">
+			Debug.write("--------------"+this.getNodeText());
+			
+		</handler>
+	</datapointer>
+     
 	
 	<vcrtmpconnection id="rc" autoconnect="false"/>
 	<mediastream name="s1" type="rtmp"/>
 	<mediastream name="s2" type="rtmp"/>
 	
 	<handler name="oninit">
+
+
+		var url1 = conf.getWebPath() + "user/getAuthInfo"
+		//authInfo = new lz.dataset();	
+		authInfo.setAttribute("src", url1);
+		authInfo.doRequest();
+
 		var url = "rtmp://" + canvas.serverIP + "/"
 				+ canvas.conferenceRTMPAddress;
 		Debug.write(url);

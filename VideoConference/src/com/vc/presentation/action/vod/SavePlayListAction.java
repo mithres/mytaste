@@ -1,4 +1,4 @@
-package com.vc.presentation.actioin.vod;
+package com.vc.presentation.action.vod;
 
 import java.io.File;
 import java.sql.Timestamp;

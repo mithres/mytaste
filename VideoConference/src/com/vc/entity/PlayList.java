@@ -33,6 +33,8 @@ public class PlayList {
 	private PlayListType playListType = PlayListType.NoType;
 
 	private FilmType filmType = FilmType.Normal;
+	
+	private Float price = null;
 
 	public String getId() {
 		return id;
@@ -96,6 +98,14 @@ public class PlayList {
 
 	public void setPlayListName(String playListName) {
 		this.playListName = playListName;
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
 	}
 
 }
