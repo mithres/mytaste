@@ -11,6 +11,7 @@
 		
 		<method name="connect" args="params">
 
+
 			this._nc = new NetConnection();
 			this._nc
 			// local reference to rtmpconnection
@@ -25,6 +26,8 @@
 			this._nc.onStatus = function(info) {
 				this.t._onStatus(info);
 			}
+
+			this.registerMethods();
 		</method>
 		
 		
@@ -120,7 +123,57 @@
             this._nc.call(func, obj);
         }
 		</method>
+		
+		<method name="registerMethods">
+		<![CDATA[
+			if (this.subnodes != null) {
+				//Register all methods which are instanceof serverCallBack
+				for (var i = 0; i < this.subnodes.length; i++) {
+					//If it is of Type serverCallBack then register it to the NetConnection
+					if (this.subnodes[i] instanceof lz.serverCallBack) {
+						Debug.write(this.subnodes[i].funcname);
+						//var t = hib;
+						this._nc[this.subnodes[i].funcname] = function(args) {
+							return this.remoteCallMethod(arguments.callee, arguments);
+							//return hib.remoteCallMethod(arguments.callee,args);
+						}
+					}
+				}
+			}
+		]]>
+		</method>
     
+		<!-- 
+				Process the RemoteCall to the Right Funtion
+				-swagner
+			 -->
+		<method name="remoteCallMethod" args="callee,args">
+		<![CDATA[
+			for (var eg in this._nc) {
+				if (this._nc[eg] == callee) {
+					if (this.debug) {
+						//_root.Debug.write.write("DEBUG invoked a function remotely: ",eg,args);
+					}
+					if (args.length == 1) {
+						return this.callFuntion(eg, args[0]);
+					} else {
+						return this.callFuntion(eg, args);
+					}
+					//return this.callFuntion(eg,args);
+				}
+			}
+		]]>
+		</method>
+    	
+		<method name="callFuntion" args="funcname,args">
+		<![CDATA[
+			for (var i = 0; i < this.subnodes.length; i++) {
+				if (this.subnodes[i].funcname == funcname) {
+					return this.subnodes[i].onResult(args);
+				}
+			}
+		]]>
+		</method>	
 		
 	</class>
 	
