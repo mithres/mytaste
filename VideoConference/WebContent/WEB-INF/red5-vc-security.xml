@@ -1,115 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
-	default-autowire="byName">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
 	
+	<beans:bean id="loggerListener" class="org.springframework.security.event.authentication.LoggerListener" />
 	
-	<bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
-		<property name="filterInvocationDefinitionSource">
-			<value><![CDATA[
-				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-				PATTERN_TYPE_APACHE_ANT
-				/**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
-			]]></value>
-		</property>
-	</bean>
-	
-	<bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
+	<http access-denied-page="/accessdenied.jsp" >
+		
+		<intercept-url pattern="/css/**" filters="none" />
+		<intercept-url pattern="/js/**" filters="none" />
+		<intercept-url pattern="/index.jsp" filters="none" />
+		<form-login login-page="/index.jsp" authentication-failure-url="/index.jsp?error=true" default-target-url="/home" />
+		<logout logout-success-url="/index.jsp"/>
+		<http-basic />
+	</http>
 
-	<bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
-		<constructor-arg value="/index.jsp"/> <!-- URL redirected to after logout -->
-		<constructor-arg>
-			<list>
-				<bean class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
-			</list>
-		</constructor-arg>
-	</bean>
-
-	<bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
-		<property name="authenticationManager" ref="authenticationManager"/>
-		<property name="authenticationFailureUrl" value="/index.jsp?login_error=1"/>
-		<property name="defaultTargetUrl" value="/home"/>
-		<property name="filterProcessesUrl" value="/signIn"/>
-	</bean>
-
-	<bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
-
-	<bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
-		<property name="key" value="changeThis"/>
-		<property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
-	</bean>
-
-	<bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
-		<property name="authenticationEntryPoint">
-			<bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-				<property name="loginFormUrl" value="/index.jsp"/>
-				<property name="forceHttps" value="false"/>
-			</bean>
-		</property>
-		<property name="accessDeniedHandler">
-			<bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
-				<property name="errorPage" value="/accessdenied.jsp"/>
-			</bean>
-		</property>
-	</bean>
+	<authentication-manager alias="authenticationManager"/>
 	
-	<bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
-		<property name="allowIfAllAbstainDecisions" value="false"/>
-		<property name="decisionVoters">
-			<list>
-				<bean class="org.acegisecurity.vote.RoleVoter"/>
-				<bean class="org.acegisecurity.vote.AuthenticatedVoter"/>
-			</list>
-		</property>
-	</bean>
-			
-	<bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
-		<property name="authenticationManager" ref="authenticationManager"/>
-		<property name="accessDecisionManager" ref="accessDecisionManager"/>
-		<property name="objectDefinitionSource">
-			<value><![CDATA[
-				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-				PATTERN_TYPE_APACHE_ANT
-				/user/**=ROLE_USER,ROLE_ADMIN
-				/vod/**=ROLE_USER,ROLE_ADMIN
-				/conference/**=ROLE_USER,ROLE_ADMIN
-				/admin/**=ROLE_ADMIN
-				/**=IS_AUTHENTICATED_ANONYMOUSLY
-			]]></value>
-		</property>
-	</bean>
+	<authentication-provider user-service-ref="userService">
+		<password-encoder hash="md5"/>
+	</authentication-provider>
 	
-	<bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
-		<property name="providers">
-			<list>
-				<ref local="userService"/>
-			</list>
-		</property>
-	</bean>
+	<beans:bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+		<beans:property name="allowIfAllAbstainDecisions" value="false"/>
+		<beans:property name="decisionVoters">
+			<beans:list>
+				<beans:bean class="org.springframework.security.vote.RoleVoter"/>
+				<beans:bean class="org.springframework.security.vote.AuthenticatedVoter"/>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 	
-	<bean id="userService" class="com.vc.service.user.UserService"/>
+	<beans:bean id="resourceSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager"/>
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager"/>
+		<beans:property name="objectDefinitionSource" ref="secureResourceFilterInvocationDefinitionSource" />
+		<beans:property name="observeOncePerRequest" value="false" />
+		<custom-filter after="LAST" />
+	</beans:bean>
 	
+	<beans:bean id="secureResourceFilterInvocationDefinitionSource" class="com.vc.security.interceptors.SecureResourceFilterInvocationDefinitionSource" />
 	
-	<bean class="org.acegisecurity.intercept.method.aopalliance.MethodDefinitionSourceAdvisor" autowire="constructor" />
+	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
 
-	<bean id="methodSecurityInterceptor" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
-		<property name="validateConfigAttributes" value="true" />
-		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="accessDecisionManager" ref="accessDecisionManager" />
-		<property name="objectDefinitionSource">
-			<bean class="org.acegisecurity.intercept.method.MethodDefinitionAttributes">
-				<property name="attributes">
-					<bean class="org.acegisecurity.annotation.SecurityAnnotationAttributes" />
-				</property>
-			</bean>
-		</property>
-	</bean>
- 
-
-    
-</beans>
+</beans:beans>

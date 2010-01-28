@@ -1,7 +1,7 @@
 package com.vc.service.vod;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.annotation.Secured;
+import org.springframework.security.Authentication;
+import org.springframework.security.annotation.Secured;
 
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;

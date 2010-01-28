@@ -1,7 +1,7 @@
 package com.vc.presentation.action.vod;
 
-import org.acegisecurity.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;

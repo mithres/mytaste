@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.acegisecurity.Authentication;
+import org.springframework.security.Authentication;
 
 import com.vc.core.constants.Constants;
 

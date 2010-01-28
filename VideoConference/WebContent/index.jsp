@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form action="signIn" method="POST">
+<form action="j_spring_security_check" method="POST">
 <table>
 	<tr>
 		<td>User:</td>

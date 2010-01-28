@@ -21,24 +21,19 @@
 	</context-param>
 	
 	<filter>
-		<filter-name>Acegi Filter Chain Proxy</filter-name>
-		<filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
-		<init-param>
-			<param-name>targetClass</param-name>
-			<param-value>org.acegisecurity.util.FilterChainProxy</param-value>
-		</init-param>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 
 	<filter-mapping>
-		<filter-name>Acegi Filter Chain Proxy</filter-name>
+		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 
 	<!-- Character Encoding filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>com.vc.core.filter.EncodingFilter
+		<filter-class>com.vc.presentatioin.filter.EncodingFilter
 		</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
@@ -101,6 +96,9 @@
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.vc.presentatioin.listener.ServletContextLoaderListener</listener-class>
 	</listener>
     	
 	<servlet>

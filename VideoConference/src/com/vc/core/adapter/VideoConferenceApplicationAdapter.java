@@ -1,8 +1,5 @@
 package com.vc.core.adapter;
 
-import org.acegisecurity.BadCredentialsException;
-import org.acegisecurity.providers.ProviderManager;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IClient;
@@ -15,6 +12,9 @@ import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.red5.server.api.stream.ISubscriberStream;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.BadCredentialsException;
+import org.springframework.security.providers.ProviderManager;
+import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.vod.IVODClientManager;

@@ -1,4 +1,4 @@
-package com.vc.core.filter;
+package com.vc.presentatioin.filter;
 
 import java.io.IOException;
 

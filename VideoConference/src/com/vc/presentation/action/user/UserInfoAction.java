@@ -2,11 +2,11 @@ package com.vc.presentation.action.user;
 
 import java.io.IOException;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.springframework.security.Authentication;
+import org.springframework.security.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;

@@ -1,9 +1,5 @@
 package com.vc.core.client;
 
-import org.acegisecurity.BadCredentialsException;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.providers.ProviderManager;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.ClientRegistry;
 import org.red5.server.api.IClient;
@@ -12,6 +8,10 @@ import org.red5.server.api.Red5;
 import org.red5.server.exception.ClientNotFoundException;
 import org.red5.server.exception.ClientRejectedException;
 import org.slf4j.Logger;
+import org.springframework.security.BadCredentialsException;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.providers.ProviderManager;
+import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 
 import com.vc.util.security.ServerUtil;
 
