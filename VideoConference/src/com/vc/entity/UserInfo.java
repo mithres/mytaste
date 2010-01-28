@@ -51,7 +51,7 @@ public class UserInfo implements UserDetails {
 	@OrderBy("purchaseDate desc")
 	private Set<PurchasesHistory> purchasesHistory = new HashSet<PurchasesHistory>();
 
-	private Long accountBalance = null;
+	private Long accountBalance = new Long(0);
 
 	@Transient
 	private GrantedAuthority[] authorities = null;

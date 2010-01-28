@@ -10,7 +10,7 @@
 <body>
 
 
-<s:form namespace="/" action="saveConf">
+<s:form namespace="/installer" action="startup">
 
 	<s:textfield label="Admin Name" name="conf.adminName" />
 	<s:password label="Admin Password" name="conf.adminPassword" />
