@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.vod.IVODClientManager;
 
-public class VODApplicationAdapter extends ApplicationAdapter {
+public class VODApplicationAdapter extends ApplicationAdapter{
 
 	private static final Logger log = Red5LoggerFactory.getLogger(VODApplicationAdapter.class, "VideoConference");
 
@@ -32,7 +32,7 @@ public class VODApplicationAdapter extends ApplicationAdapter {
 	@Override
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
 		log.info("------Client connect to vod scope ----------");
-
+		
 		return true;
 	}
 

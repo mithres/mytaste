@@ -15,7 +15,6 @@
 		<handler name="ondata">
 			var credential = this.getNodeText();
 			var url = "rtmp://"+ canvas.serverIP + "/" + canvas.vodRTMPAddress;
-			Debug.write(credential+":"+url);
 			rc.setAttribute("src",url);
 			rc.connect(credential);
 			rc.getSignature.callRPC();
@@ -26,7 +25,6 @@
 		canvas.setDefaultContextMenu(new LzContextMenu());
 	
 		function init(filmName) {
-			Debug.write("Call init");
 			canvas.setAttribute("filmName", filmName);
 		}
 	</script>

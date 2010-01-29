@@ -5,13 +5,13 @@
 	
 	<vcrtmpconnection src="rtmp://172.0.2.193/vod" autoconnect="true">
 		
-		<serverCallBack name="scb" funcname="xxx">
+		<servercallback name="serverCallBack" funcname="xxx">
 			<method name="onResult" args="value">
-				Debug.write("Do something you like");
-				return "abc";
-			</method>
+				Debug.write("Get result from server" + value);
+				return "test message";
+			</method>  
 			
-		</serverCallBack>
+		</servercallback>
 		
 	</vcrtmpconnection>
 	

@@ -110,7 +110,7 @@
 				//Register all methods which are instanceof serverCallBack
 				for (var i = 0; i < this.subnodes.length; i++) {
 					//If it is of Type serverCallBack then register it to the NetConnection
-					if (this.subnodes[i] instanceof lz.serverCallBack) {
+					if (this.subnodes[i] instanceof lz.servercallback) {
 						Debug.write(this.subnodes[i].funcname);
 						//var t = hib;
 						this._nc[this.subnodes[i].funcname] = function(args) {
@@ -258,6 +258,6 @@
 		<attribute name="value" value="null"/>
 	</class>
 	
-	<class name="serverCallBack" extends="netremotecall"/>
+	<class name="servercallback" extends="netremotecall"/>
     
 </library>
