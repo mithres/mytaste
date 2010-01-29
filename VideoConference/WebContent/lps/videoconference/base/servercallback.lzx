@@ -1,7 +1,0 @@
-<library>
-	
-	<class name="serverCallBack" extends="netremotecall">
-		
-	</class>
-	
-</library>

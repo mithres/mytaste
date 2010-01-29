@@ -21,30 +21,30 @@ public class AuthedClientRegister extends ClientRegistry {
 
 	@Override
 	public IClient newClient(Object[] params) throws ClientNotFoundException, ClientRejectedException {
-		return  super.newClient(params);
-//		if(params.length == 0){
-//			throw new ClientRejectedException();
-//		}
-//		String[] authStr = ServerUtil.getUserAuthInfo((String)params[0]);
-//		
-//		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authStr[0], authStr[1]);
-//		IConnection conn = Red5.getConnectionLocal();
-//		ProviderManager providerManager = (ProviderManager) conn.getScope().getContext().getBean("authenticationManager");
-//
-//		try {
-//			auth = (UsernamePasswordAuthenticationToken) providerManager.authenticate(auth);
-//			SecurityContextHolder.getContext().setAuthentication(auth);
-//		} catch (BadCredentialsException ex) {
-//			throw new ClientRejectedException();
-//		}
-//
-//		if (auth.isAuthenticated()) {
-//			IClient client =  super.newClient(params);
-//			client.setAttribute("authInformation", auth);
-//			return client;
-//		} else {
-//			throw new ClientRejectedException();
-//		}
+
+		if (params.length == 0) {
+			throw new ClientRejectedException();
+		}
+		String[] authStr = ServerUtil.getUserAuthInfo((String) params[0]);
+
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authStr[0], authStr[1]);
+		IConnection conn = Red5.getConnectionLocal();
+		ProviderManager providerManager = (ProviderManager) conn.getScope().getContext().getBean("authenticationManager");
+
+		try {
+			auth = (UsernamePasswordAuthenticationToken) providerManager.authenticate(auth);
+			SecurityContextHolder.getContext().setAuthentication(auth);
+		} catch (BadCredentialsException ex) {
+			throw new ClientRejectedException();
+		}
+
+		if (auth.isAuthenticated()) {
+			IClient client = super.newClient(params);
+			client.setAttribute("authInformation", auth);
+			return client;
+		} else {
+			throw new ClientRejectedException();
+		}
 	}
 
 }

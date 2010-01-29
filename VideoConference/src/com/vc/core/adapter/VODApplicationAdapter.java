@@ -4,7 +4,6 @@ import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
-import org.red5.server.api.service.IServiceCapableConnection;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,11 +32,6 @@ public class VODApplicationAdapter extends ApplicationAdapter {
 	@Override
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
 		log.info("------Client connect to vod scope ----------");
-
-		if (conn instanceof IServiceCapableConnection) {
-			IServiceCapableConnection sc = (IServiceCapableConnection) conn;
-			sc.invoke("xxx");
-		}
 
 		return true;
 	}
