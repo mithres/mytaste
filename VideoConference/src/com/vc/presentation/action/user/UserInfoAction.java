@@ -30,6 +30,7 @@ public class UserInfoAction extends BaseAction {
 
 			String authInfo = ServerUtil.createEncryptedAuthInfo(authentication);
 
+
 			Document doc = DocumentHelper.createDocument();
 			Element root = doc.addElement("Credential");
 			root.setText(authInfo);

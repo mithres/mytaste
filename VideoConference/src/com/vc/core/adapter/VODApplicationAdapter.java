@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vc.core.vod.VODSecurityHandler;
-import com.vc.service.vod.IVODClientManager;
+import com.vc.service.cluster.IClientManager;
 
 public class VODApplicationAdapter extends ApplicationAdapter{
 
@@ -18,7 +18,7 @@ public class VODApplicationAdapter extends ApplicationAdapter{
 	public static String webAppPath = "";
 
 	@Autowired
-	private IVODClientManager vodClientManager = null;
+	private IClientManager vodClientManager = null;
 
 	@Override
 	public synchronized boolean start(IScope scope) {

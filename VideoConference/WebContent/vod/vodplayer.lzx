@@ -14,8 +14,9 @@
 	<datapointer xpath="authInfo:/Credential">
 		<handler name="ondata">
 			var credential = this.getNodeText();
-			var url = "rtmp://"+ canvas.serverIP + "/" + canvas.vodRTMPAddress;
-			rc.setAttribute("src",url);
+			var url = "rtmp://" + canvas.serverIP + "/" + canvas.vodRTMPAddress;
+			Debug.write("Connect to " + url);
+			rc.setAttribute("src", url);
 			rc.connect(credential);
 			rc.getSignature.callRPC();
 		</handler>
@@ -23,7 +24,7 @@
 	
 	<script>
 		canvas.setDefaultContextMenu(new LzContextMenu());
-	
+
 		function init(filmName) {
 			canvas.setAttribute("filmName", filmName);
 		}
@@ -31,7 +32,7 @@
 	
 	<handler name="oninit">
 		var url = conf.getWebPath() + "user/getAuthInfo"
-		Debug.write("request user auth:"+url);
+		Debug.write("request user auth:" + url);
 		authInfo.setAttribute("src", url);
 		authInfo.doRequest();
 	</handler>

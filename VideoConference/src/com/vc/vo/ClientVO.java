@@ -1,8 +1,10 @@
-package com.vc.bo.vod;
+package com.vc.vo;
 
 import java.util.Date;
 
-public class VODClient {
+import org.springframework.security.Authentication;
+
+public class ClientVO {
 	
 	private String clientID = null;
 	
@@ -15,6 +17,8 @@ public class VODClient {
 	private String remoteAddress = null;
 	
 	private Integer remotePort = null;
+	
+	private Authentication authentication = null;
 
 	public String getClientID() {
 		return clientID;
