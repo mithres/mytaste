@@ -6,22 +6,31 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.security.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.vc.util.security.AesCrypt;
 import com.vc.vo.ClientVO;
 
-@Service("vodClientManager")
+@Service
 public class ClientManager implements IClientManager {
-	
-	//TODO:Need test concurrent map effect
-	
+
 	private static final Logger log = Red5LoggerFactory.getLogger(ClientManager.class, "VideoConference");
 
+	// TODO:Need test concurrent map effects
 	private static ConcurrentMap<String, ClientVO> CLIENT_LIST = new ConcurrentHashMap<String, ClientVO>();
-	
-	private static ConcurrentMap<String, String> CLIENT_SESSION_LIST = new ConcurrentHashMap<String, String>();
-	
+
+	@Override
+	public ClientVO addClientListItem(String sessionID, Authentication auth) {
+		ClientVO vo = new ClientVO(sessionID, auth);
+		CLIENT_LIST.put(sessionID, vo);
+		return vo;
+	}
+
+	@Override
+	public ClientVO getClientBySessionID(String sessionID) {
+		return CLIENT_LIST.get(sessionID);
+	}
 
 	/*
 	 * (non-Javadoc)

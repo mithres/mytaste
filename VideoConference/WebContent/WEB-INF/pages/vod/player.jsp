@@ -14,8 +14,11 @@
 	src="<web.page:path/>/lps/includes/embed-compressed.js "></script>
 <script>
 	function initPlayer() {
-		var vodPlayer = lz.embed.lzapp; 
-		vodPlayer.callMethod('init(<s:property value="playListID"/>)');
+		var vodPlayer = lz.embed.lzapp;
+		var playListID =  '<s:property value="playListID"/>';
+		var sid = '<s:property value="sid"/>';
+		alert(sid);
+		vodPlayer.callMethod('init('+playListID+','+sid+')');
 	}
 </script>
 </head>
@@ -30,7 +33,8 @@
 		id : 'lzapp'
 	});
 </script>
-<input type="button" onclick="initPlayer();" value="button" name="button"/>
+<input type="button" onclick="initPlayer();" value="button"
+	name="button" />
 </body>
 
 </html>

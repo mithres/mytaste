@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.cluster.IClientManager;
 
-public class VODApplicationAdapter extends ApplicationAdapter{
+public class VODApplicationAdapter extends ApplicationAdapter {
 
 	private static final Logger log = Red5LoggerFactory.getLogger(VODApplicationAdapter.class, "VideoConference");
 
@@ -18,13 +18,13 @@ public class VODApplicationAdapter extends ApplicationAdapter{
 	public static String webAppPath = "";
 
 	@Autowired
-	private IClientManager vodClientManager = null;
+	private IClientManager clientManager = null;
 
 	@Override
 	public synchronized boolean start(IScope scope) {
 
 		VODSecurityHandler vodHandler = new VODSecurityHandler();
-		vodHandler.setVodClientManager(vodClientManager);
+		vodHandler.setVodClientManager(clientManager);
 		scope.registerServiceHandler("vod", vodHandler);
 		return super.start(scope);
 	}
@@ -32,14 +32,13 @@ public class VODApplicationAdapter extends ApplicationAdapter{
 	@Override
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
 		log.info("------Client connect to vod scope ----------");
-		
+
 		return true;
 	}
 
 	@Override
 	public synchronized void disconnect(IConnection conn, IScope scope) {
 		log.info("----------------------disconnect-----------------------");
-		vodClientManager.removeClient(conn.getClient().getId());
 		super.disconnect(conn, scope);
 	}
 

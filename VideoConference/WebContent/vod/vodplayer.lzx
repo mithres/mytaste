@@ -8,33 +8,36 @@
 	<lpsConfig id="conf"/>
 	
 	<attribute name="filmName" value="null"/>
+	<attribute name="sid" value="null"/>
 	
-	<dataset name="authInfo" request="true"/>
+	<!--dataset name="authInfo" request="true"/>
 
-	<datapointer xpath="authInfo:/Credential">
-		<handler name="ondata">
-			var credential = this.getNodeText();
-			var url = "rtmp://" + canvas.serverIP + "/" + canvas.vodRTMPAddress;
-			Debug.write("Connect to " + url);
-			rc.setAttribute("src", url);
-			rc.connect(credential);
-			rc.getSignature.callRPC();
-		</handler>
-	</datapointer>
+		<datapointer xpath="authInfo:/Credential">
+			<handler name="ondata">
+				var credential = this.getNodeText();
+				var url = "rtmp://" + canvas.serverIP + "/" + canvas.vodRTMPAddress;
+				Debug.write("Connect to " + url);
+				rc.setAttribute("src", url);
+				rc.connect(credential);
+				rc.getSignature.callRPC();
+			</handler>
+		</datapointer-->
 	
 	<script>
 		canvas.setDefaultContextMenu(new LzContextMenu());
-
-		function init(filmName) {
+		function init(filmName, sid) {
 			canvas.setAttribute("filmName", filmName);
+			canvas.setAttribute("sid", sid);
+			Debug.write("Sid " + sid);
 		}
 	</script>
 	
 	<handler name="oninit">
-		var url = conf.getWebPath() + "user/getAuthInfo"
-		Debug.write("request user auth:" + url);
-		authInfo.setAttribute("src", url);
-		authInfo.doRequest();
+		var url = "rtmp://" + canvas.serverIP + "/" + canvas.vodRTMPAddress;
+		Debug.write("Connect to " + url);
+		rc.setAttribute("src", url);
+		rc.connect(canvas.sid);
+		rc.getSignature.callRPC();
 	</handler>
 	
 	<vcrtmpconnection name="rc" autoconnect="false">

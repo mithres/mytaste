@@ -13,21 +13,25 @@ public class PlayVideoAction extends BaseAction {
 
 	@Autowired
 	private IPlayListService playListService = null;
-	
+
 	private String playListID = null;
+
+	private String sid = null;
 
 	@Override
 	public String process() {
 
 		if (playListID != null) {
-			if(!playListService.canPlay(SecurityContextHolder.getContext().getAuthentication(), playListID)){
+			if (!playListService.canPlay(SecurityContextHolder.getContext().getAuthentication(), playListID)) {
 				addActionError("Your account has not enough money to play the movie.");
 				return Action.INPUT;
 			}
-		}else{
+		} else {
 			addActionError("The movie you want to play does not exist.");
 			return Action.INPUT;
 		}
+
+		sid = this.getRequest().getSession().getId();
 
 		return Action.SUCCESS;
 	}
@@ -38,6 +42,10 @@ public class PlayVideoAction extends BaseAction {
 
 	public void setPlayListID(String playListID) {
 		this.playListID = playListID;
+	}
+
+	public String getSid() {
+		return sid;
 	}
 
 }
