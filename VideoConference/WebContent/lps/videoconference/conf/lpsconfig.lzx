@@ -1,8 +1,11 @@
 <library>
 	
-	<attribute name="serverIP" value="192.168.1.2" type="string"/>
+	<attribute name="serverIP" value="172.0.2.193" type="string"/>
 	<attribute name="httpPort" value="8080" type="string"/>
 	<attribute name="rtmp" value="" type="string"/>
+	<attribute name="rtmpPort" value="1935" type="string"/>
+	<attribute name="vodContext" value="/vod" type="string"/>
+	<attribute name="conferenceContext" value="/conference" type="string"/>
 	
 	<attribute name="webRootKey" value="VideoConference" type="string"/>
 	
@@ -17,6 +20,20 @@
 			var port = canvas.httpPort == "" ? 80 : canvas.httpPort;
 			var webPath = "http://" + canvas.serverIP + ":" + port + "/" + key;
 			return webPath;
+		]]>
+		</method>
+		
+		<method name="getRtmpPath">
+		<![CDATA[
+			var port = canvas.rtmpPort == "" ? 1953 : canvas.rtmpPort;
+			var rtmpPath = "rtmp://" + canvas.serverIP + ":" + port;
+			return rtmpPath;
+		]]>
+		</method>
+		
+		<method name="getVODPath">
+		<![CDATA[
+			return this.getRtmpPath() + canvas.vodContext;
 		]]>
 		</method>
 		

@@ -15,15 +15,17 @@
 <script>
 	function initPlayer() {
 		var vodPlayer = lz.embed.lzapp;
-		var playListID =  '<s:property value="playListID"/>';
+		var playListID = '<s:property value="playListID"/>';
 		var sid = '<s:property value="sid"/>';
-		alert(sid);
-		vodPlayer.callMethod('init('+playListID+','+sid+')');
+		var callMethod = "init('" + playListID + "','" + sid + "')";
+		vodPlayer.callMethod(callMethod);
 	}
 </script>
 </head>
 
 <body onload="initPlayer();">
+<s:property value="sid" />
+
 <script>
 	lz.embed.swf( {
 		url : '<web.page:path/>/vod/vodplayer.lzx?lzt=swf',
@@ -33,8 +35,9 @@
 		id : 'lzapp'
 	});
 </script>
-<input type="button" onclick="initPlayer();" value="button"
-	name="button" />
+
+
+
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 <tc:tc-config xsi:schemaLocation="http://www.terracotta.org/schema/terracotta-4.xsd" xmlns:tc="http://www.terracotta.org/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <servers>
     <!--Shows where the Terracotta server can be found.-->
-    <server host="localhost">
+    <server host="172.0.2.193">
       <data>%(user.home)/terracotta/server-data</data>
       <logs>%(user.home)/terracotta/server-logs</logs>
     </server>
@@ -19,6 +19,9 @@
   <application>
     <dso>
       <instrumented-classes>
+      	<include>
+          <class-expression>com.vc.service.cluster.ClientManager</class-expression>
+        </include>
         <include>
           <class-expression>com.vc.entity.*</class-expression>
         </include>
