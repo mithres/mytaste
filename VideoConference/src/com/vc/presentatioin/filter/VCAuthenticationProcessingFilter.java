@@ -22,14 +22,15 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 	@Override
 	protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult)
 			throws IOException {
+		
 		super.onSuccessfulAuthentication(request, response, authResult);
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
 		if (authentication.getDetails() instanceof WebAuthenticationDetails) {
 			IClientManager clientManager = (IClientManager) ApplicationContextUtil.getApplicationContext().getBean("clientManager");
 			WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 			clientManager.addClientListItem(details.getSessionId(), authentication);
-			log.info("Client sid :" + details.getSessionId());
 		}
 
 	}
