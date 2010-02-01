@@ -187,7 +187,8 @@ public class GenericDAO<T, PK extends Serializable> extends JpaDaoSupport {
         return getJpaTemplate().executeFind(new JpaCallback() {
             public Object doInJpa(EntityManager em) {
                 Query query = em.createQuery(queryString);
-
+                
+                
                 if (hnts.getHints() != null) {
                     Hints.applyHintsTo(query, hnts.getHints());
                 }
@@ -203,6 +204,7 @@ public class GenericDAO<T, PK extends Serializable> extends JpaDaoSupport {
                 if (hnts.getLength() > 0) {
                     query.setMaxResults(hnts.getLength());
                 }
+                
 
                 return query.getResultList();
             }
