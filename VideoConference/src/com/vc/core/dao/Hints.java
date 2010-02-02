@@ -7,8 +7,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.Query;
-
+import org.hibernate.Query;
 
 /**
  * JPA query hints
@@ -16,86 +15,70 @@ import javax.persistence.Query;
  * @author Ammen
  * @see HintConstants
  */
-@SuppressWarnings("unchecked")
-public class Hints extends Offset implements Serializable{
+public class Hints extends Offset implements Serializable {
 
 	private static final long serialVersionUID = 4188404084579334606L;
 
 	/**
-     * Set hints and offset to query.
-     * 
-     * @param query
-     * @param hints
-     */
-    public static void applyHintsTo(Query query, Hints hints) {
-        applyTo(query, hints);
-        if (hints.hints != null) {
-            applyHintsTo(query, hints.hints);
-        }
+	 * Set hints and offset to query.
+	 * 
+	 * @param query
+	 * @param hints
+	 */
+	public static void applyHintsTo(Query query, Hints hints) {
+		applyTo(query, hints);
+	}
 
-    }
+	/**
+	 * Hints map
+	 */
+	protected Map<String, Object> hints = new HashMap<String, Object>();
 
-    protected static void applyHintsTo(Query query, Map<String, Object> hints) {
-        for (Map.Entry<String, Object> hint : hints.entrySet()) {
-            query.setHint(hint.getKey(), hint.getValue());
-        }
+	public Hints() {
+		super(0);
+	}
 
-    }
+	public Hints(Hints hints) {
+		super(hints.offset, hints.length);
+		if (hints.hints != null) {
+			this.hints = new HashMap<String, Object>(hints.hints);
+		}
+	}
 
-    /**
-     * Hints map
-     */
-    protected Map<String, Object> hints;
+	/**
+	 * @param offset
+	 */
+	public Hints(int offset) {
+		super(offset);
+	}
 
+	/**
+	 * @param offset
+	 * @param length
+	 */
+	public Hints(int offset, int length) {
+		super(offset, length);
+	}
 
-    public Hints() {
-        super(0);
-    }
+	public Hints(int offset, int length, Map<String, Object> hints) {
+		super(offset, length);
+		this.hints = hints;
+	}
 
-    public Hints(Hints hints) {
-    	super(hints.offset, hints.length);
-    	if (hints.hints != null) {
-    		this.hints = new HashMap<String, Object>(hints.hints);
-    	}
-    }
-    /**
-     * @param offset
-     */
-    public Hints(int offset) {
-        super(offset);
-    }
+	public Map<String, Object> getHints() {
+		return hints;
+	}
 
-    /**
-     * @param offset
-     * @param length
-     */
-    public Hints(int offset, int length) {
-        super(offset, length);
-    }
+	public void setHints(Map<String, Object> hints) {
+		this.hints = hints;
+	}
 
-    public Hints(int offset, int length, Map<String, Object> hints) {
-        super(offset, length);
-        this.hints = hints;
-    }
+	public void setHintParameters(String name, Object value) {
+		hints.put(name, value);
+	}
 
-    public Map<String, Object> getHints() {
-        return hints;
-    }
-
-    public void setHints(Map<String, Object> hints) {
-        this.hints = hints;
-    }
-
-    public void setHintParameters(Map<String, Object> parameter) {
-        if (hints == null) {
-            hints = parameter;
-        } else {
-            hints.putAll(parameter);
-        }
-    }
-    
-    @Override
-    public String toString() {
-    	return "offset " + offset + ", length " + length + ", hints " + hints; 
-    }
+	@Override
+	public String toString() {
+		return "offset " + offset + ", length " + length + ", hints " + hints;
+	}
 }

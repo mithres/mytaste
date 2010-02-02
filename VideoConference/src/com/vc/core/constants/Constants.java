@@ -26,4 +26,7 @@ public class Constants {
 	public static final int DEFAULT_WIDTH = 128;
 	public static final int DEFAULT_HEIGHT = 128;
 	
+	//Query hints
+	public static final String ENABLE_QUERY_CACHE = "EnableQueryCache";
+	
 }

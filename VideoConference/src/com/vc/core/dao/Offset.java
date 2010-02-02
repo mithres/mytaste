@@ -1,6 +1,7 @@
 package com.vc.core.dao;
 
-import javax.persistence.Query;
+import org.hibernate.Query;
+
 
 
 /**

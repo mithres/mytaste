@@ -5,8 +5,6 @@ import org.red5.server.api.IScope;
 import org.red5.server.api.stream.IStreamFilenameGenerator;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContextHolder;
 
 import com.vc.core.adapter.ApplicationAdapterHelper;
 import com.vc.core.constants.Constants;
@@ -41,9 +39,7 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 	public String generateFilename(IScope scope, String name, String extension, GenerationType type) {
 
 		String filename = null;
-		
-		Authentication a = SecurityContextHolder.getContext().getAuthentication();
-		
+
 		if (scope.getName().endsWith(Constants.VOD_SCOPE_NAME)) {
 
 			ClientVO client = vodClientManager.getClientByID(ApplicationAdapterHelper.getCurrentConnection().getClient().getId());

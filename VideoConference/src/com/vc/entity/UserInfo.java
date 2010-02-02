@@ -44,7 +44,7 @@ public class UserInfo implements UserDetails {
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_name"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Role> roles = new HashSet<Role>();
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

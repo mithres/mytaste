@@ -34,7 +34,7 @@ public class Resource {
 
 	@ManyToMany(mappedBy = "ressources", fetch = FetchType.EAGER)
 	@JoinTable(name = "role_resource", joinColumns = @JoinColumn(name = "resource_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Role> roles = new HashSet<Role>();
 
 	public String getResourceId() {

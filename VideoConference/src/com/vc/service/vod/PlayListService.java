@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vc.core.constants.Constants;
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.core.entity.PageListImpl;
@@ -40,6 +41,7 @@ public class PlayListService implements IPlayListService {
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCount());
 		if (list.getRecordTotal() > 0) {
+			hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 			list.setRecords(playListDao.findPlayList(hints));
 		}
 		return list;
@@ -50,6 +52,7 @@ public class PlayListService implements IPlayListService {
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCountByType(type));
 		if (list.getRecordTotal() > 0) {
+			hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 			list.setRecords(playListDao.findPlayListByType(type, hints));
 		}
 		return list;
@@ -62,7 +65,7 @@ public class PlayListService implements IPlayListService {
 
 	@Override
 	public Boolean canPlay(Authentication auth, String playListID) {
-		
+
 		UserInfo user = userInfoDao.findById(auth.getName());
 		if (user == null) {
 			return Boolean.FALSE;
@@ -72,8 +75,7 @@ public class PlayListService implements IPlayListService {
 		if (playList == null) {
 			return Boolean.FALSE;
 		}
-		
-		
+
 		return user.getAccountBalance().longValue() >= playList.getPrice().longValue();
 	}
 
