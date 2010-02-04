@@ -1,7 +1,5 @@
 package com.vc.core.client;
 
-import java.util.Date;
-
 import org.red5.server.ClientRegistry;
 import org.red5.server.api.IClient;
 import org.red5.server.api.IConnection;
@@ -38,17 +36,11 @@ public class AuthedClientRegister extends ClientRegistry {
 			IConnection conn = Red5.getConnectionLocal();
 			IScope scope = conn.getScope();
 			IClient client = super.newClient(params);
-			
-			//TODO: support one session connection and multi red5 connection 
-			if (clientVO.getClientKey() == null) {
-				clientVO.setClientKey(AesCrypt.genKey());
-			}
-			clientVO.setClientID(client.getId());
-			clientVO.setConnectSince(new Date());
-			clientVO.setRemoteAddress(conn.getRemoteAddress());
-			clientVO.setRemotePort(conn.getRemotePort());
-			clientVO.setScopeName(scope.getName());
-			
+
+			// TODO: support one session connection and multi red5 connection
+			String clientKey = AesCrypt.genKey();
+			clientVO.setClientConnectionInfo(client.getId(), clientKey, scope.getName(), conn.getRemoteAddress(), conn.getRemotePort());
+
 			// Put sessionId to current client attribute
 			client.setAttribute(Constants.SESSION_ID, clientAuthenticationToken);
 			return client;

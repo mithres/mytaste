@@ -1,10 +1,21 @@
 package com.vc.vo;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.security.Authentication;
 
+import com.vc.core.adapter.VODApplicationAdapter;
+
 public class ClientVO {
+
+	private static final Logger log = Red5LoggerFactory.getLogger(VODApplicationAdapter.class, "VideoConference");
+
+	private final Lock lock = new ReentrantLock();
 
 	private String sessionID = null;
 
@@ -18,7 +29,7 @@ public class ClientVO {
 
 	private String remoteAddress = null;
 
-	private Integer remotePort = null;
+	private int remotePort = 0;
 
 	private Authentication authentication = null;
 
@@ -31,68 +42,54 @@ public class ClientVO {
 		this.authentication = auth;
 	}
 
-	public String getClientID() {
-		return clientID;
-	}
-
-	public void setClientID(String clientID) {
-		this.clientID = clientID;
-	}
-
-	public String getClientKey() {
-		return clientKey;
-	}
-
-	public void setClientKey(String clientKey) {
-		this.clientKey = clientKey;
-	}
-
-	public String getScopeName() {
-		return scopeName;
-	}
-
-	public void setScopeName(String scopeName) {
-		this.scopeName = scopeName;
-	}
-
-	public Date getConnectSince() {
-		return connectSince;
-	}
-
-	public void setConnectSince(Date connectSince) {
-		this.connectSince = connectSince;
-	}
-
-	public String getRemoteAddress() {
-		return remoteAddress;
-	}
-
-	public void setRemoteAddress(String remoteAddress) {
-		this.remoteAddress = remoteAddress;
-	}
-
-	public Integer getRemotePort() {
-		return remotePort;
-	}
-
-	public void setRemotePort(Integer remotePort) {
-		this.remotePort = remotePort;
-	}
-
-	public Authentication getAuthentication() {
-		return authentication;
-	}
-
-	public void setAuthentication(Authentication authentication) {
-		this.authentication = authentication;
+	public void setClientConnectionInfo(String clientId, String clientKey, String scopeName, String remoteAddress, int remotePort) {
+		try {
+			if (lock.tryLock(500, TimeUnit.MILLISECONDS)) {
+				this.clientID = clientId;
+				this.clientKey = clientKey;
+				this.scopeName = scopeName;
+				this.remoteAddress = remoteAddress;
+				this.remotePort = remotePort;
+				this.connectSince = new Date();
+				lock.unlock();
+			} else {
+				log.error("Current thread want to lock client vo but the operation is failure.");
+			}
+		} catch (InterruptedException e) {
+			log.error("Lock client vo error", e);
+		}
 	}
 
 	public String getSessionID() {
 		return sessionID;
 	}
 
-	public void setSessionID(String sessionID) {
-		this.sessionID = sessionID;
+	public String getClientID() {
+		return clientID;
+	}
+
+	public String getClientKey() {
+		return clientKey;
+	}
+
+	public String getScopeName() {
+		return scopeName;
+	}
+
+	public Date getConnectSince() {
+		return connectSince;
+	}
+
+	public String getRemoteAddress() {
+		return remoteAddress;
+	}
+
+	public int getRemotePort() {
+		return remotePort;
+	}
+
+	public Authentication getAuthentication() {
+		return authentication;
 	}
 
 }

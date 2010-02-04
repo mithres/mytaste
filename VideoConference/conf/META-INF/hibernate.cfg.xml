@@ -22,11 +22,9 @@
 		<property name="generate_statistics">true</property>
 		<property name="cache.use_structured_entries">true</property>
 			
-		<!-- property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" /-->
-			
 		<!-- enable use hibernate second level cache -->
 		<property name="cache.use_second_level_cache">true</property>
-		<property name="cache.use_query_cache">true</property>
+		<!--property name="cache.use_query_cache">true</property-->
 		<property name="cache.provider_class">org.terracotta.hibernate.TerracottaHibernateCacheProvider</property>
 			
 	</session-factory>
