@@ -6,9 +6,6 @@ import com.vc.vo.ClientVO;
 
 public interface IClientManager {
 
-	// TODO:remove
-	public abstract ClientVO addClientListItem(String streamId, String scopeName, Integer remotePort, String remoteAddress);
-
 	public abstract ClientVO addClientListItem(String sessionID, Authentication auth);
 
 	public abstract ClientVO getClientBySessionID(String sessionID);

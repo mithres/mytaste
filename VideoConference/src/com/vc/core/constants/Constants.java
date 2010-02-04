@@ -29,4 +29,6 @@ public class Constants {
 	//Query hints
 	public static final String ENABLE_QUERY_CACHE = "EnableQueryCache";
 	
+	//SessionID in Red5 Client
+	public static final String SESSION_ID = "SessionId";
 }

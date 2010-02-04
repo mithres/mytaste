@@ -5,8 +5,6 @@
 	<include href="../lps/videoconference/security/aescryptlz.lzx" />
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
-	<param name="movie" value="12314"/>
-	
 	<attribute name="filmName" value="null"/>
 	
 	
@@ -23,15 +21,14 @@
 			</handler>
 		</datapointer-->
 	
-	<lpsConfig id="lpsConfig"/>
+	<!--lpsConfig id="lpsConfig"/-->
 	
 	<script>
-		Debug.write(movie.getValue());
+
+
 		canvas.setDefaultContextMenu(new LzContextMenu());
 
-		function init(filmName, sid) {
-
-			var url = lpsConfig.getVODPath();
+		function init(filmName, sid, url) {
 
 			canvas.setAttribute("filmName", filmName);
 

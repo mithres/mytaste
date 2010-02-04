@@ -2,7 +2,7 @@
 <tc:tc-config xsi:schemaLocation="http://www.terracotta.org/schema/terracotta-4.xsd" xmlns:tc="http://www.terracotta.org/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <servers>
     <!--Shows where the Terracotta server can be found.-->
-    <server host="localhost">
+    <server host="172.0.2.193">
       <data>%(user.home)/terracotta/server-data</data>
       <logs>%(user.home)/terracotta/server-logs</logs>
     </server>
@@ -22,15 +22,50 @@
     <dso>
       <instrumented-classes>
         <include>
-          <class-expression>com.vc.service.cluster.ClientManager</class-expression>
+          <class-expression>com.vc.entity.*</class-expression>
         </include>
         <include>
-          <class-expression>com.vc.entity.*</class-expression>
+          <class-expression>com.vc.vo.ClientVO</class-expression>
         </include>
       </instrumented-classes>
       <web-applications>
         <web-application>VideoConference</web-application>
       </web-applications>
+      <roots>
+        <root>
+          <field-name>com.vc.service.cluster.ClientManager.CLIENT_LIST</field-name>
+        </root>
+      </roots>
+      <locks>
+        <autolock auto-synchronized="true">
+          <method-expression>void com.vc.vo.ClientVO.setClientKey(java.lang.String)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+        <autolock auto-synchronized="true">
+          <method-expression>void com.vc.vo.ClientVO.setClientID(java.lang.String)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+        <autolock auto-synchronized="true">
+          <method-expression>void com.vc.vo.ClientVO.setConnectSince(java.util.Date)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+        <autolock auto-synchronized="true">
+          <method-expression>void com.vc.vo.ClientVO.setRemoteAddress(java.lang.String)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+        <autolock auto-synchronized="true">
+          <method-expression>void com.vc.vo.ClientVO.setRemotePort(java.lang.Integer)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+        <autolock auto-synchronized="true">
+          <method-expression>void com.vc.vo.ClientVO.setScopeName(java.lang.String)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+        <autolock auto-synchronized="true">
+          <method-expression>void com.vc.vo.ClientVO.setSessionID(java.lang.String)</method-expression>
+          <lock-level>write</lock-level>
+        </autolock>
+      </locks>
     </dso>
   </application>
   <tc-properties>

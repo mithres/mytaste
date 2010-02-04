@@ -17,7 +17,9 @@
 		var vodPlayer = lz.embed.lzapp;
 		var playListID = '<s:property value="playListID"/>';
 		var sid = '<s:property value="sid"/>';
-		var callMethod = "init('" + playListID + "','" + sid + "')";
+		var nodeUrl = '<s:property value="nodeUrl"/>';
+		var callMethod = "init('" + playListID + "','" + sid + "','" + nodeUrl
+				+ "')";
 		vodPlayer.callMethod(callMethod);
 	}
 </script>

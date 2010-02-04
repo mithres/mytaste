@@ -102,6 +102,9 @@
 	<listener>
 		<listener-class>com.vc.presentatioin.listener.ServletContextLoaderListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.vc.presentatioin.listener.VCSessionListener</listener-class>
+	</listener>
     	
 	<servlet>
 		<servlet-name>LPS</servlet-name>

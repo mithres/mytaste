@@ -1,7 +1,9 @@
 package com.vc.core.vod;
 
 import org.red5.logging.Red5LoggerFactory;
+import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
+import org.red5.server.api.Red5;
 import org.red5.server.api.stream.IStreamFilenameGenerator;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,10 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 
 		if (scope.getName().endsWith(Constants.VOD_SCOPE_NAME)) {
 
-			ClientVO client = vodClientManager.getClientByID(ApplicationAdapterHelper.getCurrentConnection().getClient().getId());
-			
+			IConnection conn = Red5.getConnectionLocal();
+
+			ClientVO client = vodClientManager.getClientByID((String) conn.getClient().getAttribute(Constants.SESSION_ID));
+
 			if (client != null) {
 				// TODO: Sometimes this method couldn't decrypt the encrypted
 				// message from client.
