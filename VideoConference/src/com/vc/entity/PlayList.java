@@ -21,7 +21,7 @@ public class PlayList {
 
 	@GeneratedValue(generator = "hibseq")
 	private Long playListIndex = null;
-	
+
 	private String playListName = null;
 	// The real film name
 	private String fileName = null;
@@ -33,8 +33,8 @@ public class PlayList {
 	private PlayListType playListType = PlayListType.NoType;
 
 	private FilmType filmType = FilmType.Normal;
-	
-	private Float price = null;
+
+	private Float price = new Float(0);
 
 	public String getId() {
 		return id;

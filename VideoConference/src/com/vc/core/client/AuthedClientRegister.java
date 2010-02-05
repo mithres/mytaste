@@ -29,10 +29,13 @@ public class AuthedClientRegister extends ClientRegistry {
 
 		String clientAuthenticationToken = (String) params[0];
 		ClientVO clientVO = clientManager.getClientByID(clientAuthenticationToken);
-		SecurityContextHolder.getContext().setAuthentication(clientVO.getAuthentication());
+
 		if (clientVO == null || clientVO.getAuthentication() == null) {
 			throw new ClientRejectedException();
 		} else {
+			
+			SecurityContextHolder.getContext().setAuthentication(clientVO.getAuthentication());
+			
 			IConnection conn = Red5.getConnectionLocal();
 			IScope scope = conn.getScope();
 			IClient client = super.newClient(params);

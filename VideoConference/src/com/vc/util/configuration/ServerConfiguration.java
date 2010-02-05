@@ -15,11 +15,21 @@ public class ServerConfiguration {
 			// load photo configuration
 			Constants.PHOTO_PATH = rb.getString("photo_path");
 			Constants.PHOTO_URL = rb.getString("photo_url");
+			Constants.ALLOWED_HTML_DOMAINS = rb.getString("allowedHTMLDomains");
+			Constants.ALLOWED_SWF_DOMAINS = rb.getString("allowedSWFDomains");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static String getAllowedHTMLDomains() {
+		return Constants.ALLOWED_HTML_DOMAINS;
+	}
+
+	public static String getAllowedSWFDomains() {
+		return Constants.ALLOWED_SWF_DOMAINS;
 	}
 
 	public static String getPhotoUrl(PhotoType photoType) {

@@ -111,7 +111,8 @@
 				for (var i = 0; i < this.subnodes.length; i++) {
 					//If it is of Type serverCallBack then register it to the NetConnection
 					if (this.subnodes[i] instanceof lz.servercallback) {
-						Debug.write(this.subnodes[i].funcname);
+						Debug.write("Register method:"
+								+ this.subnodes[i].funcname);
 						//var t = hib;
 						this._nc[this.subnodes[i].funcname] = function(args) {
 							return remoteCallMethod(arguments.callee, arguments);
@@ -234,7 +235,7 @@
 			////Debug.write("netremotecall", this, "onResult", value);
 			if (this.dataobject != null) {
 				if (this.dataobject instanceof LzDataset) {
-					Debug.write("onResult: ",this,value,dataobject);
+					Debug.write("onResult: ", this, value, dataobject);
 					var element = LzDataElement.valueToElement(value);
 					this.dataobject.setData(element.childNodes);
 				} else if (this.dataobject instanceof LzDataElement) {

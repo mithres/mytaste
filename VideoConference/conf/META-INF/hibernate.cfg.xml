@@ -12,7 +12,6 @@
 			
 		<!-- show sql -->
 		<property name="show_sql">true</property>
-		<property name="use_sql_comments">true</property>
 		<property name="format_sql">true</property>
 		<property name="jdbc.batch_size">100</property>
 			
@@ -24,7 +23,7 @@
 			
 		<!-- enable use hibernate second level cache -->
 		<property name="cache.use_second_level_cache">true</property>
-		<!--property name="cache.use_query_cache">true</property-->
+		<property name="cache.use_query_cache">true</property>
 		<property name="cache.provider_class">org.terracotta.hibernate.TerracottaHibernateCacheProvider</property>
 			
 	</session-factory>

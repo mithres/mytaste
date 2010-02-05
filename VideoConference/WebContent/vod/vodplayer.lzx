@@ -1,8 +1,6 @@
 <canvas debug="true">
 	
 	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
-	
-	<include href="../lps/videoconference/security/aescryptlz.lzx" />
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
 	<attribute name="filmName" value="null"/>
@@ -32,13 +30,14 @@
 
 			canvas.setAttribute("filmName", filmName);
 
-			Debug.write("Connect to " + url + ":" + sid);
-
 			rc.setAttribute("src", url);
 			rc.connect(sid);
-			rc.getSignature.callRPC();
+			player.setAttribute("url", filmName);
+			//rc.getSignature.callRPC();
 		}
 	</script>
+	
+	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
 	
 	<vcrtmpconnection name="rc" autoconnect="false">
 		
@@ -50,31 +49,38 @@
 			Debug.write("error ", this.status);
 		</handler>
 		
-		<netremotecall name="getSignature" funcname="vod.getSignature">
-			<!--attribute name="param1" value="ammen" type="string" />      
-				<netparam name="vars1">
-					<method name="getValue">
-						return parent.param1;
-					</method>
-				</netparam-->  
+		<!--netremotecall name="getSignature" funcname="vod.getSignature"-->
+		<!--attribute name="param1" value="ammen" type="string" />      
+			<netparam name="vars1">
+				<method name="getValue">
+					return parent.param1;
+				</method>
+			</netparam-->  
+		<!--method name="onResult" args="value">
+				//aes = new lz.AESCryptLz();
+				//var encryptedName = aes.encryptByAscii(canvas.filmName, value);
+				canvas.loadPlayer(canvas.filmName);
+			</method-->  
+			
+		<!--/netremotecall-->
+		
+		<servercallback name="disPlayErrorMessage" funcname="showErrorMessage">
 			<method name="onResult" args="value">
-				Debug.write("getSignature return:" + value + ":"
-						+ canvas.filmName);
-				aes = new lz.AESCryptLz();
-				var encryptedName = aes.encryptByAscii(canvas.filmName, value);
-				canvas.loadPlayer(encryptedName);
+				Debug.write("Get result from server" + value);
 			</method>  
 			
-		</netremotecall>
-    	
+		</servercallback>
+		
 	</vcrtmpconnection>
 	
-	<method name="loadPlayer" args="params">
-		player.setAttribute("url", params);
-		Debug.write("Load player end:" + player.url);
-	</method>
+	<!--method name="loadPlayer" args="params">
+			player.setAttribute("url", params);
+			Debug.write("Load player end:" + player.url);
+		</method-->
 	
 
-	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
+	
+	
+	
 	
 </canvas>

@@ -51,7 +51,7 @@ public class UserInfo implements UserDetails {
 	@OrderBy("purchaseDate desc")
 	private Set<PurchasesHistory> purchasesHistory = new HashSet<PurchasesHistory>();
 
-	private Long accountBalance = new Long(0);
+	private Float accountBalance = new Float(0);
 
 	@Transient
 	private GrantedAuthority[] authorities = null;
@@ -159,13 +159,6 @@ public class UserInfo implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public Long getAccountBalance() {
-		return accountBalance;
-	}
-
-	public void setAccountBalance(Long accountBalance) {
-		this.accountBalance = accountBalance;
-	}
 
 	public Set<PurchasesHistory> getPurchasesHistory() {
 		return purchasesHistory;
@@ -181,6 +174,14 @@ public class UserInfo implements UserDetails {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Float getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(Float accountBalance) {
+		this.accountBalance = accountBalance;
 	}
 
 }

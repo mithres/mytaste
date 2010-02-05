@@ -10,15 +10,19 @@ import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.GrantedAuthorityImpl;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.security.userdetails.UserDetailsService;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.user.UserInfoDao;
+import com.vc.entity.PlayList;
 import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
 import com.vc.entity.Role;
@@ -35,6 +39,7 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	private ResourceDao resourceDao = null;
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public UserInfo signIn(String userName, String password) {
 
 		return null;
@@ -75,5 +80,18 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 		return authSet.toArray(new GrantedAuthority[authSet.size()]);
 	}
 
-	
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public boolean playVod(Authentication auth, PlayList playList) {
+
+		UserInfo user = userInfoDao.findById(auth.getName());
+		if (user.getAccountBalance().floatValue() >= playList.getPrice().floatValue()) {
+			user.setAccountBalance(user.getAccountBalance() - playList.getPrice().floatValue());
+			userInfoDao.update(user);
+		} else {
+			return false;
+		}
+		return true;
+	}
+
 }

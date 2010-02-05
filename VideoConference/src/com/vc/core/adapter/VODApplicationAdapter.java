@@ -7,15 +7,13 @@ import org.red5.server.api.IScope;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.vc.core.constants.Constants;
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.cluster.IClientManager;
 
 public class VODApplicationAdapter extends ApplicationAdapter {
 
 	private static final Logger log = Red5LoggerFactory.getLogger(VODApplicationAdapter.class, "VideoConference");
-
-	// The Global WebApp Path
-	public static String webAppPath = "";
 
 	@Autowired
 	private IClientManager clientManager = null;
@@ -25,7 +23,8 @@ public class VODApplicationAdapter extends ApplicationAdapter {
 
 		VODSecurityHandler vodHandler = new VODSecurityHandler();
 		vodHandler.setVodClientManager(clientManager);
-		scope.registerServiceHandler("vod", vodHandler);
+		scope.registerServiceHandler(Constants.VOD_SCOPE_NAME, vodHandler);
+
 		return super.start(scope);
 	}
 
