@@ -32,12 +32,12 @@
 
 			rc.setAttribute("src", url);
 			rc.connect(sid);
-			player.setAttribute("url", filmName);
+			//player.setAttribute("url", filmName);
 			//rc.getSignature.callRPC();
 		}
 	</script>
 	
-	<videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/>
+	
 	
 	<vcrtmpconnection name="rc" autoconnect="false">
 		
@@ -73,13 +73,23 @@
 		
 	</vcrtmpconnection>
 	
+	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/-->
+	
+	<mediastream name="s2" type="rtmp"/>
+	
 	<!--method name="loadPlayer" args="params">
 			player.setAttribute("url", params);
 			Debug.write("Load player end:" + player.url);
 		</method-->
 	
 
-	
+	<view id="v2" layout="axis:y; spacing:4" y="300">
+		<videoview name="vid" type="rtmp" stream="$once{canvas.s2}"/>
+		<edittext name="username">001</edittext>
+		<button text="${s2.playing ? 'stop receiving' : 'receive'}"
+			onclick="s2.setAttribute('url', parent.username.text);
+			if (s2.playing) s2.stop(); else s2.play();"/>
+	</view>
 	
 	
 	
