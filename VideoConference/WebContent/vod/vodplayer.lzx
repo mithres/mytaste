@@ -1,9 +1,6 @@
 <canvas debug="true">
-	
-	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
+
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
-	
-	<attribute name="filmName" value="null"/>
 	
 	
 	<!--dataset name="authInfo" request="true"/>
@@ -28,11 +25,10 @@
 
 		function init(filmName, sid, url) {
 
-			canvas.setAttribute("filmName", filmName);
-
 			rc.setAttribute("src", url);
 			rc.connect(sid);
-			//player.setAttribute("url", filmName);
+			s2.setAttribute("url", filmName);
+			s2.play();
 			//rc.getSignature.callRPC();
 		}
 	</script>
@@ -73,24 +69,17 @@
 		
 	</vcrtmpconnection>
 	
-	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240"/-->
 	
 	<mediastream name="s2" type="rtmp"/>
 	
-	<!--method name="loadPlayer" args="params">
-			player.setAttribute("url", params);
-			Debug.write("Load player end:" + player.url);
-		</method-->
-	
+	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
 
-	<view id="v2" layout="axis:y; spacing:4" y="300">
-		<videoview name="vid" type="rtmp" stream="$once{canvas.s2}"/>
-		<edittext name="username">001</edittext>
-		<button text="${s2.playing ? 'stop receiving' : 'receive'}"
-			onclick="s2.setAttribute('url', parent.username.text);
-			if (s2.playing) s2.stop(); else s2.play();"/>
+	<view layout="axis:y;">
+		<videoview id="vid" width="320" height="240" type="rtmp" stream="${s2}"/>
+
+		<videoslider name="vslider"	width="320"	height="16"	visible="true"	ms="${s2}" y="${vid.height}" 
+			showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
 	</view>
-	
 	
 	
 </canvas>
