@@ -1,4 +1,4 @@
-<canvas debug="true">
+<canvas>
 
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
@@ -20,25 +20,21 @@
 	
 	<script>
 
-
 		canvas.setDefaultContextMenu(new LzContextMenu());
 
 		function init(filmName, sid, url) {
-
 			rc.setAttribute("src", url);
 			rc.connect(sid);
 			s2.setAttribute("url", filmName);
-			s2.play();
 			//rc.getSignature.callRPC();
 		}
 	</script>
-	
-	
 	
 	<vcrtmpconnection name="rc" autoconnect="false">
 		
 		<handler name="onconnect">
 			Debug.write("connected");
+			s2.play();
 		</handler>
 		
 		<handler name="onerror">
@@ -75,9 +71,10 @@
 	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
 
 	<view layout="axis:y;">
-		<videoview id="vid" width="320" height="240" type="rtmp" stream="${s2}"/>
+		
+		<videoview id="vid" width="640" height="480" type="rtmp" stream="${s2}"/>
 
-		<videoslider name="vslider"	width="320"	height="16"	visible="true"	ms="${s2}" y="${vid.height}" 
+		<videoslider name="vslider"	width="640"	height="16"	visible="true"	ms="${s2}" y="${vid.height}" 
 			showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
 	</view>
 	

@@ -30,10 +30,10 @@
 
 <script>
 	lz.embed.swf( {
-		url : '<web.page:path/>/vod/vodplayer.lzx?lzt=swf',
+		url : '<web.page:path/>/vod/vodplayer.lzx.swf8.swf',
 		allowfullscreen : 'false',
-		width : '1000',
-		height : '1000',
+		width : '640',
+		height : '496',
 		id : 'lzapp'
 	});
 </script>

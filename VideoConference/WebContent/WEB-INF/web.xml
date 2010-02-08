@@ -153,7 +153,16 @@
 		</web-resource-collection> 
 		<auth-constraint /> 
 	</security-constraint>
-
+	
+	<!-- Protect source code 
+	<security-constraint> 
+		<web-resource-collection> 
+			<web-resource-name>Forbidden</web-resource-name> 
+			<url-pattern>*.lzx</url-pattern> 
+		</web-resource-collection> 
+		<auth-constraint /> 
+	</security-constraint>
+	-->
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
