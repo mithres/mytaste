@@ -25,6 +25,9 @@ public class PurchasesHistory {
 	
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo userInfo = null;
+	
+	private String remoteIp = null;
+	
 
 	public String getHistoryId() {
 		return historyId;
@@ -48,6 +51,14 @@ public class PurchasesHistory {
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
+	}
+
+	public String getRemoteIp() {
+		return remoteIp;
+	}
+
+	public void setRemoteIp(String remoteIp) {
+		this.remoteIp = remoteIp;
 	}
 	
 	

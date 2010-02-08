@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,11 @@ import com.vc.dao.user.UserInfoDao;
 import com.vc.entity.PointCard;
 import com.vc.entity.PurchasesHistory;
 import com.vc.entity.UserInfo;
+import com.vc.presentatioin.exception.DepositException;
+import com.vc.presentatioin.exception.PointCardException;
+import com.vc.vo.PurchaseVO;
 
+@Service
 public class PurchaseService implements IPurchaseService {
 
 	@Autowired
@@ -24,8 +29,12 @@ public class PurchaseService implements IPurchaseService {
 	private UserInfoDao userInfoDao = null;
 
 	@Override
-	public PointCard findCardInfoByPassword(String password) {
-		return this.pointCardDao.findPointCardByPassword(password);
+	public PointCard findCardInfoByPassword(String password) throws PointCardException {
+		PointCard card = pointCardDao.findPointCardByPassword(password);
+		if (card == null) {
+			throw new PointCardException("No card found.");
+		}
+		return card;
 	}
 
 	@Override
@@ -37,22 +46,27 @@ public class PurchaseService implements IPurchaseService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public UserInfo purchase(String userName, String password) {
+	public UserInfo purchase(PurchaseVO vo) throws DepositException, PointCardException {
 
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
-		PointCard card = pointCardDao.findPointCardByPassword(password);
-		if (card == null || card.getExpireTime().before(currentTime) || card.getUsed()) {
-			// Throw exception
+		PointCard card = findCardInfoByPassword(vo.getCardPassword());
+
+		if (card.getExpireTime().before(currentTime)) {
+			throw new DepositException("Card expired.");
+		} else if (card.getUsed()) {
+			throw new DepositException("Card has been used.");
 		}
+
 		card.setUsed(Boolean.TRUE);
 		pointCardDao.update(card);
 
-		UserInfo user = userInfoDao.findById(userName);
+		UserInfo user = userInfoDao.findById(vo.getAccount());
 
 		PurchasesHistory piHistory = new PurchasesHistory();
 		piHistory.setPurchaseDate(currentTime);
 		piHistory.setUserInfo(user);
+		piHistory.setRemoteIp(vo.getRemoteIp());
 		purchasesHistoryDao.create(piHistory);
 
 		user.getPurchasesHistory().add(piHistory);
@@ -61,5 +75,4 @@ public class PurchaseService implements IPurchaseService {
 
 		return user;
 	}
-
 }
