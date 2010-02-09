@@ -64,7 +64,7 @@ public class SystemService implements ISystemService {
 			admin = new UserInfo();
 		}
 		try {
-			admin.setPasswrod(MD5.do_checksum(conf.getAdminPassword()));
+			admin.setPassword(MD5.do_checksum(conf.getAdminPassword()));
 		} catch (NoSuchAlgorithmException e) {
 			log.error("MD5 error", e);
 		}
