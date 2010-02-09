@@ -43,5 +43,5 @@
 	<include file="struts-model/struts-vod.xml" />
 	<include file="struts-model/struts-user.xml" />
 	<include file="struts-model/struts-installer.xml" />
-	
+	<include file="struts-model/struts-admin.xml" />
 </struts>

@@ -1,5 +1,6 @@
 package com.vc.service.user;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +28,8 @@ import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
 import com.vc.entity.Role;
 import com.vc.entity.UserInfo;
+import com.vc.presentatioin.exception.UserExistException;
+import com.vc.util.security.MD5;
 
 @Service
 public class UserService implements IUserService, UserDetailsService, ISecurityManager {
@@ -92,6 +95,22 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public UserInfo createUser(UserInfo user) throws UserExistException {
+		UserInfo ui = userInfoDao.findById(user.getUsername());
+		if (ui != null) {
+			throw new UserExistException("User " + user.getUsername() + " existed.");
+		}
+		try {
+			user.setPassword(MD5.do_checksum(user.getPassword()));
+		} catch (NoSuchAlgorithmException e) {
+			log.error("MD5 error.");
+		}
+		userInfoDao.create(user);
+		return user;
 	}
 
 }

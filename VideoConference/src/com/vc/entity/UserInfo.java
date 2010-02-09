@@ -4,8 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -28,14 +30,16 @@ public class UserInfo implements UserDetails {
 	@Id
 	private String userName = null;
 
-	private String passwrod = null;
+	private String password = null;
 
 	private String firstName = null;
 
 	private String lastName = null;
-
+	
+	@Column(unique = true)
 	private String email = null;
 
+	@GeneratedValue
 	private Long userIndex = null;
 
 	private UserLevel userLevel = UserLevel.User;
@@ -62,14 +66,6 @@ public class UserInfo implements UserDetails {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-
-	public String getPasswrod() {
-		return passwrod;
-	}
-
-	public void setPasswrod(String passwrod) {
-		this.passwrod = passwrod;
 	}
 
 	public String getEmail() {
@@ -127,7 +123,7 @@ public class UserInfo implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return passwrod;
+		return password;
 	}
 
 	@Override
@@ -159,7 +155,6 @@ public class UserInfo implements UserDetails {
 		this.authorities = authorities;
 	}
 
-
 	public Set<PurchasesHistory> getPurchasesHistory() {
 		return purchasesHistory;
 	}
@@ -182,6 +177,10 @@ public class UserInfo implements UserDetails {
 
 	public void setAccountBalance(Float accountBalance) {
 		this.accountBalance = accountBalance;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
