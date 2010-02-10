@@ -55,7 +55,10 @@ public class ItemChecker {
 	public static final  boolean checkUserName(String value) {
 		return value.matches("[a-zA-Z][a-zA-Z0-9_]{4,20}$");
 	}
-
+	
+	public static final  boolean checkPassword(String value) {
+		return value.matches("[a-zA-Z0-9][a-zA-Z0-9_]{4,20}$");
+	}
 
 	/**
 	 * Check input length

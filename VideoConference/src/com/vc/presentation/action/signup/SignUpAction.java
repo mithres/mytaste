@@ -17,6 +17,8 @@ public class SignUpAction extends BaseAction {
 	private IUserService userService = null;
 
 	private UserInfo user = null;
+	
+	private String password = null;
 
 	@Override
 	public String process() {
@@ -40,14 +42,17 @@ public class SignUpAction extends BaseAction {
 		if(ItemChecker.checkNull(user.getUsername())){
 			this.addActionError("User name can be empty.");
 		}
-		if(ItemChecker.checkUserName(user.getUsername())){
+		if(!ItemChecker.checkUserName(user.getUsername())){
 			this.addActionError("User name format error.");
 		}
 		if(ItemChecker.checkNull(user.getPassword())){
 			this.addActionError("User password can be empty.");
 		}
-		if(ItemChecker.checkUserName(user.getPassword())){
+		if(!ItemChecker.checkPassword(user.getPassword())){
 			this.addActionError("User password format error.");
+		}
+		if(!user.getPassword().equals(password)){
+			this.addActionError("Password and Confirm password different");
 		}
 		
 	}
@@ -58,6 +63,10 @@ public class SignUpAction extends BaseAction {
 
 	public void setUser(UserInfo user) {
 		this.user = user;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

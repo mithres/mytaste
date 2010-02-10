@@ -14,8 +14,8 @@
 
 	<s:textfield label="User Name" name="user.userName" />
 	<s:password label="User Password" name="user.password" />
+	<s:password label="Confirm Password" name="password" />
 	<s:textfield label="User Email" name="user.email" />
-
 	<s:textfield label="First Name" name="user.firstName" />
 	<s:textfield label="Last Name" name="user.lastName" />
 
