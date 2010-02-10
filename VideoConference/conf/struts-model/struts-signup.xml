@@ -16,7 +16,8 @@
 			<result name="input">/WEB-INF/pages/signup/step1.jsp</result>
 		</action>
 		
-			
+		<action name="captcha" class="com.vc.presentation.action.captcha.CaptchaAction"/>
+
 	</package>
 	
 	

@@ -43,6 +43,12 @@ public class SignUpAction extends BaseAction {
 		if(ItemChecker.checkUserName(user.getUsername())){
 			this.addActionError("User name format error.");
 		}
+		if(ItemChecker.checkNull(user.getPassword())){
+			this.addActionError("User password can be empty.");
+		}
+		if(ItemChecker.checkUserName(user.getPassword())){
+			this.addActionError("User password format error.");
+		}
 		
 	}
 

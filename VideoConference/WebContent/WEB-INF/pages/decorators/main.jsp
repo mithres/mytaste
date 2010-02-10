@@ -10,7 +10,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title><decorator:title/></title>
-<link href="<webpath:path/>/css/common.css" rel="stylesheet" type="text/css"/> 
+
+<link href="css/common.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+ 
 <decorator:head />
 </head>
 
@@ -21,6 +26,9 @@
 <decorator:body />
 
 <div>This is footer</div>
+
+
+
 </body>
 </html>
 

@@ -14,13 +14,18 @@
 		<intercept-url pattern="/images/**" filters="none" />
 		<intercept-url pattern="/signUp/**" filters="none" />
 		<intercept-url pattern="/index.jsp" filters="none" />
+		<concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true"/> 
 	</http>
 	
 	
 	<beans:bean id="authenticationProcessingFilter" class="com.vc.presentatioin.filter.VCAuthenticationProcessingFilter">
 		<custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>  
 		<beans:property name="authenticationManager" ref="authenticationManager"/>  
-		<beans:property name="defaultTargetUrl" value="/home"/>  
+		<beans:property name="defaultTargetUrl" value="/home"/>
+		<beans:property name="authenticationFailureUrl" value="/index.jsp"/>  
+		<beans:property name="usernameParameter" value="userName"/>  
+		<beans:property name="passwordParameter" value="password"/>  
+		<beans:property name="filterProcessesUrl" value="/signIn"/>  
 	</beans:bean>  
 
 	<beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">  
