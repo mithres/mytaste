@@ -18,11 +18,16 @@
 	<constant name="struts.custom.i18n.resources" value="global-messages" />
 	
 	<package name="default" extends="struts-default" namespace="/">
-	
+		
+		<default-action-ref name="pageNotFound"/> 
+		
 		<global-results>
-			<result name="runtime"></result>
-			<result name="needlogin"></result>
+			<result name="runtime">/WEB-INF/pages/error/runtimeerror.jsp</result>
 		</global-results>
+		
+		<action name="pageNotFound" class="com.vc.core.action.PageNotFoundAction">
+			<result>/WEB-INF/pages/error/pagenotfound.jsp</result>
+		</action>	
 		
 		<action name="home" class="com.vc.presentation.action.home.HomeAction">
 			<result>/WEB-INF/pages/home/index.jsp</result>

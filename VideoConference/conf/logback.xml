@@ -12,7 +12,7 @@
 	</appender>
 
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="STDOUT" />
 	</root>	<!-- Red5 -->
 	<logger name="org.red5.io">

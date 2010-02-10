@@ -33,7 +33,7 @@
 	</tr>
 	<tr>
 		<td>Password:</td>
-		<td><input type='password' name='password' /></td>
+		<td><input type='password' name='password' AUTOCOMPLETE="off" /></td>
 	</tr>
 	<tr>
 		<td>Enter letters below:</td>
