@@ -40,4 +40,8 @@ public class Constants {
 	public static String PHOTO_URL = null;
 	public static String PHOTO_PATH_AUTH = null;
 	
+	//Role names
+	public static final String ROLE_USER = "ROLE_USER";
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	
 }

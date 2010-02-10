@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vc.core.constants.Constants;
 import com.vc.dao.system.ResourceDao;
+import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.Resource;
@@ -40,12 +42,24 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	private UserInfoDao userInfoDao = null;
 	@Autowired
 	private ResourceDao resourceDao = null;
+	@Autowired
+	private RoleDao roleDao = null;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public UserInfo signIn(String userName, String password) {
-
-		return null;
+	public UserInfo signUp(UserInfo user) throws UserExistException{
+		UserInfo ui = userInfoDao.findById(user.getUsername());
+		if(ui != null){
+			throw new UserExistException("User "+user.getUsername()+" existed.");
+		}
+		user.getRoles().addAll(roleDao.findRoleByName(Constants.ROLE_USER));
+		try {
+			user.setPassword(MD5.do_checksum(user.getPassword()));
+		} catch (NoSuchAlgorithmException e) {
+			log.error("MD5 error when user sign up.");
+		}
+		userInfoDao.create(user);
+		return user;
 	}
 
 	@Override

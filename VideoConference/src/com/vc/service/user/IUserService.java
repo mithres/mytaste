@@ -9,7 +9,7 @@ import com.vc.presentatioin.exception.UserExistException;
 
 public interface IUserService {
 
-	public abstract UserInfo signIn(String userName, String password);
+	public abstract UserInfo signUp(UserInfo user) throws UserExistException;
 
 	public abstract UserInfo findUserByName(String userName);
 

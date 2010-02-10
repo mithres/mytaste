@@ -28,6 +28,8 @@
 			<result>/WEB-INF/pages/home/index.jsp</result>
 		</action>
 		
+		<!-- for system init -->
+		
 		<action name="install" class="com.vc.presentation.action.home.InstallAction">
 			<result>/WEB-INF/pages/installer/installer.jsp</result>
 			<result name="index" type="redirect">/home</result>
@@ -36,12 +38,13 @@
 		<action name="saveConf" method="saveConf" class="com.vc.presentation.action.home.InstallAction">
 			<result type="redirect">/home</result>
 		</action>
-		
+		<!-- end system init -->
 		
 	</package>
 	
 	<include file="struts-model/struts-vod.xml" />
 	<include file="struts-model/struts-user.xml" />
+	<include file="struts-model/struts-signup.xml" />
 	<include file="struts-model/struts-installer.xml" />
 	<include file="struts-model/struts-admin.xml" />
 </struts>

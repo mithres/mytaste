@@ -19,6 +19,7 @@
 			<result>/WEB-INF/pages/user/account.jsp</result>
 		</action>
 		
+		<!-- Only for test -->
 		<action name="getAuthInfo" method="getAuthInfo" class="com.vc.presentation.action.user.UserInfoAction"/>
 		
 			
