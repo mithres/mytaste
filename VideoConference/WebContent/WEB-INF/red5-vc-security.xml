@@ -14,7 +14,7 @@
 		<intercept-url pattern="/images/**" filters="none" />
 		<intercept-url pattern="/signUp/**" filters="none" />
 		<intercept-url pattern="/index.jsp" filters="none" />
-		<concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true"/> 
+		<concurrent-session-control max-sessions="2" exception-if-maximum-exceeded="true"/> 
 	</http>
 	
 	

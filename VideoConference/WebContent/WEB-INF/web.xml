@@ -105,6 +105,9 @@
 	<listener>
 		<listener-class>com.vc.presentatioin.listener.VCSessionListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>org.springframework.security.ui.session.HttpSessionEventPublisher</listener-class>
+	</listener>
     	
 	<servlet>
 		<servlet-name>LPS</servlet-name>
@@ -153,20 +156,20 @@
 	</security-constraint>
 	
 	<!-- Protect source code 
-	<security-constraint> 
-		<web-resource-collection> 
-			<web-resource-name>Forbidden</web-resource-name> 
-			<url-pattern>*.lzx</url-pattern> 
-		</web-resource-collection> 
-		<auth-constraint /> 
-	</security-constraint>
-	-->
+		<security-constraint> 
+			<web-resource-collection> 
+				<web-resource-name>Forbidden</web-resource-name> 
+				<url-pattern>*.lzx</url-pattern> 
+			</web-resource-collection> 
+			<auth-constraint /> 
+		</security-constraint>
+		-->
 	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	
 	<session-config>
-		<session-timeout>120</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 </web-app>
