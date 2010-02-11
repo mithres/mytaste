@@ -7,6 +7,7 @@ import com.vc.core.action.BaseAction;
 import com.vc.entity.UserInfo;
 import com.vc.presentatioin.exception.UserExistException;
 import com.vc.service.user.IUserService;
+import com.vc.util.security.ItemChecker;
 
 public class CreateUserAction extends BaseAction {
 
@@ -14,14 +15,14 @@ public class CreateUserAction extends BaseAction {
 
 	@Autowired
 	private IUserService userService = null;
-	
+
 	private String password = null;
 
 	private UserInfo user = null;
 
 	@Override
 	public String process() {
-
+		
 		try {
 			userService.createUser(user);
 			return Action.SUCCESS;
@@ -33,7 +34,21 @@ public class CreateUserAction extends BaseAction {
 
 	@Override
 	public void validate() {
-
+		if(ItemChecker.checkNull(user.getUsername())){
+			this.addActionError("User name can be empty.");
+		}
+		if(!ItemChecker.checkUserName(user.getUsername())){
+			this.addActionError("User name format error.");
+		}
+		if(ItemChecker.checkNull(user.getPassword())){
+			this.addActionError("User password can be empty.");
+		}
+		if(!ItemChecker.checkPassword(user.getPassword())){
+			this.addActionError("User password format error.");
+		}
+		if(!user.getPassword().equals(password)){
+			this.addActionError("Password and Confirm password different");
+		}
 	}
 
 	public UserInfo getUser() {

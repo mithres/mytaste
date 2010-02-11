@@ -17,7 +17,10 @@
 		
 		<action name="createUser" class="com.vc.presentation.action.admin.CreateUserAction">
 			<result type="redirect">/admin/index</result>
-			<result name="input">/WEB-INF/pages/admin/createuser.jsp</result>
+			<result type="redirectAction" name="input">
+				<param name="actionName">createUserIndex</param>
+				<param name="namespace">/admin</param>
+			</result>
 		</action>
 			
 	</package>

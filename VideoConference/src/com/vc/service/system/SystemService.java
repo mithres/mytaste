@@ -1,6 +1,7 @@
 package com.vc.service.system;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vc.core.dao.Hints;
 import com.vc.dao.system.ConfigurationDao;
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
@@ -79,6 +81,11 @@ public class SystemService implements ISystemService {
 		configurationDao.create(conf);
 		
 		return conf;
+	}
+
+	@Override
+	public List<Role> finaAllRole() {
+		return roleDao.findAll(new Hints(0));
 	}
 
 }

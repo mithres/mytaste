@@ -34,7 +34,11 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 		}
 
 		boolean result = CaptchaServiceSingleton.getInstance().validateResponseForID(request.getSession().getId(), ccode);
-		if (!result) {
+
+		if (result) {
+			createCaptchaTicket(request.getSession());
+		} else {
+			acquireCaptchaTicket(request.getSession());
 			throw new CaptchaCodeCheckException("Check code error.");
 		}
 
@@ -44,8 +48,6 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 	@Override
 	protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult)
 			throws IOException {
-
-		HttpServletResponse resp = (HttpServletResponse) response;
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
