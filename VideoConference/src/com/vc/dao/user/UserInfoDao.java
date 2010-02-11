@@ -9,7 +9,7 @@ import com.vc.entity.UserInfo;
 
 @Repository
 public class UserInfoDao extends GenericDAO<UserInfo, String> {
-
+	
 	private static final String FIND_USER_BY_USERPASSWORD = " from UserInfo where userName = ? and enable = ? ";
 
 	public UserInfo findUserByName(String userName, boolean enable) {

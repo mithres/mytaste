@@ -1,5 +1,6 @@
 package com.vc.service.user;
 
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vc.core.constants.Constants;
+import com.vc.core.dao.Hints;
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
@@ -47,10 +49,11 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public UserInfo signUp(UserInfo user) throws UserExistException{
+	public UserInfo signUp(UserInfo user) throws UserExistException {
+
 		UserInfo ui = userInfoDao.findById(user.getUsername());
-		if(ui != null){
-			throw new UserExistException("User "+user.getUsername()+" existed.");
+		if (ui != null) {
+			throw new UserExistException("User " + user.getUsername() + " existed.");
 		}
 		user.getRoles().addAll(roleDao.findRoleByName(Constants.ROLE_USER));
 		try {
@@ -58,6 +61,8 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 		} catch (NoSuchAlgorithmException e) {
 			log.error("MD5 error when user sign up.");
 		}
+		Long userIndex = ((BigInteger)userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		user.setUserIndex(userIndex);
 		userInfoDao.create(user);
 		return user;
 	}

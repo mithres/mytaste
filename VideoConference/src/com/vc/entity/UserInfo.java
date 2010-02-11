@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -35,11 +34,10 @@ public class UserInfo implements UserDetails {
 	private String firstName = null;
 
 	private String lastName = null;
-	
+
 	@Column(unique = true)
 	private String email = null;
 
-	@GeneratedValue
 	private Long userIndex = null;
 
 	private UserLevel userLevel = UserLevel.User;
@@ -48,7 +46,7 @@ public class UserInfo implements UserDetails {
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_name"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Role> roles = new HashSet<Role>();
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

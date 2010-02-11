@@ -360,5 +360,5 @@ public class GenericDAO<T, PK extends Serializable> extends HibernateDaoSupport 
 			}
 		});
 	}
-
+	
 }

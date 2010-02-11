@@ -1,5 +1,7 @@
 package com.vc.service.vod;
 
+import java.math.BigInteger;
+
 import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,9 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) {
+		Long playListIndex = ((BigInteger)userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
-		playList.setPlayListIndex(playListDao.findPlayListCount());
 		return playList;
 	}
 
