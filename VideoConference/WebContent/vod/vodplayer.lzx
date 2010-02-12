@@ -1,4 +1,4 @@
-<canvas>
+<canvas debug="true">
 
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
@@ -20,9 +20,11 @@
 	
 	<script>
 
+
 		canvas.setDefaultContextMenu(new LzContextMenu());
 
 		function init(filmName, sid, url) {
+			Debug.write(url + ":" + filmName + ":" + sid);
 			rc.setAttribute("src", url);
 			rc.connect(sid);
 			s2.setAttribute("url", filmName);

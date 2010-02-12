@@ -25,9 +25,16 @@ public class SavePlayListAction extends BaseAction {
 	private String screenShotContentType = null;
 	private String screenShotFileName = null;
 
+	private File film = null;
+
+	private String filmContentType = null;
+	private String filmFileName = null;
+
 	@Override
 	public String process() {
 
+		playList.setFileName(filmFileName);
+		playList.setFilmFile(film);
 		playList.setAddedTime(new Timestamp(System.currentTimeMillis()));
 		playListService.savePlayList(playList);
 
@@ -46,6 +53,11 @@ public class SavePlayListAction extends BaseAction {
 		}
 
 		return Action.SUCCESS;
+	}
+
+	@Override
+	public void validate() {
+		// Do check here
 	}
 
 	public PlayList getPlayList() {
@@ -79,5 +91,30 @@ public class SavePlayListAction extends BaseAction {
 	public void setScreenShotFileName(String screenShotFileName) {
 		this.screenShotFileName = screenShotFileName;
 	}
+
+	public File getFilm() {
+		return film;
+	}
+
+	public void setFilm(File film) {
+		this.film = film;
+	}
+
+	public String getFilmContentType() {
+		return filmContentType;
+	}
+
+	public void setFilmContentType(String filmContentType) {
+		this.filmContentType = filmContentType;
+	}
+
+	public String getFilmFileName() {
+		return filmFileName;
+	}
+
+	public void setFilmFileName(String filmFileName) {
+		this.filmFileName = filmFileName;
+	}
+
 
 }

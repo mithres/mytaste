@@ -1,10 +1,12 @@
 package com.vc.entity;
 
+import java.io.File;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,6 +37,11 @@ public class PlayList {
 	private FilmType filmType = FilmType.Normal;
 
 	private Float price = new Float(0);
+	
+	@Transient
+	private File filmFile = null;
+	@Transient
+	private String filmPersistenceName = null;
 
 	public String getId() {
 		return id;
@@ -106,6 +113,22 @@ public class PlayList {
 
 	public void setPrice(Float price) {
 		this.price = price;
+	}
+
+	public File getFilmFile() {
+		return filmFile;
+	}
+
+	public void setFilmFile(File filmFile) {
+		this.filmFile = filmFile;
+	}
+
+	public String getFilmPersistenceName() {
+		return filmPersistenceName;
+	}
+
+	public void setFilmPersistenceName(String filmPersistenceName) {
+		this.filmPersistenceName = filmPersistenceName;
 	}
 
 }

@@ -11,7 +11,7 @@ public class RTMPLoadBalancer implements ILoadBalancer {
 	public LBNode getLBNode() {
 		
 		LBNode node = new LBNode();
-		node.setNodeIP("192.168.0.119");
+		node.setNodeIP("172.0.2.193");
 		
 		return node;
 	}

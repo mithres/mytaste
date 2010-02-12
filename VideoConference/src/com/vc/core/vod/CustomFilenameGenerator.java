@@ -26,7 +26,6 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 
 	// Path that will store recorded videos.
 	private String recordPath = "recordedStreams/";
-
 	// Path that contains VOD streams.
 	private String playbackPath = "videoStreams/";
 

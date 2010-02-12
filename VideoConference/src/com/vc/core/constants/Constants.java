@@ -29,6 +29,14 @@ public class Constants {
 	//SessionID in Red5 Client
 	public static final String SESSION_ID = "SessionId";
 	
+	//Role names
+	public static final String ROLE_USER = "ROLE_USER";
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	
+	//Captcha contants
+	public static final String CAPTCHA_TICKET = "captcha.ticket";
+	public static final String CAPTCHA_CODE_ERROR = "CaptchaCodeError";
+	
 	
 	
 	//Constants for security handler
@@ -40,12 +48,7 @@ public class Constants {
 	public static String PHOTO_URL = null;
 	public static String PHOTO_PATH_AUTH = null;
 	
-	//Role names
-	public static final String ROLE_USER = "ROLE_USER";
-	public static final String ROLE_ADMIN = "ROLE_ADMIN";
-	
-	//Captcha contants
-	public static final String CAPTCHA_TICKET = "captcha.ticket";
-	public static final String CAPTCHA_CODE_ERROR = "CaptchaCodeError";
+	//FS_URI
+	public static String FS_URI = null;
 	
 }

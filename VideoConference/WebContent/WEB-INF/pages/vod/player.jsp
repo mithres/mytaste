@@ -28,9 +28,11 @@
 <body onload="initPlayer();">
 <s:property value="sid" />
 
+<!-- url : '<web.page:path/>/vod/vodplayer.lzx.swf8.swf', -->
 <script>
 	lz.embed.swf( {
-		url : '<web.page:path/>/vod/vodplayer.lzx.swf8.swf',
+		
+		url : '<web.page:path/>/vod/vodplayer.lzx?lzt=swf',
 		allowfullscreen : 'false',
 		width : '640',
 		height : '496',
