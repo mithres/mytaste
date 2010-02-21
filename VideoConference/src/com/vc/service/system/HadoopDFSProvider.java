@@ -10,12 +10,16 @@ import java.net.URI;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.vc.util.configuration.ServerConfiguration;
 
 @Service("hdfs")
 public class HadoopDFSProvider implements IFSProvider {
+
+	protected final Logger log = Red5LoggerFactory.getLogger(HadoopDFSProvider.class, "VideoConference");
 
 	@Override
 	public boolean createFile(String persistenceName, File file) {
@@ -62,4 +66,23 @@ public class HadoopDFSProvider implements IFSProvider {
 		return false;
 	}
 
+	@Override
+	public InputStream readFile(File file) {
+
+		Configuration conf = new Configuration();
+		String uri = ServerConfiguration.getFsUri();
+		Path inFile = new Path("/vod/videoStreams/" + file.getName());
+
+		FileSystem fs = null;
+		try {
+			fs = FileSystem.get(URI.create(uri), conf);
+			if (fs.exists(inFile)) {
+				return fs.open(inFile);
+			}
+		} catch (IOException e) {
+			log.error("Get input stream from flv file on hdfs error.", e);
+			return null;
+		}
+		return null;
+	}
 }

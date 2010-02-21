@@ -2,17 +2,22 @@ package com.vc.service.system;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.vc.util.configuration.ServerConfiguration;
 
 @Service("fs")
 public class FSProvider implements IFSProvider {
+
+	protected final Logger log = Red5LoggerFactory.getLogger(FSProvider.class, "VideoConference");
 
 	@Override
 	public boolean createFile(String persistenceName, File file) {
@@ -51,6 +56,16 @@ public class FSProvider implements IFSProvider {
 		}
 
 		return false;
+	}
+
+	@Override
+	public InputStream readFile(File file) {
+		try {
+			return new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			log.error("Get input stream from file on fs error.", e);
+			return null;
+		}
 	}
 
 }
