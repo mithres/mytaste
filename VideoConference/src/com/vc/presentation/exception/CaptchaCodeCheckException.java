@@ -1,4 +1,4 @@
-package com.vc.presentatioin.exception;
+package com.vc.presentation.exception;
 
 import org.springframework.security.AuthenticationException;
 

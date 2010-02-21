@@ -32,7 +32,7 @@ import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
 import com.vc.entity.Role;
 import com.vc.entity.UserInfo;
-import com.vc.presentatioin.exception.UserExistException;
+import com.vc.presentation.exception.UserExistException;
 import com.vc.util.security.MD5;
 
 @Service

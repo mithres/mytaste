@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
 import com.vc.entity.PointCard;
-import com.vc.presentatioin.exception.DepositException;
-import com.vc.presentatioin.exception.PointCardException;
+import com.vc.presentation.exception.DepositException;
+import com.vc.presentation.exception.PointCardException;
 import com.vc.service.system.IPurchaseService;
 import com.vc.vo.PurchaseVO;
 

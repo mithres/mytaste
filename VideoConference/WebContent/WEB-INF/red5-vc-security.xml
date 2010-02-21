@@ -18,7 +18,7 @@
 	</http>
 	
 	
-	<beans:bean id="authenticationProcessingFilter" class="com.vc.presentatioin.filter.VCAuthenticationProcessingFilter">
+	<beans:bean id="authenticationProcessingFilter" class="com.vc.presentation.filter.VCAuthenticationProcessingFilter">
 		<custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>  
 		<beans:property name="authenticationManager" ref="authenticationManager"/>  
 		<beans:property name="defaultTargetUrl" value="/home"/>
@@ -73,7 +73,7 @@
 
 	<beans:bean id="securityContextLogoutHandler" class="org.springframework.security.ui.logout.SecurityContextLogoutHandler"/>
 
-	<beans:bean id="logoutFilterHandler" class="com.vc.presentatioin.filter.VCLogoutProcessingFilter"/>
+	<beans:bean id="logoutFilterHandler" class="com.vc.presentation.filter.VCLogoutProcessingFilter"/>
 	
 	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
 

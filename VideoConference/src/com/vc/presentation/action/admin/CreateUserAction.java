@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
 import com.vc.entity.UserInfo;
-import com.vc.presentatioin.exception.UserExistException;
+import com.vc.presentation.exception.UserExistException;
 import com.vc.service.user.IUserService;
 import com.vc.util.security.ItemChecker;
 

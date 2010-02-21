@@ -1,12 +1,12 @@
-package com.vc.presentatioin.exception;
+package com.vc.presentation.exception;
 
-public class DepositException extends Exception{
+public class UserExistException extends Exception{
 
 	private static final long serialVersionUID = -4527204855955330290L;
 	
 	private String message = null;
 	
-	public DepositException(String message){
+	public UserExistException(String message){
 		this.message = message;
 	}
 

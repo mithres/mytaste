@@ -1,4 +1,4 @@
-package com.vc.presentatioin.listener;
+package com.vc.presentation.listener;
 
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;

@@ -1,4 +1,4 @@
-package com.vc.presentatioin.exception;
+package com.vc.presentation.exception;
 
 public class PointCardException extends Exception{
 

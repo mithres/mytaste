@@ -14,8 +14,8 @@ import com.vc.dao.user.UserInfoDao;
 import com.vc.entity.PointCard;
 import com.vc.entity.PurchasesHistory;
 import com.vc.entity.UserInfo;
-import com.vc.presentatioin.exception.DepositException;
-import com.vc.presentatioin.exception.PointCardException;
+import com.vc.presentation.exception.DepositException;
+import com.vc.presentation.exception.PointCardException;
 import com.vc.vo.PurchaseVO;
 
 @Service

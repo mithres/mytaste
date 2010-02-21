@@ -5,7 +5,7 @@ import org.springframework.security.annotation.Secured;
 
 import com.vc.entity.PlayList;
 import com.vc.entity.UserInfo;
-import com.vc.presentatioin.exception.UserExistException;
+import com.vc.presentation.exception.UserExistException;
 
 public interface IUserService {
 

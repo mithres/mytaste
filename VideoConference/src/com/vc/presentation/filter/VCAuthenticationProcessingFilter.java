@@ -1,4 +1,4 @@
-package com.vc.presentatioin.filter;
+package com.vc.presentation.filter;
 
 import java.io.IOException;
 import java.util.Date;
@@ -17,8 +17,8 @@ import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 
 import com.vc.core.constants.Constants;
 import com.vc.core.spring.ApplicationContextUtil;
-import com.vc.presentatioin.exception.CaptchaCodeCheckException;
 import com.vc.presentation.action.captcha.CaptchaServiceSingleton;
+import com.vc.presentation.exception.CaptchaCodeCheckException;
 import com.vc.service.cluster.IClientManager;
 
 public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFilter {
