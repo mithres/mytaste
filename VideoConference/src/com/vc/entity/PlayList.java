@@ -40,8 +40,6 @@ public class PlayList {
 	
 	@Transient
 	private File filmFile = null;
-	@Transient
-	private String filmPersistenceName = null;
 
 	public String getId() {
 		return id;
@@ -121,14 +119,6 @@ public class PlayList {
 
 	public void setFilmFile(File filmFile) {
 		this.filmFile = filmFile;
-	}
-
-	public String getFilmPersistenceName() {
-		return filmPersistenceName;
-	}
-
-	public void setFilmPersistenceName(String filmPersistenceName) {
-		this.filmPersistenceName = filmPersistenceName;
 	}
 
 }

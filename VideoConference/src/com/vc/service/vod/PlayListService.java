@@ -19,7 +19,7 @@ import com.vc.dao.vod.PlayListDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
 import com.vc.entity.UserInfo;
-import com.vc.service.system.IFSProvider;
+import com.vc.service.system.IServiceHelper;
 
 @Service
 public class PlayListService implements IPlayListService {
@@ -31,7 +31,8 @@ public class PlayListService implements IPlayListService {
 	@Autowired
 	private UserInfoDao userInfoDao = null;
 	@Autowired
-	private IFSProvider hadoopDFSProvider = null;
+	private IServiceHelper serviceHelper = null;
+
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -39,8 +40,7 @@ public class PlayListService implements IPlayListService {
 		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
 		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
-
-		hadoopDFSProvider.createFile(playList.getFilmPersistenceName(), playList.getFilmFile());
+		serviceHelper.loadFSProvider().createFile(playList.getFileName(), playList.getFilmFile());
 		return playList;
 	}
 

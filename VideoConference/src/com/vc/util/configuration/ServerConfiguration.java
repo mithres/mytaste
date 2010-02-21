@@ -18,11 +18,17 @@ public class ServerConfiguration {
 			Constants.ALLOWED_HTML_DOMAINS = rb.getString("allowedHTMLDomains");
 			Constants.ALLOWED_SWF_DOMAINS = rb.getString("allowedSWFDomains");
 			Constants.FS_URI = rb.getString("fs_uri");
+			Constants.FS_TYPE = rb.getString("fs_type");
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static final String getFsType(){
+		return Constants.FS_TYPE;
 	}
 	
 	public static final String getFsUri(){

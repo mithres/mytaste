@@ -100,23 +100,10 @@
 	
 	<bean id="web.handler.conference" class="com.vc.core.adapter.VideoConferenceApplicationAdapter"/>
 	
-	<!-- This bean use to change vod and record video path, support absolutePath-->
-	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-		<property name="recordPath" value="/home/ammen/Test/recordedStreams/" />
-		<property name="playbackPath" value="/home/ammen/Test/videoStreams/" />
-	</bean>	
-	
 	<!-- end-->
 	
 	<bean id="ApplicationContextUtil" class="com.vc.core.spring.ApplicationContextUtil" lazy-init="false"/>	
 	
-	<bean id="playbackSecurity" class="com.vc.core.vod.VODPlaybackSecurityHandler" init-method="init"/>
-	
-	<!-- Load play back secyrity handler-->
-	<bean id="securityLoader" class="com.vc.core.adapter.SecurityHandlerLoader" init-method="init">
-		<property name="application" ref="web.handler.vod"/>
-		<property name="playbackSecurity" ref="playbackSecurity"/>
-	</bean>
 	
 	<import resource="services/applicationContext-vod.xml"/>
 	

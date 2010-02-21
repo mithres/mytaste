@@ -50,5 +50,6 @@ public class Constants {
 	
 	//FS_URI
 	public static String FS_URI = null;
+	public static String FS_TYPE = null;
 	
 }
