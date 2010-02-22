@@ -8,12 +8,14 @@ import java.io.OutputStream;
 import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.vc.core.constants.Constants;
 import com.vc.util.configuration.ServerConfiguration;
 
 @Service("hdfs")
@@ -30,13 +32,12 @@ public class HadoopDFSProvider implements IFSProvider {
 		InputStream in = null;
 		OutputStream out = null;
 
-		// FSDataInputStream in = null;
 		try {
 
 			in = new FileInputStream(file);
 
 			FileSystem fs = FileSystem.get(URI.create(uri), conf);
-			out = fs.create(new Path("/vod/videoStreams/" + persistenceName));
+			out = fs.create(new Path(Constants.VIDEO_STREAM_PATH + persistenceName));
 
 			byte[] buf = new byte[1024];
 			int len;
@@ -71,7 +72,7 @@ public class HadoopDFSProvider implements IFSProvider {
 
 		Configuration conf = new Configuration();
 		String uri = ServerConfiguration.getFsUri();
-		Path inFile = new Path("/vod/videoStreams/" + file.getName());
+		Path inFile = new Path(file.getName());
 
 		FileSystem fs = null;
 		try {
@@ -84,5 +85,36 @@ public class HadoopDFSProvider implements IFSProvider {
 			return null;
 		}
 		return null;
+	}
+
+	@Override
+	public boolean checkFileExistence(String file) {
+
+		Configuration conf = new Configuration();
+		String uri = ServerConfiguration.getFsUri();
+
+		try {
+			String fileName = new File(file).getName();
+			FileSystem fs = FileSystem.get(URI.create(uri), conf);
+			return fs.exists(new Path(fileName));
+		} catch (IOException e) {
+			return false;
+		}
+
+	}
+
+	@Override
+	public long getFileLength(File file) {
+
+		Configuration conf = new Configuration();
+		String uri = ServerConfiguration.getFsUri();
+
+		try {
+			FileSystem fs = FileSystem.get(URI.create(uri), conf);
+			FileStatus status = fs.getFileStatus(new Path(Constants.VIDEO_STREAM_PATH + file.getName()));
+			return status.getLen();
+		} catch (IOException e) {
+			return 0;
+		}
 	}
 }

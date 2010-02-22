@@ -236,7 +236,7 @@ public class NativeRTMPSMinaIoHandler extends IoHandlerAdapter implements Applic
 			log.debug("Handshake 1st phase");
 			IoBuffer out = IoBuffer.allocate(Constants.HANDSHAKE_SIZE + 1);
 			out.put((byte) 0x03);
-			out.put(RTMPHandshake.getHandshakeBytes());
+			//out.put(RTMPHandshake.getHandshakeBytes());
 			out.flip();
 			session.write(out);
 		} else {

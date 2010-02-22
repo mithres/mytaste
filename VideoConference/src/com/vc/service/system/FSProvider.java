@@ -12,6 +12,7 @@ import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.vc.core.constants.Constants;
 import com.vc.util.configuration.ServerConfiguration;
 
 @Service("fs")
@@ -28,7 +29,7 @@ public class FSProvider implements IFSProvider {
 		try {
 
 			in = new FileInputStream(file);
-			out = new FileOutputStream(new File(ServerConfiguration.getFsUri() + "videoStreams/" + persistenceName));
+			out = new FileOutputStream(new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + persistenceName));
 
 			byte[] buf = new byte[1024];
 			int len;
@@ -68,4 +69,13 @@ public class FSProvider implements IFSProvider {
 		}
 	}
 
+	@Override
+	public boolean checkFileExistence(String file) {
+		return new File(file).exists();
+	}
+
+	@Override
+	public long getFileLength(File file) {
+		return file.length();
+	}
 }

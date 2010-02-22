@@ -14,10 +14,7 @@
 	</bean>
 	
 	<!-- This bean use to change vod and record video path, support absolutePath-->
-	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator">
-		<property name="recordPath" value="/home/ammen/Test/recordedStreams/" />
-		<property name="playbackPath" value="/home/ammen/Test/videoStreams/" />
-	</bean>	
+	<bean id="streamFilenameGenerator" class="com.vc.core.vod.CustomFilenameGenerator"/>
 	
 	<bean id="fileUploader" class="com.vc.util.photo.FileSystemUploader"/>
 

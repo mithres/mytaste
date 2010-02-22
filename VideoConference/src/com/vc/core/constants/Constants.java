@@ -37,6 +37,9 @@ public class Constants {
 	public static final String CAPTCHA_TICKET = "captcha.ticket";
 	public static final String CAPTCHA_CODE_ERROR = "CaptchaCodeError";
 	
+	//Video and Record stream path
+	public static final String VIDEO_STREAM_PATH = "/videoStreams/";
+	public static final String RECORDED_STREAM_PATH = "/recordedStreams/";
 	
 	
 	//Constants for security handler
@@ -51,5 +54,6 @@ public class Constants {
 	//FS_URI
 	public static String FS_URI = null;
 	public static String FS_TYPE = null;
+	
 	
 }
