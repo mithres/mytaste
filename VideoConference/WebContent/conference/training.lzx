@@ -1,0 +1,41 @@
+<canvas debug="true">
+
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
+		
+	<vcrtmpconnection id="rc" autoconnect="false"/>
+	<mediastream name="s1" type="rtmp"/>
+	<mediastream name="s2" type="rtmp"/>
+	
+	<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
+		<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
+		<microphone id="mic" capturing="false"/>
+	</videoview>
+	
+	<script>
+		canvas.setDefaultContextMenu(new LzContextMenu());
+		function init(roomId, sid, url) {
+			Debug.write(url + ":" + roomId + ":" + sid ":" + url);
+			rc.setAttribute("src", url);
+			rc.connect(sid);
+			
+			if (cam.show == false) {
+				live.stream.setAttribute('url', roomId);
+				live.stream.broadcast();
+				cam.setAttribute('show', true);
+			} else {
+				live.stream.stop();
+				cam.setAttribute('show', false);
+			}
+			
+		}
+	</script>
+				
+	<view id="v2" layout="axis:y; spacing:4" y="300">
+		<videoview name="vid" type="rtmp" stream="$once{canvas.s2}"/>
+		<edittext name="username">001</edittext>
+		<button text="${s2.playing ? 'stop receiving' : 'receive'}"
+			onclick="s2.setAttribute('url', parent.username.text);
+			if (s2.playing) s2.stop(); else s2.play();"/>
+	</view>
+			
+</canvas>

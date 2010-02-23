@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.red5.logging.Red5LoggerFactory;
@@ -16,6 +15,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.vc.core.constants.Constants;
+import com.vc.red5.HadoopFile;
 import com.vc.util.configuration.ServerConfiguration;
 
 @Service("hdfs")
@@ -68,53 +68,60 @@ public class HadoopDFSProvider implements IFSProvider {
 	}
 
 	@Override
-	public InputStream readFile(File file) {
-
-		Configuration conf = new Configuration();
-		String uri = ServerConfiguration.getFsUri();
-		Path inFile = new Path(file.getName());
-
-		FileSystem fs = null;
-		try {
-			fs = FileSystem.get(URI.create(uri), conf);
-			if (fs.exists(inFile)) {
-				return fs.open(inFile);
-			}
-		} catch (IOException e) {
-			log.error("Get input stream from flv file on hdfs error.", e);
-			return null;
-		}
-		return null;
+	public File getFile(String fileName) {
+		return new HadoopFile(fileName);
 	}
+	
+	
 
-	@Override
-	public boolean checkFileExistence(String file) {
-
-		Configuration conf = new Configuration();
-		String uri = ServerConfiguration.getFsUri();
-
-		try {
-			String fileName = new File(file).getName();
-			FileSystem fs = FileSystem.get(URI.create(uri), conf);
-			return fs.exists(new Path(fileName));
-		} catch (IOException e) {
-			return false;
-		}
-
-	}
-
-	@Override
-	public long getFileLength(File file) {
-
-		Configuration conf = new Configuration();
-		String uri = ServerConfiguration.getFsUri();
-
-		try {
-			FileSystem fs = FileSystem.get(URI.create(uri), conf);
-			FileStatus status = fs.getFileStatus(new Path(Constants.VIDEO_STREAM_PATH + file.getName()));
-			return status.getLen();
-		} catch (IOException e) {
-			return 0;
-		}
-	}
+//	@Override
+//	public InputStream readFile(File file) {
+//
+//		Configuration conf = new Configuration();
+//		String uri = ServerConfiguration.getFsUri();
+//		Path inFile = new Path(file.getName());
+//
+//		FileSystem fs = null;
+//		try {
+//			fs = FileSystem.get(URI.create(uri), conf);
+//			if (fs.exists(inFile)) {
+//				return fs.open(inFile);
+//			}
+//		} catch (IOException e) {
+//			log.error("Get input stream from flv file on hdfs error.", e);
+//			return null;
+//		}
+//		return null;
+//	}
+//
+//	@Override
+//	public boolean checkFileExistence(String file) {
+//
+//		Configuration conf = new Configuration();
+//		String uri = ServerConfiguration.getFsUri();
+//
+//		try {
+//			String fileName = new File(file).getName();
+//			FileSystem fs = FileSystem.get(URI.create(uri), conf);
+//			return fs.exists(new Path(fileName));
+//		} catch (IOException e) {
+//			return false;
+//		}
+//
+//	}
+//
+//	@Override
+//	public long getFileLength(File file) {
+//
+//		Configuration conf = new Configuration();
+//		String uri = ServerConfiguration.getFsUri();
+//
+//		try {
+//			FileSystem fs = FileSystem.get(URI.create(uri), conf);
+//			FileStatus status = fs.getFileStatus(new Path(Constants.VIDEO_STREAM_PATH + file.getName()));
+//			return status.getLen();
+//		} catch (IOException e) {
+//			return 0;
+//		}
+//	}
 }

@@ -26,6 +26,7 @@ import org.red5.server.stream.provider.FileProvider;
 import org.slf4j.Logger;
 
 import com.vc.core.spring.ApplicationContextUtil;
+import com.vc.service.system.IFSProvider;
 import com.vc.service.system.IServiceHelper;
 
 public class ProviderService implements IProviderService {
@@ -110,15 +111,15 @@ public class ProviderService implements IProviderService {
 		} catch (IOException e) {
 			log.error("Problem getting file: {}", name, e);
 		}
-		
-		// check files existence
-		if (file != null) {
-			IServiceHelper serviceHelper = (IServiceHelper) ApplicationContextUtil.getApplicationContext().getBean("serviceHelper");
-			if(!serviceHelper.loadFSProvider().checkFileExistence(file.getPath())){
-				file = null;
+
+		if (file == null || !file.exists()) {
+			// if there is no file extension this is most likely a live stream
+			if (name.indexOf('.') > 0) {
+				log.info("File was null or did not exist: {}", name);
+			} else {
 				log.debug("VOD file {} was not found, may be live stream", name);
-				return null;
 			}
+			return null;
 		}
 		return file;
 	}
@@ -186,16 +187,16 @@ public class ProviderService implements IProviderService {
 		String filename = filenameGenerator.generateFilename(scope, name, GenerationType.PLAYBACK);
 		File file;
 		if (filenameGenerator.resolvesToAbsolutePath()) {
-			file = new File(filename);
+			IServiceHelper serviceHelper = (IServiceHelper) ApplicationContextUtil.getApplicationContext().getBean("serviceHelper");
+			IFSProvider fsProvider = serviceHelper.loadFSProvider();
+			file = fsProvider.getFile(filename);
 		} else {
 			file = scope.getContext().getResource(filename).getFile();
 		}
 		// check files existence
-		if (file != null) {
-			IServiceHelper serviceHelper = (IServiceHelper) ApplicationContextUtil.getApplicationContext().getBean("serviceHelper");
-			if(!serviceHelper.loadFSProvider().checkFileExistence(file.getPath())){
-				file = null;
-			}
+		if (file != null && !file.exists()) {
+			// if it does not exist then null it out
+			file = null;
 		}
 		return file;
 

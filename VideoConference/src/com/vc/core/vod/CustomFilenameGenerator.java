@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vc.core.constants.Constants;
 import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
-import com.vc.util.configuration.ServerConfiguration;
 
 public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 
@@ -42,8 +41,6 @@ public class CustomFilenameGenerator implements IStreamFilenameGenerator {
 		if (extension != null) {
 			filename += extension;
 		}
-
-		filename = ServerConfiguration.getFsUri() + filename;
 
 		return filename;
 	}

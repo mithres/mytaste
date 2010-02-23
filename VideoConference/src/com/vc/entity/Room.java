@@ -10,33 +10,34 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
-//@Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Room {
-	
+
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String roomId = null;
-	
+
 	private String roomName = null;
-	
+
 	private UserInfo owner = null;
-	
+
 	private Integer maxPeopleCount = null;
-	
+
 	private Integer currentPeopleCount = null;
-	
+
 	private RoomPrivacy roomPrivacy = null;
-	
+
 	private RoomType roomType = null;
-	
-	private String password =  null;
-	
+
+	private String password = null;
+
 	private Timestamp createdTime = null;
-	
-	// Red5 publish stream name if the room type is conference there need be more than one stream
-	// and all members in room need to receive each stream
+
+	// Red5 publish stream name if the room type is conference there need be
+	// more than one stream
+	// and all members in room need to receive streams
 	private String[] streamNames = null;
 
 	public String getRoomId() {
@@ -118,7 +119,5 @@ public class Room {
 	public void setStreamNames(String[] streamNames) {
 		this.streamNames = streamNames;
 	}
-	
-	
-	
+
 }

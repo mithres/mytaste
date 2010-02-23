@@ -2,7 +2,6 @@ package com.vc.service.system;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,22 +59,27 @@ public class FSProvider implements IFSProvider {
 	}
 
 	@Override
-	public InputStream readFile(File file) {
-		try {
-			return new FileInputStream(file);
-		} catch (FileNotFoundException e) {
-			log.error("Get input stream from file on fs error.", e);
-			return null;
-		}
+	public File getFile(String fileName) {
+		return new File(ServerConfiguration.getFsUri() + fileName);
 	}
 
-	@Override
-	public boolean checkFileExistence(String file) {
-		return new File(file).exists();
-	}
-
-	@Override
-	public long getFileLength(File file) {
-		return file.length();
-	}
+	// @Override
+	// public InputStream readFile(File file) {
+	// try {
+	// return new FileInputStream(file);
+	// } catch (FileNotFoundException e) {
+	// log.error("Get input stream from file on fs error.", e);
+	// return null;
+	// }
+	// }
+	//
+	// @Override
+	// public boolean checkFileExistence(String file) {
+	// return new File(file).exists();
+	// }
+	//
+	// @Override
+	// public long getFileLength(File file) {
+	// return file.length();
+	// }
 }

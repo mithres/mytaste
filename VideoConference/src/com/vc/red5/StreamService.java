@@ -54,9 +54,6 @@ import org.red5.server.stream.IProviderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vc.service.system.IFSProvider;
-import com.vc.service.system.IServiceHelper;
-
 /**
  * Stream service
  */
@@ -280,16 +277,12 @@ public class StreamService implements IStreamService {
 		item.setStart(start);
 		item.setLength(length);
 
-		IServiceHelper serviceHelper = (IServiceHelper) scope.getContext().getBean(IServiceHelper.BEAN_NAME);
-		IFSProvider fsProvider = serviceHelper.loadFSProvider();
-
 		// get file size in bytes if available
 		IProviderService providerService = (IProviderService) scope.getContext().getBean(IProviderService.BEAN_NAME);
 		if (providerService != null) {
 			File file = providerService.getVODProviderFile(scope, name);
 			if (file != null) {
-				item.setSize(fsProvider.getFileLength(file));
-//				item.setSize(file.length());
+				item.setSize(file.length());
 			} else {
 				logger.debug("File was null, this is ok for live streams");
 			}
