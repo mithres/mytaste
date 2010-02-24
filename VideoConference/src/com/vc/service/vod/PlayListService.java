@@ -1,7 +1,10 @@
 package com.vc.service.vod;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 
+import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,8 @@ import com.vc.dao.vod.PlayListDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
 import com.vc.entity.UserInfo;
-import com.vc.service.system.IServiceHelper;
+import com.vc.presentation.exception.FilePersistException;
+import com.vc.util.configuration.ServerConfiguration;
 
 @Service
 public class PlayListService implements IPlayListService {
@@ -30,17 +34,19 @@ public class PlayListService implements IPlayListService {
 	private PlayListDao playListDao = null;
 	@Autowired
 	private UserInfoDao userInfoDao = null;
-	@Autowired
-	private IServiceHelper serviceHelper = null;
-
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public PlayList savePlayList(PlayList playList) {
+	public PlayList savePlayList(PlayList playList) throws FilePersistException {
 		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
 		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
-		serviceHelper.loadFSProvider().createFile(playList.getFileName(), playList.getFilmFile());
+		File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
+		try {
+			FileUtil.copyFile(playList.getFilmFile(), destFile);
+		} catch (IOException e) {
+			throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
+		}
 		return playList;
 	}
 

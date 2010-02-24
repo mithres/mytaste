@@ -7,6 +7,7 @@ import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
+import com.vc.presentation.exception.FilePersistException;
 
 public interface IPlayListService {
 
@@ -14,7 +15,7 @@ public interface IPlayListService {
 	public abstract PlayList findPlayListById(String playListID);
 
 	@Secured( { "ROLE_ADMIN" })
-	public abstract PlayList savePlayList(PlayList playList);
+	public abstract PlayList savePlayList(PlayList playList) throws FilePersistException;
 
 	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract IPageList<PlayList> findPlayList(Hints hints);

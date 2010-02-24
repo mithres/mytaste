@@ -80,9 +80,9 @@
 		</property>
 	</bean>
 	<!-- High level access to streams -->
-	<bean id="streamService" class="com.vc.red5.StreamService"/>
+	<bean id="streamService" class="org.red5.server.stream.StreamService"/>
 	<!-- High level access to broadcasted streams -->
-	<bean id="providerService" class="com.vc.red5.ProviderService"/>
+	<bean id="providerService" class="org.red5.server.stream.ProviderService"/>
 	<!-- Provides output to consumers -->
 	<bean id="consumerService" class="org.red5.server.stream.ConsumerService"/>
 	<!-- Simple bandwidth control -->

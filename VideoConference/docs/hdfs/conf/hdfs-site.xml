@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+   <property>  
+      <name>fs.default.name</name> 
+      <value>hdfs://172.0.2.193:54310/</value>
+   </property>
+
+   <property>
+      <name>dfs.name.dir</name>
+      <value>/home/ammen/soft/hadoop-0.20.1/hadoopfs/name</value>
+   </property>
+   <property>
+     <name>dfs.data.dir</name>
+     <value>/home/ammen/soft/hadoop-0.20.1/hadoopfs/data</value>
+   </property>
+   <property>
+      <name>dfs.replication</name>
+      <value>1</value>
+   </property>
+   <property>
+      <name>hadoop.tmp.dir</name>
+      <value>/home/ammen/soft/hadoop-0.20.1/tmp/</value>
+   </property>
+<property>
+   <name>mapred.child.java.opts</name>
+   <value>-Xmx256m</value>
+</property>
+<property>
+  <name>dfs.block.size</name>
+  <value>5120000</value>
+  <description>The default block size for new files.</description>
+</property>
+</configuration> 
