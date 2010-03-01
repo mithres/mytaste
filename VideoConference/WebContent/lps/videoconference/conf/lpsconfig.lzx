@@ -1,13 +1,14 @@
 <library>
 	
-	<attribute name="serverIP" value="172.0.2.193" type="string"/>
-	<attribute name="httpPort" value="8080" type="string"/>
-	<attribute name="rtmp" value="" type="string"/>
-	<attribute name="rtmpPort" value="1935" type="string"/>
 	<attribute name="vodContext" value="/vod" type="string"/>
 	<attribute name="conferenceContext" value="/conference" type="string"/>
 	
 	<attribute name="webRootKey" value="VideoConference" type="string"/>
+	
+	<attribute name="serverIP" value="172.0.2.193" type="string"/>
+	<attribute name="httpPort" value="8080" type="string"/>
+	<attribute name="rtmp" value="" type="string"/>
+	<attribute name="rtmpPort" value="1935" type="string"/>
 	
 	<attribute name="vodRTMPAddress" value="vod" type="string"/>
 	<attribute name="conferenceRTMPAddress" value="conference" type="string"/>

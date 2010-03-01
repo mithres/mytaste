@@ -23,7 +23,7 @@ public class JoinRoomAction extends BaseAction {
 	public String process() {
 		
 		sid = this.getRequest().getSession().getId();
-		nodeUrl = loadBalancer.getLBNode().getUrl();
+		nodeUrl = loadBalancer.getLBNode().getConferenceServiceUrl();
 		
 		return Action.SUCCESS;
 	}

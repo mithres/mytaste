@@ -14,7 +14,7 @@ import com.vc.vo.ClientVO;
 public class ClientManager implements IClientManager {
 
 	private static final Logger log = Red5LoggerFactory.getLogger(ClientManager.class, "VideoConference");
-
+	//The map will distributed by terracotta
 	private static ConcurrentMap<String, ClientVO> CLIENT_LIST = new ConcurrentHashMap<String, ClientVO>();
 
 	@Override

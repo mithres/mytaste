@@ -37,7 +37,9 @@ public class PlayVideoAction extends BaseAction {
 		}
 
 		sid = this.getRequest().getSession().getId();
-		nodeUrl = loadBalancer.getLBNode().getUrl();
+		nodeUrl = loadBalancer.getLBNode().getVodServiceUrl();
+		log.info(loadBalancer.getLBNode().toString());
+
 		return Action.SUCCESS;
 	}
 

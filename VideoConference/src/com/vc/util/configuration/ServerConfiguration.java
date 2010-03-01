@@ -2,10 +2,15 @@ package com.vc.util.configuration;
 
 import java.util.ResourceBundle;
 
+import org.red5.logging.Red5LoggerFactory;
+import org.slf4j.Logger;
+
 import com.vc.core.constants.Constants;
 import com.vc.util.photo.PhotoType;
 
 public class ServerConfiguration {
+
+	private static final Logger log = Red5LoggerFactory.getLogger(ServerConfiguration.class, "VideoConference");
 
 	static {
 
@@ -18,18 +23,33 @@ public class ServerConfiguration {
 			Constants.ALLOWED_HTML_DOMAINS = rb.getString("allowedHTMLDomains");
 			Constants.ALLOWED_SWF_DOMAINS = rb.getString("allowedSWFDomains");
 			Constants.FS_URI = rb.getString("fs_uri");
-			
+
+			Constants.RTMP_IP = rb.getString("rtmp_ip");
+			Constants.RTMP_PORT = Integer.valueOf(rb.getString("rtmp_port")).intValue();
+			Constants.IS_RTMP_SERVER = Boolean.valueOf(rb.getString("localhost_is_rtmpserver"));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Load server configuration error.", e);
 		}
 
 	}
-	
-	public static final String getFsUri(){
+
+	public static final boolean isCurrentHostRTMPServer() {
+		return Constants.IS_RTMP_SERVER;
+	}
+
+	public static final String getRTMPIp() {
+		return Constants.RTMP_IP;
+	}
+
+	public static final int getRTMPPort() {
+		return Constants.RTMP_PORT;
+	}
+
+	public static final String getFsUri() {
 		return Constants.FS_URI;
 	}
-	
+
 	public static String getAllowedHTMLDomains() {
 		return Constants.ALLOWED_HTML_DOMAINS;
 	}

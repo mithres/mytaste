@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vc.core.constants.Constants;
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.cluster.IClientManager;
+import com.vc.service.cluster.ILoadBalancer;
 
 public class VODApplicationAdapter extends ApplicationAdapter {
 
@@ -31,13 +32,18 @@ public class VODApplicationAdapter extends ApplicationAdapter {
 	@Override
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
 		log.info("------Client connect to vod scope ----------");
-
+		ILoadBalancer loadBalancer = (ILoadBalancer) scope.getContext().getApplicationContext().getBean(
+				ILoadBalancer.LOAD_BALACENER_NAME);
+		loadBalancer.getLBNode().increaseConnection();
 		return true;
 	}
 
 	@Override
 	public synchronized void disconnect(IConnection conn, IScope scope) {
 		log.info("----------------------disconnect-----------------------");
+		ILoadBalancer loadBalancer = (ILoadBalancer) scope.getContext().getApplicationContext().getBean(
+				ILoadBalancer.LOAD_BALACENER_NAME);
+		loadBalancer.getLBNode().reduceConnection();
 		super.disconnect(conn, scope);
 	}
 
