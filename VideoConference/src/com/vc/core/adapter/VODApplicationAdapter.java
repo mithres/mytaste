@@ -11,6 +11,7 @@ import com.vc.core.constants.Constants;
 import com.vc.core.vod.VODSecurityHandler;
 import com.vc.service.cluster.IClientManager;
 import com.vc.service.cluster.ILoadBalancer;
+import com.vc.vo.LBNode;
 
 public class VODApplicationAdapter extends ApplicationAdapter {
 
@@ -34,7 +35,8 @@ public class VODApplicationAdapter extends ApplicationAdapter {
 		log.info("------Client connect to vod scope ----------");
 		ILoadBalancer loadBalancer = (ILoadBalancer) scope.getContext().getApplicationContext().getBean(
 				ILoadBalancer.LOAD_BALACENER_NAME);
-		loadBalancer.getLBNode().increaseConnection();
+		LBNode node = loadBalancer.getLocalHostLBNode();
+		loadBalancer.increaseConnection(node);
 		return true;
 	}
 
@@ -43,7 +45,8 @@ public class VODApplicationAdapter extends ApplicationAdapter {
 		log.info("----------------------disconnect-----------------------");
 		ILoadBalancer loadBalancer = (ILoadBalancer) scope.getContext().getApplicationContext().getBean(
 				ILoadBalancer.LOAD_BALACENER_NAME);
-		loadBalancer.getLBNode().reduceConnection();
+		LBNode node = loadBalancer.getLocalHostLBNode();
+		loadBalancer.reduceConnection(node);
 		super.disconnect(conn, scope);
 	}
 

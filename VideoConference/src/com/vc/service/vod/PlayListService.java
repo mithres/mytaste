@@ -38,14 +38,19 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) throws FilePersistException {
-		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
 		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
-		File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
-		try {
-			FileUtil.copyFile(playList.getFilmFile(), destFile);
-		} catch (IOException e) {
-			throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
+
+		if (playList.getFilmFile() != null) {
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
+					+ playList.getFileName());
+			try {
+				FileUtil.copyFile(playList.getFilmFile(), destFile);
+			} catch (IOException e) {
+				throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
+			}
 		}
 		return playList;
 	}

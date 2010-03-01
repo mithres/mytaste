@@ -25,18 +25,19 @@
 		<property name="defaultAutoCommit" value="false"/>
 	</bean>
 	
-	<!-- JPA config,load pu from persistence.xml -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="VideoConference" />
-		<property name="dataSource" ref="dataSource" />
-		<property name="loadTimeWeaver">
-			<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
+		<property name="configLocation" value="classpath:META-INF/hibernate.cfg.xml"/>
+		<property name="packagesToScan">
+			<list>
+				<value>com.vc.entity</value>
+			</list>
 		</property>
 	</bean>
-	<!-- Transaction Config -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<!-- Use annotation to define transaction -->

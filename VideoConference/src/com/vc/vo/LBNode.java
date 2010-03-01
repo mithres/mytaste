@@ -44,18 +44,6 @@ public class LBNode implements Comparable<LBNode> {
 		return connections;
 	}
 
-	public synchronized int increaseConnection() {
-		connections += 1;
-		return connections;
-	}
-
-	public synchronized int reduceConnection() {
-		if (connections > 0) {
-			connections -= 1;
-		}
-		return connections;
-	}
-
 	public String getVodServiceUrl() {
 		return protocol + "://" + nodeIP + ":" + port + "/" + Constants.VOD_SCOPE_NAME;
 	}
@@ -93,7 +81,7 @@ public class LBNode implements Comparable<LBNode> {
 		if (this.equals(o)) {
 			return 0;
 		}
-		return o.getConnections() - this.connections;
+		return this.connections - o.getConnections();
 	}
 
 	@Override
@@ -129,6 +117,11 @@ public class LBNode implements Comparable<LBNode> {
 
 	@Override
 	public String toString() {
-		return "[" +getNodeIP() + ":" + getPort() + "]" + getConnections() + ":" + getProtocol()	+ ":" + getVodServiceUrl() + ":" + getConferenceServiceUrl();
+		return "[" + getNodeIP() + ":" + getPort() + "]" + getConnections() + ":" + getProtocol() + ":"
+				+ getVodServiceUrl() + ":" + getConferenceServiceUrl();
+	}
+
+	public void setConnections(int connections) {
+		this.connections = connections;
 	}
 }
