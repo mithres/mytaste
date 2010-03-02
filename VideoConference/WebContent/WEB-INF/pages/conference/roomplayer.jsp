@@ -31,7 +31,7 @@
 <!-- url : '<web.page:path/>/vod/vodplayer.lzx.swf8.swf', -->
 <script>
 	lz.embed.swf( {
-		url : '<web.page:path/>/conference/training.lzx.lzx?lzt=swf',
+		url : '<web.page:path/>/conference/training.lzx?lzt=swf',
 		allowfullscreen : 'false',
 		width : '1024',
 		height : '768',

@@ -56,4 +56,6 @@
 	<include file="struts-model/struts-signup.xml" />
 	<include file="struts-model/struts-installer.xml" />
 	<include file="struts-model/struts-admin.xml" />
+	<include file="struts-model/struts-conference.xml" />
+	
 </struts>

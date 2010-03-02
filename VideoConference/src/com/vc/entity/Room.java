@@ -2,9 +2,12 @@ package com.vc.entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -21,7 +24,11 @@ public class Room {
 
 	private String roomName = null;
 
-	private UserInfo owner = null;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private UserInfo creator = null;
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private UserInfo moderator = null;
 
 	private Integer maxPeopleCount = null;
 
@@ -32,12 +39,13 @@ public class Room {
 	private RoomType roomType = null;
 
 	private String password = null;
-
+	
 	private Timestamp createdTime = null;
 
 	// Red5 publish stream name if the room type is conference there need be
 	// more than one stream
 	// and all members in room need to receive streams
+	@Transient
 	private String[] streamNames = null;
 
 	public String getRoomId() {
@@ -54,14 +62,6 @@ public class Room {
 
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
-	}
-
-	public UserInfo getOwner() {
-		return owner;
-	}
-
-	public void setOwner(UserInfo owner) {
-		this.owner = owner;
 	}
 
 	public Integer getMaxPeopleCount() {
@@ -118,6 +118,22 @@ public class Room {
 
 	public void setStreamNames(String[] streamNames) {
 		this.streamNames = streamNames;
+	}
+
+	public UserInfo getModerator() {
+		return moderator;
+	}
+
+	public void setModerator(UserInfo moderator) {
+		this.moderator = moderator;
+	}
+
+	public UserInfo getCreator() {
+		return creator;
+	}
+
+	public void setCreator(UserInfo creator) {
+		this.creator = creator;
 	}
 
 }

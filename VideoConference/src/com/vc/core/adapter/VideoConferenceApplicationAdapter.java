@@ -11,74 +11,33 @@ import org.red5.server.api.stream.IBroadcastStream;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.red5.server.api.stream.ISubscriberStream;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.BadCredentialsException;
-import org.springframework.security.providers.ProviderManager;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 
-import com.vc.core.vod.VODSecurityHandler;
-import com.vc.service.cluster.IClientManager;
+public class VideoConferenceApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback,
+		IStreamAwareScopeHandler {
 
-public class VideoConferenceApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback, IStreamAwareScopeHandler {
-
-	private static final Logger log = Red5LoggerFactory.getLogger(VideoConferenceApplicationAdapter.class, "VideoConference");
-
-	// The Global WebApp Path
-	public static String webAppPath = "";
-
-	@Autowired
-	private IClientManager vodClientManager = null;
+	private static final Logger log = Red5LoggerFactory.getLogger(VideoConferenceApplicationAdapter.class,
+			"VideoConference");
 
 	@Override
 	public synchronized boolean start(IScope scope) {
-
-		// registerStreamPlaybackSecurity(new VODPlaybackSecurityHandler());
-		VODSecurityHandler vodHandler = new VODSecurityHandler();
-		vodHandler.setVodClientManager(vodClientManager);
-		scope.registerServiceHandler("vod", vodHandler);
 		return super.start(scope);
 	}
 
 	@Override
 	public synchronized void stop(IScope scope) {
-		// TODO Auto-generated method stub
 		super.stop(scope);
 	}
 
 	@Override
 	public synchronized boolean connect(IConnection conn, IScope scope, Object[] params) {
-
-		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":" + conn.getType());
-
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken("admin", "passed");
-
-		// UsernamePasswordAuthenticationToken auth = new
-		// UsernamePasswordAuthenticationToken("admin", "passed");
-		ProviderManager providerManager = (ProviderManager) scope.getContext().getBean("authenticationManager");
-
-		try {
-			auth = (UsernamePasswordAuthenticationToken) providerManager.authenticate(auth);
-		} catch (BadCredentialsException ex) {
-			// rejectClient("Wrong login information");
-			return false;
-		}
-
-		if (auth.isAuthenticated()) {
-			conn.getClient().setAttribute("authInformation", auth);
-			// The client is authenticated
-			// You can use this in your functions called by the client
-			// or event the StreamPublish Security handler
-			log.debug("YESS!!! AUTHENTICATED!!!!!");
-			return true;
-		}
-
-		return false;
+		log.info("App connect start--------------------" + conn.getClient().getId() + ":" + params.length + ":"
+				+ conn.getType());
+		return true;
 	}
 
 	@Override
 	public synchronized void disconnect(IConnection conn, IScope scope) {
 		log.info("----------------------disconnect-----------------------");
-		vodClientManager.removeClient(conn.getClient().getId());
 		super.disconnect(conn, scope);
 	}
 

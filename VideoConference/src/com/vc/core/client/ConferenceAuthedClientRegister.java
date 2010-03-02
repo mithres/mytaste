@@ -15,8 +15,8 @@ import com.vc.service.cluster.IClientManager;
 import com.vc.util.security.AesCrypt;
 import com.vc.vo.ClientVO;
 
-public class AuthedClientRegister extends ClientRegistry {
-
+public class ConferenceAuthedClientRegister extends ClientRegistry {
+	
 	@Autowired
 	private IClientManager clientManager = null;
 
@@ -50,4 +50,5 @@ public class AuthedClientRegister extends ClientRegistry {
 
 	}
 
+	
 }
