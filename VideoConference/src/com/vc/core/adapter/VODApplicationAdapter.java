@@ -4,6 +4,9 @@ import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
+import org.red5.server.api.stream.IStreamCapableConnection;
+import org.red5.server.api.stream.support.SimpleBandwidthConfigure;
+import org.red5.server.api.stream.support.SimpleConnectionBWConfig;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,6 +40,7 @@ public class VODApplicationAdapter extends ApplicationAdapter {
 				ILoadBalancer.LOAD_BALACENER_NAME);
 		LBNode node = loadBalancer.getLocalHostLBNode();
 		loadBalancer.increaseConnection(node);
+
 		return true;
 	}
 
