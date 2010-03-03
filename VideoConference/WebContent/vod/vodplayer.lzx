@@ -1,5 +1,5 @@
-<canvas debug="true">
-
+<canvas>
+	
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
 	
@@ -19,8 +19,6 @@
 	<!--lpsConfig id="lpsConfig"/-->
 	
 	<script>
-
-
 		canvas.setDefaultContextMenu(new LzContextMenu());
 
 		function init(filmName, sid, url) {
@@ -36,7 +34,6 @@
 		
 		<handler name="onconnect">
 			Debug.write("connected");
-			s2.play();
 		</handler>
 		
 		<handler name="onerror">
@@ -71,8 +68,12 @@
 	<mediastream name="s2" type="rtmp"/>
 	
 	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
-
-	<view layout="axis:y;">
+	
+	<view layout="axis:y;" resource="../images/screenshot.png">
+		
+		<handler name="onclick">
+			s2.play();
+		</handler>
 		
 		<videoview id="vid" width="640" height="480" type="rtmp" stream="${s2}"/>
 
