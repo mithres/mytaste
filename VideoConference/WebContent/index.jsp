@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="maindecorator" />
-<title>Home Page</title>
+<title><s:text name="vc.home.title" /></title>
 </head>
 <body>
 
@@ -28,30 +28,26 @@
 <form action="signIn" method="POST">
 <table>
 	<tr>
-		<td>User:</td>
+		<td><s:text name="vc.index.username" /></td>
 		<td><input type='text' name='userName' value="" /></td>
 	</tr>
 	<tr>
-		<td>Password:</td>
+		<td><s:text name="vc.index.pwssword" /></td>
 		<td><input type='password' name='password' AUTOCOMPLETE="off" /></td>
 	</tr>
 	<tr>
-		<td>Enter letters below:</td>
+		<td><s:text name="vc.index.input_checkcode" /></td>
 		<td><input type='text' name='ccode' value="" /></td>
 	</tr>
 	<tr>
-		<td>Check Code:</td>
-		<td><img id="ccode" src="signUp/captcha" /> <a
-			href="javascript:void(0);" onclick=
-	flushValidateCode();;
->Reload</a></td>
-	</tr>
-
-	<tr>
-		<td colspan='2'><input name="submit" type="submit"></td>
+		<td></td>
+		<td><img id="ccode" src="signUp/captcha" /><a href="javascript:void(0);" onclick="flushValidateCode();"><s:text name="vc.index.reload_checkcode" /></a></td>
 	</tr>
 	<tr>
-		<td colspan='2'><input name="reset" type="reset"></td>
+		<td colspan='2'><input name="<s:text name="vc.button.submit" />" type="submit"></td>
+	</tr>
+	<tr>
+		<td colspan='2'><input name="<s:text name="vc.button.reset" />" type="reset"></td>
 	</tr>
 </table>
 

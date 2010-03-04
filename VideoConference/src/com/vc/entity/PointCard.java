@@ -2,6 +2,7 @@ package com.vc.entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Index;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -19,8 +21,11 @@ public class PointCard {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String cardId = null;
 
+	@Column(unique = true)
 	private String cardNO = null;
 
+	@Column(unique = true)
+	@Index(name = "cardpassword")
 	private String cardPassword = null;
 
 	private Timestamp expireTime = null;

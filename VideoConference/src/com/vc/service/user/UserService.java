@@ -61,7 +61,8 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 		} catch (NoSuchAlgorithmException e) {
 			log.error("MD5 error when user sign up.");
 		}
-		Long userIndex = ((BigInteger)userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		Long userIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
 		user.setUserIndex(userIndex);
 		userInfoDao.create(user);
 		return user;
@@ -107,8 +108,8 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	public boolean playVod(Authentication auth, PlayList playList) {
 
 		UserInfo user = userInfoDao.findById(auth.getName());
-		if (user.getAccountBalance().floatValue() >= playList.getPrice().floatValue()) {
-			user.setAccountBalance(user.getAccountBalance() - playList.getPrice().floatValue());
+		if (user.getAccountBalance() >= playList.getPrice()) {
+			user.setAccountBalance(user.getAccountBalance() - playList.getPrice());
 			userInfoDao.update(user);
 		} else {
 			return false;

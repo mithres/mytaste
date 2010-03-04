@@ -23,10 +23,6 @@ public class SignUpAction extends BaseAction {
 	@Override
 	public String process() {
 		
-		if(this.getActionErrors().size() > 0){
-			return Action.INPUT;
-		}
-		
 		try {	
 			userService.signUp(user);
 			return Action.SUCCESS;
@@ -40,19 +36,19 @@ public class SignUpAction extends BaseAction {
 	public void validate() {
 		
 		if(ItemChecker.checkNull(user.getUsername())){
-			this.addActionError("User name can be empty.");
+			this.addActionError(getText("vc.singup.username.empty"));
 		}
 		if(!ItemChecker.checkUserName(user.getUsername())){
-			this.addActionError("User name format error.");
+			this.addActionError(getText("vc.singup.username.error"));
 		}
 		if(ItemChecker.checkNull(user.getPassword())){
-			this.addActionError("User password can be empty.");
+			this.addActionError(getText("vc.singup.password.empty"));
 		}
 		if(!ItemChecker.checkPassword(user.getPassword())){
-			this.addActionError("User password format error.");
+			this.addActionError(getText("vc.singup.password.error"));
 		}
 		if(!user.getPassword().equals(password)){
-			this.addActionError("Password and Confirm password different");
+			this.addActionError(getText("vc.singup.cpassword.error"));
 		}
 		
 	}

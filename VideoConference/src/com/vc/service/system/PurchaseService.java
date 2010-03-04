@@ -32,7 +32,8 @@ public class PurchaseService implements IPurchaseService {
 	public PointCard findCardInfoByPassword(String password) throws PointCardException {
 		PointCard card = pointCardDao.findPointCardByPassword(password);
 		if (card == null) {
-			throw new PointCardException("No card found.");
+			throw new PointCardException("Point card with password {" + password + "} not found.",
+					"vc.accountdeposits.card.notfound");
 		}
 		return card;
 	}
@@ -53,9 +54,9 @@ public class PurchaseService implements IPurchaseService {
 		PointCard card = findCardInfoByPassword(vo.getCardPassword());
 
 		if (card.getExpireTime().before(currentTime)) {
-			throw new DepositException("Card expired.");
+			throw new DepositException("Card {" + card.getCardId() + "} expired.", "vc.accountdeposits.card.expired");
 		} else if (card.getUsed()) {
-			throw new DepositException("Card has been used.");
+			throw new DepositException("Card {" + card.getCardId() + "} has been used.", "vc.accountdeposits.cardused");
 		}
 
 		card.setUsed(Boolean.TRUE);

@@ -7,16 +7,22 @@
 	
 	<package name="user" extends="default" namespace="/user">
 		
+		<action name="accountInfo" class="com.vc.presentation.action.user.AccountInfoAction">
+			<result>/WEB-INF/pages/user/account.jsp</result>
+		</action>
+		
 		<action name="accountDeposits" method="index" class="com.vc.presentation.action.user.DepositServiceAction">
 			<result>/WEB-INF/pages/user/depositservice.jsp</result>
 		</action>
 		
 		<action name="depositSummary" method="summary" class="com.vc.presentation.action.user.DepositServiceAction">
 			<result>/WEB-INF/pages/user/depositsummary.jsp</result>
+			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
 		</action>
 		
 		<action name="deposit" class="com.vc.presentation.action.user.DepositServiceAction">
-			<result>/WEB-INF/pages/user/account.jsp</result>
+			<result type="redirect">/user/accountInfo</result>
+			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
 		</action>
 			
 	</package>

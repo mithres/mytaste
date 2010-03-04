@@ -6,22 +6,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="maindecorator" />
-<title>Add New PlayList</title>
+<title><s:text name="vc.playlist.new" /></title>
 </head>
 <body>
-
+<s:actionerror/>
 <s:form namespace="/vod" action="savePlayList" enctype="multipart/form-data">
-	<s:textfield label="PlayListName" name="playList.playListName" />
-	<s:textfield label="Price" name="playList.price" />
-	<s:file label="ScreenShot" name="screenShot" />
-	<s:file label="Film File" name="film" />
-	<s:select name="playList.playListType" label="Type"
-		list="#{'Movie':'Movie','News':'News','Sport':'Sport','No Type':'NoType'}" />
-	<s:select name="playList.filmType" label="FilmType"
-		list="#{'Normal':'Normal','HD':'HD','Audio Only':'Audio'}" />
-	<s:textarea label="Description" cols="40" rows="6"
+	<s:textfield label="%{getText('vc.playlist.name')}" name="playList.playListName" />
+	<s:textfield label="%{getText('vc.playlist.price')}" name="playList.price" />
+	<s:file label="%{getText('vc.playlist.screenshot')}" name="screenShot" />
+	<s:file label="%{getText('vc.playlist.filmfile')}" name="film" />
+	<s:select name="playList.playListType" label="%{getText('vc.playlist.type')}"
+		list="playListTypes" />
+	<s:select name="playList.filmType" label="%{getText('vc.playlist.filmtype')}"
+		list="fileTypes" />
+	<s:textarea label="%{getText('vc.playlist.description')}" cols="40" rows="6"
 		name="playList.description" />
-	<s:submit label="Save" />
+	<s:submit label="%{getText('vc.button.save')}" />
 
 </s:form>
 

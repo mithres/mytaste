@@ -5,8 +5,8 @@
 
 <struts>
 	
-	<package name="vod" extends="default" namespace="/vod">
-		
+	<package name="vod" extends="default" namespace="/vod">  
+			
 		<action name="playListIndex" class="com.vc.presentation.action.vod.PlayListIndexAction">
 			<result>/WEB-INF/pages/vod/playlist.jsp</result>
 		</action>
@@ -17,6 +17,7 @@
 		
 		<action name="savePlayList" class="com.vc.presentation.action.vod.SavePlayListAction">
 			<result type="redirect">/vod/playListIndex</result>
+			<result name="input">/WEB-INF/pages/vod/addplaylist.jsp</result>
 		</action>
 		
 		<action name="play" class="com.vc.presentation.action.vod.PlayVideoAction">

@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="maindecorator" />
-<title>TopUp Service</title>
+<title><s:text name="vc.accountdeposits.pointcardinfo.title"/></title>
 </head>
 <body>
 	
@@ -15,11 +15,15 @@
 	<input type="hidden" name="account" value="<s:property value="account"/>"/>
 	<input type="hidden" name="cardPassword" value="<s:property value="cardPassword"/>"/>
 	
-	Card Info:<br/>
-	Denominations: <s:property value="pointCard.denomination"/><br/>
-	Expire Time:<s:date name="pointCard.expireTime" nice="true"/><br/>
+	<s:text name="vc.accountdeposits.accountinfo"/><br/>
+	<s:text name="vc.accountdeposits.account"/>:<s:property value="account"/><br/>
+	<s:text name="vc.accountdeposits.accountbalance"/>:<s:property value="accountBalance"/><br/>
 	
-	<s:submit label="Save" />
+	<s:text name="vc.accountdeposits.cardinfo"/>:<br/>
+	<s:text name="vc.accountdeposits.carddenominations"/>: <s:property value="pointCard.denomination"/><br/>
+	<s:text name="vc.accountdeposits.cardexpiretime"/>:<s:date name="pointCard.expireTime" nice="true"/><br/>
+	
+	<s:submit type="button"/>
 
 </s:form>
 	

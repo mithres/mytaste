@@ -95,7 +95,7 @@ public class PlayListService implements IPlayListService {
 			return Boolean.FALSE;
 		}
 
-		return user.getAccountBalance().longValue() >= playList.getPrice().longValue();
+		return user.getAccountBalance() >= playList.getPrice();
 	}
 
 }

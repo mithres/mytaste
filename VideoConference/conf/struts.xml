@@ -15,7 +15,7 @@
 	
 	<constant name="struts.i18n.reload" value="true" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
-	<constant name="struts.custom.i18n.resources" value="global-messages" />
+	<constant name="struts.custom.i18n.resources" value="i18n/globalMessages" />
 	
 	<!-- File upload setting -->
 	<constant name="struts.multipart.parser" value="jakarta" />

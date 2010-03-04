@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="maindecorator" />
-<title>TopUp Service</title>
+<title><s:text name="vc.accountinfo.title"/></title>
 </head>
 <body>
 

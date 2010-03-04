@@ -30,7 +30,7 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 
 		String ccode = request.getParameter("ccode");
 		if (ccode == null || ccode.trim().length() == 0) {
-			throw new CaptchaCodeCheckException("Check code error.");
+			throw new CaptchaCodeCheckException("CheckCodeError");
 		}
 
 		boolean result = CaptchaServiceSingleton.getInstance().validateResponseForID(request.getSession().getId(), ccode);
@@ -39,7 +39,7 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 			createCaptchaTicket(request.getSession());
 		} else {
 			acquireCaptchaTicket(request.getSession());
-			throw new CaptchaCodeCheckException("Check code error.");
+			throw new CaptchaCodeCheckException("CheckCodeError");
 		}
 
 		return super.attemptAuthentication(request);

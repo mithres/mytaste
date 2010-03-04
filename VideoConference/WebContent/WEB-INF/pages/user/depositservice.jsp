@@ -6,14 +6,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="maindecorator" />
-<title>Account Deposits</title>
+<title><s:text name="vc.accountdeposits.title"/></title>
 </head>
 <body>
 	
+	<s:text name="vc.accountdeposits.message"/>
+	<s:actionerror/>
 	<s:form namespace="/user" action="depositSummary">
-	<s:textfield label="Account Name" name="account" />
-	<s:textfield label="Card Password" name="cardPassword" />
-	<s:submit label="Save" />
+	<s:textfield label="%{getText('vc.accountdeposits.account')}" name="account" />
+	<s:textfield label="%{getText('vc.accountdeposits.cardpassword')}" name="cardPassword" />
+	<s:submit/>
 
 </s:form>
 	
