@@ -1,7 +1,5 @@
 package com.vc.presentation.listener;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 
 import javax.servlet.ServletContext;

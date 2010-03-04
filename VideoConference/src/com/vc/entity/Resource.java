@@ -78,5 +78,4 @@ public class Resource {
 		}
 		return StringUtils.join(roleAuthorities, ",");
 	}
-
 }

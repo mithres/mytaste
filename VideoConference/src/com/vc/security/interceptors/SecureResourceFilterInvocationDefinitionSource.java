@@ -17,8 +17,7 @@ import org.springframework.security.util.UrlMatcher;
 
 import com.vc.core.constants.Constants;
 
-public class SecureResourceFilterInvocationDefinitionSource implements FilterInvocationDefinitionSource,
-		InitializingBean {
+public class SecureResourceFilterInvocationDefinitionSource implements FilterInvocationDefinitionSource, InitializingBean {
 
 	private UrlMatcher urlMatcher;
 
@@ -83,15 +82,29 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
 		Map<String, String> urlAuthorities = this.getUrlAuthorities(filterInvocation);
 
 		String grantedAuthorities = null;
+
+		String rootPath = null;
+		String rootRole = null;
+
 		for (Iterator<Map.Entry<String, String>> iter = urlAuthorities.entrySet().iterator(); iter.hasNext();) {
 			Map.Entry<String, String> entry = iter.next();
 			String url = entry.getKey();
-
+			if (url.equals("/**")) {
+				rootPath = url;
+				rootRole = entry.getValue();
+				continue;
+			}
 			if (urlMatcher.pathMatchesUrl(url, requestURI)) {
 				grantedAuthorities = entry.getValue();
 				break;
 			}
 
+		}
+
+		if (grantedAuthorities == null && rootPath != null && rootRole != null) {
+			if (urlMatcher.pathMatchesUrl(rootPath, requestURI)) {
+				grantedAuthorities = rootRole;
+			}
 		}
 
 		if (grantedAuthorities != null) {

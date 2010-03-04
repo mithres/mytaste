@@ -21,9 +21,9 @@
 	<constant name="struts.multipart.parser" value="jakarta" />
 	<constant name="struts.multipart.maxSize" value="1262485504" />
 	
-	<constant name="struts.ui.theme" value="simple" />
+	<!--constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.ui.templateDir" value="template" />
-	<constant name="struts.ui.templateSuffix" value="ftl" />
+	<constant name="struts.ui.templateSuffix" value="ftl" /-->
 	
 	<package name="default" extends="struts-default" namespace="/">
 		
