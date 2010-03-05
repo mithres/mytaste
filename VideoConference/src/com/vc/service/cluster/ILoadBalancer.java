@@ -1,5 +1,7 @@
 package com.vc.service.cluster;
 
+import java.util.List;
+
 import com.vc.vo.LBNode;
 
 public interface ILoadBalancer {
@@ -8,7 +10,7 @@ public interface ILoadBalancer {
 
 	public abstract void registerLBNode(LBNode loadbalancer);
 
-	public abstract void unregisterLBNode(LBNode loadbalancer);
+	public abstract void unregisterLBNode(List<LBNode> nodes);
 
 	public abstract LBNode getLBNode();
 
@@ -17,5 +19,7 @@ public interface ILoadBalancer {
 	public abstract void increaseConnection(LBNode node);
 
 	public abstract void reduceConnection(LBNode node);
+
+	public abstract void checkLBNodeStatus();
 
 }

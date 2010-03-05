@@ -1,5 +1,6 @@
 package com.vc.service.cluster;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,9 +41,8 @@ public class RTMPLoadBalancer implements ILoadBalancer {
 	}
 
 	@Override
-	public void unregisterLBNode(LBNode loadbalancer) {
-		// TODO: need implement to unregister a load balancer node
-
+	public synchronized void unregisterLBNode(List<LBNode> nodes) {
+		LOAD_BALANCERS.removeAll(nodes);
 	}
 
 	@Override
@@ -64,4 +64,27 @@ public class RTMPLoadBalancer implements ILoadBalancer {
 		}
 	}
 
+	@Override
+	public void checkLBNodeStatus() {
+
+		Socket socket = null;
+		ArrayList<LBNode> nodeNeedToRemove = null;
+
+		for (LBNode node : LOAD_BALANCERS) {
+			try {
+				socket = new Socket(node.getNodeIP(), node.getPort());
+				log.info("Server[" + node.getNodeIP() + ":" + node.getPort() + "] ok.");
+			} catch (Exception e) {
+				log.error("Could not connect to Server[" + node.getNodeIP() + ":" + node.getPort() + "].");
+				if (nodeNeedToRemove == null) {
+					nodeNeedToRemove = new ArrayList<LBNode>();
+				}
+				nodeNeedToRemove.add(node);
+			}
+		}
+		socket = null;
+		if (nodeNeedToRemove != null) {
+			unregisterLBNode(nodeNeedToRemove);
+		}
+	}
 }
