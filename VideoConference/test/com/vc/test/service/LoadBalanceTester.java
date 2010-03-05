@@ -17,6 +17,24 @@ public class LoadBalanceTester extends BaseTest {
 	@Autowired
 	private ILoadBalancer loadBalancer = null;
 
+	private class LoadBalancerCheckerThreadTester extends TestRunnable {
+
+		private ILoadBalancer loadBalancer = null;
+
+		public LoadBalancerCheckerThreadTester(ILoadBalancer loadBalancer) {
+			this.loadBalancer = loadBalancer;
+		}
+
+		@Override
+		public void runTest() throws Throwable {
+			for (int i = 0; i < 10; i++) {
+				System.out.println("Check status");
+				loadBalancer.checkLBNodeStatus();
+				Thread.sleep(5000);
+			}
+		}
+	}
+
 	private class MutiThreadTester extends TestRunnable {
 
 		private ILoadBalancer loadBalancer = null;
@@ -50,14 +68,15 @@ public class LoadBalanceTester extends BaseTest {
 
 	@Test
 	public void testLoadBalance() {
-		TestRunnable tr1, tr2, tr3, tr4, tr5;
+		TestRunnable tr1, tr2, tr3, tr4, tr5, tr6;
 		tr1 = new MutiThreadTester(loadBalancer, "172.0.2.191", 1935, "rtmp");
 		tr2 = new MutiThreadTester(loadBalancer, "172.0.2.192", 1935, "rtmp");
 		tr3 = new MutiThreadTester(loadBalancer, "172.0.2.193", 1935, "rtmp");
 		tr4 = new MutiThreadTester(loadBalancer, "172.0.2.194", 1935, "rtmp");
 		tr5 = new MutiThreadTester(loadBalancer, "172.0.2.195", 1935, "rtmp");
+		tr6 = new LoadBalancerCheckerThreadTester(loadBalancer);
 
-		TestRunnable[] trs = { tr1, tr2, tr3, tr4, tr5 };
+		TestRunnable[] trs = { tr1, tr2, tr3, tr4, tr5, tr6 };
 		MultiThreadedTestRunner mttr = new MultiThreadedTestRunner(trs);
 		try {
 			mttr.runTestRunnables();

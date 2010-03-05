@@ -73,6 +73,7 @@ public class RTMPLoadBalancer implements ILoadBalancer {
 		for (LBNode node : LOAD_BALANCERS) {
 			try {
 				socket = new Socket(node.getNodeIP(), node.getPort());
+				socket.setSoTimeout(1000);
 				log.info("Server[" + node.getNodeIP() + ":" + node.getPort() + "] ok.");
 			} catch (Exception e) {
 				log.error("Could not connect to Server[" + node.getNodeIP() + ":" + node.getPort() + "].");
