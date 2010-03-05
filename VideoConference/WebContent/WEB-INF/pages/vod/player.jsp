@@ -26,7 +26,6 @@
 </head>
 
 <body onload="initPlayer();">
-<s:property value="sid" />
 
 <script>
 	lz.embed.swf( {
