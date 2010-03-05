@@ -3,7 +3,6 @@ package com.vc.entity;
 import java.io.File;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -38,7 +37,9 @@ public class PlayList {
 	private FilmType filmType = FilmType.Normal;
 
 	private Float price = new Float(0);
-
+	
+	private Integer viewCount = new Integer(0);
+	
 	@Transient
 	private File filmFile = null;
 
@@ -120,6 +121,14 @@ public class PlayList {
 
 	public void setFilmFile(File filmFile) {
 		this.filmFile = filmFile;
+	}
+
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
 	}
 
 }

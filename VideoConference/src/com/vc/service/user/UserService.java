@@ -27,6 +27,7 @@ import com.vc.core.dao.Hints;
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
+import com.vc.dao.vod.PlayListDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
@@ -44,6 +45,8 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	private UserInfoDao userInfoDao = null;
 	@Autowired
 	private ResourceDao resourceDao = null;
+	@Autowired
+	private PlayListDao playListDao = null;
 	@Autowired
 	private RoleDao roleDao = null;
 
@@ -111,6 +114,8 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 		if (user.getAccountBalance() >= playList.getPrice()) {
 			user.setAccountBalance(user.getAccountBalance() - playList.getPrice());
 			userInfoDao.update(user);
+			playList.setViewCount(playList.getViewCount() + 1);
+			playListDao.update(playList);
 		} else {
 			return false;
 		}
