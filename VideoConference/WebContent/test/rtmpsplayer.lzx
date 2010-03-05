@@ -19,3 +19,70 @@
 	
 	
 </canvas>
+
+
+
+
+
+
+
+
+<class name="chatSender">
+	<attribute name="_netConnection" />
+	<attribute name="_sharedObject" />
+
+	<handler name="oninit">
+		this._sharedObject = SharedObject.getRemote("chat",
+				this._nc.uri, true);
+		this._sharedObject.connect(this._nc);
+		Debug.write("ChatSender iniciado");
+	</handler>
+
+	<method name="sendMessage" args="mensaje">
+		Debug.write("SendMessage: " + mensaje)
+		this._sharedObject.send("messageHandler", mensaje);
+	</method>
+</class>
+
+<class name="chatReceiver">
+	<attribute name="_netConnection" />
+	<attribute name="_sharedObject" />
+
+	<handler name="oninit"><![CDATA[
+
+		Debug.write("netConnection:" + this._nc);
+
+		this._sharedObject = SharedObject.getRemote("chat",
+				this._nc.uri, true);
+		this._sharedObject.connect(this._nc);
+		Debug.write("sharedObject:" + this._sharedObject);
+
+		this._sharedObject.messageHandler = function(str) {
+
+			var textoAnterior = texto.text;
+			Debug.write(textoAnterior + "<br/>" + str);
+			texto.setAttribute("text", textoAnterior + "<br/>" + str);
+		};
+		Debug.write("chatReceiver iniciado");
+	]]>
+	</handler>
+</class>
+
+<chatReceiver name="chatRec"/>
+<chatSender name="chatSen"/>
+
+<simplelayout/>
+<view width="400" height="600" bgcolor="red">
+	<text id="texto" width="400" height="600" multiline="true"/>
+</view>
+<view bgcolor="red">
+	<simplelayout axis="x"/>
+	<inputtext bgcolor="white" width="350" id="mensajeAEnviar"/>
+	<button width="50" onclick="canvas.chatRec._cajaChat=texto; canvas.enviarTexto(mensajeAEnviar.text);">Enviar</button>
+</view>
+
+<method name="enviarTexto" args="texto">
+	Debug.write("enviarTexto:" + mensajeAEnviar.text);
+	canvas.chatSen.sendMessage(mensajeAEnviar.text);
+	mensajeAEnviar.setAttribute("text", "");
+</method>

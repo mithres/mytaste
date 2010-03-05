@@ -1,0 +1,36 @@
+<canvas debug="true">
+	
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
+	
+	<vcrtmpconnection name="rc" autoconnect="false" soSend="true" soReceive="true">
+		
+		<handler name="onconnect">
+			Debug.write("connected");
+		</handler>
+		
+		<handler name="onerror">
+			Debug.write("error ", this.status);
+		</handler>
+		
+		<method name="sendMessage" args="mess">
+			if (this.soSend) {
+				this._sharedObjectS.send("messageHandler", mess);
+			}
+		</method>
+		
+	</vcrtmpconnection>
+	
+	<handler name="oninit">
+		Debug.write("Init so tester");
+		var url = "rtmp://172.0.2.193:1935/conference";
+		rc.setAttribute("src", url);
+		rc.connect("023AC1F822F0B35012B903E3EE196F52");
+	</handler>
+	
+	<button>
+		<handler name="onclick">
+			rc.sendMessage("Hello world");
+		</handler>
+	</button>
+	
+</canvas>

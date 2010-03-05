@@ -2,9 +2,12 @@
 	
 	<class name="vcrtmpconnection" extends="rtmpconnection">
 		
-		<attribute name="src" value="" type="string"/>
+		<attribute name="soSend" value="false" type="boolean"/>
+		<attribute name="soReceive" value="false" type="boolean"/>
 		
+		<attribute name="src" value="" type="string"/>
 		<attribute name="autoconnect" value="false" type="boolean" />
+		
 		
 		<event name="onconnect"/>
 		<event name="onerror"/>
@@ -26,10 +29,31 @@
 			this._nc.onStatus = function(info) {
 				this.t._onStatus(info);
 			}
+			
+			if(this.soSend){
+				Debug.write("Init chat sender.");
+				this._sharedObjectS = SharedObject.getRemote("chat", this._nc.uri, true);
+				this._sharedObjectS.connect(this._nc);
+				Debug.write("Init chat sender done.");
+			}
+			
+			if(this.soReceive){
+				this._sharedObjectR = SharedObject.getRemote("chat", this._nc.uri, true);
+				this._sharedObjectR.connect(this._nc);
+				Debug.write ("sharedObjectR:" + this._sharedObjectR);
+				this._sharedObjectR.messageHandler = function(str) {
+					Debug.write(str);
+				};
+			}
 
 			this.registerMethods();
 		</method>
 		
+		<!--method name="sendMessage" args="mess">
+			if(this.soSend){
+				this._sharedObjectS.send("messageHandler", mess);
+			}
+		</method-->
 		
 		<method name="_onStatus" args="info"><![CDATA[
 			if (this.debug) {
