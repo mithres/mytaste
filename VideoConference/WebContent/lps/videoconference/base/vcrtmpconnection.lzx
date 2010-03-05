@@ -7,10 +7,11 @@
 		
 		<attribute name="src" value="" type="string"/>
 		<attribute name="autoconnect" value="false" type="boolean" />
-		
+		<attribute name="soMessage" value="" type="string"/>
 		
 		<event name="onconnect"/>
 		<event name="onerror"/>
+		<event name="onsosync"/>
 		
 		<method name="connect" args="params">
 
@@ -42,7 +43,8 @@
 				this._sharedObjectR.connect(this._nc);
 				Debug.write ("sharedObjectR:" + this._sharedObjectR);
 				this._sharedObjectR.messageHandler = function(str) {
-					Debug.write(str);
+					soMessage = str;
+					onsosync.sendEvent();
 				};
 			}
 

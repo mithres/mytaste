@@ -9,6 +9,7 @@
 <title><s:text name="vc.accountinfo.title"/></title>
 </head>
 <body>
+<%=request.getSession().getId() %>
 	<s:text name="vc.accountinfo.accountname"/>:<s:property value="userAccount.userName"/><br/>
 	<s:text name="vc.accountinfo.realname"/>:<s:property value="userAccount.lastName+userAccount.firstName"/><br/>
 	<s:text name="vc.accountinfo.emailaddress"/>:<s:property value="userAccount.email"/><br/>

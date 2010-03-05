@@ -1,4 +1,4 @@
-<canvas debug="true">
+<canvas debug="true" width="800" height="800">
 	
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
@@ -12,6 +12,13 @@
 			Debug.write("error ", this.status);
 		</handler>
 		
+		<handler name="onsosync">
+			<![CDATA[
+			Debug.write("xx" + this.soMessage);
+			messages.text = this.soMessage;
+			]]>
+		</handler>
+		
 		<method name="sendMessage" args="mess">
 			if (this.soSend) {
 				this._sharedObjectS.send("messageHandler", mess);
@@ -22,15 +29,18 @@
 	
 	<handler name="oninit">
 		Debug.write("Init so tester");
-		var url = "rtmp://172.0.2.193:1935/conference";
+		var url = "rtmp://172.0.2.139:1935/conference";
 		rc.setAttribute("src", url);
-		rc.connect("023AC1F822F0B35012B903E3EE196F52");
+		rc.connect("E301F2FC47B5FB160D1211273FD11D16");
 	</handler>
 	
-	<button>
-		<handler name="onclick">
-			rc.sendMessage("Hello world");
-		</handler>
-	</button>
 	
+	<view id="v2" layout="axis:y; spacing:4">
+		<text id="messages" multiline="true" width="300" height="200"/>
+		<button text="send">
+			<handler name="onclick">
+				rc.sendMessage("Hello world");
+			</handler>
+		</button>
+	</view>
 </canvas>
