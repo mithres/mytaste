@@ -45,7 +45,8 @@
 
 <div id="content">
 <div id="head">
-<h3>您是第 <font class="orange" id="webCount0"></font> 位访客</h3>
+
+<h3><a href="<web.page:path/>/logout"><s:text name="vc.message.logout"/></a></h3>
 <div id="nav">
 <ul>
 	<li><a href="<web.page:path/>/home"	class="green">首页</a></li>

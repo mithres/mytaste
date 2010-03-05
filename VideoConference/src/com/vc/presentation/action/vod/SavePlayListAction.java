@@ -51,7 +51,7 @@ public class SavePlayListAction extends BaseAction {
 
 		}
 		if (playList.getPrice()  != null) {
-			if (ItemChecker.checkPrice(playList.getPrice())) {
+			if (!ItemChecker.checkPrice(playList.getPrice())) {
 				this.addActionError(this.getText("vc.playlist.price.error"));
 			}
 		}

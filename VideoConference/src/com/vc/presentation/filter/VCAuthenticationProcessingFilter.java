@@ -15,6 +15,7 @@ import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.ui.WebAuthenticationDetails;
 import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 
+import com.octo.captcha.service.CaptchaServiceException;
 import com.vc.core.constants.Constants;
 import com.vc.core.spring.ApplicationContextUtil;
 import com.vc.presentation.action.captcha.CaptchaServiceSingleton;
@@ -33,7 +34,12 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 			throw new CaptchaCodeCheckException("CheckCodeError");
 		}
 
-		boolean result = CaptchaServiceSingleton.getInstance().validateResponseForID(request.getSession().getId(), ccode);
+		boolean result = false;
+		try {
+			result = CaptchaServiceSingleton.getInstance().validateResponseForID(request.getSession().getId(), ccode);
+		} catch (CaptchaServiceException e) {
+			throw new CaptchaCodeCheckException("CheckCodeError");
+		}
 
 		if (result) {
 			createCaptchaTicket(request.getSession());
@@ -46,13 +52,14 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 	}
 
 	@Override
-	protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult)
-			throws IOException {
+	protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			Authentication authResult) throws IOException {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		if (authentication.getDetails() instanceof WebAuthenticationDetails) {
-			IClientManager clientManager = (IClientManager) ApplicationContextUtil.getApplicationContext().getBean("clientManager");
+			IClientManager clientManager = (IClientManager) ApplicationContextUtil.getApplicationContext().getBean(
+					"clientManager");
 			WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 			clientManager.addClientListItem(details.getSessionId(), authentication);
 		}

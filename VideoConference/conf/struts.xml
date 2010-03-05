@@ -5,7 +5,10 @@
 
 <struts>
 	
+	<!-- The flowing properties need to be false under production env -->
 	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.reload" value="true" />
+	<!-- End -->
 	
 	<constant name="struts.action.extension" value="action,,"/>
 	
@@ -22,8 +25,8 @@
 	<constant name="struts.multipart.maxSize" value="1262485504" />
 	
 	<!--constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.ui.templateDir" value="template" />
-	<constant name="struts.ui.templateSuffix" value="ftl" /-->
+		<constant name="struts.ui.templateDir" value="template" />
+		<constant name="struts.ui.templateSuffix" value="ftl" /-->
 	
 	<package name="default" extends="struts-default" namespace="/">
 		

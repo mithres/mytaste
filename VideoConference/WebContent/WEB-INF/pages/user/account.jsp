@@ -9,7 +9,11 @@
 <title><s:text name="vc.accountinfo.title"/></title>
 </head>
 <body>
-
+	
+	<s:text name="vc.accountinfo.accountname"/>:<s:property value="userAccount.userName"/><br/>
+	<s:text name="vc.accountinfo.realname"/>:<s:property value="userAccount.lastName+userAccount.firstName"/><br/>
+	<s:text name="vc.accountinfo.emailaddress"/>:<s:property value="userAccount.email"/><br/>
+	<s:text name="vc.accountinfo.accountbalance"/>:<s:property value="userAccount.accountBalance"/><br/>
 	
 </body>
 </html>
