@@ -45,33 +45,31 @@
 		}
 	</script>
 	
+	<simplelayout axis="y" spacing="4"/>
+  
+	<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
+		<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
+		<microphone id="mic" capturing="false"/>
+	</videoview>
+	
+	<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
+		onclick="if(cam.show){live.stream.stop();cam.setAttribute('show', false);}else{
+		live.stream.broadcast();cam.setAttribute('show', true);}"/>
 
-		
-	<view layout="axis:y">
-		<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
-			<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
-			<microphone id="mic" capturing="false"/>
-		</videoview>
 	
-		<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
-			onclick="if(cam.show){live.stream.stop();cam.setAttribute('show', false);}else{
-			live.stream.broadcast();cam.setAttribute('show', true);}"/>
-	</view>
-	
-	
-	<view id="v2" layout="axis:y; spacing:4" y="300">
-		<videoview name="vid" type="rtmp" stream="$once{canvas.s2}" width="320" height="240"/>
-		<edittext name="username"></edittext>
-		<button text="${s2.playing ? 'stop receiving' : 'receive'}"
-			onclick="s2.setAttribute('url', parent.username.text);
-			if (s2.playing) s2.stop(); else s2.play();"/>
-	</view>
+
+	<videoview name="vid" type="rtmp" stream="$once{canvas.s2}" width="320" height="240"/>
+	<edittext name="username"></edittext>
+	<button text="${s2.playing ? 'stop receiving' : 'receive'}"
+		onclick="s2.setAttribute('url', parent.username.text);
+		if (s2.playing) s2.stop(); else s2.play();"/>
+
 	
 	<view layout="axis:y;" width="100%" height="100" bgcolor="green">
-		<text id="rmessage" width="90%" height="100" multiline="true"/>
-		<view bgcolor="red">
+		<text id="rmessage" width="100%" height="100" multiline="true"/>
+		<view>
 			<simplelayout axis="x"/>
-			<inputtext bgcolor="white" width="350" id="smessage"/>
+			<inputtext bgcolor="white" width="100%" id="smessage"/>
 			<button width="50" onclick="rc.sendMessage(smessage.text);smessage.setAttribute('text', '');">Send</button>
 		</view>
 	</view>
