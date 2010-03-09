@@ -2,7 +2,7 @@
 
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 		
-	<vcrtmpconnection id="rc" autoconnect="false">
+	<vcrtmpconnection id="rc" autoconnect="false" soSend="true" soReceive="true">
 		
 		<handler name="onconnect">
 			Debug.write("connected");
@@ -12,19 +12,26 @@
 			Debug.write("error ", this.status);
 		</handler>
 		
+		<handler name="onsosync">
+		<![CDATA[
+			Debug.write("Receive message:" + this.soMessage);
+			var receivedMessage = rmessage.text;
+			rmessage.setAttribute("text", receivedMessage + "<br/>"
+							+ this.soMessage);
+		]]>
+		</handler>
+		
+		<method name="sendMessage" args="mess">
+			if (this.soSend) {
+				this._sharedObjectS.send("messageHandler", mess);
+			}
+		</method>
+		
+		
 	</vcrtmpconnection>
 		
 	<mediastream name="s1" type="rtmp"/>
 	<mediastream name="s2" type="rtmp"/>
-	
-	<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
-		<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
-		<microphone id="mic" capturing="false"/>
-	</videoview>
-	
-	<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
-		onclick="if(cam.show){live.stream.stop();cam.setAttribute('show', false);}else{
-		live.stream.broadcast();cam.setAttribute('show', true);}"/>
 	
 	<script>
 		canvas.setDefaultContextMenu(new LzContextMenu());
@@ -37,7 +44,21 @@
 			}
 		}
 	</script>
-				
+	
+
+		
+	<view layout="axis:y">
+		<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
+			<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
+			<microphone id="mic" capturing="false"/>
+		</videoview>
+	
+		<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
+			onclick="if(cam.show){live.stream.stop();cam.setAttribute('show', false);}else{
+			live.stream.broadcast();cam.setAttribute('show', true);}"/>
+	</view>
+	
+	
 	<view id="v2" layout="axis:y; spacing:4" y="300">
 		<videoview name="vid" type="rtmp" stream="$once{canvas.s2}" width="320" height="240"/>
 		<edittext name="username"></edittext>
@@ -45,5 +66,15 @@
 			onclick="s2.setAttribute('url', parent.username.text);
 			if (s2.playing) s2.stop(); else s2.play();"/>
 	</view>
+	
+	<view layout="axis:y;" width="100%" height="100" bgcolor="green">
+		<text id="rmessage" width="90%" height="100" multiline="true"/>
+		<view bgcolor="red">
+			<simplelayout axis="x"/>
+			<inputtext bgcolor="white" width="350" id="smessage"/>
+			<button width="50" onclick="rc.sendMessage(smessage.text);smessage.setAttribute('text', '');">Send</button>
+		</view>
+	</view>
+	
 			
 </canvas>
