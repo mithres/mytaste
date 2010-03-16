@@ -114,7 +114,7 @@ public class LBNode implements Comparable<LBNode> {
 		}
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "[" + getNodeIP() + ":" + getPort() + "]" + getConnections() + ":" + getProtocol() + ":"

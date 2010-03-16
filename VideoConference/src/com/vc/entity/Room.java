@@ -41,6 +41,9 @@ public class Room {
 	private String password = null;
 	
 	private Timestamp createdTime = null;
+	
+	//The rtmp url that connect to this room
+	private String streamUrl = null;
 
 	// Red5 publish stream name if the room type is conference there need be
 	// more than one stream
@@ -134,6 +137,14 @@ public class Room {
 
 	public void setCreator(UserInfo creator) {
 		this.creator = creator;
+	}
+
+	public String getStreamUrl() {
+		return streamUrl;
+	}
+
+	public void setStreamUrl(String streamUrl) {
+		this.streamUrl = streamUrl;
 	}
 
 }

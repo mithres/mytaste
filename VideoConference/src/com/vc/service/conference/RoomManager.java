@@ -10,9 +10,16 @@ import com.vc.core.entity.IPageList;
 import com.vc.core.entity.PageListImpl;
 import com.vc.dao.conference.RoomDao;
 import com.vc.entity.Room;
+import com.vc.presentation.exception.RoomNotFoundException;
+import com.vc.presentation.exception.RoomPeopleFullException;
+import com.vc.service.cluster.ILoadBalancer;
+import com.vc.vo.LBNode;
 
 @Service
 public class RoomManager implements IRoomManageService {
+
+	@Autowired
+	private ILoadBalancer loadBalancer = null;
 
 	@Autowired
 	private RoomDao roomDao = null;
@@ -20,6 +27,8 @@ public class RoomManager implements IRoomManageService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Room createRoom(Room room) {
+		LBNode node = loadBalancer.getLBNode();
+		room.setStreamUrl(node.getConferenceServiceUrl());
 		roomDao.create(room);
 		return room;
 	}
@@ -43,6 +52,31 @@ public class RoomManager implements IRoomManageService {
 		list.setRecordTotal(roomDao.findRoomCount());
 		list.setRecords(roomDao.findAllRooms(hnts));
 		return list;
+	}
+
+	@Override
+	public void joinRoom(String roomId) throws RoomNotFoundException, RoomPeopleFullException {
+		Room room = roomDao.findById(roomId);
+		if (room == null) {
+			throw new RoomNotFoundException("Room " + roomId + " not found.", "RoomNotFound");
+		}
+		if (room.getCurrentPeopleCount() == room.getMaxPeopleCount()) {
+			throw new RoomPeopleFullException("Room " + roomId + " is full.", "RoomIsFull");
+		}
+		room.setCurrentPeopleCount(room.getCurrentPeopleCount() + 1);
+		roomDao.update(room);
+	}
+
+	@Override
+	public void leaveRoom(String roomId) throws RoomNotFoundException {
+		Room room = roomDao.findById(roomId);
+		if (room == null) {
+			throw new RoomNotFoundException("Room " + roomId + " not found.", "RoomNotFound");
+		}
+		if (room.getCurrentPeopleCount() > 0) {
+			room.setCurrentPeopleCount(room.getCurrentPeopleCount() - 1);
+		}
+		roomDao.update(room);
 	}
 
 }
