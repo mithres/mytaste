@@ -1,0 +1,85 @@
+<canvas>
+	
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
+	
+	
+	<!--dataset name="authInfo" request="true"/>
+
+		<datapointer xpath="authInfo:/Credential">
+			<handler name="ondata">
+				var credential = this.getNodeText();
+				var url = "rtmp://" + canvas.serverIP + "/" + canvas.vodRTMPAddress;
+				Debug.write("Connect to " + url);
+				rc.setAttribute("src", url);
+				rc.connect(credential);
+				rc.getSignature.callRPC();
+			</handler>
+		</datapointer-->
+	
+	<!--lpsConfig id="lpsConfig"/-->
+	
+	<script>
+		canvas.setDefaultContextMenu(new LzContextMenu());
+
+		function init(filmName, sid, url) {
+			Debug.write(url + ":" + filmName + ":" + sid);
+			rc.setAttribute("src", url);
+			rc.connect(sid);
+			s2.setAttribute("url", filmName);
+			//rc.getSignature.callRPC();
+		}
+	</script>
+	
+	<vcrtmpconnection name="rc" autoconnect="false">
+		
+		<handler name="onconnect">
+			Debug.write("connected");
+		</handler>
+		
+		<handler name="onerror">
+			Debug.write("error ", this.status);
+		</handler>
+		
+		<!--netremotecall name="getSignature" funcname="vod.getSignature"-->
+		<!--attribute name="param1" value="ammen" type="string" />      
+			<netparam name="vars1">
+				<method name="getValue">
+					return parent.param1;
+				</method>
+			</netparam-->  
+		<!--method name="onResult" args="value">
+				//aes = new lz.AESCryptLz();
+				//var encryptedName = aes.encryptByAscii(canvas.filmName, value);
+				canvas.loadPlayer(canvas.filmName);
+			</method-->  
+			
+		<!--/netremotecall-->
+		
+		<servercallback name="disPlayErrorMessage" funcname="showErrorMessage">
+			<method name="onResult" args="value">
+				Debug.write("Get result from server" + value);
+			</method>  
+			
+		</servercallback>
+		
+	</vcrtmpconnection>
+	
+	
+	<mediastream name="s2" type="rtmp"/>
+	
+	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
+	
+	<view layout="axis:y;" resource="../images/screenshot.png">
+		
+		<handler name="onclick">
+			s2.play();
+		</handler>
+		
+		<videoview id="vid" width="640" height="480" type="rtmp" stream="${s2}"/>
+
+		<videoslider name="vslider"	width="640"	height="16"	visible="true"	ms="${s2}" y="${vid.height}" 
+			showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
+	</view>
+	
+	
+</canvas>
