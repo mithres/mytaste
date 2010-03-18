@@ -1,0 +1,18 @@
+<library>
+	
+	<class name="videoPlayer" extends="node">
+		
+		<mediastream name="s2" type="rtmp"/>
+	
+		<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
+
+		<view layout="axis:y;">
+			<videoview id="vid" width="320" height="240" type="rtmp" stream="${s2}"/>
+
+			<videoslider name="vslider"	width="320"	height="16"	visible="true"	ms="${s2}" y="${vid.height}" 
+				showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
+		</view>
+		
+	</class>
+	
+</library>

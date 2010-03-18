@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<package name="conference" extends="default" namespace="/conference">
+		
+		<action name="roomListIndex" class="com.vc.presentation.action.room.RoomListAction">
+			<result>/WEB-INF/pages/conference/roomlist.jsp</result>
+		</action>
+		
+		<action name="newRoom" method="index" class="com.vc.presentation.action.room.NewRoomAction">
+			<result>/WEB-INF/pages/conference/newroom.jsp</result>
+		</action>
+		
+		<action name="saveRoom" class="com.vc.presentation.action.room.NewRoomAction">
+			<result type="redirect">/conference/roomListIndex</result>
+		</action>
+		
+		<action name="joinRoom" class="com.vc.presentation.action.room.JoinRoomAction">
+			<result>/WEB-INF/pages/conference/roomplayer.jsp</result>
+		</action>
+			
+	</package>
+	
+	
+</struts>

@@ -1,0 +1,147 @@
+<canvas debug="true">
+	
+	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
+	
+	<lpsConfig id="conf"/>
+	
+	<dataset name="authInfo" request="true"/>
+
+	<datapointer xpath="authInfo:/Credential">
+		<handler name="ondata">
+			Debug.write("--------------"+this.getNodeText());
+			
+		</handler>
+	</datapointer>
+     
+	
+	<vcrtmpconnection id="rc" autoconnect="false"/>
+	<mediastream name="s1" type="rtmp"/>
+	<mediastream name="s2" type="rtmp"/>
+	
+	<handler name="oninit">
+
+
+		var url1 = conf.getWebPath() + "user/getAuthInfo"
+		//authInfo = new lz.dataset();	
+		authInfo.setAttribute("src", url1);
+		authInfo.doRequest();
+
+		var url = "rtmp://" + canvas.serverIP + "/"
+				+ canvas.conferenceRTMPAddress;
+		Debug.write(url);
+		rc.setAttribute("src", url);
+		rc.connect("{name: 'admin', password: 'passed'}");
+	</handler>
+	
+	<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
+		<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
+		<microphone id="mic" capturing="false"/>
+	</videoview>
+	
+	<edittext name="username">001</edittext>
+	<button text="broadcast" y="20">
+		<handler name="onclick">
+		<![CDATA[
+			if (cam.show == false) {
+				live.stream.setAttribute('url', parent.username.text);
+				live.stream.broadcast();
+				cam.setAttribute('show', true);
+			} else {
+				live.stream.stop();
+				cam.setAttribute('show', false);
+			}
+		]]>
+		</handler>
+	</button>
+			
+			
+	<view id="v2" layout="axis:y; spacing:4" y="300">
+		<videoview name="vid" type="rtmp" stream="$once{canvas.s2}"/>
+		<edittext name="username">001</edittext>
+		<button text="${s2.playing ? 'stop receiving' : 'receive'}"
+			onclick="s2.setAttribute('url', parent.username.text);
+			if (s2.playing) s2.stop(); else s2.play();"/>
+	</view>
+			
+			
+			
+	<!--button text="Publish" y="0" >
+			<handler name="onclick">
+				parent.publish();
+			</handler>
+		</button>
+
+		<button text="Receive" y="20" >
+			<handler name="onclick">
+				parent.receive();
+			</handler>
+		</button>
+
+
+
+		<method name="publish">
+
+
+			dev = Camera.get(0);
+			Debug.write(dev);
+
+			micro = Microphone.get(0);
+			micro.setRate(22);
+			micro.setUseEchoSuppression(true);
+
+			nc = new NetConnection();
+			nc.connect("rtmp://192.168.0.119/vod");
+			nc.onStatus = function(info) {
+				Debug.write(info.code, info);
+			}
+
+			nsBroadCast = new NetStream(nc);
+			nsBroadCast.onStatus = function(info) {
+				Debug.write("simpleNetStream onStatus", info);
+			};
+			nsBroadCast.onCuePoint = function(info) {
+				Debug.write("simpleNetStream onCuePoint", info);
+			};
+			nsBroadCast.onPlayStatus = function(info) {
+				Debug.write("simpleNetStream onPlayStatus", info);
+			};
+			nsBroadCast.onMetaData = function(info) {
+				Debug.write("simpleNetStream onMetaData", info);
+			};
+
+			nsBroadCast.attachVideo(dev);
+			nsBroadCast.attachAudio(micro);
+
+			nsBroadCast.publish("firstPublishStream", "live");
+		</method>
+
+
+
+		<method name="receive">
+
+
+			nc2 = new NetConnection();
+			nc2.connect("rtmp://192.168.0.119/vod");
+			nc2.onStatus = function(info) {
+				Debug.write(info.code, info);
+			}
+
+			nsBroadCast2 = new NetStream(nc2);
+			nsBroadCast2.onStatus = function(info) {
+				Debug.write("simpleNetStream onStatus", info);
+			};
+			nsBroadCast2.onCuePoint = function(info) {
+				Debug.write("simpleNetStream onCuePoint", info);
+			};
+			nsBroadCast2.onPlayStatus = function(info) {
+				Debug.write("simpleNetStream onPlayStatus", info);
+			};
+			nsBroadCast2.onMetaData = function(info) {
+				Debug.write("simpleNetStream onMetaData", info);
+			};
+			nsBroadCast2.play("firstPublishStream", -1);
+			Debug.write(nsBroadCast2);
+		</method-->
+	
+</canvas>
