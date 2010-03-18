@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<package name="vod" extends="default" namespace="/vod">  
+			
+		<action name="playListIndex" class="com.vc.presentation.action.vod.PlayListIndexAction">
+			<result>/WEB-INF/pages/vod/playlist.jsp</result>
+		</action>
+		
+		<action name="newPlayList" class="com.vc.presentation.action.vod.NewPlayListAction">
+			<result>/WEB-INF/pages/vod/addplaylist.jsp</result>
+		</action>
+		
+		<action name="savePlayList" class="com.vc.presentation.action.vod.SavePlayListAction">
+			<result type="redirect">/vod/playListIndex</result>
+			<result name="input">/WEB-INF/pages/vod/addplaylist.jsp</result>
+		</action>
+		
+		<action name="play" class="com.vc.presentation.action.vod.PlayVideoAction">
+			<result>/WEB-INF/pages/vod/player.jsp</result>
+			<result name="input" type="redirect">/vod/playListIndex</result>
+		</action>
+			
+	</package>
+	
+	
+</struts>

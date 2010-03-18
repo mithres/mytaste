@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<package name="user" extends="default" namespace="/user">
+		
+		<action name="accountInfo" class="com.vc.presentation.action.user.AccountInfoAction">
+			<result>/WEB-INF/pages/user/account.jsp</result>
+		</action>
+		
+		<action name="accountDeposits" method="index" class="com.vc.presentation.action.user.DepositServiceAction">
+			<result>/WEB-INF/pages/user/depositservice.jsp</result>
+		</action>
+		
+		<action name="depositSummary" method="summary" class="com.vc.presentation.action.user.DepositServiceAction">
+			<result>/WEB-INF/pages/user/depositsummary.jsp</result>
+			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
+		</action>
+		
+		<action name="deposit" class="com.vc.presentation.action.user.DepositServiceAction">
+			<result type="redirect">/user/accountInfo</result>
+			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
+		</action>
+			
+	</package>
+	
+	
+</struts>

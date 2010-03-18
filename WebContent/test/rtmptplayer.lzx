@@ -1,0 +1,12 @@
+<canvas debug="true">
+	
+	
+	<handler name="oninit">
+		var url = "rtmpt://172.0.2.193:8088/vod/";
+		nc = new NetConnection();
+		nc.connect(url);
+		
+	</handler>
+	
+	
+</canvas>
