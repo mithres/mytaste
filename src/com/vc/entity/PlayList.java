@@ -2,10 +2,19 @@ package com.vc.entity;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
@@ -39,6 +48,14 @@ public class PlayList {
 	private Float price = new Float(0);
 	
 	private Integer viewCount = new Integer(0);
+	
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OrderBy("createdTime desc")
+	private List<VideoComments> comments = new ArrayList<VideoComments>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private Set<Tags> tags = new HashSet<Tags>();
 	
 	@Transient
 	private File filmFile = null;
@@ -129,6 +146,22 @@ public class PlayList {
 
 	public void setViewCount(Integer viewCount) {
 		this.viewCount = viewCount;
+	}
+
+	public List<VideoComments> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<VideoComments> comments) {
+		this.comments = comments;
+	}
+
+	public Set<Tags> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tags> tags) {
+		this.tags = tags;
 	}
 
 }
