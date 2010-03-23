@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
@@ -56,6 +57,12 @@ public class PlayList {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Tags> tags = new HashSet<Tags>();
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private Channels channel = null;
+	
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	private Set<PlayListRate> rates = new HashSet<PlayListRate>();
 	
 	@Transient
 	private File filmFile = null;
@@ -162,6 +169,22 @@ public class PlayList {
 
 	public void setTags(Set<Tags> tags) {
 		this.tags = tags;
+	}
+
+	public Channels getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channels channel) {
+		this.channel = channel;
+	}
+
+	public Set<PlayListRate> getRates() {
+		return rates;
+	}
+
+	public void setRates(Set<PlayListRate> rates) {
+		this.rates = rates;
 	}
 
 }

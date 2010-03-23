@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	User Manage,Channel Manage
+	
 </body>
 </html>

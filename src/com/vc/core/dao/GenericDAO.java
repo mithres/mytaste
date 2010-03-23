@@ -143,6 +143,11 @@ public class GenericDAO<T, PK extends Serializable> extends HibernateDaoSupport 
 					query.setFirstResult(hints.getOffset());
 				if (hints.getLength() > 0)
 					query.setMaxResults(hints.getLength());
+				
+				if (hints.getHints().get(Constants.ENABLE_QUERY_CACHE) != null) {
+					query.setCacheable((Boolean) hints.getHints().get(Constants.ENABLE_QUERY_CACHE));
+				}
+				
 
 				return query.list();
 			}
