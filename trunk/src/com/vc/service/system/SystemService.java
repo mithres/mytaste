@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vc.core.dao.Hints;
+import com.vc.dao.system.ChannelDao;
 import com.vc.dao.system.ConfigurationDao;
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
+import com.vc.entity.Channels;
 import com.vc.entity.Configuration;
 import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
@@ -36,6 +38,8 @@ public class SystemService implements ISystemService {
 	private RoleDao roleDao = null;
 	@Autowired
 	private UserInfoDao userInfoDao = null;
+	@Autowired
+	private ChannelDao channelDao = null; 
 
 	@Override
 	public Configuration checkStatus() {
@@ -86,6 +90,36 @@ public class SystemService implements ISystemService {
 	@Override
 	public List<Role> finaAllRole() {
 		return roleDao.findAll(new Hints(0));
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Channels createChannel(Channels channel) {
+		channelDao.create(channel);
+		return channel;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void deleteChannel(String channelId) {
+		channelDao.delete(channelId);
+	}
+
+	@Override
+	public List<Channels> findParentChannels() {
+		return channelDao.findParentChannels();
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Channels updateChannel(Channels channel) {
+		channelDao.update(channel);
+		return channel;
+	}
+
+	@Override
+	public Channels findChannelById(String channelId) {
+		return channelDao.findById(channelId);
 	}
 
 }

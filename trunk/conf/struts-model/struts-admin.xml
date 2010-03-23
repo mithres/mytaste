@@ -11,6 +11,14 @@
 			<result>/WEB-INF/pages/admin/index.jsp</result>
 		</action>
 		
+		<action name="createChannel" class="com.vc.presentation.action.admin.CreateChannelAction">
+			<result>/WEB-INF/pages/admin/createchannel.jsp</result>
+		</action>
+				
+		<action name="saveChannel" class="com.vc.presentation.action.admin.SaveChannelIndexAction">
+			<result type="redirect">/admin/index</result>
+		</action>
+		
 		<action name="createUserIndex" class="com.vc.presentation.action.admin.CreateUserIndexAction">
 			<result>/WEB-INF/pages/admin/createuser.jsp</result>
 		</action>
