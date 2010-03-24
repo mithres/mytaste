@@ -8,127 +8,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<link href="<web.page:path/>/css/headfoot.css" rel="stylesheet" type="text/css" />
-
-<script>
-	function tabOn(v) {
-		for ( var i = 1; i <= 4; i++) {
-			if (i == v) {
-				if (document.getElementById("tab" + i).style.display == "") {
-					document.getElementById("tab" + i).style.display = "none";
-				} else {//否则打开
-					document.getElementById("tab" + i).style.display = "";
-				}
-			} else {
-				document.getElementById("tab" + i).style.display = "none";
-			}
-		}
-	}
-	function tabOff(id) {
-		document.getElementById(id).style.display = "none";
-	}
-	function webcount() {
-		WebCountAjax.getWebCount(getWebCount);
-	}
-	function getWebCount(data) {
-		document.getElementById("webCount0").innerHTML = data;
-	}
-</script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title><decorator:title default="Welcome!" /></title>
+<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/common.css">
+
 <decorator:head />
-</head>
 
+<body>
+<div id="mainblock">
+	<!--inner block starts here -->
+	<div id="innerblock">
+		<!--top panel starts here -->
+		<div id="toppanel">
+			<div class="top1 flt">
+				<div style="float:left; width:1000px;">
+					<div class="tp_align">
+						<a href="#"><img src="<web.page:path/>/images/tp_logo.jpg" width="194" height="25" alt="" class="tp_logo flt" /></a>
+						<img src="<web.page:path/>/images/tp_border.jpg" width="1" height="29" alt="" class="tp_border flt" />
+						<img src="<web.page:path/>/images/tp_share.jpg" width="99" height="12" alt="" class="tp_share flt"  />
+					</div>
+					<span class="tp_wel">Welcome <b>Guest!</b></span>
+				</div>
+				<div style="float:left; margin-left:625px; display:inline;">
+					<a href="#" class="tp_funn flt">Funny Videos</a>
+					<span class="tp_bar flt">|</span>
+					<a href="#" class="tp_funn flt">Fun Games</a>
+					<span class="tp_bar flt">|</span>					
+					<a href="#" class="tp_funn flt">Funny Pictures</a>
+					<span class="tp_bar flt">|</span>					
+					<a href="#" class="tp_funn flt">Funny Jokes</a>
+				</div>
+			</div>	
+			<div class="top2 flt">
+				<div class="tp_ali flt">
+					<input type="text" class="tp_txt flt"  />
+					<select class="tp_select flt" ><option>Video</option></select>
+					<a href="#"><img src="<web.page:path/>/images/tp_search.jpg" width="67" height="27" alt="" class="tp_search flt" /></a>
+				</div>
+				<a href="#" class="tp_home flt">Home</a>
+				<a href="#" class="tp_home flt" style="margin-left:50px;">Upload</a>
+				<a href="#" class="tp_home flt">Videos</a>
+				<a href="#" class="tp_home flt">Channels</a>
+				<a href="#" class="tp_home flt">News</a>
+			</div>	
+		
+		</div>	
+		<!--top panel ends here -->	
+		<div id="contentpanel">
+				<decorator:body />
+		</div>
+		
+		<div id="footer">
+			<div class="fp_align flt">
+				<a href="<web.page:path/>/home" class="fp_home flt">Home</a>
+				<span class="fp_bar flt">|</span>
+				<a href="<web.page:path/>/user/accountDeposits" class="fp_home flt">pay</a>
+				<span class="fp_bar flt">|</span>
+				<a href="<web.page:path/>/user/accountInfo" class="fp_home flt">profile</a>
+				<span class="fp_bar flt">|</span>
+				<a href="<web.page:path/>/vod/newPlayList" class="fp_home flt">add video</a>
+				<span class="fp_bar flt">|</span>
+				<a href="<web.page:path/>/vod/playListIndex" class="fp_home flt">video list</a>
 
-<body onload='<decorator:getProperty property="body.onload" />'>
-
-<div id="content">
-<div id="head">
-
-<h3><a href="<web.page:path/>/logout"><s:text name="vc.message.logout"/></a></h3>
-<div id="nav">
-<ul>
-	<li><a href="<web.page:path/>/home"	class="green">首页</a></li>
-	<li><a href="<web.page:path/>/user/accountDeposits">冲值</a></li>
-	<li><a href="<web.page:path/>/user/accountInfo">用户信息</a></li>
-	<li><a href="<web.page:path/>/vod/newPlayList">添加视频</a></li>
-	<li><a href="<web.page:path/>/vod/playListIndex">视频列表</a></li>
-</ul>
-</div>
-
-<div id="img"><img src="<web.page:path/>/images/headbg3.gif" width="960"
-	height="49" /></div>
-<div id="flash">
-<table width="960" border="0">
-	<tr>
-		<td><a href="<text:text key='project.name'/>consult/index.jsp"><img
-			src="<web.page:path/>/images/flash.gif" width="733" height="75" border="0" /></a></td>
-		<td width="227">
-		<table width="100%" height="100%" border="1" cellpadding="1"
-			cellspacing="1" bordercolor="#339900" bgcolor="#FFFF99">
-			<tr>
-				<td valign="top"><MARQUEE direction=up height="60" id=info
-					onmouseout=info.start();;; onmouseover=info.stop();;;
-					scrollAmount=2 width="99%"> <strong><font
-					color="#FF0000"> </font></strong>
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr>
-						<th width="30%" align="center" valign="top" scope="col"><strong><font
-							color="#FF0000">5月22日</font></strong></th>
-						<th width="70%" align="left" valign="top" scope="col"><strong><font
-							color="#FF0000">新三、新八、新九年级集训队报名</font></strong></th>
-					</tr>
-					<tr>
-						<td align="center" valign="top"><strong><font
-							color="#FF0000">5月23日</font></strong></td>
-						<td align="left" valign="top"><strong><font
-							color="#FF0000">新四年级集训队报名 </font></strong></td>
-					</tr>
-					<tr>
-						<td align="center" valign="top"><strong><font
-							color="#FF0000">5月24日</font></strong></td>
-						<td align="left" valign="top"><strong><font
-							color="#FF0000">新五年级集训队报名</font></strong></td>
-					</tr>
-					<tr>
-						<td align="center" valign="top"><strong><font
-							color="#FF0000">5月25日</font></strong></td>
-						<td align="left" valign="top"><strong><font
-							color="#FF0000">新六年级集训队报名</font></strong></td>
-					</tr>
-					<tr>
-						<td align="center" valign="top"><strong><font
-							color="#FF0000">5月30日-6月25日</font></strong></td>
-						<td align="left" valign="top"><strong><font
-							color="#FF0000">新七年级集训队考试报名</font></strong></td>
-					</tr>
-					<tr>
-						<td align="center" valign="top"><strong><font
-							color="#FF0000">5月25日</font></strong></td>
-						<td align="left" valign="top"><strong><font
-							color="#FF0000">新六年级集训队报名</font></strong></td>
-					</tr>
-				</table>
-				</MARQUEE></td>
-			</tr>
-		</table>
-		</td>
-	</tr>
-</table>
-</div>
-<!--index.jsp--></div>
-<div id="main"><decorator:body /></div>
-<div id="foot"><img src="<web.page:path/>/images/foot_133.gif"
-	width="12" height="13" />
-<p><a href="/about/index.jsp">关于我们</a> | <a href="/about/job.jsp">诚聘英才</a>
-<br />
-地址:耀华科教馆四楼（南京路与营口道交口） 咨询电话：400-676-7890 Email：huayn@yeah.net<br />
-(copyright2002) TIANJIN HUAYING SCIENCE TECHNOLOGY AND EDUCATION
-DEVELOPMENT CO.,LTD. <br />
-<a href="http://www.miibeian.gov.cn/">津ICP备05004622号</a> 津教备0151号
-建议使用IE6.0以上版本及1024*768分辨率
-</div>
-</div>
+			</div>
+			<span class="fp_home flt" style="margin:20px 0px 0px 340px;">Copyright © 2009 My Video. All rights reserved. Terms of use</span>
+			<span class="fp_power flt">Powered By <b style="color:#5EACA3;">My Video</b></span>
+		</div>
+	</div>
+</div>		
 </body>
 </html>
