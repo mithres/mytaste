@@ -16,6 +16,217 @@
 </head>
 <body>
 
+
+
+
+
+<div class="cp flt">
+				<div class="cp_box flt">
+					<div class="cp_align flt">
+						<img src="<web.page:path/>/images/cp_bul.jpg" width="23" height="20" alt="" class="cp_bul flt" />
+						<span class="cp_video flt">VIDEO <font color="#CDCDCD">OF THE WEEK</font></span>
+					</div>
+					<span class="cp_we flt">We put up crazy, sexy funny videos every single day, all day. Make sure to check back to see the newest updates!
+Praesent vel quam vel nunc ultrices molestie. </span>
+					<div class="cp_align flt">
+						<img src="<web.page:path/>/images/cp_img1.jpg" width="164" height="108" alt=" " class="cp_img1 flt" />
+						<div style="float:left; width:410px; margin-left:50px;">
+							<span class="cp_acro flt">Acrobatics Bloopers</span>
+							<div style="float:left; width:410px;">
+								<span class="cp_acro flt">Category:</span>
+								<div style="float:left; width:200px;">
+									<span class="cp_ext flt">Extreme   |</span>
+									<img src="<web.page:path/>/images/cp_arr.jpg" width="9" height="13" alt="" class="cp_arr flt" />
+									<span class="cp_ext flt">(16)</span>
+									<img src="<web.page:path/>/images/cp_arr1.jpg" width="9" height="13" alt="" class="cp_arr flt" />
+									<span class="cp_ext flt">(2)     </span>
+								</div>										
+							</div>
+							<div class="cp_acro flt" style="font:11px Arial, Helvetica, sans-serif; width:390px;"><b>Description:</b> &nbsp; Sometimes even the best fall too. That is what makes their performances so exciting!</div>
+							<span class="cp_acro flt" style="font:11px Arial, Helvetica, sans-serif; width:390px;"><b>Clicks:</b>&nbsp;  216  |  Added:  2009-01-05   </span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="cp_box1 flt">
+					<div class="cp_align flt">
+						<img src="<web.page:path/>/images/cp_real.jpg"  width="21" height="21" alt="" class="cp_bul flt" />
+						<span class="cp_video flt" style="color:#1F2A02;">NEW <font color="#EA3D00">VIDEOS</font></span>
+					</div>
+					<div class="cp_align flt">
+						<img src="<web.page:path/>/images/cp_left.jpg" width="12" height="17" alt="" class="cp_left flt" />
+						<img src="<web.page:path/>/images/cp_bimg1.jpg" width="128" height="77" alt="" class="cp_bimg1 flt" />
+						<img src="<web.page:path/>/images/cp_bimg2.jpg" width="128" height="77" alt="" class="cp_bimg1 flt" />
+						<img src="<web.page:path/>/images/cp_bimg3.jpg" width="128" height="77" alt="" class="cp_bimg1 flt" />
+						<img src="<web.page:path/>/images/cp_bimg4.jpg" width="128" height="77" alt="" class="cp_bimg1 flt" />																		
+						<img src="<web.page:path/>/images/cp_right.jpg" width="12" height="19" alt="" class="cp_left flt" />						
+					</div>
+					<div class="cp_align flt">
+						<img src="<web.page:path/>/images/cp_gbul.jpg" width="3" height="5" align="" class="cp_gbul flt" />
+						<a href="#" class="cp_nulla flt"><u>Nulla viverra neque</u> From: non tortor.</a>
+						<img src="<web.page:path/>/images/cp_gbul.jpg" width="3" height="5" align="" class="cp_gbul flt" />
+						<a href="#" class="cp_nulla flt"><u>Nulla viverra neque</u> From: non tortor.</a>
+						<img src="<web.page:path/>/images/cp_gbul.jpg" width="3" height="5" align="" class="cp_gbul flt" />
+						<a href="#" class="cp_nulla flt"><u>Nulla viverra neque</u> From: non tortor.</a>
+						<img src="<web.page:path/>/images/cp_gbul.jpg" width="3" height="5" align="" class="cp_gbul flt" />
+						<a href="#" class="cp_nulla flt"><u>Nulla viverra neque</u> From: non tortor.</a>
+					</div>
+				</div>
+				<div class="cp_align flt">
+					<div class="cp_tab flt">
+						<a href="#" class="cp_fea flt">Featured</a>
+						<a href="#" class="cp_feas flt">Most Viewed<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
+						<a href="#" class="cp_feas flt">Most Discussed<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
+						<a href="#" class="cp_feas flt">Top Favorites<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
+						<a href="#" class="cp_feas flt">Top Rated<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
+						<a href="#" class="cp_feas flt">Random<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
+					</div>
+				</div>
+				<div class="cp_align flt">
+					<img src="<web.page:path/>/images/cp_oimg1.jpg" width="155" height="101" alt="" class="cp_oimg1 flt" />
+					<div style="float:left; width:290px; margin-left:25px;">
+						<span class="cp_viv flt">Vivamus eu ipsum non diam dapibus egestas. </span>
+						<span class="cp_best flt">Best Music</span>
+						<span class="cp_ut flt">Ut aliquam nisl feugiat neque. Donec ultrices dictum quam. Nam ut velit eu lacus semper luctus. Integer non orci. Nulla commodo mauris id augue.</span>
+					</div>
+					<div style="float:left; width:120px; margin:30px 0 0 20px;">
+						<span class="cp_rates flt">5:5</span>
+						<span class="cp_rates flt"><b>Added:</b> 07.01.2009</span>
+						<span class="cp_rates flt"><b>From:</b> Best Music</span>
+						<span class="cp_rates flt"><b>Views:</b> 841</span>
+						<span class="cp_rates flt"><b>Comments:</b> 6</span>
+						<img src="<web.page:path/>/images/cp_star.jpg" width="78" height="12" alt="" class="cp_star flt" />
+					</div>
+					<img src="<web.page:path/>/images/cp_dotline.jpg" width="634" height="1" alt="" class="cp_dotline flt" />
+				</div>
+				
+				<div class="cp_align flt">
+					<img src="<web.page:path/>/images/cp_oimg2.jpg" width="155" height="101" alt="" class="cp_oimg1 flt" />
+					<div style="float:left; width:290px; margin-left:25px;">
+						<span class="cp_viv flt">Pellentesque porttitor fermentum est.</span>
+						<span class="cp_best flt">Best Music</span>
+						<span class="cp_ut flt">Nullam gravida, lacus ut auctor ultricies; nibh sem elementum odio, ac sagittis turpis magna vel turpis. Quisque sed pede. </span>
+					</div>
+					<div style="float:left; width:120px; margin:30px 0 0 20px;">
+						<span class="cp_rates flt">1.9</span>
+						<span class="cp_rates flt"><b>Added:</b> 07.01.2009</span>
+						<span class="cp_rates flt"><b>From:</b> Best Music</span>
+						<span class="cp_rates flt"><b>Views:</b> 841</span>
+						<span class="cp_rates flt"><b>Comments:</b> 6</span>
+						<img src="<web.page:path/>/images/cp_star.jpg" width="78" height="12" alt="" class="cp_star flt" />
+					</div>
+					<img src="<web.page:path/>/images/cp_bot.jpg" width="658" height="4" alt="" class="cp_dotline flt" style="margin-left:22px;" />
+				</div>
+</div>
+			<div class="rp flt">
+				<div class="rp_box flt">
+					<div class="rp_top flt">
+						<span class="rp_mem flt">MEMBERS LOGIN</span>
+					</div>
+					<div class="rp_bg flt">
+						<div class="rp_align flt">
+						<form action="signIn" method="POST">
+							<table width="205">
+								<tr>
+									<td class="rp_user flt"><s:text name="vc.index.username" /></td>
+									<td><input class="rp_txt flt" type='text' name='userName' value="" /></td>
+								</tr>
+								<tr>
+									<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
+									<td><input class="rp_txt flt" type='password' name='password' AUTOCOMPLETE="off" /></td>
+								</tr>
+								<tr>
+									<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
+									<td><input class="rp_txt flt" type='text' name='ccode' value="" /></td>
+								</tr>
+								<tr>
+									<td colspan="2"><a href="javascript:void(0);" onClick="flushValidateCode();" title='<s:text name="vc.index.reload_checkcode" />'><img id="ccode" src="signUp/captcha" border="0"/></a></td>
+								</tr>
+								<tr>
+									<td colspan='2'>
+									<input type="image" src="<web.page:path/>/images/rp_login.jpg"  name='<s:text name="vc.button.submit" />' />									</td>
+								</tr>
+						  </table>
+							
+						  </form>
+						
+						</div>
+						
+						<span class="rp_not flt">Not Yet a Member? <a href="#" style="color:#000000;">Sign-up</a></span>
+						<span class="rp_not flt" style="margin-top:4px;">Forget username or password? <a href="#" style="color:#000000;">Click here</a></span>
+					</div>
+					<img src="<web.page:path/>/images/rp_bot.jpg" width="264" height="8" alt="" class="rp_bot flt" />
+				</div>
+				<div class="rp_uploadbg flt">
+					<span class="rp_uplo flt">UPLOAD YOUR VIDEOS</span>
+					<div class="rp_align flt">
+						<input type="text" class="rp_txt1 flt" />
+						<a href="#"><img src="<web.page:path/>/images/rp_upload.jpg" width="60" height="23" alt="" class="rp_upload flt" /></a>
+					</div>	
+					<span class="rp_more flt">More Videos</span>
+				</div>
+				<div class="rp_box flt">
+					<div class="rp_top1 flt">
+						<span class="rp_mem flt">VIDEO CATEGORIES</span>
+					</div>
+					<div class="rp_bg1 flt">
+						<div class="rp_align flt">
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Funny Clips</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Advertising</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Sports</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Kids</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Scary Clips</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">News</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Motorcycles</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Planes</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Birds</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Beautiful Women</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Pretty Women</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Cool TV</a>
+							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+							<a href="#" class="rp_funn flt">Testing Channel</a>
+						</div>
+					</div>
+					<img src="<web.page:path/>/images/tp_bot1.jpg" width="264" height="15" alt="" class="rp_bot flt" />
+				</div>
+				<div class="rp_box flt">
+					<div class="rp_top2 flt">
+						<span class="rp_mem flt">VIDEO HIGHLIGHTES</span>
+					</div>
+					<div class="rp_bg2 flt">
+						<div class="rp_align flt">
+							<img src="<web.page:path/>/images/rp_img1.jpg" width="42" height="43" alt=" " class="rp_img1 flt" />
+							<span class="rp_viv flt">Vivamus convallis samet turpis.</span>
+							<a href="#"><img src="<web.page:path/>/images/rp_botbul.jpg" width="21" height="20" alt=" " class="rp_botbul flt" /></a>
+						</div>
+						<div class="rp_align flt">
+							<img src="<web.page:path/>/images/rp_img2.jpg" width="42" height="43" alt=" " class="rp_img1 flt" />
+							<span class="rp_viv flt">Nulla non lectus vel faucibus facilisis.</span>
+							<a href="#"><img src="<web.page:path/>/images/rp_botbul.jpg" width="21" height="20" alt=" " class="rp_botbul flt" /></a>
+						</div>
+					</div>
+					<img src="<web.page:path/>/images/rp_bot2.jpg"  width="264" height="13" alt="" class="rp_bot flt" />
+				</div>
+				
+			</div>		
+
+
+
+
+
+
 <%
 	if (session
 			.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null) {
@@ -25,33 +236,6 @@
 						.getMessage());
 	}
 %>
-<form action="signIn" method="POST">
-<table>
-	<tr>
-		<td><s:text name="vc.index.username" /></td>
-		<td><input type='text' name='userName' value="" /></td>
-	</tr>
-	<tr>
-		<td><s:text name="vc.index.pwssword" /></td>
-		<td><input type='password' name='password' AUTOCOMPLETE="off" /></td>
-	</tr>
-	<tr>
-		<td><s:text name="vc.index.input_checkcode" /></td>
-		<td><input type='text' name='ccode' value="" /></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td><img id="ccode" src="signUp/captcha" /><a href="javascript:void(0);" onclick="flushValidateCode();"><s:text name="vc.index.reload_checkcode" /></a></td>
-	</tr>
-	<tr>
-		<td colspan='2'><input name="<s:text name="vc.button.submit" />" type="submit"></td>
-	</tr>
-	<tr>
-		<td colspan='2'><input name="<s:text name="vc.button.reset" />" type="reset"></td>
-	</tr>
-</table>
-
-</form>
 
 </body>
 </html>
