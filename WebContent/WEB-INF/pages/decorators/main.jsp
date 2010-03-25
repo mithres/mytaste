@@ -39,7 +39,7 @@ var tb_pathToImage = webPath+"/js/thickbox/preloader.gif";
 					</div>
 					<span class="tp_wel">Welcome <b>Guest!</b></span>
 				</div>
-				<div style="float:left; margin-left:625px; display:inline;">
+				<!-- div style="float:left; margin-left:625px; display:inline;">
 					<a href="#" class="tp_funn flt">Funny Videos</a>
 					<span class="tp_bar flt">|</span>
 					<a href="#" class="tp_funn flt">Fun Games</a>
@@ -47,7 +47,7 @@ var tb_pathToImage = webPath+"/js/thickbox/preloader.gif";
 					<a href="#" class="tp_funn flt">Funny Pictures</a>
 					<span class="tp_bar flt">|</span>					
 					<a href="#" class="tp_funn flt">Funny Jokes</a>
-				</div>
+				</div-->
 			</div>	
 			<div class="top2 flt">
 				<div class="tp_ali flt">
@@ -56,10 +56,10 @@ var tb_pathToImage = webPath+"/js/thickbox/preloader.gif";
 					<a href="#"><img src="<web.page:path/>/images/tp_search.jpg" width="67" height="27" alt="" class="tp_search flt" /></a>
 				</div>
 				<a href="#" class="tp_home flt">Home</a>
-				<a href="#" class="tp_home flt" style="margin-left:50px;">Upload</a>
-				<a href="#" class="tp_home flt">Videos</a>
-				<a href="#" class="tp_home flt">Channels</a>
-				<a href="#" class="tp_home flt">News</a>
+				<a href="#" class="tp_home flt" style="margin-left:50px;">Videos</a>
+				<a href="#" class="tp_home flt" style="margin-left:40px;">Conference</a>
+				<a href="#" class="tp_home flt" style="margin-left:30px;">Channels</a>
+				<a href="#" class="tp_home flt" style="margin-left:45px;">News</a>
 			</div>	
 		
 		</div>	
