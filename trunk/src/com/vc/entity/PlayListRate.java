@@ -10,6 +10,11 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * The rate value for videos.
+ * @author ammen
+ *
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PlayListRate {
@@ -25,7 +30,7 @@ public class PlayListRate {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo rater = null;
 
-	private float rateValue = 0;
+	private int rateValue = 0;
 
 	public String getId() {
 		return id;
@@ -51,11 +56,12 @@ public class PlayListRate {
 		this.rater = rater;
 	}
 
-	public float getRateValue() {
+	public int getRateValue() {
 		return rateValue;
 	}
 
-	public void setRateValue(float rateValue) {
+	public void setRateValue(int rateValue) {
 		this.rateValue = rateValue;
 	}
+	
 }

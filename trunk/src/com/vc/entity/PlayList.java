@@ -47,23 +47,23 @@ public class PlayList {
 	private FilmType filmType = FilmType.Normal;
 
 	private Float price = new Float(0);
-	
+
 	private Integer viewCount = new Integer(0);
-	
+
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@OrderBy("createdTime desc")
 	private List<VideoComments> comments = new ArrayList<VideoComments>();
-	
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Tags> tags = new HashSet<Tags>();
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Channels channel = null;
-	
+
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<PlayListRate> rates = new HashSet<PlayListRate>();
-	
+
 	@Transient
 	private File filmFile = null;
 
@@ -159,10 +159,6 @@ public class PlayList {
 		return comments;
 	}
 
-	public void setComments(List<VideoComments> comments) {
-		this.comments = comments;
-	}
-
 	public Set<Tags> getTags() {
 		return tags;
 	}
@@ -186,5 +182,10 @@ public class PlayList {
 	public void setRates(Set<PlayListRate> rates) {
 		this.rates = rates;
 	}
+
+	public void setComments(List<VideoComments> comments) {
+		this.comments = comments;
+	}
+
 
 }
