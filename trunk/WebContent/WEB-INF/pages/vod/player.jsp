@@ -27,8 +27,7 @@
 <body onload="initPlayer();">
 
 <script>
-	lz.embed.swf( {
-		
+	lz.embed.swf( {	
 		url : '<web.page:path/>/vod/vodplayer.swf8.swf',
 		allowfullscreen : 'false',
 		width : '640',

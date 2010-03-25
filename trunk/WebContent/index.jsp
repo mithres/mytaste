@@ -125,8 +125,8 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 					</div>
 					<div class="rp_bg flt">
 						<div class="rp_align flt">
-						<form  action="<web.page:path protocol="https"/>/signIn" method="POST">
-							<table width="90">
+						<form  action="<web.page:path/>/signIn" method="POST">
+							<table width="205">
 								<tr>
 									<td class="rp_user flt"><s:text name="vc.index.username" /></td>
 									<td><input class="rp_txt flt" type='text' name='userName' value="" /></td>
@@ -157,7 +157,14 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 					</div>
 					<img src="<web.page:path/>/images/rp_bot.jpg" width="264" height="8" alt="" class="rp_bot flt" />
 				</div>
-				
+				<div class="rp_uploadbg flt">
+					<span class="rp_uplo flt">UPLOAD YOUR VIDEOS</span>
+					<div class="rp_align flt">
+						<input type="text" class="rp_txt1 flt" />
+						<a href="#"><img src="<web.page:path/>/images/rp_upload.jpg" width="60" height="23" alt="" class="rp_upload flt" /></a>
+					</div>	
+					<span class="rp_more flt">More Videos</span>
+				</div>
 				<div class="rp_box flt">
 					<div class="rp_top1 flt">
 						<span class="rp_mem flt">VIDEO CATEGORIES</span>
