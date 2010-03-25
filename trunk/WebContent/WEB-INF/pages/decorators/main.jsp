@@ -55,9 +55,9 @@ var tb_pathToImage = webPath+"/js/thickbox/preloader.gif";
 					<select class="tp_select flt" ><option>Video</option></select>
 					<a href="#"><img src="<web.page:path/>/images/tp_search.jpg" width="67" height="27" alt="" class="tp_search flt" /></a>
 				</div>
-				<a href="#" class="tp_home flt">Home</a>
-				<a href="#" class="tp_home flt" style="margin-left:50px;">Videos</a>
-				<a href="#" class="tp_home flt" style="margin-left:40px;">Conference</a>
+				<a href="<web.page:path/>" class="tp_home flt">Home</a>
+				<a href="<web.page:path/>/vod/playListIndex" class="tp_home flt" style="margin-left:50px;">Videos</a>
+				<a href="<web.page:path/>/conference/roomListIndex" class="tp_home flt" style="margin-left:40px;">Conference</a>
 				<a href="#" class="tp_home flt" style="margin-left:30px;">Channels</a>
 				<a href="#" class="tp_home flt" style="margin-left:45px;">News</a>
 			</div>	
