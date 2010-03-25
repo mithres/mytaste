@@ -37,7 +37,7 @@ var tb_pathToImage = webPath+"/js/thickbox/preloader.gif";
 						<img src="<web.page:path/>/images/tp_border.jpg" width="1" height="29" alt="" class="tp_border flt" />
 						<img src="<web.page:path/>/images/tp_share.jpg" width="99" height="12" alt="" class="tp_share flt"  />
 					</div>
-					<span class="tp_wel">Welcome <b>Guest!</b></span>
+					<span class="tp_wel">Welcome <b>Guest! | <a href="<web.page:path/>/logout">Logout</a></b></span>
 				</div>
 				<!-- div style="float:left; margin-left:625px; display:inline;">
 					<a href="#" class="tp_funn flt">Funny Videos</a>
