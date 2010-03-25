@@ -9,7 +9,7 @@
 		<constructor-arg index="0" type="java.lang.Integer"
 			value="6" />
 		<constructor-arg index="1" type="java.lang.Integer"
-			value="8" />
+			value="7" />
 		<constructor-arg index="2" type="java.lang.Integer"
 			value="120" />
 		<constructor-arg index="3" type="java.lang.Integer"
