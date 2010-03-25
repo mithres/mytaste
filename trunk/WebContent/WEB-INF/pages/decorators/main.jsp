@@ -12,6 +12,16 @@
 <title><decorator:title default="Welcome!" /></title>
 <link rel="stylesheet" type="text/css" href="<web.page:path/>/css/common.css">
 
+<script type="text/javascript">
+var webPath="<web.page:path/>";
+var tb_pathToImage = webPath+"/js/thickbox/preloader.gif";
+</script>
+
+<script type="text/javascript" src="<web.page:path/>/js/jquery.js"></script>
+<script type="text/javascript" src="<web.page:path/>/js/iautocompleter.js"></script>
+<script type="text/javascript" src="<web.page:path/>/js/common.js"></script>
+<script type="text/javascript" src="<web.page:path/>/js/thickbox/thickbox.js"></script>
+
 <decorator:head />
 
 <body <decorator:getProperty property="body.onload" writeEntireProperty="true" /> >
