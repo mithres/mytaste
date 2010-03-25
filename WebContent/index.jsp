@@ -125,7 +125,7 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 					</div>
 					<div class="rp_bg flt">
 						<div class="rp_align flt">
-						<form action="signIn" method="POST">
+						<form  action="<web.page:path protocol="https"/>/signIn" method="POST">
 							<table width="205">
 								<tr>
 									<td class="rp_user flt"><s:text name="vc.index.username" /></td>
