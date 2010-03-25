@@ -1,4 +1,4 @@
-<canvas>
+<canvas debug="true">
 	
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
@@ -65,14 +65,16 @@
 	</vcrtmpconnection>
 	
 	
-	<mediastream name="s2" type="rtmp"/>
+	<mediastream name="s2" type="rtmp" autorewind="true"/>
 	
 	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
 	
 	<view layout="axis:y;" resource="../images/screenshot.png">
 		
 		<handler name="onclick">
-			s2.play();
+			if(!s2. playing){
+				s2.play();
+			}
 		</handler>
 		
 		<videoview id="vid" width="640" height="480" type="rtmp" stream="${s2}"/>

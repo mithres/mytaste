@@ -14,7 +14,7 @@
 
 <decorator:head />
 
-<body>
+<body <decorator:getProperty property="body.onload" writeEntireProperty="true" /> >
 <div id="mainblock">
 	<!--inner block starts here -->
 	<div id="innerblock">
