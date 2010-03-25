@@ -11,11 +11,11 @@
 		<constructor-arg index="1" type="java.lang.Integer"
 			value="8" />
 		<constructor-arg index="2" type="java.lang.Integer"
-			value="200" />
+			value="120" />
 		<constructor-arg index="3" type="java.lang.Integer"
-			value="70" />
+			value="40" />
 		<constructor-arg index="4" type="java.lang.Integer"
-			value="50" />
+			value="30" />
 		<constructor-arg index="5">
 			<list>
 				<ref bean="fontNyala" />
@@ -35,19 +35,19 @@
 	<bean id="fontNyala" class="java.awt.Font">
 		<constructor-arg index="0" value="nyala" />
 		<constructor-arg index="1" value="1" />
-		<constructor-arg index="2" value="50" />
+		<constructor-arg index="2" value="20" />
 	</bean>
 
 	<bean id="fontBellMT" class="java.awt.Font">
 		<constructor-arg index="0" value="Bell MT" />
 		<constructor-arg index="1" value="0" />
-		<constructor-arg index="2" value="50" />
+		<constructor-arg index="2" value="20" />
 	</bean>
 
 	<bean id="fontCreditValley" class="java.awt.Font">
 		<constructor-arg index="0" value="Credit valley" />
 		<constructor-arg index="1" value="1" />
-		<constructor-arg index="2" value="50" />
+		<constructor-arg index="2" value="20" />
 	</bean>
 
 	<bean id="colorRed" class="java.awt.Color">
