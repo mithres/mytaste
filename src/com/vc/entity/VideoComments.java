@@ -20,15 +20,15 @@ public class VideoComments {
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id = null;
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private PlayList playList = null;
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo author = null;
-	
+
 	private String content = null;
-	
+
 	private Timestamp createdTime = null;
 
 	public String getId() {
@@ -70,5 +70,5 @@ public class VideoComments {
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
 	}
-	
+
 }
