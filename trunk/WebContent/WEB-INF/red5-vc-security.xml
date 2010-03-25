@@ -23,7 +23,7 @@
 		<custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>  
 		<beans:property name="authenticationManager" ref="authenticationManager"/>  
 		<beans:property name="defaultTargetUrl" value="/home"/>
-		<beans:property name="authenticationFailureUrl" value="/index.jsp"/>  
+		<beans:property name="authenticationFailureUrl" value="/"/>  
 		<beans:property name="usernameParameter" value="userName"/>  
 		<beans:property name="passwordParameter" value="password"/>  
 		<beans:property name="filterProcessesUrl" value="/signIn"/>  
@@ -62,7 +62,7 @@
 	
 	<beans:bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
 		<custom-filter position="LOGOUT_FILTER"/>
-		<beans:constructor-arg index="0" value="/index.jsp"/>
+		<beans:constructor-arg index="0" value="/"/>
 		<beans:constructor-arg index="1">
 			<beans:list>
 				<beans:ref bean="securityContextLogoutHandler"/>

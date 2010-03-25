@@ -152,51 +152,22 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 						
 						</div>
 						
-						<span class="rp_not flt">Not Yet a Member? <a href="#" style="color:#000000;">Sign-up</a></span>
+						<span class="rp_not flt">Not Yet a Member? <a href="<web.page:path/>/signUp/signUpIndex" style="color:#000000;">Sign-up</a></span>
 						<span class="rp_not flt" style="margin-top:4px;">Forget username or password? <a href="#" style="color:#000000;">Click here</a></span>
 					</div>
 					<img src="<web.page:path/>/images/rp_bot.jpg" width="264" height="8" alt="" class="rp_bot flt" />
 				</div>
-				<div class="rp_uploadbg flt">
-					<span class="rp_uplo flt">UPLOAD YOUR VIDEOS</span>
-					<div class="rp_align flt">
-						<input type="text" class="rp_txt1 flt" />
-						<a href="#"><img src="<web.page:path/>/images/rp_upload.jpg" width="60" height="23" alt="" class="rp_upload flt" /></a>
-					</div>	
-					<span class="rp_more flt">More Videos</span>
-				</div>
+				
 				<div class="rp_box flt">
 					<div class="rp_top1 flt">
 						<span class="rp_mem flt">VIDEO CATEGORIES</span>
 					</div>
 					<div class="rp_bg1 flt">
 						<div class="rp_align flt">
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Funny Clips</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Advertising</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Sports</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Kids</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Scary Clips</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">News</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Motorcycles</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Planes</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Birds</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Beautiful Women</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Pretty Women</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Cool TV</a>
-							<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
-							<a href="#" class="rp_funn flt">Testing Channel</a>
+							<s:iterator value="categories">
+								<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
+								<a href="#" class="rp_funn flt"><s:property value="categoryName"/></a>
+							</s:iterator>
 						</div>
 					</div>
 					<img src="<web.page:path/>/images/tp_bot1.jpg" width="264" height="15" alt="" class="rp_bot flt" />
