@@ -7,15 +7,15 @@
 	
 	<bean id="imageEngine" class="com.vc.presentation.action.captcha.CaptchaGmailEngine">
 		<constructor-arg index="0" type="java.lang.Integer"
-			value="6" />
+			value="4" />
 		<constructor-arg index="1" type="java.lang.Integer"
-			value="7" />
+			value="6" />
 		<constructor-arg index="2" type="java.lang.Integer"
-			value="120" />
+			value="150" />
 		<constructor-arg index="3" type="java.lang.Integer"
-			value="40" />
+			value="50" />
 		<constructor-arg index="4" type="java.lang.Integer"
-			value="30" />
+			value="40" />
 		<constructor-arg index="5">
 			<list>
 				<ref bean="fontNyala" />
