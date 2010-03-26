@@ -18,11 +18,17 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	private static final String FIND_PLAYLIST_COUNT_BY_TYPE = FIND_PLAYLIST_COUNT + " where playListType ? ";
 	private static final String FIND_PLAYLIST_BY_TYPE = " from PlayList where playListType ?  order by addedTime desc  ";
 
-	
-	public Long findPlayListCount(){
+	private static final String FIND_PLAYLIST_BY_VIEWCOUNT = " from PlayList order by viewCount desc ";
+
+	@SuppressWarnings("unchecked")
+	public List<PlayList> findPlayListByViewCount(Hints hints) {
+		return this.find(FIND_PLAYLIST_BY_VIEWCOUNT, hints);
+	}
+
+	public Long findPlayListCount() {
 		return this.findRowCount(FIND_PLAYLIST_COUNT);
 	}
-	
+
 	public List<PlayList> findPlayList(Hints hints) {
 		return this.findPaged(FIND_PLAYLIST, hints);
 	}

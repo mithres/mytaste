@@ -82,6 +82,13 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 						<a href="#" class="cp_feas flt">Random<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
 					</div>
 				</div>
+				
+				<s:iterator value="mostViewedPlayLists" var="playList">
+					<s:include value="vod/playlistentry.jsp" />
+				</s:iterator>
+				
+				
+				
 				<div class="cp_align flt">
 					<img src="<web.page:path/>/images/cp_oimg1.jpg" width="155" height="101" alt="" class="cp_oimg1 flt" />
 					<div style="float:left; width:290px; margin-left:25px;">
@@ -164,7 +171,7 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 					</div>
 					<div class="rp_bg1 flt">
 						<div class="rp_align flt">
-							<s:iterator value="categoies">
+							<s:iterator value="categories">
 								<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
 								<a href="#" class="rp_funn flt"><s:property value="categoryName"/></a>
 							</s:iterator>
