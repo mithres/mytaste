@@ -40,6 +40,10 @@
 			<result>/WEB-INF/pages/error/pagenotfound.jsp</result>
 		</action>	
 		
+		<action name="" class="com.vc.presentation.action.home.IndexAction">
+			<result>/WEB-INF/pages/index.jsp</result>
+		</action>
+		
 		<action name="home" class="com.vc.presentation.action.home.HomeAction">
 			<result>/WEB-INF/pages/home/index.jsp</result>
 		</action>

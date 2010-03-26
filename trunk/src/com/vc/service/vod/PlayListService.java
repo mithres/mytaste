@@ -3,6 +3,7 @@ package com.vc.service.vod;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.List;
 
 import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
@@ -96,6 +97,11 @@ public class PlayListService implements IPlayListService {
 		}
 
 		return user.getAccountBalance() >= playList.getPrice();
+	}
+
+	@Override
+	public List<PlayList> findPlayListByViewCount(Hints hints) {
+		return playListDao.findPlayListByViewCount(hints);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.vc.service.vod;
 
+import java.util.List;
+
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
 
@@ -25,5 +27,7 @@ public interface IPlayListService {
 
 	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract Boolean canPlay(Authentication auth, String playListID);
+
+	public abstract List<PlayList> findPlayListByViewCount(Hints hints);
 
 }
