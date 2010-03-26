@@ -9,21 +9,20 @@
 	<beans:bean id="loggerListener" class="org.springframework.security.event.authentication.LoggerListener" />
 
 	<http auto-config="false" entry-point-ref="authenticationProcessingFilterEntryPoint" access-denied-page="/accessdenied.jsp">
-		<intercept-url pattern="/css/**" filters="none" />
-		<intercept-url pattern="/js/**" filters="none" />
-		<intercept-url pattern="/images/**" filters="none" />
-		<intercept-url pattern="/signUp/**" filters="none" />
-		<intercept-url pattern="/index.jsp" filters="none" />
-		<intercept-url pattern="/accessdenied.jsp" filters="none" />
+		<intercept-url pattern="/css/**" filters="none"/>
+		<intercept-url pattern="/js/**" filters="none"/>
+		<intercept-url pattern="/images/**" filters="none"/>
+		<intercept-url pattern="/signUp/**" filters="none"/>
+		<intercept-url pattern="/accessdenied.jsp" filters="none"/>
+		<intercept-url pattern="/index.jsp" filters="none"/>
 		<concurrent-session-control max-sessions="2" exception-if-maximum-exceeded="true"/> 
 	</http>
-	
 	
 	<beans:bean id="authenticationProcessingFilter" class="com.vc.presentation.filter.VCAuthenticationProcessingFilter">
 		<custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>  
 		<beans:property name="authenticationManager" ref="authenticationManager"/>  
 		<beans:property name="defaultTargetUrl" value="/home"/>
-		<beans:property name="authenticationFailureUrl" value="/"/>  
+		<beans:property name="authenticationFailureUrl" value="/index.jsp"/>  
 		<beans:property name="usernameParameter" value="userName"/>  
 		<beans:property name="passwordParameter" value="password"/>  
 		<beans:property name="filterProcessesUrl" value="/signIn"/>  
@@ -62,7 +61,7 @@
 	
 	<beans:bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
 		<custom-filter position="LOGOUT_FILTER"/>
-		<beans:constructor-arg index="0" value="/"/>
+		<beans:constructor-arg index="0" value="/index.jsp"/>
 		<beans:constructor-arg index="1">
 			<beans:list>
 				<beans:ref bean="securityContextLogoutHandler"/>

@@ -164,7 +164,7 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 					</div>
 					<div class="rp_bg1 flt">
 						<div class="rp_align flt">
-							<s:iterator value="categories">
+							<s:iterator value="categoies">
 								<img src="<web.page:path/>/images/rp_bul.jpg" width="9" height="5" alt="" class="rp_bul flt" />
 								<a href="#" class="rp_funn flt"><s:property value="categoryName"/></a>
 							</s:iterator>
