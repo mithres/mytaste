@@ -3,6 +3,7 @@ package com.vc.service.vod;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import org.aspectj.util.FileUtil;
@@ -25,6 +26,7 @@ import com.vc.entity.PlayListType;
 import com.vc.entity.UserInfo;
 import com.vc.presentation.exception.FilePersistException;
 import com.vc.util.configuration.ServerConfiguration;
+import com.vc.util.server.TimeUtil;
 
 @Service
 public class PlayListService implements IPlayListService {
@@ -102,6 +104,17 @@ public class PlayListService implements IPlayListService {
 	@Override
 	public List<PlayList> findPlayListByViewCount(Hints hints) {
 		return playListDao.findPlayListByViewCount(hints);
+	}
+
+	@Override
+	public List<PlayList> findPlayListByWeekView(Hints hints, Date[] dateInterval, int index) {
+		hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+		List<PlayList> playList = playListDao.findPlayListByTimeViewCount(hints, dateInterval[0], dateInterval[1]);
+		if (index >= -5 && (playList == null || playList.size() == 0)) {
+			dateInterval = TimeUtil.getCurrentWeek(index--);
+			return findPlayListByWeekView(hints, dateInterval, index);
+		}
+		return playList;
 	}
 
 }

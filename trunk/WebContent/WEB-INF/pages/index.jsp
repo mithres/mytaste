@@ -28,24 +28,26 @@
 					</div>
 					<span class="cp_we flt">We put up crazy, sexy funny videos every single day, all day. Make sure to check back to see the newest updates!
 Praesent vel quam vel nunc ultrices molestie. </span>
-					<div class="cp_align flt">
-						<img src="<web.page:path/>/images/cp_img1.jpg" width="164" height="108" alt=" " class="cp_img1 flt" />
-						<div style="float:left; width:410px; margin-left:50px;">
-							<span class="cp_acro flt">Acrobatics Bloopers</span>
-							<div style="float:left; width:410px;">
-								<span class="cp_acro flt">Category:</span>
-								<div style="float:left; width:200px;">
-									<span class="cp_ext flt">Extreme   |</span>
-									<img src="<web.page:path/>/images/cp_arr.jpg" width="9" height="13" alt="" class="cp_arr flt" />
-									<span class="cp_ext flt">(16)</span>
-									<img src="<web.page:path/>/images/cp_arr1.jpg" width="9" height="13" alt="" class="cp_arr flt" />
-									<span class="cp_ext flt">(2)     </span>
-								</div>										
+					<s:iterator value="playListsOfWeek">
+						<div class="cp_align flt">
+							<img src="<web.page:path/>/images/cp_img1.jpg" width="164" height="108" alt=" " class="cp_img1 flt" />
+							<div style="float:left; width:410px; margin-left:50px;">
+								<span class="cp_acro flt"><s:property value="playListName" /></span>
+								<div style="float:left; width:410px;">
+									<span class="cp_acro flt">Category:</span>
+									<div style="float:left; width:200px;">
+										<span class="cp_ext flt"><s:property value="category.categoryName"/>   |</span>
+										<img src="<web.page:path/>/images/cp_arr.jpg" width="9" height="13" alt="" class="cp_arr flt" />
+										<span class="cp_ext flt">(16)</span>
+										<img src="<web.page:path/>/images/cp_arr1.jpg" width="9" height="13" alt="" class="cp_arr flt" />
+										<span class="cp_ext flt">(2)     </span>
+									</div>										
+								</div>
+								<div class="cp_acro flt" style="font:11px Arial, Helvetica, sans-serif; width:390px;"><b>Description:</b> &nbsp; <s:property value="description"/></div>
+								<span class="cp_acro flt" style="font:11px Arial, Helvetica, sans-serif; width:390px;"><b>Views:</b>&nbsp;  <s:property value="viewCount"/>  |  Added: <s:date name="addedTime" nice="true"/>   </span>
 							</div>
-							<div class="cp_acro flt" style="font:11px Arial, Helvetica, sans-serif; width:390px;"><b>Description:</b> &nbsp; Sometimes even the best fall too. That is what makes their performances so exciting!</div>
-							<span class="cp_acro flt" style="font:11px Arial, Helvetica, sans-serif; width:390px;"><b>Clicks:</b>&nbsp;  216  |  Added:  2009-01-05   </span>
 						</div>
-					</div>
+					</s:iterator>
 				</div>
 				
 				<div class="cp_box1 flt">
@@ -84,46 +86,10 @@ Praesent vel quam vel nunc ultrices molestie. </span>
 				</div>
 				
 				<s:iterator value="mostViewedPlayLists" var="playList">
-					<s:include value="vod/playlistentry.jsp" />
+					<%@include file="vod/playlistentry.jsp" %>
 				</s:iterator>
 				
 				
-				
-				<div class="cp_align flt">
-					<img src="<web.page:path/>/images/cp_oimg1.jpg" width="155" height="101" alt="" class="cp_oimg1 flt" />
-					<div style="float:left; width:290px; margin-left:25px;">
-						<span class="cp_viv flt">Vivamus eu ipsum non diam dapibus egestas. </span>
-						<span class="cp_best flt">Best Music</span>
-						<span class="cp_ut flt">Ut aliquam nisl feugiat neque. Donec ultrices dictum quam. Nam ut velit eu lacus semper luctus. Integer non orci. Nulla commodo mauris id augue.</span>
-					</div>
-					<div style="float:left; width:120px; margin:30px 0 0 20px;">
-						<span class="cp_rates flt">5:5</span>
-						<span class="cp_rates flt"><b>Added:</b> 07.01.2009</span>
-						<span class="cp_rates flt"><b>From:</b> Best Music</span>
-						<span class="cp_rates flt"><b>Views:</b> 841</span>
-						<span class="cp_rates flt"><b>Comments:</b> 6</span>
-						<img src="<web.page:path/>/images/cp_star.jpg" width="78" height="12" alt="" class="cp_star flt" />
-					</div>
-					<img src="<web.page:path/>/images/cp_dotline.jpg" width="634" height="1" alt="" class="cp_dotline flt" />
-				</div>
-				
-				<div class="cp_align flt">
-					<img src="<web.page:path/>/images/cp_oimg2.jpg" width="155" height="101" alt="" class="cp_oimg1 flt" />
-					<div style="float:left; width:290px; margin-left:25px;">
-						<span class="cp_viv flt">Pellentesque porttitor fermentum est.</span>
-						<span class="cp_best flt">Best Music</span>
-						<span class="cp_ut flt">Nullam gravida, lacus ut auctor ultricies; nibh sem elementum odio, ac sagittis turpis magna vel turpis. Quisque sed pede. </span>
-					</div>
-					<div style="float:left; width:120px; margin:30px 0 0 20px;">
-						<span class="cp_rates flt">1.9</span>
-						<span class="cp_rates flt"><b>Added:</b> 07.01.2009</span>
-						<span class="cp_rates flt"><b>From:</b> Best Music</span>
-						<span class="cp_rates flt"><b>Views:</b> 841</span>
-						<span class="cp_rates flt"><b>Comments:</b> 6</span>
-						<img src="<web.page:path/>/images/cp_star.jpg" width="78" height="12" alt="" class="cp_star flt" />
-					</div>
-					<img src="<web.page:path/>/images/cp_bot.jpg" width="658" height="4" alt="" class="cp_dotline flt" style="margin-left:22px;" />
-				</div>
 </div>
 			<div class="rp flt">
 				<div class="rp_box flt">
