@@ -1,5 +1,6 @@
 package com.vc.service.vod;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.Authentication;
@@ -29,5 +30,7 @@ public interface IPlayListService {
 	public abstract Boolean canPlay(Authentication auth, String playListID);
 
 	public abstract List<PlayList> findPlayListByViewCount(Hints hints);
+
+	public abstract List<PlayList> findPlayListByWeekView(Hints hints, Date[] dateInterval, int index);
 
 }
