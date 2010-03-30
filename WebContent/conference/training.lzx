@@ -2,6 +2,22 @@
 
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 		
+		
+	<dataset name="dsEmail">
+		<emailset>
+			<email id="../images/rp_img2.jpg" sender="Andy" subject="you win a prize" message="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas nisi." date="18-05-2008"/>
+			<email id="../images/rp_img2.jpg" sender="Betty" subject="Personal secret" message="Praesent pharetra augue quis magna. Nulla eros. Donec quis urna in lorem nonummy iaculis." date="19-05-2008"/>
+			<email id="../images/rp_img2.jpg" sender="Colin" subject="how you doin?" message="Suspendisse tempor venenatis mauris. Cras pulvinar purus id leo posuere imperdiet. Duis aliquam elementum ipsumnon leo." date="20-05-2008"/>
+			<email id="../images/rp_img2.jpg" sender="Digby" subject="File you need to read" message="Aliquam erat volutpat. Etiam ultricies pede eget nulla." date="21-05-2008"/>
+			<email id="../images/rp_img2.jpg" sender="Emily" subject="add something for your house" message="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Curabitur et nisi Aenean non erat sed dolor tempor feugiat. Vestibulum risus ipsum, iaculis sed, malesuada vel, bibendum mattis, eros. Integer faucibus sagittis pede." date="22-05-2008"/>
+			<email id="../images/rp_img2.jpg" sender="Freddy" subject="little joke" message="Nam luctus ligula a turpis." date="18-06-2008"/>
+			<email id="../images/rp_img2.jpg" sender="Greg" subject="Openlazlo Secret" message="Aenean laoreet. Morbi pulvinar mauris aliquam nisi. Praesent nibh. Maecenas dapibus tincidunt nunc." date="18-05-2007"/>
+			<email id="../images/rp_img2.jpg" sender="Harold" subject="Something you need to crack" message="Fusce quam ligula, dapibus ut, elementum non, blandit fermentum, lectus Vestibulum bibendum felis. Vivamus dui mi, sagittis nec, fermentum ac, hendrerit tempus, felis." date="18-05-2009"/>
+			<email id="../images/rp_img2.jpg" sender="Johny" subject="register your blog" message="Donec tristique, odio tempus elementum accumsan, nulla nibh facilisis eros, a ultrices nunc turpis quis orci." date="08-05-2008"/>
+			<email id="../images/rp_img2.jpg" sender="Jacqui" subject="none mistake" message="Duis dapibus. Morbi rutrum. Pellentesque eros. Integer sed neque. Pellentesque dictum, mi ut lacinia scelerisque, tortor dolor convallis enim, in elementum odio diam quis turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam in turpis. Sed malesuada. Donec rhoncus. Aliquam erat volutpat. Praesent ultrices pede eget ligula." date="18-12-2008"/>
+		</emailset>
+	</dataset>
+
 	<vcrtmpconnection id="rc" autoconnect="false" soSend="true" soReceive="true">
 		
 		<handler name="onconnect">
@@ -40,39 +56,96 @@
 			rc.setAttribute("src", url);
 			rc.connect(sid);
 			if (cam.show == false) {
+				Debug.write("Set room url:" + roomId);
 				live.stream.setAttribute('url', roomId);
 			}
 		}
 	</script>
 	
+	<!-- Display video stream window -->
+	<window x="10" y="10" width="320" height="240" title="VideoStream" resizable="false" closeable="false">
+		<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
+			onclick="pubStream();">
+			<method name="pubStream">
+			<![CDATA[
+				if (cam.show) {
+					Debug.write("pub stream stop");
+					live.stream.stop();
+					cam.setAttribute('show', false);
+				} else {
+					Debug.write("pub stream start");
+					live.stream.broadcast();
+					cam.setAttribute('show', true);
+				}
+			]]>
+			</method>
+		</button>
+		<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
+			<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
+			<microphone id="mic" capturing="false"/>
+		</videoview>
+	</window>
+	
 	<simplelayout axis="y" spacing="4"/>
-  
-	<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
-		<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
-		<microphone id="mic" capturing="false"/>
-	</videoview>
-	
-	<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
-		onclick="if(cam.show){live.stream.stop();cam.setAttribute('show', false);}else{
-		live.stream.broadcast();cam.setAttribute('show', true);}"/>
-
-	
 
 	<videoview name="vid" type="rtmp" stream="$once{canvas.s2}" width="320" height="240"/>
 	<edittext name="username"></edittext>
 	<button text="${s2.playing ? 'stop receiving' : 'receive'}"
 		onclick="s2.setAttribute('url', parent.username.text);
 		if (s2.playing) s2.stop(); else s2.play();"/>
-
-	
-	<view layout="axis:y;" width="100%" height="100" bgcolor="green">
-		<text id="rmessage" width="100%" height="100" multiline="true"/>
-		<view>
-			<simplelayout axis="x"/>
-			<inputtext bgcolor="white" width="100%" id="smessage"/>
-			<button width="50" onclick="rc.sendMessage(smessage.text);smessage.setAttribute('text', '');">Send</button>
+                  
+	<view layout="axis:x;" width="100%" height="280">
+		<view layout="axis:y;">
+			<view name="main" bgcolor="#d2d2d2" width="750" height="260" clip="true">
+				<text id="rmessage" multiline="true" width="100%"/>
+				<vscrollbar/>
+			</view>
+			<view>
+				<simplelayout axis="x"/>
+				<edittext bgcolor="white" width="700" id="smessage"/>
+				<button width="50" onclick="rc.sendMessage(smessage.text);smessage.setAttribute('text', '');">Send</button>
+			</view>
 		</view>
+		
+		<window bgcolor="#666699" width="500" height="150" resizable="true" >
+			<view name="main" width="100%" clip="true">
+				<simplelayout axis="y"/>
+				<text font="Arial" fontsize="20" fgcolor="#FFFFFF">My RSS Feeds</text>
+				<view name="contents" datapath="dsEmail:/emailset/email">
+					<simplelayout axis="x"/>
+					<view name="id" datapath="@id">
+						<attribute name="source" value="${this.data}"/>
+					</view>
+					<text datapath="@sender"/>
+				</view>
+			</view>
+			<scrollbar/>
+		</window>
+
+
+
+		
+
+		
 	</view>
 	
+	<!-- using view to show the dataset -->
+
+	<view width="500" height="150" bgcolor="green" layout="axis:y;">
+		<view name="main" width="100%" clip="true">
+			<simplelayout axis="y"/>
+			<text font="Arial" fontsize="20" fgcolor="#FFFFFF">My RSS Feeds</text>
+			<view name="contents" datapath="dsEmail:/emailset/email">
+				<simplelayout axis="x"/>
+				<view name="id" datapath="@id">
+					<attribute name="source" value="${this.data}"/>
+				</view>
+				<text datapath="@sender"/>
+			</view>
+		</view>
+		<scrollbar/>
+	</view>
+
+		
 			
 </canvas>
