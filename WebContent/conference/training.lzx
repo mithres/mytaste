@@ -1,6 +1,7 @@
 <canvas debug="true">
 
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
+	<include href="../lps/videoconference/base/userList.lzx"/>
 		
 		
 	<dataset name="dsEmail">
@@ -63,7 +64,7 @@
 	</script>
 	
 	<!-- Display video stream window -->
-	<window x="10" y="10" width="320" height="240" title="VideoStream" resizable="false" closeable="false">
+	<window x="10" y="10" width="450" height="400" title="VideoStream" resizable="false" closeable="false">
 		<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
 			onclick="pubStream();">
 			<method name="pubStream">
@@ -80,9 +81,9 @@
 			]]>
 			</method>
 		</button>
-		<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="320" height="240" y="40">
-			<camera id="cam" show="false" fps="20" width="320" height="240" picturequality="0"/>
-			<microphone id="mic" capturing="false"/>
+		<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="400" height="300" y="40">
+			<camera id="cam" show="false" fps="24" width="400" height="300" picturequality="0.8"/>
+			<microphone id="mic" capturing="true"/>
 		</videoview>
 	</window>
 	
@@ -106,46 +107,7 @@
 				<button width="50" onclick="rc.sendMessage(smessage.text);smessage.setAttribute('text', '');">Send</button>
 			</view>
 		</view>
-		
-		<window bgcolor="#666699" width="500" height="150" resizable="true" >
-			<view name="main" width="100%" clip="true">
-				<simplelayout axis="y"/>
-				<text font="Arial" fontsize="20" fgcolor="#FFFFFF">My RSS Feeds</text>
-				<view name="contents" datapath="dsEmail:/emailset/email">
-					<simplelayout axis="x"/>
-					<view name="id" datapath="@id">
-						<attribute name="source" value="${this.data}"/>
-					</view>
-					<text datapath="@sender"/>
-				</view>
-			</view>
-			<scrollbar/>
-		</window>
-
-
-
-		
-
-		
-	</view>
-	
-	<!-- using view to show the dataset -->
-
-	<view width="500" height="150" bgcolor="green" layout="axis:y;">
-		<view name="main" width="100%" clip="true">
-			<simplelayout axis="y"/>
-			<text font="Arial" fontsize="20" fgcolor="#FFFFFF">My RSS Feeds</text>
-			<view name="contents" datapath="dsEmail:/emailset/email">
-				<simplelayout axis="x"/>
-				<view name="id" datapath="@id">
-					<attribute name="source" value="${this.data}"/>
-				</view>
-				<text datapath="@sender"/>
-			</view>
-		</view>
-		<scrollbar/>
-	</view>
-
-		
+		<userlist datapath="dsEmail:/emailset" width="253" height="307"/>	
+	</view>	
 			
 </canvas>

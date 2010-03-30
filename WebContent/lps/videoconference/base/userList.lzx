@@ -1,0 +1,18 @@
+<library>
+	
+	<class name="userlist" datapath="">
+		<view name="rowcontainer" datapath="${parent.datapath}" width="$once{parent.width-2}" height="$once{parent.height-22}" clip="true">
+			<view name="columns" datapath="${parent.datapath}" width="$once{parent.width-2}">
+				<simplelayout axis="y" spacing="1"/>
+				<view  datapath="*" width="$once{parent.width}" height="45" bgcolor="#F5F5F5">     
+					<view datapath="@id">
+						<attribute name="source" value="${this.data}"/>
+					</view>
+					<text x="40" datapath="@sender" width="130"/>
+				</view>
+			</view>
+			<scrollbar/>
+		</view>
+	</class>
+	
+</library>
