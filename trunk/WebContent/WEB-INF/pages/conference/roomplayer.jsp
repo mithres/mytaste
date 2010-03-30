@@ -18,16 +18,13 @@
 		var roomId = '<s:property value="roomId"/>';
 		var sid = '<s:property value="sid"/>';
 		var nodeUrl = '<s:property value="nodeUrl"/>';
-		var callMethod = "init('" + roomId + "','" + sid + "','" + nodeUrl
-				+ "')";
+		var callMethod = "init('" + roomId + "','" + sid + "','" + nodeUrl + "')";
 		training.callMethod(callMethod);
 	}
 </script>
 </head>
 
 <body onload="initPlayer();">
-<s:property value="sid" />
-
 <!-- url : '<web.page:path/>/vod/vodplayer.lzx.swf8.swf', -->
 <script>
 	lz.embed.swf( {
