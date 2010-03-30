@@ -21,9 +21,15 @@ public class TimeUtil {
 			index = 8;
 		}
 		cal.add(Calendar.DATE, -(index - 2));
+		cal.set(cal.HOUR_OF_DAY, 0);
+		cal.set(cal.MINUTE, 0);
+		cal.set(cal.SECOND, 0);
 		Date start = cal.getTime();
 
 		cal.add(Calendar.DATE, 6);
+		cal.set(cal.HOUR_OF_DAY, 23);
+		cal.set(cal.MINUTE, 59);
+		cal.set(cal.SECOND, 59);
 		Date end = cal.getTime();
 		Date[] result = new Date[] { start, end };
 		return result;
