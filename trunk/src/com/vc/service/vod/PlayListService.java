@@ -41,8 +41,7 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) throws FilePersistException {
-		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
-				.longValue();
+		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
 		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
 
@@ -108,13 +107,12 @@ public class PlayListService implements IPlayListService {
 
 	@Override
 	public List<PlayList> findPlayListByWeekView(Hints hints, Date[] dateInterval, int index) {
-		hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
-		List<PlayList> playList = playListDao.findPlayListByTimeViewCount(hints, dateInterval[0], dateInterval[1]);
-		if (index >= -5 && (playList == null || playList.size() == 0)) {
+		List<PlayList> list =  playListDao.findPlayListByTimeViewCount(hints, dateInterval[0], dateInterval[1]);
+		if(index >= -3 && list.size() == 0){
 			dateInterval = TimeUtil.getCurrentWeek(index--);
-			return findPlayListByWeekView(hints, dateInterval, index);
+			list = findPlayListByWeekView(hints, dateInterval, index);
 		}
-		return playList;
+		return list;
 	}
 
 }
