@@ -11,6 +11,11 @@ import org.red5.server.api.stream.IBroadcastStream;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.red5.server.api.stream.ISubscriberStream;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.vc.core.conference.ConferenceSecurityHandler;
+import com.vc.core.constants.Constants;
+import com.vc.service.cluster.IClientManager;
 
 public class VideoConferenceApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback,
 		IStreamAwareScopeHandler {
@@ -18,8 +23,16 @@ public class VideoConferenceApplicationAdapter extends ApplicationAdapter implem
 	private static final Logger log = Red5LoggerFactory.getLogger(VideoConferenceApplicationAdapter.class,
 			"VideoConference");
 
+	@Autowired
+	private IClientManager clientManager = null;
+
 	@Override
 	public synchronized boolean start(IScope scope) {
+
+		ConferenceSecurityHandler conferenceHandler = new ConferenceSecurityHandler();
+		conferenceHandler.setClientManager(clientManager);
+		scope.registerServiceHandler(Constants.CONFERENCE_SCOPE_NAME, conferenceHandler);
+
 		return super.start(scope);
 	}
 
