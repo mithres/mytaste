@@ -13,11 +13,16 @@
 	</head>
 <body>
 
+<div class="cp_align flt">
+	<div class="cp_tab flt">
+		<a href="#" class="cp_fea flt">Most Popular</a>
+		<a href="#" class="cp_feas flt">Highest Rated<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
+	</div>
+</div>
+				
 <div id="playListRender">
-	<s:iterator value="playList.records">
-		<img src="<photo:photo index="${playListIndex}" photoType="FilmScreenShot" />" width="64" height="64"/>
-		<s:property value="playListName" /><br/>
-		<s:property value="description" /> -- <a href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>">Play</a><br />
+	<s:iterator value="playList.records" var="playList">
+		<%@include file="playlistentryshort.jsp" %>
 	</s:iterator>
 </div>
 

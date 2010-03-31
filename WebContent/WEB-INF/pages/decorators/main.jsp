@@ -10,19 +10,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title><decorator:title default="Welcome!" /></title>
-<link rel="stylesheet" type="text/css"
-	href="<web.page:path/>/css/common.css" />
-
-<script type="text/javascript">
-	var webPath = "__tag_19$13_";
-	var tb_pathToImage = webPath + "/js/thickbox/preloader.gif";
-</script>
+<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/common.css" />
 
 <script type="text/javascript" src="<web.page:path/>/js/jquery.js"></script>
-<script type="text/javascript"
-	src="<web.page:path/>/js/iautocompleter.js"></script>
+<script type="text/javascript" src="<web.page:path/>/js/iautocompleter.js"></script>
 <script type="text/javascript" src="<web.page:path/>/js/common.js"></script>
 
 <decorator:head />
@@ -30,6 +22,7 @@
 
 <body
 	<decorator:getProperty property="body.onload" writeEntireProperty="true" />>
+	
 <div id="mainblock"><!--inner block starts here -->
 <div id="innerblock"><!--top panel starts here -->
 <div id="toppanel">
