@@ -4,54 +4,104 @@
 	
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	<include href="../lps/videoconference/base/userList.lzx"/>
+	<include href="../lps/videoconference/base/sharedObject.lzx"/>
 	
 	<attribute name="sid" value="" type="string"/>
 	<attribute name="roomId" value="" type="string"/>	
+	
+	<sharedObject id="soUserList">
+		<handler name="onStatus" args="evt">
+			Debug.write("==="+evt[0].code);
+			if (evt[0].code == "success") {
+				var userList = this.getData("userList");
+				Debug.write(userList);
+			}else if(evt[0].code == "clear"){
+				rc.getUserInfo.callRPC();
+			}
+		</handler>
+		<method name="joinUserList" args="userInfo">
+		<![CDATA[
+			var userList = null;
+			if (this.getData("userList") != null) {
+				userList = getData("userList");
+			} else {
+				userList = new Array();
+			}
+			userList.push(userInfo);
+			this.setData("userList", userList);
+		]]>
+		</method>
+	</sharedObject>
+	
+	
+	<sharedObject id="soMessage">
+		<handler name="onStatus" args="evt">
+		<![CDATA[
+			Debug.write(evt[0].code);
+			if (evt[0].code == "success") {
+				rmessage.setAttribute("text", rmessage.text + "<br/>"
+								+ this.getData("message"));
+			}
+		]]>
+		</handler>
+	</sharedObject>	
 
-	<vcrtmpconnection id="rc" autoconnect="false" useSO="true">
-		
+	<vcrtmpconnection id="rc" autoconnect="false">
+
 		<handler name="onconnect">
 			Debug.write("connected");
-			rc.getUserInfo.callRPC();
-			rc.initShareObject(canvas.roomId);
+			var messageSO = "MessageSO"+canvas.roomId;
+			var userListSO = "UserListSO"+canvas.roomId;
+			soMessage.connect(messageSO, this._nc, false);
+			soUserList.connect(userListSO, this._nc, false);
 		</handler>
-		
+
 		<handler name="onerror">
 			Debug.write("error ", this.status);
 		</handler>
-		
-		<handler name="onsosync">
-		<![CDATA[
-			Debug.write("Receive message:" + this.soMessage);
-			var receivedMessage = rmessage.text;
-			rmessage.setAttribute("text", receivedMessage + "<br/>"	+ this.soMessage);
-		]]>
-		</handler>
-		
-		<method name="sendMessage" args="mess">
-		<![CDATA[
-			if (this.useSO && mess != "") {
-				Debug.write("Send message");
-				this._sharedObject.send("messageHandler", mess);
-			}
-		]]>
-		</method>
-		
-		<method name="addUserToList" args="jsonStr">
-		<![CDATA[
-			if (this.useSO) {
-				var userList = null;
-				if (this.getData("userList") != null) {
-					userList = getData("userList");
-				} else {
-					userList = new Array();
+
+		<!--handler name="onmessage">
+			<![CDATA[
+				Debug.write("Receive message:" + this.soMessage);
+				var receivedMessage = rmessage.text;
+				rmessage.setAttribute("text", receivedMessage + "<br/>"	+ this.soMessage);
+			]]>
+			</handler>
+
+			<handler name="onuserlistupdate">
+			<![CDATA[	
+				Debug.write("Update list:"+this.userinfo);
+				ul.addUserToList(JSON.parse(this.userinfo));
+			]]>
+			</handler>
+
+
+			<method name="sendMessage" args="mess">
+			<![CDATA[
+				if (this.useSO && mess != "") {
+					Debug.write("Send message");
+					this._sharedObject.send("messageHandler", mess);
 				}
-				userList.push(jsonStr);
-				setData("userList", userList);
-				ul.addUserToList(JSON.parse(userList[0]));	
-			}
-		]]>
-		</method>
+			]]>
+			</method-->
+		
+		<!--method name="addUserToList" args="jsonStr">
+			<![CDATA[
+				//if (this.useSO) {
+				//this._onSync(
+				//var userList = null;
+				//if (this.getData("userList") != null) {
+				//	userList = getData("userList");
+				//} else {
+				//	userList = new Array();
+				//}
+				//userList.push(jsonStr);
+				//setData("userList", userList);
+				//ul.addUserToList(JSON.parse(userList[0]));
+				//this._sharedObject.send("userListHandler",jsonStr);
+				//	}
+			]]>
+			</method-->
 		
 		<netremotecall name="getUserInfo" funcname="conference.loadUserInfo">
 			<attribute name="param1" value="${canvas.sid}" type="string" />      
@@ -61,8 +111,7 @@
 				</method>
 			</netparam>  
 			<method name="onResult" args="value">
-				Debug.write(value);
-				rc.addUserToList(value);
+				soUserList.joinUserList(value);
 			</method>  
 		</netremotecall>
 		
@@ -70,6 +119,8 @@
 		
 	<mediastream name="s1" type="rtmp"/>
 	<mediastream name="s2" type="rtmp"/>
+	
+	
 	
 	<script>
 		canvas.setDefaultContextMenu(new LzContextMenu());
@@ -104,7 +155,7 @@
 		<view height="100%" width="${parent.width - 2}" x="1" y="124">
 			<simplelayout axis="x"/>
 			<edittext bgcolor="white" width="${parent.width - 50}" id="smessage"/>
-			<button width="50" onclick="rc.sendMessage(smessage.text);smessage.setAttribute('text', '');">Send</button>
+			<button width="50" onclick="soMessage.setData('message',smessage.text);">Send</button>
 		</view>
 	</view>
 		

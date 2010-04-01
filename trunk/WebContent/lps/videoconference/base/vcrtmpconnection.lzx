@@ -1,16 +1,14 @@
 <library>
 	
 	<class name="vcrtmpconnection" extends="rtmpconnection">
-		
+            
 		<attribute name="src" value="" type="string"/>
 		<attribute name="autoconnect" value="false" type="boolean" />
-		<attribute name="soMessage" value="" type="string"/>
-		
-		<attribute name="useSO" value="false" type="boolean"/>
+
 		
 		<event name="onconnect"/>
 		<event name="onerror"/>
-		<event name="onsosync"/>
+
 		
 		<method name="connect" args="params">
 			this._nc = new NetConnection();
@@ -28,34 +26,6 @@
 			}
 
 			this.registerMethods();
-		</method>
-		
-		<method name="initShareObject" args="soName">
-
-
-			if (this.useSO) {
-				this._sharedObject = SharedObject.getRemote(soName,
-						this._nc.uri, false);
-				this._sharedObject.connect(this._nc);
-
-				this._sharedObject.messageHandler = function(str) {
-					soMessage = str;
-					onsosync.sendEvent();
-				};
-
-			}
-		</method>
-		
-		<method name="getData" args="key">
-			if (this._sharedObject.data["key"] == undefined) {
-				return null;
-			} else {
-				return this._sharedObject.data["key"];
-			}
-		</method>
-	
-		<method name="setData" args="key,val">
-			this._sharedObject.data["key"] = val;
 		</method>
 		
 		<method name="_onStatus" args="info"><![CDATA[
