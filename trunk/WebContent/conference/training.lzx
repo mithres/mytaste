@@ -7,21 +7,6 @@
 	
 	<attribute name="sid" value="" type="string"/>
 	<attribute name="roomId" value="" type="string"/>	
-		
-	<dataset name="dsEmail">
-		<emailset>
-			<email id="../images/rp_img2.jpg" sender="Andy" subject="you win a prize" message="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas nisi." date="18-05-2008"/>
-			<email id="../images/rp_img2.jpg" sender="Betty" subject="Personal secret" message="Praesent pharetra augue quis magna. Nulla eros. Donec quis urna in lorem nonummy iaculis." date="19-05-2008"/>
-			<email id="../images/rp_img2.jpg" sender="Colin" subject="how you doin?" message="Suspendisse tempor venenatis mauris. Cras pulvinar purus id leo posuere imperdiet. Duis aliquam elementum ipsumnon leo." date="20-05-2008"/>
-			<email id="../images/rp_img2.jpg" sender="Digby" subject="File you need to read" message="Aliquam erat volutpat. Etiam ultricies pede eget nulla." date="21-05-2008"/>
-			<email id="../images/rp_img2.jpg" sender="Emily" subject="add something for your house" message="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Curabitur et nisi Aenean non erat sed dolor tempor feugiat. Vestibulum risus ipsum, iaculis sed, malesuada vel, bibendum mattis, eros. Integer faucibus sagittis pede." date="22-05-2008"/>
-			<email id="../images/rp_img2.jpg" sender="Freddy" subject="little joke" message="Nam luctus ligula a turpis." date="18-06-2008"/>
-			<email id="../images/rp_img2.jpg" sender="Greg" subject="Openlazlo Secret" message="Aenean laoreet. Morbi pulvinar mauris aliquam nisi. Praesent nibh. Maecenas dapibus tincidunt nunc." date="18-05-2007"/>
-			<email id="../images/rp_img2.jpg" sender="Harold" subject="Something you need to crack" message="Fusce quam ligula, dapibus ut, elementum non, blandit fermentum, lectus Vestibulum bibendum felis. Vivamus dui mi, sagittis nec, fermentum ac, hendrerit tempus, felis." date="18-05-2009"/>
-			<email id="../images/rp_img2.jpg" sender="Johny" subject="register your blog" message="Donec tristique, odio tempus elementum accumsan, nulla nibh facilisis eros, a ultrices nunc turpis quis orci." date="08-05-2008"/>
-			<email id="../images/rp_img2.jpg" sender="Jacqui" subject="none mistake" message="Duis dapibus. Morbi rutrum. Pellentesque eros. Integer sed neque. Pellentesque dictum, mi ut lacinia scelerisque, tortor dolor convallis enim, in elementum odio diam quis turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam in turpis. Sed malesuada. Donec rhoncus. Aliquam erat volutpat. Praesent ultrices pede eget ligula." date="18-12-2008"/>
-		</emailset>
-	</dataset>
 
 	<vcrtmpconnection id="rc" autoconnect="false" useSO="true">
 		
@@ -39,8 +24,7 @@
 		<![CDATA[
 			Debug.write("Receive message:" + this.soMessage);
 			var receivedMessage = rmessage.text;
-			rmessage.setAttribute("text", receivedMessage + "<br/>"
-							+ this.soMessage);
+			rmessage.setAttribute("text", receivedMessage + "<br/>"	+ this.soMessage);
 		]]>
 		</handler>
 		
@@ -64,12 +48,7 @@
 				}
 				userList.push(jsonStr);
 				setData("userList", userList);
-				
-				var str = getData("userList")[0];
-				Debug.write("xx"+str);
-				var testData = JSON.parse(str);
-				Debug.write(testData);
-				//Debug.write("data:" + getData("userList")[0].UserId);
+				ul.addUserToList(JSON.parse(userList[0]));	
 			}
 		]]>
 		</method>
@@ -114,7 +93,7 @@
 	</view>
 	
 	<!-- user list view -->
-	<userlist datapath="dsEmail:/emailset" width="200" height="600" x="0" y="40"/>	
+	<userlist id="ul" width="200" height="600" x="0" y="40"/>	
 	
 	<!-- Chat view -->
 	<view width="100%" height="300" y="617" bgcolor="0xA3B2CC">
@@ -157,12 +136,6 @@
 			</handler>
 		</button>
 		
-		<button text="xxxxx">
-			<handler name="onclick">
-				rc.addUserToList("userId", "userName", "userEmail",
-						"userLevel", "userPic");
-			</handler>
-		</button>
      
 		<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
 			onclick="pubStream();">
@@ -180,7 +153,7 @@
 			]]>
 			</method>
 		</button>
-		<view width="100%" height="100%" bgcolor="green">
+		<view id="videoView" width="100%" height="100%">
 			<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="$once{parent.width}" height="$once{parent.height-40}" y="40">
 				<camera id="cam" show="false" fps="25" width="$once{parent.width}" height="$once{parent.height}" picturequality="0.8"/>
 				<microphone id="mic" capturing="true"/>

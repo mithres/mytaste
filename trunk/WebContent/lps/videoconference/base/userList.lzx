@@ -1,18 +1,36 @@
 <library>
 	
 	<class name="userlist" datapath="">
-		<view name="rowcontainer" datapath="${parent.datapath}" width="$once{parent.width-2}" height="$once{parent.height-22}" clip="true">
-			<view name="columns" datapath="${parent.datapath}" width="$once{parent.width-2}">
+		
+		<view name="rowcontainer" width="$once{parent.width-2}" height="$once{parent.height-22}" clip="true">
+			<view name="userListContent" width="$once{parent.width-2}" layout="axis:y">
 				<simplelayout axis="y" spacing="1"/>
-				<view  datapath="*" width="$once{parent.width}" height="45" bgcolor="#F5F5F5">     
-					<view datapath="@id">
-						<attribute name="source" value="${this.data}"/>
-					</view>
-					<text x="40" datapath="@sender" width="130"/>
-				</view>
+					<!--view  datapath="*" width="$once{parent.width}" height="45" bgcolor="#F5F5F5">     
+						<view datapath="@id">
+							<attribute name="source" value="${this.data}"/>
+						</view>
+						<text x="40" datapath="@sender" width="130"/>
+					</view-->
 			</view>
 			<scrollbar/>
 		</view>
+		
+		<method name="initList" args="userList">
+			Debug.write("initList called");
+		</method>
+		
+		<method name="addUserToList" args="user">
+			Debug.write("call add view." + user);
+			var outerView = new LzView(rowcontainer.userListContent,{id:user.UserId});
+			var innerView = new LzView(outerView,{resource:user.UserPic});
+			var innerText = new LzText(outerView,{text:user.UserId,x:40});
+		</method>
+		
+		<method name="removeUserFromList" args="userId">
+
+		</method>
+		
+		
 	</class>
 	
 </library>
