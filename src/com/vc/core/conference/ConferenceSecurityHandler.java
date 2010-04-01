@@ -16,11 +16,11 @@ public class ConferenceSecurityHandler {
 			UserInfo userInfo = (UserInfo) clientVO.getAuthentication().getPrincipal();
 			
 			StringBuffer json = new StringBuffer("{");
-			json.append("'UserId':'" + userInfo.getUsername() + "',");
-			json.append("'UserName':'" + userInfo.getFirstName() + " " + userInfo.getLastName() + "',");
-			json.append("'UserEmail':'" + userInfo.getEmail() + "',");
-			json.append("'UserLevel':'" + userInfo.getUserLevel().toString() + "',");
-			json.append("'UserPic':'http://172.0.2.193:8080/mytaste/images/rp_img2.jpg'");
+			json.append("\"UserId\":\"" + userInfo.getUsername() + "\",");
+			json.append("\"UserName\":\"" + userInfo.getFirstName() + " " + userInfo.getLastName() + "\",");
+			json.append("\"UserEmail\":\"" + userInfo.getEmail() + "\",");
+			json.append("\"UserLevel\":\"" + userInfo.getUserLevel().toString() + "\",");
+			json.append("\"UserPic\":\"http://172.0.2.193:8080/mytaste/images/rp_img2.jpg\"");
 			json.append("}");
 			
 			return json.toString();
