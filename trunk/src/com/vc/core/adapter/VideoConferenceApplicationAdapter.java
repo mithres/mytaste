@@ -1,5 +1,10 @@
 package com.vc.core.adapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.json.JSONObject;
+
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IClient;
@@ -7,15 +12,21 @@ import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
 import org.red5.server.api.service.IPendingServiceCall;
 import org.red5.server.api.service.IPendingServiceCallback;
+import org.red5.server.api.so.ISharedObject;
+import org.red5.server.api.so.ISharedObjectService;
 import org.red5.server.api.stream.IBroadcastStream;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.red5.server.api.stream.ISubscriberStream;
+import org.red5.server.so.SharedObjectService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vc.core.conference.ConferenceSecurityHandler;
+import com.vc.core.conference.ConferenceShanredObjectSecurityHandler;
 import com.vc.core.constants.Constants;
 import com.vc.service.cluster.IClientManager;
+import com.vc.vo.ClientVO;
+import com.vc.vo.UserInfoVO;
 
 public class VideoConferenceApplicationAdapter extends ApplicationAdapter implements IPendingServiceCallback,
 		IStreamAwareScopeHandler {
@@ -32,6 +43,9 @@ public class VideoConferenceApplicationAdapter extends ApplicationAdapter implem
 		ConferenceSecurityHandler conferenceHandler = new ConferenceSecurityHandler();
 		conferenceHandler.setClientManager(clientManager);
 		scope.registerServiceHandler(Constants.CONFERENCE_SCOPE_NAME, conferenceHandler);
+
+		// Register so security handler
+		registerSharedObjectSecurity(new ConferenceShanredObjectSecurityHandler());
 
 		return super.start(scope);
 	}
@@ -94,7 +108,6 @@ public class VideoConferenceApplicationAdapter extends ApplicationAdapter implem
 
 	@Override
 	public void streamBroadcastClose(IBroadcastStream arg0) {
-		// TODO Auto-generated method stub
 		super.streamBroadcastClose(arg0);
 	}
 
@@ -121,16 +134,37 @@ public class VideoConferenceApplicationAdapter extends ApplicationAdapter implem
 		return super.roomConnect(arg0, arg1);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public void roomDisconnect(IConnection arg0) {
-		log.info("roomDisconnect start: " + arg0.getClient().getId());
-		super.roomDisconnect(arg0);
+	public void roomDisconnect(IConnection conn) {
+		log.info("roomDisconnect start: ");
+		// Remove user from userlist
+		ISharedObjectService service = new SharedObjectService();
+		ISharedObject so = service.getSharedObject(conn.getScope(), Constants.USERLIST_OBJECT, false);
+		if (so != null) {
+			List<String> userList = (ArrayList<String>) so.getAttribute("key");
+			ClientVO client = clientManager.getClientBySessionID((String) conn.getClient().getAttribute(
+					Constants.SESSION_ID));
+			if (userList != null && client != null) {
+				String userId = client.getAuthentication().getName();
+				for (int i = 0; i < userList.size(); i++) {
+					JSONObject jsonObject = JSONObject.fromObject(userList.get(i));
+					UserInfoVO vo = (UserInfoVO) JSONObject.toBean(jsonObject, UserInfoVO.class);
+					if (vo.getUserId().equals(userId)) {
+						userList.remove(i);
+						break;
+					}
+				}
+			}
+			so.setAttribute("key", userList);
+			log.info("User list size:" + userList.size());
+		}
 	}
 
 	@Override
 	public boolean roomJoin(IClient arg0, IScope arg1) {
 		log.info("roomJoin start: " + arg0.getId());
-		return super.roomJoin(arg0, arg1);
+		return true;
 	}
 
 	@Override
@@ -161,6 +195,11 @@ public class VideoConferenceApplicationAdapter extends ApplicationAdapter implem
 	public void streamSubscriberStart(ISubscriberStream stream) {
 		log.info("---------------------streamSubscriberStart------------");
 		super.streamSubscriberStart(stream);
+	}
+
+	public static void main(String[] a) {
+		String xx = "{userId:'admin',userName:'Admin Liu',userEmail:'admin@xx.com',userLevel:'Adminstrator',userPic:'http://192.168.0.119:8080/MyTaste/images/rp_img2.jpg'}";
+		JSONObject jsonObject = JSONObject.fromObject(xx);
 	}
 
 }

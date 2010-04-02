@@ -7,24 +7,29 @@
 	<include href="../lps/videoconference/base/sharedObject.lzx"/>
 	
 	<attribute name="sid" value="" type="string"/>
-	<attribute name="roomId" value="" type="string"/>	
+	<attribute name="roomId" value="" type="string"/>
+	<attribute name="userInfo" value="" type="string"/>	
 	
 	<sharedObject id="soUserList">
 		<handler name="onStatus" args="evt">
-			Debug.write("==="+evt[0].code);
-			if (evt[0].code == "success") {
-				var userList = this.getData("userList");
-				Debug.write(userList);
-			}else if(evt[0].code == "clear"){
+			Debug.write("===" + evt[0].code);
+			if(evt[0].code == "clear"){
 				rc.getUserInfo.callRPC();
+			}else{
+				var userList = this.getData("userList");
+				Debug.write("Init user list");
+				ul.updateList(userList);	
 			}
+			
 		</handler>
 		<method name="joinUserList" args="userInfo">
 		<![CDATA[
 			var userList = null;
 			if (this.getData("userList") != null) {
 				userList = getData("userList");
+				Debug.write("User list exist:" + userList);
 			} else {
+				Debug.write("User list is null create new one.");
 				userList = new Array();
 			}
 			userList.push(userInfo);
@@ -37,8 +42,8 @@
 	<sharedObject id="soMessage">
 		<handler name="onStatus" args="evt">
 		<![CDATA[
-			Debug.write(evt[0].code);
-			if (evt[0].code == "success") {
+			Debug.write("===" + evt[0].code);
+			if (evt[0].code == "success" || evt[0].code == "change") {
 				rmessage.setAttribute("text", rmessage.text + "<br/>"
 								+ this.getData("message"));
 			}
@@ -50,8 +55,8 @@
 
 		<handler name="onconnect">
 			Debug.write("connected");
-			var messageSO = "MessageSO"+canvas.roomId;
-			var userListSO = "UserListSO"+canvas.roomId;
+			var messageSO = "MessageSO";
+			var userListSO = "UserListSO";
 			soMessage.connect(messageSO, this._nc, false);
 			soUserList.connect(userListSO, this._nc, false);
 		</handler>
@@ -59,49 +64,6 @@
 		<handler name="onerror">
 			Debug.write("error ", this.status);
 		</handler>
-
-		<!--handler name="onmessage">
-			<![CDATA[
-				Debug.write("Receive message:" + this.soMessage);
-				var receivedMessage = rmessage.text;
-				rmessage.setAttribute("text", receivedMessage + "<br/>"	+ this.soMessage);
-			]]>
-			</handler>
-
-			<handler name="onuserlistupdate">
-			<![CDATA[	
-				Debug.write("Update list:"+this.userinfo);
-				ul.addUserToList(JSON.parse(this.userinfo));
-			]]>
-			</handler>
-
-
-			<method name="sendMessage" args="mess">
-			<![CDATA[
-				if (this.useSO && mess != "") {
-					Debug.write("Send message");
-					this._sharedObject.send("messageHandler", mess);
-				}
-			]]>
-			</method-->
-		
-		<!--method name="addUserToList" args="jsonStr">
-			<![CDATA[
-				//if (this.useSO) {
-				//this._onSync(
-				//var userList = null;
-				//if (this.getData("userList") != null) {
-				//	userList = getData("userList");
-				//} else {
-				//	userList = new Array();
-				//}
-				//userList.push(jsonStr);
-				//setData("userList", userList);
-				//ul.addUserToList(JSON.parse(userList[0]));
-				//this._sharedObject.send("userListHandler",jsonStr);
-				//	}
-			]]>
-			</method-->
 		
 		<netremotecall name="getUserInfo" funcname="conference.loadUserInfo">
 			<attribute name="param1" value="${canvas.sid}" type="string" />      
@@ -111,6 +73,8 @@
 				</method>
 			</netparam>  
 			<method name="onResult" args="value">
+				canvas.setAttribute("userInfo", value);
+				Debug.write("add to user list"+value);
 				soUserList.joinUserList(value);
 			</method>  
 		</netremotecall>
@@ -128,7 +92,9 @@
 			Debug.write(url + ":" + roomId + ":" + sid);
 			canvas.setAttribute("sid", sid);
 			canvas.setAttribute("roomId", roomId);
-			rc.setAttribute("src", url);
+
+			var roomScope = url + "/" + roomId;
+			rc.setAttribute("src", roomScope);
 			rc.connect(sid);
 			if (cam.show == false) {
 				live.stream.setAttribute('url', roomId);
