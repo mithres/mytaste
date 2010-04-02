@@ -141,10 +141,10 @@ public class VideoConferenceApplicationAdapter extends ApplicationAdapter implem
 		// Remove user from userlist
 		ISharedObjectService service = new SharedObjectService();
 		ISharedObject so = service.getSharedObject(conn.getScope(), Constants.USERLIST_OBJECT, false);
+		ISharedObject soUpdate = service.getSharedObject(conn.getScope(), Constants.USERLISTUPDATE_OBJECT, false);
 		if (so != null) {
 			List<String> userList = (ArrayList<String>) so.getAttribute("key");
-			ClientVO client = clientManager.getClientBySessionID((String) conn.getClient().getAttribute(
-					Constants.SESSION_ID));
+			ClientVO client = clientManager.getClientBySessionID((String) conn.getClient().getAttribute(Constants.SESSION_ID));
 			if (userList != null && client != null) {
 				String userId = client.getAuthentication().getName();
 				for (int i = 0; i < userList.size(); i++) {
@@ -152,6 +152,8 @@ public class VideoConferenceApplicationAdapter extends ApplicationAdapter implem
 					UserInfoVO vo = (UserInfoVO) JSONObject.toBean(jsonObject, UserInfoVO.class);
 					if (vo.getUserId().equals(userId)) {
 						userList.remove(i);
+						vo.setRemove(true);
+						soUpdate.setAttribute("key", JSONObject.fromObject(vo).toString());
 						break;
 					}
 				}

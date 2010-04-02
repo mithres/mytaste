@@ -18,6 +18,7 @@ public class Constants {
 	//Flash client shared object names
 	public static final String MESSAGE_OBJECT = "MessageSO";
 	public static final String USERLIST_OBJECT = "UserListSO";
+	public static final String USERLISTUPDATE_OBJECT = "UserListUpdateSO";
 	
 	//Encoder name
 	public static final String UTF8 = "UTF-8";
