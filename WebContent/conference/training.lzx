@@ -10,34 +10,49 @@
 	<attribute name="roomId" value="" type="string"/>
 	<attribute name="userInfo" value="" type="string"/>	
 	
+	<sharedObject id="soUserListUpdate">
+		<handler name="onStatus" args="evt">
+			Debug.write("===" + evt[0].code + ":::" + canvas.userInfo);
+			if (evt[0].code == "clear") {
+				//this.setData("userInfo", canvas.userInfo);
+			} else {
+				Debug.write("Update userinfo");
+				ul.updateListItem(this.getData("userInfo"));
+			}
+		</handler>
+	</sharedObject>
+	
 	<sharedObject id="soUserList">
 		<handler name="onStatus" args="evt">
-			Debug.write("===" + evt[0].code);
-			if(evt[0].code == "clear"){
+			if (evt[0].code == "clear") {
+				var userList = this.getData("userList");
+				if (userList != null) {
+					//Init user list
+					ul.initList(userList);
+				}
+				//Add self into user list
 				rc.getUserInfo.callRPC();
 			}else{
-				var userList = this.getData("userList");
-				Debug.write("Init user list");
-				ul.updateList(userList);	
+				Debug.write("user list updated.");
 			}
-			
 		</handler>
 		<method name="joinUserList" args="userInfo">
 		<![CDATA[
 			var userList = null;
 			if (this.getData("userList") != null) {
 				userList = getData("userList");
-				Debug.write("User list exist:" + userList);
+				Debug.write("User list exist:" + userList.length);
 			} else {
 				Debug.write("User list is null create new one.");
 				userList = new Array();
 			}
 			userList.push(userInfo);
 			this.setData("userList", userList);
+			soUserListUpdate.setData("userInfo",userInfo);
+			Debug.write("User list size after update:"+userList.length);
 		]]>
 		</method>
 	</sharedObject>
-	
 	
 	<sharedObject id="soMessage">
 		<handler name="onStatus" args="evt">
@@ -57,8 +72,10 @@
 			Debug.write("connected");
 			var messageSO = "MessageSO";
 			var userListSO = "UserListSO";
+			var userListUpdateSO = "UserListUpdateSO";
 			soMessage.connect(messageSO, this._nc, false);
 			soUserList.connect(userListSO, this._nc, false);
+			soUserListUpdate.connect(userListUpdateSO, this._nc, false);
 		</handler>
 
 		<handler name="onerror">
@@ -74,7 +91,7 @@
 			</netparam>  
 			<method name="onResult" args="value">
 				canvas.setAttribute("userInfo", value);
-				Debug.write("add to user list"+value);
+				Debug.write("add to user list" + value);
 				soUserList.joinUserList(value);
 			</method>  
 		</netremotecall>

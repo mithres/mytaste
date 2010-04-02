@@ -20,6 +20,7 @@ public class ConferenceSecurityHandler {
 			json.append("\"userName\":\"" + userInfo.getFirstName() + " " + userInfo.getLastName() + "\",");
 			json.append("\"userEmail\":\"" + userInfo.getEmail() + "\",");
 			json.append("\"userLevel\":\"" + userInfo.getUserLevel().toString() + "\",");
+			json.append("\"remove\":" + false + ",");
 			json.append("\"userPic\":\"http://172.0.2.193:8080/mytaste/images/rp_img2.jpg\"");
 			json.append("}");
 			

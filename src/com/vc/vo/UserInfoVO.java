@@ -9,6 +9,8 @@ public class UserInfoVO {
 	private String userEmail = null;
 	
 	private String userPic = null;
+	
+	private boolean remove = false;
 
 	public String getUserId() {
 		return userId;
@@ -40,6 +42,14 @@ public class UserInfoVO {
 
 	public void setUserPic(String userPic) {
 		this.userPic = userPic;
+	}
+
+	public boolean isRemove() {
+		return remove;
+	}
+
+	public void setRemove(boolean remove) {
+		this.remove = remove;
 	}
 	
 }

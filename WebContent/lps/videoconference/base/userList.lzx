@@ -15,37 +15,30 @@
 			<scrollbar/>
 		</view>
 		
-		<method name="updateList" args="userInfos">
+		<method name="initList" args="userInfos">
 		<![CDATA[
-		
 			if (userInfos != null) {
-				rowcontainer.userListContent.destroy();
-				var outerView = new LzView(rowcontainer, {
-							name : "userListContent",
-							layout : "axis:y",
-							width: 200
-						});
-
 				for (var i = 0; i < userInfos.length; i++) {
-					this.addListItem(userInfos[i]);
+					this.updateListItem(userInfos[i]);
 				}
 			}
 		]]>
 		</method>
 		
-		<method name="addListItem" args="userInfo">
-			var user = JSON.parse(userInfo);
-			Debug.write("call add view." + user);
-			var outerView = new LzView(rowcontainer.userListContent, {
-						id : user.userId
-					});
-			var innerView = new LzView(outerView, {
-						resource : user.userPic
-					});
-			var innerText = new LzText(outerView, {
-						text : user.userId,
-						x : 40
-					});
+		<method name="updateListItem" args="userInfo">
+			if (userInfo != null) {
+				var user = JSON.parse(userInfo);
+				Debug.write("============="+userInfo);
+				if (user.remove) {
+					var vi = rowcontainer.userListContent.searchSubnodes("name", user.userId);
+					Debug.write("View need to be removed:"+vi);
+					vi.destroy();
+				} else {
+					var outerView = new LzView(rowcontainer.userListContent, {name : user.userId});
+					var innerView = new LzView(outerView, {resource : user.userPic});
+					var innerText = new LzText(outerView, {text : user.userId,x : 40});
+				}
+			}
 		</method>
 		
 		
