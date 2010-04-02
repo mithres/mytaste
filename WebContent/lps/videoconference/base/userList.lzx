@@ -15,10 +15,20 @@
 			<scrollbar/>
 		</view>
 		
-		<method name="initList" args="userInfos">
+		<method name="updateList" args="userInfos">
 		<![CDATA[
-			for (var i = 0; i < userInfos.length; i++) {
-				this.addListItem(userInfos[i]);
+		
+			if (userInfos != null) {
+				rowcontainer.userListContent.destroy();
+				var outerView = new LzView(rowcontainer, {
+							name : "userListContent",
+							layout : "axis:y",
+							width: 200
+						});
+
+				for (var i = 0; i < userInfos.length; i++) {
+					this.addListItem(userInfos[i]);
+				}
 			}
 		]]>
 		</method>
@@ -27,13 +37,13 @@
 			var user = JSON.parse(userInfo);
 			Debug.write("call add view." + user);
 			var outerView = new LzView(rowcontainer.userListContent, {
-						id : user.UserId
+						id : user.userId
 					});
 			var innerView = new LzView(outerView, {
-						resource : user.UserPic
+						resource : user.userPic
 					});
 			var innerText = new LzText(outerView, {
-						text : user.UserId,
+						text : user.userId,
 						x : 40
 					});
 		</method>
