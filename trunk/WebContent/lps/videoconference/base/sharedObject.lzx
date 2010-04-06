@@ -71,7 +71,6 @@
 	
 		<method name="setData" args="key,val">
 		<![CDATA[
-
 			//Debug.write("this...... so: ",this.so);
 			this.so.data["key"] = val;
 		]]>

@@ -1,20 +1,54 @@
 <canvas debug="true">
 	
+	<splash/>
+	
 	<script src="../js/json.js"/>
 	
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	<include href="../lps/videoconference/base/userList.lzx"/>
 	<include href="../lps/videoconference/base/sharedObject.lzx"/>
+			
+	<attribute name="messageSO" value="MessageSO" type="string"/>
+	<attribute name="userListSO" value="UserListSO" type="string"/>
+	<attribute name="userListUpdateSO" value="UserListUpdateSO" type="string"/>
+	<attribute name="currentModerator" value="CurrentModerator" type="string"/>
 	
 	<attribute name="sid" value="" type="string"/>
 	<attribute name="roomId" value="" type="string"/>
-	<attribute name="userInfo" value="" type="string"/>	
+	<attribute name="userInfo"/>	
+	
+	<attribute name="status" value="0"/>
+	
+	<event name="onevent"/>
+	
+	<handler name="onevent" args="evt">
+	<![CDATA[
+
+
+		if (evt == "soInited") {
+			canvas.setAttribute("status", canvas.status + 1);
+		} else if (evt == "userInfoInited") {
+			if (userInfo.userLevel != "User") {
+				startConference.setAttribute("visible", true);
+			}
+		}
+
+		Debug.write("Current status:" + canvas.status);
+		if (canvas.status == 4) {
+			Debug.write("All ok");
+			//Add self into user list
+			rc.getUserInfo.callRPC();
+			canvas.setAttribute("status", -1);
+		}
+	]]>
+	</handler>
+	
 	
 	<sharedObject id="soUserListUpdate">
 		<handler name="onStatus" args="evt">
-			Debug.write("===" + evt[0].code + ":::" + canvas.userInfo);
+			Debug.write("soUserListUpdate ===" + evt[0].code);
 			if (evt[0].code == "clear") {
-				//this.setData("userInfo", canvas.userInfo);
+				parent.onevent.sendEvent("soInited");
 			} else {
 				Debug.write("Update userinfo");
 				ul.updateListItem(this.getData("userInfo"));
@@ -24,15 +58,15 @@
 	
 	<sharedObject id="soUserList">
 		<handler name="onStatus" args="evt">
+			Debug.write("soUserList ===" + evt[0].code);
 			if (evt[0].code == "clear") {
+				parent.onevent.sendEvent("soInited");
 				var userList = this.getData("userList");
 				if (userList != null) {
 					//Init user list
 					ul.initList(userList);
 				}
-				//Add self into user list
-				rc.getUserInfo.callRPC();
-			}else{
+			} else {
 				Debug.write("user list updated.");
 			}
 		</handler>
@@ -48,8 +82,9 @@
 			}
 			userList.push(userInfo);
 			this.setData("userList", userList);
-			soUserListUpdate.setData("userInfo",userInfo);
-			Debug.write("User list size after update:"+userList.length);
+			soUserListUpdate.setData("userInfo", userInfo);
+			Debug.write("User list size after update:" + userList.length);
+			parent.onevent.sendEvent("userInfoInited");
 		]]>
 		</method>
 	</sharedObject>
@@ -57,12 +92,51 @@
 	<sharedObject id="soMessage">
 		<handler name="onStatus" args="evt">
 		<![CDATA[
-			Debug.write("===" + evt[0].code);
-			if (evt[0].code == "success" || evt[0].code == "change") {
+			Debug.write("soMessage ===" + evt[0].code);
+			if (evt[0].code == "clear") {
+				parent.onevent.sendEvent("soInited");
+			} else {
 				rmessage.setAttribute("text", rmessage.text + "<br/>"
 								+ this.getData("message"));
 			}
 		]]>
+		</handler>
+	</sharedObject>
+	
+	<sharedObject id="soCurrentModerator">
+		<handler name="onStatus" args="evt">
+			Debug.write("soCurrentModerator ===" + evt[0].code);
+			if (evt[0].code == "clear") {
+				parent.onevent.sendEvent("soInited");
+			} else {
+				var cm = this.getData("cm")
+				Debug.write("cm is:" + cm);
+				if (cm.userId != canvas.userInfo.userId) {
+					Debug.write("Disable start button");
+					startConference.setAttribute("visible", false);
+					moderatorVideoView.setAttribute("visible", true);
+					if (s2.playing) {
+						s2.stop();
+					} else {
+						s2.setAttribute('url', canvas.roomId);
+						s2.play();
+					}
+				} else {
+					localVideoView.setAttribute("visible", true);
+					if (cam.show) {
+						Debug.write("pub stream stop");
+						live.stream.stop();
+						cam.setAttribute('show', false);
+					} else {
+						Debug.write("pub stream start");
+						live.stream.broadcast();
+						cam.setAttribute('show', true);
+					}
+
+				}
+				conferenceMessage.setAttribute("text", "Moderator : "
+								+ cm.userName);
+			}
 		</handler>
 	</sharedObject>	
 
@@ -70,12 +144,11 @@
 
 		<handler name="onconnect">
 			Debug.write("connected");
-			var messageSO = "MessageSO";
-			var userListSO = "UserListSO";
-			var userListUpdateSO = "UserListUpdateSO";
-			soMessage.connect(messageSO, this._nc, false);
-			soUserList.connect(userListSO, this._nc, false);
-			soUserListUpdate.connect(userListUpdateSO, this._nc, false);
+			soMessage.connect(canvas.messageSO, this._nc, false);
+			soUserList.connect(canvas.userListSO, this._nc, false);
+			soUserListUpdate.connect(canvas.userListUpdateSO, this._nc, false);
+			soCurrentModerator
+					.connect(canvas.currentModerator, this._nc, false);
 		</handler>
 
 		<handler name="onerror">
@@ -90,9 +163,8 @@
 				</method>
 			</netparam>  
 			<method name="onResult" args="value">
-				canvas.setAttribute("userInfo", value);
-				Debug.write("add to user list" + value);
-				soUserList.joinUserList(value);
+				canvas.setAttribute("userInfo", JSON.parse(value));
+				soUserList.joinUserList(canvas.userInfo);
 			</method>  
 		</netremotecall>
 		
@@ -100,8 +172,6 @@
 		
 	<mediastream name="s1" type="rtmp"/>
 	<mediastream name="s2" type="rtmp"/>
-	
-	
 	
 	<script>
 		canvas.setDefaultContextMenu(new LzContextMenu());
@@ -121,8 +191,23 @@
 	
 	<!-- This is toolbar view-->
 	<view x="0" y="0" width="100%" height="40" bgcolor="0xA3B2CC">
-		<view x="1" y="1" width="${parent.width - 2}" height="${parent.height - 2}" bgcolor="white">
-			
+		<view x="1" y="1" width="${parent.width - 2}" height="${parent.height - 2}" bgcolor="white" layout="axis:x">
+			<button id="startConference" text="Start Conference" align="left" height="16"  visible="false">
+				<handler name="onclick">
+				<![CDATA[
+					if (canvas.userInfo.userLevel != "User") {
+						if (cam.show) {
+							this.setAttribute("text", "Start Conference");
+						} else {
+							this.setAttribute("text", "Stop Conference");
+						}
+						soCurrentModerator.setData("cm", canvas.userInfo);
+					}
+				]]>
+				</handler>
+			</button>
+			<text id="conferenceMessage" visible="true"/>
+				
 		</view>
 	</view>
 	
@@ -170,36 +255,17 @@
 			</handler>
 		</button>
 		
+		<view id="moderatorVideoView" visible="false" width="100%" height="100%" bgcolor="green">
+			<videoview name="vid" type="rtmp" stream="$once{canvas.s2}" width="100%" height="100%"/>
+		</view>
      
-		<button text="${cam.show ? 'Stop Publish' : 'Publish'}" 
-			onclick="pubStream();">
-			<method name="pubStream">
-			<![CDATA[
-				if (cam.show) {
-					Debug.write("pub stream stop");
-					live.stream.stop();
-					cam.setAttribute('show', false);
-				} else {
-					Debug.write("pub stream start");
-					live.stream.broadcast();
-					cam.setAttribute('show', true);
-				}
-			]]>
-			</method>
-		</button>
-		<view id="videoView" width="100%" height="100%">
+		
+		<view id="localVideoView" width="100%" height="100%" bgcolor="red" visible="false">
 			<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="$once{parent.width}" height="$once{parent.height-40}" y="40">
 				<camera id="cam" show="false" fps="25" width="$once{parent.width}" height="$once{parent.height}" picturequality="0.8"/>
 				<microphone id="mic" capturing="true"/>
 			</videoview>
 		</view>
 	</window>
-		
-	<!--videoview name="vid" type="rtmp" stream="$once{canvas.s2}" width="320" height="240"/>
-		<edittext name="username"></edittext>
-		<button text="${s2.playing ? 'stop receiving' : 'receive'}"
-			onclick="s2.setAttribute('url', parent.username.text);
-			if (s2.playing) s2.stop(); else s2.play();"/-->
-                  	
 			
 </canvas>
