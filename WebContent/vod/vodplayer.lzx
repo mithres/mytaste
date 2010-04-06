@@ -1,5 +1,7 @@
 <canvas>
 	
+	<splash/>
+	
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
 	
