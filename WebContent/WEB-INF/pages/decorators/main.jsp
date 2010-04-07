@@ -57,22 +57,24 @@
 <div class="fluid bar">
 <div class="container">
 
-<s:if test="#session.MenuStat.menuStat.equals('vod')">
+
 <ul id="topnav">
-	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="#">Channels</a></li>
-	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
-	<li style="font-weight:bold;"><a href="#">Recently Added</a></li>
-	<li style="font-weight:bold;"><a href="#">Collections</a>
+	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="#">Channels</a>
 	<span> 
-	<a href="#">Web	Design</a><a href="#">Development</a><a href="#">Identity</a>
-	<a href="#">SEO &amp; Internet Marketing</a><a href="#">Print Design</a> 
+		<s:iterator value="#session.MenuStat.channels" status="stat">
+		<a href="<web.page:path/>/channel/<s:property value="id"/>"><s:property value="channelName"/></a>
+		<s:if test="(#stat.index+1)%8 == 0"><br/></s:if>
+		</s:iterator>
 	</span>
 	</li>
+
+<s:if test="#session.MenuStat.menuStat.equals('vod')">
+	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
+	<li style="font-weight:bold;"><a href="#">Recently Added</a></li>
+	<li style="font-weight:bold;"><a href="#">Collections</a></li>
 	
 </ul>
 </s:if><s:elseif test="#session.MenuStat.menuStat.equals('conference')">
-<ul id="topnav">
-	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="#">Channels</a></li>
 	<li style="font-weight:bold;"><a href="#">Most Popular</a> <span> <a href="#">The
 	Company</a>  <a href="#">The Team</a>  <a href="#">Careers</a> </span></li>
 	<li style="font-weight:bold;"><a href="#">Recently Added</a> <span> <a href="#">What We

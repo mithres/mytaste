@@ -8,9 +8,15 @@
 <title>Sign Up</title>
 </head>
 <body>
+
+<div>
 <s:actionerror/>
 <s:form namespace="/signUp" action="createUser">
-
+	<h1><b>Welcome to Vide Share</b></h1>
+	 To begin, please complete the registration form below.<br/>
+	 Once your account is created, an email with instructions to verify your email address will be sent.<br/> 
+	 You may use your new Video Share account immediately, but you must first verify your email address before contributing to Reviews and Discussions.
+	
 	<s:textfield label="%{getText('vc.signup.step1.username')}" name="user.userName" />
 	<s:password label="%{getText('vc.signup.step1.password')}" name="user.password" />
 	<s:password label="%{getText('vc.signup.step1.cpassword')}" name="password" />
@@ -21,7 +27,7 @@
 	<s:submit/>
 
 </s:form>
-
+</div>
 
 </body>
 </html>
