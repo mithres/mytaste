@@ -24,6 +24,10 @@
 			<result>/WEB-INF/pages/vod/player.jsp</result>
 			<result name="input" type="redirect">/vod/playListIndex</result>
 		</action>
+		
+		<action name="popular"  class="com.vc.presentation.action.vod.MostPopularAction">
+			<result>/WEB-INF/pages/vod/mostpopular.jsp</result>
+		</action>
 			
 	</package>
 	

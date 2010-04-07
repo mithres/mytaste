@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.vc.core.dao.GenericDAO;
 import com.vc.core.dao.Hints;
+import com.vc.core.entity.IPageList;
+import com.vc.core.entity.PageListImpl;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
 
@@ -18,7 +20,8 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 
 	private static final String FIND_PLAYLIST_COUNT_BY_TYPE = FIND_PLAYLIST_COUNT + " where playListType ? ";
 	private static final String FIND_PLAYLIST_BY_TYPE = " from PlayList where playListType ?  order by addedTime desc  ";
-
+	
+	private static final String FIND_PLAYLIST_COUNT_BY_VIEWCOUNT = "select count(pl.id) from PlayList pl ";
 	private static final String FIND_PLAYLIST_BY_VIEWCOUNT = " from PlayList pl left join fetch pl.comments order by viewCount desc ";
 
 	private static final String FIND_PLAYLIST_BY_TIMEVIEWCOUNT = " from PlayList  where addedTime between ? and ? order by viewCount desc ";
@@ -29,8 +32,11 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<PlayList> findPlayListByViewCount(Hints hints) {
-		return this.find(FIND_PLAYLIST_BY_VIEWCOUNT, hints);
+	public IPageList<PlayList> findPlayListByViewCount(Hints hints) {
+		IPageList<PlayList> playList = new PageListImpl<PlayList>();
+		playList.setRecordTotal(this.findRowCount(FIND_PLAYLIST_COUNT_BY_VIEWCOUNT));
+		playList.setRecords(this.find(FIND_PLAYLIST_BY_VIEWCOUNT, hints));
+		return playList;
 	}
 
 	public Long findPlayListCount() {

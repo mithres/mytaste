@@ -29,7 +29,7 @@ public interface IPlayListService {
 	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract Boolean canPlay(Authentication auth, String playListID);
 
-	public abstract List<PlayList> findPlayListByViewCount(Hints hints);
+	public abstract IPageList<PlayList> findPlayListByViewCount(Hints hints);
 
 	public abstract List<PlayList> findPlayListByWeekView(Hints hints, Date[] dateInterval, int index);
 

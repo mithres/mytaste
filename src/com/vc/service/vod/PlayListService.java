@@ -101,7 +101,7 @@ public class PlayListService implements IPlayListService {
 	}
 
 	@Override
-	public List<PlayList> findPlayListByViewCount(Hints hints) {
+	public IPageList<PlayList> findPlayListByViewCount(Hints hints) {
 		return playListDao.findPlayListByViewCount(hints);
 	}
 

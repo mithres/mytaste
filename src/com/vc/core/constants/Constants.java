@@ -55,7 +55,8 @@ public class Constants {
 	// URL Authorities that in serverlet context
 	public static final String URL_AUTHORITIES = "urlAuthorities";
 	
-	
+	//Current menu state
+	public static final String MENU_STAT = "MenuStat";
 	
 	//Constants for security handler
 	public static String ALLOWED_HTML_DOMAINS = null;
@@ -73,5 +74,7 @@ public class Constants {
 	
 	//FS_URI
 	public static String FS_URI = null;
+	
+	
 	
 }
