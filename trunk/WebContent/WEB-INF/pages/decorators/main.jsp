@@ -11,76 +11,123 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><decorator:title default="Welcome!" /></title>
-<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/common.css" />
+<link rel="stylesheet" type="text/css"
+	href="<web.page:path/>/css/common.css" />
 
-<script type="text/javascript" src="<web.page:path/>/js/jquery.js"></script>
-<script type="text/javascript" src="<web.page:path/>/js/iautocompleter.js"></script>
-<script type="text/javascript" src="<web.page:path/>/js/common.js"></script>
+<script src="<web.page:path/>/js/jquery.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="<web.page:path/>/js/jquery.easing.min.js"
+	type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/loopedSlider.js" type="text/javascript"
+	charset="utf-8"></script>
+<!--[if IE]><script src="<web.page:path/>/js/excanvas.js" type="text/javascript" charset="utf-8"></script><![endif]-->
+<script src="<web.page:path/>/js/jquery.bt.min.js"
+	type="text/javascript" charset="utf-8"></script>
 
 <decorator:head />
 </head>
 
 <body
 	<decorator:getProperty property="body.onload" writeEntireProperty="true" />>
+
+
+<div style="position: relative;" id="container"
+	class="fixed-lg relative">
+<div class="section top">
+<div class="standard tidy">
+<ul style="" class="usernav" id="logged-out-nav">
+	<li class="first sign-out-link"><a
+		onclick="FloatingLoginForm.showTop(this); return false;"
+		id="login-link" href="#" class="utility-link">Login</a></li>
+	<li class="signin-border-left"><a class="utility-link"
+		href="<web.page:path/>/user/forgot_password">Forgot Password?</a>
+	</li>
+	<li class="signin-border-left"><a class="utility-link"
+		href="<web.page:path/>/signUp/signUpIndex">Sign Up</a></li>
+</ul>
+<ul class="nv">
+	<li id="home" class="first"><a rel="home" href="<web.page:path/>/"><img	height="42" border="0" title="Video Share" src="<web.page:path/>/images/logo.jpg" /></a> 
+	<a href="<web.page:path/>/vod/playListIndex">Videos</a> | <a href="<web.page:path/>/conference/roomListIndex">Conferences</a></li>
 	
-<div id="mainblock"><!--inner block starts here -->
-<div id="innerblock"><!--top panel starts here -->
-<div id="toppanel">
-<div class="top1 flt">
-<div style="float: left; width: 1000px;">
-<div class="tp_align"><a href="#"><img
-	src="<web.page:path/>/images/tp_logo.jpg" width="194" height="25"
-	alt="" class="tp_logo flt" /></a> <img
-	src="<web.page:path/>/images/tp_border.jpg" width="1" height="29"
-	alt="" class="tp_border flt" /> <img
-	src="<web.page:path/>/images/tp_share.jpg" width="99" height="12"
-	alt="" class="tp_share flt" /></div>
-<span class="tp_wel"> <b>Welcome  | <a href="<web.page:path/>/logout">Logout</a></b></span>
+</ul>
+</div>
+</div>
 </div>
 
-<!-- div style="float:left; margin-left:625px; display:inline;">
-					<a href="#" class="tp_funn flt">Funny Videos</a>
-					<span class="tp_bar flt">|</span>
-					<a href="#" class="tp_funn flt">Fun Games</a>
-					<span class="tp_bar flt">|</span>					
-					<a href="#" class="tp_funn flt">Funny Pictures</a>
-					<span class="tp_bar flt">|</span>					
-					<a href="#" class="tp_funn flt">Funny Jokes</a>
-				</div--></div>
-<div class="top2 flt">
-<div class="tp_ali flt"><input type="text" class="tp_txt flt" />
-<select class="tp_select flt">
-	<option>Video</option>
-</select> <a href="#"><img src="<web.page:path/>/images/tp_search.jpg"
-	width="67" height="27" alt="" class="tp_search flt" /></a></div>
-<a href="<web.page:path/>/" class="tp_home flt">Home</a> <a
-	href="<web.page:path/>/vod/playListIndex" class="tp_home flt"
-	style="margin-left: 50px;">Videos</a> <a
-	href="<web.page:path/>/conference/roomListIndex" class="tp_home flt"
-	style="margin-left: 40px;">Conference</a> <a href="#"
-	class="tp_home flt" style="margin-left: 30px;">Channels</a> <a href="#"
-	class="tp_home flt" style="margin-left: 45px;">News</a></div>
+<div class="fluid bar">
+<div class="container">
+
+<s:if test="#session.MenuStat.menuStat.equals('vod')">
+<ul id="topnav">
+	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="#">Channels</a></li>
+	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
+	<li style="font-weight:bold;"><a href="#">Recently Added</a></li>
+	<li style="font-weight:bold;"><a href="#">Collections</a>
+	<span> 
+	<a href="#">Web	Design</a><a href="#">Development</a><a href="#">Identity</a>
+	<a href="#">SEO &amp; Internet Marketing</a><a href="#">Print Design</a> 
+	</span>
+	</li>
+	
+</ul>
+</s:if><s:elseif test="#session.MenuStat.menuStat.equals('conference')">
+<ul id="topnav">
+	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="#">Channels</a></li>
+	<li style="font-weight:bold;"><a href="#">Most Popular</a> <span> <a href="#">The
+	Company</a>  <a href="#">The Team</a>  <a href="#">Careers</a> </span></li>
+	<li style="font-weight:bold;"><a href="#">Recently Added</a> <span> <a href="#">What We
+	Do</a>  <a href="#">Our Process</a>  <a href="#">Testimonials</a> </span></li>
+	<li style="font-weight:bold;"><a href="#">Portfolio</a> <span> <a href="#">Web
+	Design</a>  <a href="#">Development</a>  <a href="#">Identity</a>  <a
+		href="#">SEO &amp; Internet Marketing</a>  <a href="#">Print
+	Design</a> </span></li>
+</ul>
+</s:elseif>
+
+<div class="searchnav">
+<form method="get" action="#" id="search_form" name="search_form">
+<input type="text" name="query" autocomplete="off" value=""
+	style="margin-right: -3px;" id="video_search_term" /> <a
+	href="javascript:void(0)"><img border="0" title="Search"
+	src="<web.page:path/>/images/btn-search.gif" id="top-nav-search-button" class=""
+	alt="Search" style="cursor: pointer;" /></a></form>
+</div>
+</div>
+
 
 </div>
+
 <!--top panel ends here -->
 <div id="contentpanel"><decorator:body /></div>
 
-<div id="footer">
-<div class="fp_align flt"><a href="<web.page:path/>/home"
-	class="fp_home flt">Home</a> <span class="fp_bar flt">|</span> <a
-	href="<web.page:path/>/user/accountDeposits" class="fp_home flt">pay</a>
-<span class="fp_bar flt">|</span> <a
-	href="<web.page:path/>/user/accountInfo" class="fp_home flt">profile</a>
-<span class="fp_bar flt">|</span> <a
-	href="<web.page:path/>/vod/newPlayList" class="fp_home flt">add
-video</a> <span class="fp_bar flt">|</span> <a
-	href="<web.page:path/>/vod/playListIndex" class="fp_home flt">video
-list</a></div>
+<div style="clear: both;" class="fluid bar">
+<div class="fixed-lg container">
+<div style="width: 96%; text-align: center; height: 20px;"
+	class="searchnav">
+<form
+	onsubmit="if(this.query.value == '') {return false;} if(!$('footer-search-auto-complete').visible()){SearchTracking.trackSearchForm('bottom_search_form')}"
+	method="get" action="http://www.hulu.com/search" name="search_form"
+	id="bottom_search_form"><input type="text"
+	style="margin-right: -3px;" name="query" autocomplete="off" value=""
+	class="search" id="bottom_video_search_term" /> <a
+	href="javascript:void(0)"><img border="0" title="Search"
+	style="vertical-align: middle; margin-left: -1px; margin-bottom: 2px;"
+	src="<web.page:path/>/images/btn-search.gif" id="bottom-nav-search-button" class=""
+	alt="Search" /></a> <a
+	onclick="if (!$('serp-header')) return true; window.scroll(0,0); var el = $('advanced-search'); if (!el || !el.visible()) toggleAdvancedSearch(); return false"
+	href="/search/advanced_search" class="search-footer-link">Advanced
+Search</a> <span class="search-footer-spacer">|</span> <a
+	onclick="installOpenSearch(); return false" href="javascript:void(0)"
+	class="search-footer-link">Search Plugin</a></form>
+</div>
+</div>
+</div>
+
 <span class="fp_home flt" style="margin: 20px 0px 0px 340px;">Copyright
-© 2009 My Video. All rights reserved. Terms of use</span> <span
-	class="fp_power flt">Powered By <b style="color: #5EACA3;">My
-Video</b></span></div>
-</div>
-</div>
+© 2009-2010 Video Share. All rights reserved. Terms of use Powered By <b
+	style="color: #5EACA3;">Video Share</b></span>
+
+
+
 </body>
 </html>
