@@ -66,7 +66,9 @@ public class PlayList {
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<PlayListRate> rates = new HashSet<PlayListRate>();
-
+	
+	private String totalTime = null;
+	
 	@Transient
 	private File filmFile = null;
 
@@ -196,6 +198,14 @@ public class PlayList {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public String getTotalTime() {
+		return totalTime;
+	}
+
+	public void setTotalTime(String totalTime) {
+		this.totalTime = totalTime;
 	}
 
 
