@@ -12,6 +12,7 @@
 	<attribute name="userListSO" value="UserListSO" type="string"/>
 	<attribute name="userListUpdateSO" value="UserListUpdateSO" type="string"/>
 	<attribute name="currentModerator" value="CurrentModerator" type="string"/>
+	<attribute name="whiteBoardSO" value="WhiteBoardSO" type="string"/>
 	
 	<attribute name="sid" value="" type="string"/>
 	<attribute name="roomId" value="" type="string"/>
@@ -23,8 +24,6 @@
 	
 	<handler name="onevent" args="evt">
 	<![CDATA[
-
-
 		if (evt == "soInited") {
 			canvas.setAttribute("status", canvas.status + 1);
 		} else if (evt == "userInfoInited") {
@@ -32,9 +31,7 @@
 				startConference.setAttribute("visible", true);
 			}
 		}
-
-		Debug.write("Current status:" + canvas.status);
-		if (canvas.status == 4) {
+		if (canvas.status == 5) {
 			Debug.write("All ok");
 			//Add self into user list
 			rc.getUserInfo.callRPC();
@@ -139,6 +136,30 @@
 			}
 		</handler>
 	</sharedObject>	
+	
+	<sharedObject id="soWhiteBoard">
+		<handler name="onStatus" args="evt">
+		<![CDATA[
+			if (evt[0].code == "clear") {
+				parent.onevent.sendEvent("soInited");
+			} else {
+				var params = this.getData("action");
+				Debug.write("Update whiteboard event:"+params[0]+":"+ canvas.userInfo.userId);
+				if(params[0] != canvas.userInfo.userId){
+					for (var i = 1; i < params.length; i++) {
+						var actionStr = params[i].split(",");
+						dvCanvas.drawline(actionStr[0],actionStr[1], actionStr[2], actionStr[3]);
+					}
+				}
+			}
+		]]>
+		</handler>
+		<method name="updateWhiteBoard" args="params">
+		<![CDATA[
+			this.setData("action", params);
+		]]>
+		</method>
+	</sharedObject>
 
 	<vcrtmpconnection id="rc" autoconnect="false">
 
@@ -149,6 +170,7 @@
 			soUserListUpdate.connect(canvas.userListUpdateSO, this._nc, false);
 			soCurrentModerator
 					.connect(canvas.currentModerator, this._nc, false);
+			soWhiteBoard.connect(canvas.whiteBoardSO, this._nc, false);
 		</handler>
 
 		<handler name="onerror">
@@ -189,9 +211,9 @@
 		}
 	</script>
 	
-	<!-- This is toolbar view-->
-	<view x="0" y="0" width="100%" height="40" bgcolor="0xA3B2CC">
-		<view x="1" y="1" width="${parent.width - 2}" height="${parent.height - 2}" bgcolor="white" layout="axis:x">
+	<view x="0" y="0" width="100%" height="100%" bgcolor="#a1c1ea">
+		<!-- This is toolbar view-->
+		<view width="100%" height="25" bgcolor="white" layout="axis:x">
 			<button id="startConference" text="Start Conference" align="left" height="16"  visible="false">
 				<handler name="onclick">
 				<![CDATA[
@@ -206,37 +228,97 @@
 				]]>
 				</handler>
 			</button>
-			<text id="conferenceMessage" visible="true"/>
-				
+			<text id="conferenceMessage" visible="true"/>					
 		</view>
-	</view>
-	
-	<!-- user list view -->
-	<userlist id="ul" width="200" height="600" x="0" y="40"/>	
-	
-	<!-- Chat view -->
-	<view width="100%" height="300" y="617" bgcolor="0xA3B2CC">
-		<view name="chatContent" bgcolor="0xd2d2d2" width="${parent.width - 2}" height="123" clip="true" x="1" y="1">
-			<text id="rmessage" multiline="true" width="100%"/>
-			<vscrollbar/>
-		</view>
-		<view height="100%" width="${parent.width - 2}" x="1" y="124">
-			<simplelayout axis="x"/>
-			<edittext bgcolor="white" width="${parent.width - 50}" id="smessage"/>
-			<button width="50" onclick="soMessage.setData('message',smessage.text);">Send</button>
-		</view>
-	</view>
 		
+		<view width="100%" height="560" x="0" y="27" layout="axis:x">
+			<!-- user list view -->
+			<userlist id="ul" width="200" height="580"/>
+			<view width="100%"  height="538" layout="axis:y">
+				<view width="100%" height="20" bgcolor="#bfdbff">
+					<text>White Board</text>
+				</view>
+
+				<drawview id="dvCanvas" width="100%" height="100%" bgcolor="green" clickable="true">
+					<attribute name="mx" type="number" value="$always{ this.getMouse('x')}" />
+					<attribute name="my" type="number" value="$always{ this.getMouse('y')}" />
+					<attribute name="prevx" type="number" value="0" />
+					<attribute name="prevy" type="number" value="0" />
+					<attribute name="mouseisdown" type="boolean" value="false" />
+					<attribute name="points"/>
+					
+					<handler name="oninit">
+					<![CDATA[
+						this['points'] = new Array();
+					]]>
+					</handler>
+					
+					<handler name="onmousedown">
+					<![CDATA[
+						this['points'] = new Array();
+						this['points'].push(canvas.userInfo.userId);
+						Debug.write("Method:onmousedown-Create array for whiteboard."+this['points'][0]);
+						
+						this.prevx = this.mx;
+						this.prevy = this.my;
+						this.setAttribute('mouseisdown', true);
+					]]>
+					</handler>
+					<handler name="onmouseup">
+					<![CDATA[
+						this.setAttribute('mouseisdown', false);
+						soWhiteBoard.updateWhiteBoard(this['points']);
+						Debug.write("Method:onmouseup-Send whiteboard update event."+this['points']);
+						this['points'] = new Array();
+						Debug.write("Method:onmouseup-Clean whiteboard array."+this['points']);
+					]]>
+					</handler>
+					<handler name="onmousemove" reference="canvas">
+					<![CDATA[
+						if (this['mouseisdown']) {
+							this.drawline(this['prevx'], this['prevy'],this['mx'], this['my']);
+							this.prevx = this['mx'];
+							this.prevy = this['my'];
+						}
+					]]>
+					</handler>
+					<method name="drawline" args="x1, y1, x2, y2">
+					<![CDATA[
+						var actionStr = x1 + "," + y1 + "," + x2 + "," + y2;
+						this['points'].push(actionStr);
+						this.beginPath();
+						this.moveTo(x1, y1);
+						this.lineTo(x2, y2);
+						this.stroke();
+					]]>
+					</method>
+				</drawview>
+			</view>
+		</view>
+		
+		<!-- Chat view -->
+		<view width="100%" height="290" y="587" bgcolor="0xA3B2CC">
+			<view name="chatContent" bgcolor="0xd2d2d2" width="${parent.width - 2}" height="120" clip="true" x="1" y="1">
+				<text id="rmessage" multiline="true" width="100%"/>
+				<vscrollbar/>
+			</view>
+			<view height="100%" width="${parent.width - 2}" y="120">
+				<simplelayout axis="x"/>
+				<edittext bgcolor="white" width="${parent.width - 50}" id="smessage"/>
+				<button width="50" onclick="soMessage.setData('message',smessage.text);">Send</button>
+			</view>
+		</view>
+	</view>
 	
 	<!-- Display video stream window -->
-	<window id="videoWindow" width="600" height="450" x="0" y="0" resizable="false" closeable="false" title="Moderator Video">
+	<window id="videoWindow" width="500" height="375" x="$once{parent.width-500}" y="25" resizable="false" closeable="false" title="Moderator Video">
 		
 		<attribute name="maximized" value="true"/>
 
 		<state name="big" applied="${videoWindow.maximized}">
 			<animatorgroup duration="1000" process="simultaneous">
-				<animator attribute="width" to="600"/>
-				<animator attribute="height" to="450"/>
+				<animator attribute="width" to="500"/>
+				<animator attribute="height" to="375"/>
 			</animatorgroup>
 		</state>
 
@@ -267,5 +349,6 @@
 			</videoview>
 		</view>
 	</window>
+
 			
 </canvas>
