@@ -26,7 +26,7 @@
 	lz.embed.swf( {
 		url : '<web.page:path/>/conference/training.lzx?lzt=swf',
 		allowfullscreen : 'false',
-		width : '100%',
+		width : '1024',
 		height : '730',
 		id : 'lzapp'
 	});
