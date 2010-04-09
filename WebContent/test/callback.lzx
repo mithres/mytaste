@@ -1,39 +1,10 @@
+
+
 <canvas debug="true">
-    <drawview width="600" height="400" bgcolor="green" clickable="true">
-        <attribute name="mx" type="number" value="$always{ this.getMouse('x')}" />
-        <attribute name="my" type="number" value="$always{ this.getMouse('y')}" />
-        <attribute name="prevx" type="number" value="0" />
-        <attribute name="prevy" type="number" value="0" />
-        <attribute name="mouseisdown" type="boolean" value="false" />
-        <handler name="onmousedown">
-            <![CDATA[
-            this.prevx = this.mx; 
-            this.prevy = this.my;
-            this.setAttribute( 'mouseisdown', true );
-            ]]>
-        </handler>
-        <handler name="onmouseup">
-            <![CDATA[
-            this.setAttribute( 'mouseisdown', false );
-            ]]>
-        </handler>
-        <handler name="onmousemove" reference="canvas">
-            <![CDATA[
-            if ( this['mouseisdown'] ) {
-               this.drawline( this['prevx'], this['prevy'], this['mx'], this['my'] );
-               this.prevx = this['mx']; 
-               this.prevy = this['my'];
-            }
-            ]]>
-        </handler>
-        <method name="drawline" args="x1, y1, x2, y2">
-            <![CDATA[
-            Debug.write("("+x1+","+y1+"),("+x2+","+y2+")");
-            this.beginPath();
-            this.moveTo( x1, y1 );
-            this.lineTo( x2, y2 );
-            this.stroke();
-            ]]>
-        </method>
-    </drawview>
+	<view name="camwrap" x="160">
+		<videoview name="mycamera" width="320" height="240">
+			<camera name="xx" width="160" height="120" show="true"/>
+		</videoview>
+	</view>
 </canvas>
+    
