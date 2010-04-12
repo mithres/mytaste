@@ -35,31 +35,11 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$('#vidContent').hide();
-	$('#vid').bt({
-	trigger: ['mouseover', 'click'],
-	contentSelector: "$('#vidContent')",
-	positions: ['right', 'left'],
-	fill: '#F4F4F4',
-	strokeStyle: '#666666', 
-	spikeLength: 20,
-	spikeGirth: 10,
-	width: 350,
-	overlap: 0,
-	centerPointY: 1,
-	cornerRadius: 0, 
-	cssStyles: {
-		fontFamily: '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif', 
-		fontSize: '12px',
-		padding: '10px 14px'
-	},
-	shadow: true,
-	shadowColor: 'rgba(0,0,0,.5)',
-	shadowBlur: 8,
-	shadowOffsetX: 4,
-	shadowOffsetY: 4
-	});
+	$('.vidContents').hide();
+	
 });
+
+
 </script>
 	
 </body>

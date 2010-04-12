@@ -410,7 +410,12 @@ p {
 
 
 
-
+.video {
+float:left;
+height:139px;
+margin-right:25px;
+margin-top:25px;
+}
 .indexV .iVideo .video {
 float:left;
 height:139px;
