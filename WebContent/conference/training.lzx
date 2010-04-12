@@ -378,5 +378,8 @@
 		</view>
 	</window>
 
+	<window id="whiteBoardToolbar" width="100" height="500" x="$once{dvCanvas.x + 5}" y="$once{dvCanvas.y + 5}" resizable="false" closeable="false" title="Toolbar">
+		
+	</window>
 			
 </canvas>

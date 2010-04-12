@@ -2,6 +2,7 @@ package com.vc.service.user;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,7 @@ import com.vc.entity.Role;
 import com.vc.entity.UserInfo;
 import com.vc.presentation.exception.UserExistException;
 import com.vc.util.security.MD5;
+import com.vc.util.server.TimeUtil;
 
 @Service
 public class UserService implements IUserService, UserDetailsService, ISecurityManager {
@@ -115,6 +117,38 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 			user.setAccountBalance(user.getAccountBalance() - playList.getPrice());
 			userInfoDao.update(user);
 			playList.setViewCount(playList.getViewCount() + 1);
+			
+			int dayIndex = TimeUtil.getDateIndex(new Date(), "Day");
+			int weekIndex = TimeUtil.getDateIndex(new Date(), "Week");
+			int monthIndex = TimeUtil.getDateIndex(new Date(), "Month");
+			
+			if(playList.getDayIndex() == -1){
+				playList.setDayIndex(dayIndex);
+				playList.setWeekIndex(weekIndex);
+				playList.setMonthIndex(monthIndex);
+				playList.setTodayViewCount(1);
+				playList.setThisWeekViewCount(1);
+				playList.setThisMonthViewCount(1);
+			}else{
+				if(playList.getDayIndex() != dayIndex){
+					playList.setDayIndex(dayIndex);
+					playList.setTodayViewCount(1);
+				}else{
+					playList.setTodayViewCount(playList.getTodayViewCount() + 1);
+				}
+				if(playList.getWeekIndex() != weekIndex){
+					playList.setWeekIndex(weekIndex);
+					playList.setThisWeekViewCount(1);
+				}else{
+					playList.setThisWeekViewCount(playList.getThisWeekViewCount() + 1);
+				}
+				if(playList.getMonthIndex() != monthIndex){
+					playList.setMonthIndex(monthIndex);
+					playList.setThisWeekViewCount(1);
+				}else{
+					playList.setThisMonthViewCount(playList.getThisMonthViewCount() + 1);
+				}
+			}
 			playListDao.update(playList);
 		} else {
 			return false;

@@ -14,9 +14,9 @@ public class TimeUtil {
 
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.WEEK_OF_YEAR, weekIndex);
-		
+
 		int index = cal.get(Calendar.DAY_OF_WEEK);
-		
+
 		if (index == 1) {
 			index = 8;
 		}
@@ -33,6 +33,22 @@ public class TimeUtil {
 		Date end = cal.getTime();
 		Date[] result = new Date[] { start, end };
 		return result;
+	}
+
+	public static final int getDateIndex(Date date,String type) {
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		if(type.equals("Day")){
+			return cal.get(Calendar.DAY_OF_YEAR);
+		}else if(type.equals("Week")){
+			return cal.get(Calendar.WEEK_OF_YEAR);
+		}else if(type.equals("Month")){
+			return cal.get(Calendar.MONTH);
+		}
+		return -1;
+		
 	}
 
 }
