@@ -37,6 +37,8 @@ public class SavePlayListAction extends BaseAction {
 
 	private String filmContentType = null;
 	private String filmFileName = null;
+	
+	private String tags = null;
 
 	@Override
 	public void prepare() throws Exception {
@@ -160,6 +162,10 @@ public class SavePlayListAction extends BaseAction {
 
 	public void setFileTypes(List<FilmType> fileTypes) {
 		this.fileTypes = fileTypes;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 }
