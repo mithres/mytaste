@@ -8,6 +8,7 @@ import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
+import com.vc.service.vod.PlayListSearchCondition;
 
 public class MostPopularAction extends BaseAction {
 
@@ -22,7 +23,10 @@ public class MostPopularAction extends BaseAction {
 
 	@Override
 	public String process() {
-		playLists = playListService.findPopularPlayList(new Hints(getStartRow(), getPageCount()),timeFrame);
+		
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+		condition.setOrderBy(timeFrame);
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()), condition);
 		return Action.SUCCESS;
 	}
 

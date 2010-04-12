@@ -7,59 +7,75 @@ import org.springframework.stereotype.Repository;
 import com.vc.core.dao.GenericDAO;
 import com.vc.core.dao.Hints;
 import com.vc.entity.PlayList;
-import com.vc.entity.PlayListType;
+import com.vc.service.vod.PlayListSearchCondition;
 
 @Repository
 public class PlayListDao extends GenericDAO<PlayList, String> {
-	
-	private static final String FIND_PLAYLIST_COUNT = " select count(pl.id) from PlayList pl ";
-	
+
+	private static final String FIND_PLAYLIST_COUNT_BASE = " select count(pl.id) from PlayList pl ";
+
 	private static final String FIND_PLAYLIST_BASE = " from PlayList pl left join fetch pl.comments ";
-	
-	private static final String FIND_PLAYLIST =  FIND_PLAYLIST_BASE + " order by addedTime desc ";
 
-	private static final String FIND_PLAYLIST_BY_TYPE = FIND_PLAYLIST_BASE + " where playListType ?  order by addedTime desc  ";
-	
-	private static final String FIND_PLAYLIST_COUNT_BY_CHANNEL = FIND_PLAYLIST_COUNT + " where pl.channel.id = ? ";
-	private static final String FIND_PLAYLIST_BY_CHANNEL = FIND_PLAYLIST_BASE + " where pl.channel.id = ? order by addedTime desc  ";
-	
-	public Long findPlayListCountByChannel(String channelId){
-		return this.findRowCount(FIND_PLAYLIST_COUNT_BY_CHANNEL, channelId);
-	}
-	public List<PlayList> findPlayListByChannel(Hints hnts,String channelId){
-		return this.findPaged(FIND_PLAYLIST_BY_CHANNEL, hnts, channelId);
+	public Long findPlayListCount(PlayListSearchCondition condition) {
+		return this.findRowCount(FIND_PLAYLIST_COUNT_BASE);
 	}
 	
-	public Long findPlayListCount() {
-		return this.findRowCount(FIND_PLAYLIST_COUNT);
-	}
-	
-	public List<PlayList> findPopularPlayList(Hints hnts, String type) {
-
-		String hql = FIND_PLAYLIST_BASE;
-		if ("Today".equals(type)) {
-			hql += " order by todayViewCount desc ";
-		} else if ("ThisWeek".equals(type)) {
-			hql += " order by thisWeekViewCount desc ";
-		} else if ("ThisMonth".equals(type)) {
-			hql += " order by thisMonthViewCount desc ";
-		}else{
-			hql += " order by viewCount desc ";
-		}
+	public List<PlayList> findPlayList(PlayListSearchCondition condition,Hints hnts) {
+		String hql = FIND_PLAYLIST_BASE + createHqlCondition(condition) + createHqlOrderByCondition(condition);
 		return this.findPaged(hql, hnts);
 	}
 
-	public List<PlayList> findPlayList(Hints hints) {
-		return this.findPaged(FIND_PLAYLIST, hints);
+	private static final String createHqlOrderByCondition(PlayListSearchCondition condition) {
+
+		if (condition.getOrderBy() != null) {
+			if ("Today".equals(condition.getOrderBy())) {
+				return " order by todayViewCount desc ";
+			} else if ("ThisWeek".equals(condition.getOrderBy())) {
+				return " order by thisWeekViewCount desc ";
+			} else if ("ThisMonth".equals(condition.getOrderBy())) {
+				return " order by thisMonthViewCount desc ";
+			} else if ("AddedTime".equals(condition.getOrderBy())) {
+				return " order by addedTime desc ";
+			} else if ("All".equals(condition.getOrderBy())) {
+				return " order by viewCount desc ";
+			}
+		}
+		return "";
 	}
 
-	public Long findPlayListCountByType(PlayListType type) {
-		String hql = FIND_PLAYLIST_COUNT + " where playListType ? ";
-		return this.findRowCount(hql, type);
+	private static final String createHqlCondition(PlayListSearchCondition condition) {
+
+		StringBuffer sb = new StringBuffer();
+
+		if (condition.getSubChannelId() != null) {
+			if (sb.length() == 0) {
+				sb.append(" where ");
+			} else {
+				sb.append(" and ");
+			}
+			sb.append(" pl.channel.id = '" + condition.getSubChannelId() + "' ");
+		}
+
+		if (condition.getPlayListType() != null) {
+			if (sb.length() == 0) {
+				sb.append(" where ");
+			} else {
+				sb.append(" and ");
+			}
+			sb.append(" pl.playListType " + condition.getPlayListType());
+		}
+
+		if (condition.getChannelId() != null) {
+			if (sb.length() == 0) {
+				sb.append(" where ");
+			} else {
+				sb.append(" and ");
+			}
+			sb.append(" pl.channel.parentChannel.id = '" + condition.getChannelId()+ "' ");
+		}
+
+		return sb.toString();
 	}
 
-	public List<PlayList> findPlayListByType(PlayListType type, Hints hints) {
-		return this.findPaged(FIND_PLAYLIST_BY_TYPE, hints, type);
-	}
 
 }

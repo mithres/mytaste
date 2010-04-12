@@ -13,8 +13,8 @@
 <body>
 	
 	<h1><s:property value="channel.channelName"/></h1><br/>
+	Search this channel <input ><input type="submit" value="Go"/>
 	
-
 	<s:iterator value="playLists.records" var="playList" status="stat">
 	<!-- s:property value="#stat.index"/-->
 	<%@include file="playlistentryshort.jsp"%>

@@ -10,6 +10,7 @@ import com.vc.entity.Channels;
 import com.vc.entity.PlayList;
 import com.vc.service.system.ISystemService;
 import com.vc.service.vod.IPlayListService;
+import com.vc.service.vod.PlayListSearchCondition;
 
 public class ChannelDetailAction extends BaseAction {
 
@@ -22,13 +23,18 @@ public class ChannelDetailAction extends BaseAction {
 	
 	private IPageList<PlayList> playLists = null;
 	
+	private Channels channel = null;
+	
 	private String cid = null;
 	
-	private Channels channel = null;
+	private String sort = null;
 	
 	@Override
 	public String process() {
-		playLists = playListService.findPlayListByChannel(new Hints(getStartRow(),getPageCount()), cid);
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+		condition.setChannelId(cid);
+		condition.setOrderBy(sort);
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()), condition);
 		channel = systemService.findChannelById(cid);
 		return Action.SUCCESS;
 	}

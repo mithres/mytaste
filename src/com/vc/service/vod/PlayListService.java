@@ -20,7 +20,6 @@ import com.vc.core.entity.PageListImpl;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
 import com.vc.entity.PlayList;
-import com.vc.entity.PlayListType;
 import com.vc.entity.UserInfo;
 import com.vc.presentation.exception.FilePersistException;
 import com.vc.util.configuration.ServerConfiguration;
@@ -34,48 +33,6 @@ public class PlayListService implements IPlayListService {
 	private PlayListDao playListDao = null;
 	@Autowired
 	private UserInfoDao userInfoDao = null;
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
-	public PlayList savePlayList(PlayList playList) throws FilePersistException {
-		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
-				.longValue();
-		playList.setPlayListIndex(playListIndex);
-		playListDao.create(playList);
-
-		if (playList.getFilmFile() != null) {
-			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
-					+ playList.getFileName());
-			try {
-				FileUtil.copyFile(playList.getFilmFile(), destFile);
-			} catch (IOException e) {
-				throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
-			}
-		}
-		return playList;
-	}
-
-	@Override
-	public IPageList<PlayList> findPlayList(Hints hints) {
-		IPageList<PlayList> list = new PageListImpl<PlayList>();
-		list.setRecordTotal(playListDao.findPlayListCount());
-		if (list.getRecordTotal() > 0) {
-			hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
-			list.setRecords(playListDao.findPlayList(hints));
-		}
-		return list;
-	}
-
-	@Override
-	public IPageList<PlayList> findPlayListByType(Hints hints, PlayListType type) {
-		IPageList<PlayList> list = new PageListImpl<PlayList>();
-		list.setRecordTotal(playListDao.findPlayListCountByType(type));
-		if (list.getRecordTotal() > 0) {
-			hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
-			list.setRecords(playListDao.findPlayListByType(type, hints));
-		}
-		return list;
-	}
 
 	@Override
 	public PlayList findPlayListById(String playListID) {
@@ -97,20 +54,36 @@ public class PlayListService implements IPlayListService {
 
 		return user.getAccountBalance() >= playList.getPrice();
 	}
-
+	
 	@Override
-	public IPageList<PlayList> findPopularPlayList(Hints hnts, String type) {
-		IPageList<PlayList> list = new PageListImpl<PlayList>();
-		list.setRecordTotal(playListDao.findPlayListCount());
-		list.setRecords(playListDao.findPopularPlayList(hnts, type));
-		return list;
+	@Transactional(propagation = Propagation.REQUIRED)
+	public PlayList savePlayList(PlayList playList) throws FilePersistException {
+		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
+		playList.setPlayListIndex(playListIndex);
+		playListDao.create(playList);
+
+		if (playList.getFilmFile() != null) {
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
+					+ playList.getFileName());
+			try {
+				FileUtil.copyFile(playList.getFilmFile(), destFile);
+			} catch (IOException e) {
+				throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
+			}
+		}
+		return playList;
 	}
 
 	@Override
-	public IPageList<PlayList> findPlayListByChannel(Hints hints, String channelId) {
+	public IPageList<PlayList> findPlayListByCondition(Hints hints, PlayListSearchCondition condition) {
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
-		list.setRecordTotal(playListDao.findPlayListCountByChannel(channelId));
-		list.setRecords(playListDao.findPlayListByChannel(hints, channelId));
+		list.setRecordTotal(playListDao.findPlayListCount(condition));
+		if (list.getRecordTotal() > 0) {
+			hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+			list.setRecords(playListDao.findPlayList(condition, hints));
+		}
 		return list;
 	}
+	
 }

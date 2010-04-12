@@ -8,6 +8,7 @@ import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
+import com.vc.service.vod.PlayListSearchCondition;
 
 public class RecentAddedAction extends BaseAction {
 
@@ -20,7 +21,9 @@ public class RecentAddedAction extends BaseAction {
 	
 	@Override
 	public String process() {
-		playLists = playListService.findPlayList(new Hints(getStartRow(),getPageCount()));
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+		condition.setOrderBy("AddedTime");
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()),condition);
 		return Action.SUCCESS;
 	}
 

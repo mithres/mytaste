@@ -10,6 +10,7 @@ import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.service.system.ISystemService;
 import com.vc.service.vod.IPlayListService;
+import com.vc.service.vod.PlayListSearchCondition;
 import com.vc.vo.MenuVO;
 
 public class PlayListIndexAction extends BaseAction {
@@ -38,7 +39,9 @@ public class PlayListIndexAction extends BaseAction {
 		menuVO.setMenuStat(Constants.VOD_SCOPE_NAME);
 		getSession().setAttribute(Constants.MENU_STAT, menuVO);
 		
-		playList = playListService.findPlayList(new Hints(getStartRow(),getPageCount()));
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+		condition.setOrderBy("AddedTime");
+		playList = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()),condition);
 		return Action.SUCCESS;
 	}
 	
