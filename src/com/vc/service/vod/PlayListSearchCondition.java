@@ -8,8 +8,6 @@ public class PlayListSearchCondition {
 	
 	private String channelId = null;
 	
-	private String subChannelId = null;
-	
 	private String orderBy = null;
 
 	public PlayListType getPlayListType() {
@@ -26,14 +24,6 @@ public class PlayListSearchCondition {
 
 	public void setChannelId(String channelId) {
 		this.channelId = channelId;
-	}
-
-	public String getSubChannelId() {
-		return subChannelId;
-	}
-
-	public void setSubChannelId(String subChannelId) {
-		this.subChannelId = subChannelId;
 	}
 
 	public String getOrderBy() {

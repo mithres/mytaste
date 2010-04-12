@@ -19,8 +19,8 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	public Long findPlayListCount(PlayListSearchCondition condition) {
 		return this.findRowCount(FIND_PLAYLIST_COUNT_BASE);
 	}
-	
-	public List<PlayList> findPlayList(PlayListSearchCondition condition,Hints hnts) {
+
+	public List<PlayList> findPlayList(PlayListSearchCondition condition, Hints hnts) {
 		String hql = FIND_PLAYLIST_BASE + createHqlCondition(condition) + createHqlOrderByCondition(condition);
 		return this.findPaged(hql, hnts);
 	}
@@ -47,15 +47,6 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 
 		StringBuffer sb = new StringBuffer();
 
-		if (condition.getSubChannelId() != null) {
-			if (sb.length() == 0) {
-				sb.append(" where ");
-			} else {
-				sb.append(" and ");
-			}
-			sb.append(" pl.channel.id = '" + condition.getSubChannelId() + "' ");
-		}
-
 		if (condition.getPlayListType() != null) {
 			if (sb.length() == 0) {
 				sb.append(" where ");
@@ -71,11 +62,11 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 			} else {
 				sb.append(" and ");
 			}
-			sb.append(" pl.channel.parentChannel.id = '" + condition.getChannelId()+ "' ");
+			sb.append(" (pl.channel.parentChannel.id = '" + condition.getChannelId() + "' or pl.channel.id = '"
+					+ condition.getChannelId() + "' )");
 		}
 
 		return sb.toString();
 	}
-
 
 }
