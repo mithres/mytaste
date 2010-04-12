@@ -1,7 +1,7 @@
-<div>	
-	<ul id="vid" class="video">
+
+	<ul id="vid<s:property value="id"/>" class="video">
 		<li class="vImg target">
-			<a name="hotVideoList" href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>" class="tipAnchor">
+			<a onmouseover="javascript:vidContents('<s:property value="id"/>')" name="hotVideoList" href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>" class="tipAnchor">
 			<img height="96" width="128" alt="<s:property value="playListName"/>" src="<web.page:path/>/images/generated.jpg"></a>	
 		</li>		
 		<li class="vMenu"><img onmouseout="this.src='<web.page:path/>/images/qls.gif'" onmouseover="this.src='<web.page:path/>/images/qlh.gif'" title="Add this video to your queue" style="display: block;" src="<web.page:path/>/images/qls.gif"></li>
@@ -15,14 +15,12 @@
 		</li>
 	</ul>
 	
-	<div id="vidContent"> 
+	<div id="vidContent<s:property value="id"/>" class="vidContents"> 
 		<b><s:property value="playListName"/>:</b><br/>
 		Created date: <s:date name="addedTime" nice="true"/><br/>
 		Avg. user rating: <br/>
 		<s:property value="description"/><br/>
 		Tags:<s:property value="tags"/><br/>
 	</div>
-	<div class="bt-wrapper " style="position: absolute; width: 350px; height:100px; z-index: 9997; visibility: visible; top: 427.5px; left: 102px;">
-	<canvas width="416" height="142" style="position: absolute; z-index: 9998;"></canvas>
-	</div>
-</div>
+	
+
