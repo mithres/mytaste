@@ -59,7 +59,7 @@
 
 
 <ul id="topnav">
-	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="/vod/channels">Channels</a>
+	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="<web.page:path/>/vod/channels">Channels</a>
 	<span> 
 		<s:iterator value="#session.MenuStat.channels" status="stat">
 		<a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a>

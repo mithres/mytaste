@@ -35,6 +35,7 @@
 		
 		<action name="channels"  class="com.vc.presentation.action.vod.ChannelDetailAction">
 			<result>/WEB-INF/pages/vod/channeldetail.jsp</result>
+			<result name="channels">/WEB-INF/pages/vod/channels.jsp</result>
 		</action>
 		
 	</package>

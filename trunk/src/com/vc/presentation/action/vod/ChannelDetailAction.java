@@ -1,5 +1,7 @@
 package com.vc.presentation.action.vod;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
@@ -23,6 +25,8 @@ public class ChannelDetailAction extends BaseAction {
 	
 	private IPageList<PlayList> playLists = null;
 	
+	private List<Channels> channelList = null;
+	
 	private Channels channel = null;
 	
 	private String cid = null;
@@ -31,12 +35,20 @@ public class ChannelDetailAction extends BaseAction {
 	
 	@Override
 	public String process() {
-		PlayListSearchCondition condition = new PlayListSearchCondition();
-		condition.setChannelId(cid);
-		condition.setOrderBy(sort);
-		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()), condition);
-		channel = systemService.findChannelById(cid);
-		return Action.SUCCESS;
+		
+		if(cid == null && sort == null){
+			channelList = systemService.findParentChannels();
+			return "channels";
+		}else{
+			PlayListSearchCondition condition = new PlayListSearchCondition();
+			condition.setChannelId(cid);
+			condition.setOrderBy(sort);
+			
+			playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()), condition);
+			channel = systemService.findChannelById(cid);
+			return Action.SUCCESS;
+		}
+		
 	}
 
 	public IPageList<PlayList> getPlayLists() {
@@ -49,6 +61,10 @@ public class ChannelDetailAction extends BaseAction {
 
 	public void setCid(String cid) {
 		this.cid = cid;
+	}
+
+	public List<Channels> getChannelList() {
+		return channelList;
 	}
 
 
