@@ -11,19 +11,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><decorator:title default="Welcome!" /></title>
-<link rel="stylesheet" type="text/css"
-	href="<web.page:path/>/css/common.css" />
+<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/common.css" />
 
-<script src="<web.page:path/>/js/jquery.js" type="text/javascript"
-	charset="utf-8"></script>
-<script src="<web.page:path/>/js/jquery.easing.min.js"
-	type="text/javascript" charset="utf-8"></script>
-<script src="<web.page:path/>/js/loopedSlider.js" type="text/javascript"
-	charset="utf-8"></script>
+<script src="<web.page:path/>/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/jquery.easing.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/loopedSlider.js" type="text/javascript" charset="utf-8"></script>
 <!--[if IE]><script src="<web.page:path/>/js/excanvas.js" type="text/javascript" charset="utf-8"></script><![endif]-->
-<script src="<web.page:path/>/js/jquery.bt.min.js"
-	type="text/javascript" charset="utf-8"></script>
-
+<script src="<web.page:path/>/js/jquery.bt.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/common.js" type="text/javascript" charset="utf-8"></script>
 <decorator:head />
 </head>
 
@@ -100,7 +95,10 @@
 </div>
 
 <!--top panel ends here -->
+<div style="position: relative; margin-top: 1px;" class="fixed-lg relative container main">
 <div id="contentpanel"><decorator:body /></div>
+
+</div>
 
 <div style="clear: both;" class="fluid bar">
 <div class="fixed-lg container">
