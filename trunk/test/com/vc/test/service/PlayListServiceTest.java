@@ -11,6 +11,7 @@ import com.vc.entity.FilmType;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
 import com.vc.service.vod.IPlayListService;
+import com.vc.service.vod.PlayListSearchCondition;
 import com.vc.test.core.BaseTest;
 
 public class PlayListServiceTest extends BaseTest {
@@ -30,7 +31,9 @@ public class PlayListServiceTest extends BaseTest {
 
 		playListService.savePlayList(list);
 		
-		IPageList<PlayList> plist = playListService.findPlayList(new Hints(0));
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+		condition.setOrderBy("AddedTime");
+		IPageList<PlayList> plist = playListService.findPlayListByCondition(new Hints(0),condition);
 		assertEquals(1, plist.getRecordTotal());
 
 	}
