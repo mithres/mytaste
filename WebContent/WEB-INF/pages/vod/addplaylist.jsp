@@ -21,8 +21,10 @@
 		list="fileTypes" />
 	<s:textarea label="%{getText('vc.playlist.description')}" cols="40" rows="6"
 		name="playList.description" />
+		
+	<s:textfield label="%{getText('vc.playlist.tag')}" name="tags"/><s:text name="vc.playlist.tagmessage"/>
 	<s:submit label="%{getText('vc.button.save')}" />
-
+	
 </s:form>
 
 </body>
