@@ -3,8 +3,6 @@ package com.vc.service.vod;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Date;
-import java.util.List;
 
 import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
@@ -26,7 +24,6 @@ import com.vc.entity.PlayListType;
 import com.vc.entity.UserInfo;
 import com.vc.presentation.exception.FilePersistException;
 import com.vc.util.configuration.ServerConfiguration;
-import com.vc.util.server.TimeUtil;
 
 @Service
 public class PlayListService implements IPlayListService {
@@ -41,7 +38,8 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) throws FilePersistException {
-		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
 		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
 
@@ -101,18 +99,18 @@ public class PlayListService implements IPlayListService {
 	}
 
 	@Override
-	public IPageList<PlayList> findPlayListByViewCount(Hints hints) {
-		return playListDao.findPlayListByViewCount(hints);
-	}
-
-	@Override
-	public List<PlayList> findPlayListByWeekView(Hints hints, Date[] dateInterval, int index) {
-		List<PlayList> list =  playListDao.findPlayListByTimeViewCount(hints, dateInterval[0], dateInterval[1]);
-		if(index >= -3 && list.size() == 0){
-			dateInterval = TimeUtil.getCurrentWeek(index--);
-			list = findPlayListByWeekView(hints, dateInterval, index);
-		}
+	public IPageList<PlayList> findPopularPlayList(Hints hnts, String type) {
+		IPageList<PlayList> list = new PageListImpl<PlayList>();
+		list.setRecordTotal(playListDao.findPlayListCount());
+		list.setRecords(playListDao.findPopularPlayList(hnts, type));
 		return list;
 	}
 
+	@Override
+	public IPageList<PlayList> findPlayListByChannel(Hints hints, String channelId) {
+		IPageList<PlayList> list = new PageListImpl<PlayList>();
+		list.setRecordTotal(playListDao.findPlayListCountByChannel(channelId));
+		list.setRecords(playListDao.findPlayListByChannel(hints, channelId));
+		return list;
+	}
 }

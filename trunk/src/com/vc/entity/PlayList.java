@@ -48,8 +48,6 @@ public class PlayList {
 
 	private Float price = new Float(0);
 
-	private Integer viewCount = new Integer(0);
-
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@OrderBy("createdTime desc")
 	private List<VideoComments> comments = new ArrayList<VideoComments>();
@@ -68,6 +66,22 @@ public class PlayList {
 	private Set<PlayListRate> rates = new HashSet<PlayListRate>();
 	
 	private String totalTime = null;
+	
+	//Total view count
+	private Integer viewCount = new Integer(0);
+	
+	//Today view count
+	private Integer todayViewCount = new Integer(0);
+	
+	//This week view count
+	private Integer thisWeekViewCount = new Integer(0);
+	
+	//This month view count
+	private Integer thisMonthViewCount = new Integer(0);
+	
+	private int dayIndex = -1;
+	private int weekIndex = -1;
+	private int monthIndex = -1;
 	
 	@Transient
 	private File filmFile = null;
@@ -206,6 +220,54 @@ public class PlayList {
 
 	public void setTotalTime(String totalTime) {
 		this.totalTime = totalTime;
+	}
+
+	public Integer getTodayViewCount() {
+		return todayViewCount;
+	}
+
+	public void setTodayViewCount(Integer todayViewCount) {
+		this.todayViewCount = todayViewCount;
+	}
+
+	public Integer getThisWeekViewCount() {
+		return thisWeekViewCount;
+	}
+
+	public void setThisWeekViewCount(Integer thisWeekViewCount) {
+		this.thisWeekViewCount = thisWeekViewCount;
+	}
+
+	public Integer getThisMonthViewCount() {
+		return thisMonthViewCount;
+	}
+
+	public void setThisMonthViewCount(Integer thisMonthViewCount) {
+		this.thisMonthViewCount = thisMonthViewCount;
+	}
+
+	public int getDayIndex() {
+		return dayIndex;
+	}
+
+	public void setDayIndex(int dayIndex) {
+		this.dayIndex = dayIndex;
+	}
+
+	public int getWeekIndex() {
+		return weekIndex;
+	}
+
+	public void setWeekIndex(int weekIndex) {
+		this.weekIndex = weekIndex;
+	}
+
+	public int getMonthIndex() {
+		return monthIndex;
+	}
+
+	public void setMonthIndex(int monthIndex) {
+		this.monthIndex = monthIndex;
 	}
 
 

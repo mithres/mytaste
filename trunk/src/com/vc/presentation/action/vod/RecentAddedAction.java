@@ -9,33 +9,23 @@ import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
 
-public class MostPopularAction extends BaseAction {
+public class RecentAddedAction extends BaseAction {
 
-	private static final long serialVersionUID = -6835692798165059935L;
+	private static final long serialVersionUID = 8317111728828502574L;
 
 	@Autowired
 	private IPlayListService playListService = null;
-
+	
 	private IPageList<PlayList> playLists = null;
 	
-	private String timeFrame = null;
-
 	@Override
 	public String process() {
-		playLists = playListService.findPopularPlayList(new Hints(getStartRow(), getPageCount()),timeFrame);
+		playLists = playListService.findPlayList(new Hints(getStartRow(),getPageCount()));
 		return Action.SUCCESS;
 	}
 
 	public IPageList<PlayList> getPlayLists() {
 		return playLists;
-	}
-
-	public String getTimeFrame() {
-		return timeFrame;
-	}
-
-	public void setTimeFrame(String timeFrame) {
-		this.timeFrame = timeFrame;
 	}
 
 }

@@ -28,7 +28,15 @@
 		<action name="popular"  class="com.vc.presentation.action.vod.MostPopularAction">
 			<result>/WEB-INF/pages/vod/mostpopular.jsp</result>
 		</action>
-			
+		
+		<action name="recentAdded"  class="com.vc.presentation.action.vod.RecentAddedAction">
+			<result>/WEB-INF/pages/vod/recentadded.jsp</result>
+		</action>
+		
+		<action name="channels"  class="com.vc.presentation.action.vod.ChannelDetailAction">
+			<result>/WEB-INF/pages/vod/channeldetail.jsp</result>
+		</action>
+		
 	</package>
 	
 	

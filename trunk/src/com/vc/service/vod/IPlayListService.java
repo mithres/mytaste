@@ -1,8 +1,5 @@
 package com.vc.service.vod;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
 
@@ -14,23 +11,19 @@ import com.vc.presentation.exception.FilePersistException;
 
 public interface IPlayListService {
 
-	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract PlayList findPlayListById(String playListID);
 
 	@Secured( { "ROLE_ADMIN" })
 	public abstract PlayList savePlayList(PlayList playList) throws FilePersistException;
 
-	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract IPageList<PlayList> findPlayList(Hints hints);
 
-	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract IPageList<PlayList> findPlayListByType(Hints hints, PlayListType type);
 
-	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract Boolean canPlay(Authentication auth, String playListID);
-
-	public abstract IPageList<PlayList> findPlayListByViewCount(Hints hints);
-
-	public abstract List<PlayList> findPlayListByWeekView(Hints hints, Date[] dateInterval, int index);
-
+	
+	public abstract IPageList<PlayList> findPopularPlayList(Hints hints,String type);
+	
+	public abstract IPageList<PlayList> findPlayListByChannel(Hints hints,String channelId);
+	
 }

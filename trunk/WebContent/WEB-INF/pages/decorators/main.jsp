@@ -62,7 +62,7 @@
 	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="#">Channels</a>
 	<span> 
 		<s:iterator value="#session.MenuStat.channels" status="stat">
-		<a href="<web.page:path/>/channel/<s:property value="id"/>"><s:property value="channelName"/></a>
+		<a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a>
 		<s:if test="(#stat.index+1)%8 == 0"><br/></s:if>
 		</s:iterator>
 	</span>
@@ -70,8 +70,8 @@
 
 <s:if test="#session.MenuStat.menuStat.equals('vod')">
 	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
-	<li style="font-weight:bold;"><a href="#">Recently Added</a></li>
-	<li style="font-weight:bold;"><a href="#">Collections</a></li>
+	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/recentAdded">Recently Added</a></li>
+	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/collections">Collections</a></li>
 	
 </ul>
 </s:if><s:elseif test="#session.MenuStat.menuStat.equals('conference')">

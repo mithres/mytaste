@@ -1,46 +1,52 @@
 package com.vc.dao.vod;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.vc.core.dao.GenericDAO;
 import com.vc.core.dao.Hints;
-import com.vc.core.entity.IPageList;
-import com.vc.core.entity.PageListImpl;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
 
 @Repository
 public class PlayListDao extends GenericDAO<PlayList, String> {
-
-	private static final String FIND_PLAYLIST = " from PlayList order by addedTime desc ";
-	private static final String FIND_PLAYLIST_COUNT = " select count(id) from PlayList ";
-
-	private static final String FIND_PLAYLIST_COUNT_BY_TYPE = FIND_PLAYLIST_COUNT + " where playListType ? ";
-	private static final String FIND_PLAYLIST_BY_TYPE = " from PlayList where playListType ?  order by addedTime desc  ";
 	
-	private static final String FIND_PLAYLIST_COUNT_BY_VIEWCOUNT = "select count(pl.id) from PlayList pl ";
-	private static final String FIND_PLAYLIST_BY_VIEWCOUNT = " from PlayList pl left join fetch pl.comments order by viewCount desc ";
+	private static final String FIND_PLAYLIST_COUNT = " select count(pl.id) from PlayList pl ";
+	
+	private static final String FIND_PLAYLIST_BASE = " from PlayList pl left join fetch pl.comments ";
+	
+	private static final String FIND_PLAYLIST =  FIND_PLAYLIST_BASE + " order by addedTime desc ";
 
-	private static final String FIND_PLAYLIST_BY_TIMEVIEWCOUNT = " from PlayList  where addedTime between ? and ? order by viewCount desc ";
-
-	@SuppressWarnings("unchecked")
-	public List<PlayList> findPlayListByTimeViewCount(Hints hints, Date begin, Date end) {
-		return this.find(FIND_PLAYLIST_BY_TIMEVIEWCOUNT, hints, begin, end);
+	private static final String FIND_PLAYLIST_BY_TYPE = FIND_PLAYLIST_BASE + " where playListType ?  order by addedTime desc  ";
+	
+	private static final String FIND_PLAYLIST_COUNT_BY_CHANNEL = FIND_PLAYLIST_COUNT + " where pl.channel.id = ? ";
+	private static final String FIND_PLAYLIST_BY_CHANNEL = FIND_PLAYLIST_BASE + " where pl.channel.id = ? order by addedTime desc  ";
+	
+	public Long findPlayListCountByChannel(String channelId){
+		return this.findRowCount(FIND_PLAYLIST_COUNT_BY_CHANNEL, channelId);
 	}
-
-	@SuppressWarnings("unchecked")
-	public IPageList<PlayList> findPlayListByViewCount(Hints hints) {
-		IPageList<PlayList> playList = new PageListImpl<PlayList>();
-		playList.setRecordTotal(this.findRowCount(FIND_PLAYLIST_COUNT_BY_VIEWCOUNT));
-		playList.setRecords(this.find(FIND_PLAYLIST_BY_VIEWCOUNT, hints));
-		return playList;
+	public List<PlayList> findPlayListByChannel(Hints hnts,String channelId){
+		return this.findPaged(FIND_PLAYLIST_BY_CHANNEL, hnts, channelId);
 	}
-
+	
 	public Long findPlayListCount() {
 		return this.findRowCount(FIND_PLAYLIST_COUNT);
+	}
+	
+	public List<PlayList> findPopularPlayList(Hints hnts, String type) {
+
+		String hql = FIND_PLAYLIST_BASE;
+		if ("Today".equals(type)) {
+			hql += " order by todayViewCount desc ";
+		} else if ("ThisWeek".equals(type)) {
+			hql += " order by thisWeekViewCount desc ";
+		} else if ("ThisMonth".equals(type)) {
+			hql += " order by thisMonthViewCount desc ";
+		}else{
+			hql += " order by viewCount desc ";
+		}
+		return this.findPaged(hql, hnts);
 	}
 
 	public List<PlayList> findPlayList(Hints hints) {
@@ -48,7 +54,8 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	}
 
 	public Long findPlayListCountByType(PlayListType type) {
-		return this.findRowCount(FIND_PLAYLIST_COUNT_BY_TYPE, type);
+		String hql = FIND_PLAYLIST_COUNT + " where playListType ? ";
+		return this.findRowCount(hql, type);
 	}
 
 	public List<PlayList> findPlayListByType(PlayListType type, Hints hints) {
