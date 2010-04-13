@@ -13,7 +13,7 @@
 <meta name="decorator" content="maindecorator" />
 <title><s:text name="vc.home.title" /></title>
 
-
+<script type="text/javascript" src="<web.page:path/>/lps/includes/embed-compressed.js"></script>
 
 </head>
 <body class="div">
@@ -28,42 +28,18 @@
 	}
 %>
 					  
-						  
+	
+<script>
+	lz.embed.swf( {	
+		url : '<web.page:path/>/vod/videoslideshower.lzx?lzt=swf',
+		allowfullscreen : 'false',
+		width : '100%',
+		height : '350',
+		id : 'lzapp'
+	});
+</script>
+					  
 <div style="position: relative; margin-top: 1px;" class="fixed-lg relative container main">
-	<div id="loopedSlider" class="clearfix">
-		<div class="container_pic">
-			<div id="photo-1">
-				<img src="<web.page:path/>/images/image-01.jpeg" width="970" height="300" alt="Image 01" />
-			</div>
-			<div id="photo-2">
-				<img src="<web.page:path/>/images/image-02.jpeg" width="970" height="300" alt="Image 02" />
-			</div>
-			<div id="photo-3">
-				<img src="<web.page:path/>/images/image-03.jpeg" width="970" height="300" alt="Image 03" />
-			</div>
-			<div id="photo-4">
-				<img src="<web.page:path/>/images/image-04.jpeg" width="970" height="300" alt="Image 04" />
-			</div>
-			<div id="photo-5">
-				<img src="<web.page:path/>/images/image-05.jpeg" width="970" height="300" alt="Image 05" />
-			</div>
-			<div id="photo-6">
-				<img src="<web.page:path/>/images/image-06.jpeg" width="970" height="300" alt="Image 06" />
-			</div>
-		</div>
-		<ul class="nav-buttons">
-			<li class="p"><a href="#" class="previous"><img src="<web.page:path/>/images/previous.png" width="22" height="22" alt="Previous" /></a></li>
-			<li class="n"><a href="#" class="next"><img src="<web.page:path/>/images/next.png" width="22" height="22" alt="Next" /></a></li>
-		</ul>
-		<ul class="pagination">
-			<li><a href="#photo-1">one</a></li>
-			<li><a href="#photo-2">two</a></li>
-			<li><a href="#photo-3">three</a></li>
-			<li><a href="#photo-4">four</a></li>
-			<li><a href="#photo-5">five</a></li>
-			<li><a href="#photo-6">six</a></li>
-		</ul>
-	</div>
 
 <h1>Popular Videos</h1>
 <div id="playListRender">

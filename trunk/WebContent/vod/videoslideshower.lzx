@@ -1,0 +1,26 @@
+<canvas debug="true">
+	
+	<splash />
+	<include href="../lps/videoconference/base/visualslider.lzx"/>
+	
+	<view width="100%" height="350" resource="../images/bg.png" stretches="both" />
+	<visualslider id="vs" width="100%" height="350" name="slider1" opacity="1" circular="true" timerms="5000">
+
+		<visualsliderview originalwidth="600" originalheight="320" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="../test/res/1.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="../test/res/1b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+		<visualsliderview originalwidth="600" originalheight="320" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="../test/res/2.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="../test/res/2b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+		<visualsliderview originalwidth="600" originalheight="320" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="../test/res/3.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="../test/res/3b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+		<visualsliderview originalwidth="600" originalheight="320" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="../test/res/4.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="../test/res/4b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+	</visualslider>	
+</canvas>

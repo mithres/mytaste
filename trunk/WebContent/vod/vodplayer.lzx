@@ -71,7 +71,7 @@
 	
 	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
 	
-	<view layout="axis:y;" resource="../images/screenshot.png">
+	<view layout="axis:y;">
 		
 		<handler name="onclick">
 			if(!s2. playing){
