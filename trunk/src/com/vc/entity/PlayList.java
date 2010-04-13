@@ -58,31 +58,34 @@ public class PlayList {
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Channels channel = null;
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Category category = null;
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<PlayListRate> rates = new HashSet<PlayListRate>();
-	
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private VideoCollection videoCollection = null;
+
 	private String totalTime = null;
-	
-	//Total view count
+
+	// Total view count
 	private Integer viewCount = new Integer(0);
-	
-	//Today view count
+
+	// Today view count
 	private Integer todayViewCount = new Integer(0);
-	
-	//This week view count
+
+	// This week view count
 	private Integer thisWeekViewCount = new Integer(0);
-	
-	//This month view count
+
+	// This month view count
 	private Integer thisMonthViewCount = new Integer(0);
-	
+
 	private int dayIndex = -1;
 	private int weekIndex = -1;
 	private int monthIndex = -1;
-	
+
 	@Transient
 	private File filmFile = null;
 
@@ -270,5 +273,12 @@ public class PlayList {
 		this.monthIndex = monthIndex;
 	}
 
+	public VideoCollection getVideoCollection() {
+		return videoCollection;
+	}
+
+	public void setVideoCollection(VideoCollection videoCollection) {
+		this.videoCollection = videoCollection;
+	}
 
 }

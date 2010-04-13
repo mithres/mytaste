@@ -34,11 +34,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
 	$('.vidContents').hide();
-	
 });
-
 
 </script>
 	

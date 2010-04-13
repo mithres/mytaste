@@ -1,14 +1,16 @@
 package com.vc.presentation.action.home;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
 import com.vc.core.constants.Constants;
-import com.vc.entity.Channels;
+import com.vc.core.dao.Hints;
+import com.vc.core.entity.IPageList;
+import com.vc.entity.PlayList;
 import com.vc.service.system.ISystemService;
+import com.vc.service.vod.IPlayListService;
+import com.vc.service.vod.PlayListSearchCondition;
 import com.vc.vo.MenuVO;
 
 public class IndexAction extends BaseAction {
@@ -17,14 +19,12 @@ public class IndexAction extends BaseAction {
 
 	@Autowired
 	private ISystemService systemService = null;
-//	@Autowired
-//	private IPlayListService playListService = null;
+	@Autowired
+	private IPlayListService playListService = null;
 	
 	private MenuVO menuVO = null;
 	
-//	private List<Category> categories = null;
-//	private List<PlayList> mostViewedPlayLists = null;
-//	private List<PlayList> playListsOfWeek = null;
+	private IPageList<PlayList> playLists = null;
 
 	@Override
 	public String process() {
@@ -37,11 +37,11 @@ public class IndexAction extends BaseAction {
 		}
 		menuVO.setMenuStat(Constants.VOD_SCOPE_NAME);
 		getSession().setAttribute(Constants.MENU_STAT, menuVO);
-
 		
-//		categories = systemService.findAllCategories();
-//		mostViewedPlayLists = playListService.findPlayListByViewCount(new Hints(Constants.DEFAULT_START, 5));
-//		playListsOfWeek = playListService.findPlayListByWeekView(new Hints(0, 1), TimeUtil.getCurrentWeek(0), 0);
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+		condition.setOrderBy("All");
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),8), condition);
+		
 		return Action.SUCCESS;
 	}
 
@@ -49,17 +49,8 @@ public class IndexAction extends BaseAction {
 		return menuVO;
 	}
 
-
-//	public List<Category> getCategories() {
-//		return categories;
-//	}
-//
-//	public List<PlayList> getMostViewedPlayLists() {
-//		return mostViewedPlayLists;
-//	}
-//
-//	public List<PlayList> getPlayListsOfWeek() {
-//		return playListsOfWeek;
-//	}
+	public IPageList<PlayList> getPlayLists() {
+		return playLists;
+	}
 
 }

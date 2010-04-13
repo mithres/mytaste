@@ -13,6 +13,7 @@
 		<intercept-url pattern="/js/**" filters="none"/>
 		<intercept-url pattern="/images/**" filters="none"/>
 		<intercept-url pattern="/signUp/**" filters="none"/>
+		<intercept-url pattern="/login.jsp" filters="none"/>
 		<intercept-url pattern="/accessdenied.jsp" filters="none"/>
 		<intercept-url pattern="/" filters="none"/>
 		<concurrent-session-control max-sessions="2" exception-if-maximum-exceeded="true"/> 
