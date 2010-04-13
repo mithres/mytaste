@@ -59,9 +59,6 @@ public class PlayList {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Channels channel = null;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private Category category = null;
-
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<PlayListRate> rates = new HashSet<PlayListRate>();
 
@@ -207,14 +204,6 @@ public class PlayList {
 
 	public void setComments(List<VideoComments> comments) {
 		this.comments = comments;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
 	}
 
 	public String getTotalTime() {
