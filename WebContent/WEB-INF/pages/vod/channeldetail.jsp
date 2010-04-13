@@ -13,13 +13,14 @@
 <body>
 	
 	<h1><s:property value="channel.channelName"/></h1><br/>
+	<s:iterator value="childChannels"><a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a></s:iterator>
 	Search this channel <input ><input type="submit" value="Go"/>
 	
 	<s:iterator value="playLists.records" var="playList" status="stat">
 	<!-- s:property value="#stat.index"/-->
 	<%@include file="playlistentryshort.jsp"%>
 	</s:iterator>
-
+	
 	
 </body>
 </html>
