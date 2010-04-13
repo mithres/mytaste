@@ -97,5 +97,35 @@ public class PlayListService implements IPlayListService {
 		list.setRecords(videoCollectionDao.findCollectionByName(hints, name));
 		return list;
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public VideoCollection createVideoCollection(VideoCollection collection) {
+		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		collection.setCollectionIndex(index);
+		videoCollectionDao.create(collection);
+		return collection;
+	}
+
+	@Override
+	public IPageList<VideoCollection> findAllVideoCollections(Hints hnts) {
+		IPageList<VideoCollection> list = new PageListImpl<VideoCollection>();
+		list.setRecordTotal(videoCollectionDao.findAllCollectionCount());
+		list.setRecords(videoCollectionDao.findAllCollection(hnts));
+		return list;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void removeVideoCollection(String id) {
+		videoCollectionDao.delete(id);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public VideoCollection updateVideoCollection(VideoCollection collection) {
+		videoCollectionDao.update(collection);
+		return collection;
+	}
 	
 }

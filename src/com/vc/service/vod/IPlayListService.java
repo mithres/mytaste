@@ -21,5 +21,14 @@ public interface IPlayListService {
 	public abstract IPageList<PlayList> findPlayListByCondition(Hints hints, PlayListSearchCondition condition);
 
 	public abstract IPageList<VideoCollection> findVideoCollectionByName(Hints hints, String name);
+	
+	@Secured( { "ROLE_ADMIN" })
+	public abstract VideoCollection createVideoCollection(VideoCollection collection);
+	@Secured( { "ROLE_ADMIN" })
+	public abstract VideoCollection updateVideoCollection(VideoCollection collection);
+	
+	public abstract IPageList<VideoCollection> findAllVideoCollections(Hints hnts);
+	@Secured( { "ROLE_ADMIN" })
+	public abstract void removeVideoCollection(String id);
 
 }
