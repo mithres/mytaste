@@ -19,7 +19,7 @@ public class MostPopularAction extends BaseAction {
 
 	private IPageList<PlayList> playLists = null;
 	
-	private String timeFrame = null;
+	private String timeFrame = "All";
 
 	@Override
 	public String process() {

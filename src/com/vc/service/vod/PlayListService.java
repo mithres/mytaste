@@ -19,8 +19,10 @@ import com.vc.core.entity.IPageList;
 import com.vc.core.entity.PageListImpl;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
+import com.vc.dao.vod.VideoCollectionDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.UserInfo;
+import com.vc.entity.VideoCollection;
 import com.vc.presentation.exception.FilePersistException;
 import com.vc.util.configuration.ServerConfiguration;
 
@@ -33,6 +35,8 @@ public class PlayListService implements IPlayListService {
 	private PlayListDao playListDao = null;
 	@Autowired
 	private UserInfoDao userInfoDao = null;
+	@Autowired
+	private VideoCollectionDao videoCollectionDao = null;
 
 	@Override
 	public PlayList findPlayListById(String playListID) {
@@ -83,6 +87,14 @@ public class PlayListService implements IPlayListService {
 			hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 			list.setRecords(playListDao.findPlayList(condition, hints));
 		}
+		return list;
+	}
+
+	@Override
+	public IPageList<VideoCollection> findVideoCollectionByName(Hints hints, String name) {
+		IPageList<VideoCollection> list = new PageListImpl<VideoCollection>();
+		list.setRecordTotal(videoCollectionDao.findCollectionCountByName(name));
+		list.setRecords(videoCollectionDao.findCollectionByName(hints, name));
 		return list;
 	}
 	
