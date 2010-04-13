@@ -31,6 +31,9 @@ public class VideoCollection {
 	
 	private Timestamp addedTime = null;
 	
+	@GeneratedValue(generator = "hibseq")
+	private Long collectionIndex = null;
+	
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@OrderBy("addedTime desc")
 	private List<PlayList> playLists = new ArrayList<PlayList>();
@@ -74,5 +77,13 @@ public class VideoCollection {
 	public void setAddedTime(Timestamp addedTime) {
 		this.addedTime = addedTime;
 	}
-	
+
+	public Long getCollectionIndex() {
+		return collectionIndex;
+	}
+
+	public void setCollectionIndex(Long collectionIndex) {
+		this.collectionIndex = collectionIndex;
+	}
+
 }
