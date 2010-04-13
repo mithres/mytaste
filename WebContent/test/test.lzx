@@ -1,0 +1,75 @@
+<canvas width="100%" height="80%" debug="true">
+	<debug  fontsize="12"/>
+
+
+
+	<!--
+<dataset name="dsetImages" >
+<table>
+<row><image>http://localhost:8080/lps-dev/test/tmp/01.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/02.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/03.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/04.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/05.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/06.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/07.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/08.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/09.JPG</image></row>
+<row><image>http://localhost:8080/lps-dev/test/tmp/10.JPG</image></row>
+</table>
+</dataset>
+-->
+  
+	<attribute name="currentSlide" type="number" value="0"/>
+
+	<dataset name="dsetImages" type="http" request="true" src="jay.xml"  
+		ondata="Debug.write('dsetImages ondata', this)"
+		onerror="Debug.write('onerror data', this)" /> 
+
+	<datapointer id="dpImage" xpath="dsetImages:/table/row[1]"/>
+	<datapointer id="dpImageRoot" xpath="dsetImages:/table"/>
+  
+	<view x="0" y="0" bgcolor="black"
+		width="${parent.width}" height="${parent.height}"
+		>
+		<view id="mainView1"
+			x="2" y="2" bgcolor="white" 
+			width="${parent.width-4}" height="${parent.height-4}"
+			/>
+    
+		<view id="mainView2"
+			x="2" y="2" bgcolor="white" 
+			width="${parent.width-4}" height="${parent.height-4}"
+			/>
+	</view>
+  
+	<!--text width="400" x="100" y="10" id="mainLabel">My Photos</text-->
+
+	<button text="click" onclick="canvas.changeSlide()"/>
+
+
+	<method name="changeSlide">
+	<![CDATA[
+		canvas.currentSlide++;
+		if (canvas.currentSlide > dpImageRoot.getNodeCount())
+			canvas.currentSlide = 1;
+		dpImage.setXPath("dsetImages:/table/row[" + canvas.currentSlide + "]");
+		TimeSpeed = 3000;
+
+		if (canvas.currentSlide % 2 == 0) {
+			Debug.write(dpImage.xpathQuery("image/text()"));
+			mainView1.setSource(dpImage.xpathQuery("image/text()"));
+			mainView1.bringToFront();
+		} else {
+			Debug.write(dpImage.xpathQuery("image/text()"));
+			mainView2.setSource(dpImage.xpathQuery("image/text()"));
+			mainView2.bringToFront();
+		}
+		this.SlideDelegate = new LzDelegate(this, "changeSlide");
+		//LzTimer.addTimer( this.SlideDelegate, TimeSpeed );
+	]]>  
+	</method>
+    
+
+
+</canvas>

@@ -1,0 +1,57 @@
+<canvas width="1024" height="500">
+	<include href="visualslider.lzx" />
+	<splash />
+	<handler name="onkeydown" reference="LzKeys" args="k">
+
+
+		// 84 = t
+		// 37 = left
+		// 39 = right
+		if (k == 37)
+			this.slider1.slideDown();
+		if (k == 39)
+			this.slider1.slideUp();
+		if (k == 84) {
+			if (this.slider1.istimerstarted)
+				this.slider1.stopTimer();
+			else
+				this.slider1.startTimer();
+		}
+	</handler>
+	<view width="800" height="500" resource="res/bg.png" stretches="both" />
+	<visualslider width="800" height="500" name="slider1" opacity="1" circular="true" timerms="5000">
+		<visualsliderview originalwidth="500" originalheight="332" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="res/1.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="res/1b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+			<text x="${20*parent.factor}" y="${20*parent.factor}" text="${'This is some text by a factor of '+parent.factor}" fontsize="${12*parent.factor}" fgcolor="0xffffff" />
+		</visualsliderview>
+		<visualsliderview originalwidth="500" originalheight="332" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="res/2.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="res/2b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+			<text x="${20*parent.factor}" y="${20*parent.factor}"  text="Click me to stretch it" fontsize="${12*parent.factor}" fgcolor="0xffffff" onclick="parent.setAttribute('originalheight', 450); parent.parent._recalculateSlides(parent.slidenumber)" />
+			<view x="${300*parent.factor}" y="${200*parent.factor}" width="${100*parent.factor}" height="${100*parent.factor}" bgcolor="0xcccccc">
+				<text x="${10*parent.parent.factor}" y="${40*parent.parent.factor}"  text="I'm a View" fontsize="${10*parent.parent.factor}" />
+			</view>
+		</visualsliderview>
+		<visualsliderview originalwidth="500" originalheight="332" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="res/3.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="res/3b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+		<visualsliderview originalwidth="500" originalheight="332" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="res/4.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="res/4b.png" stretches="both" y="${parent.height}" opacity="0.5" />
+		</visualsliderview>
+		<visualsliderview originalwidth="500" originalheight="332" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="res/5.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="res/5b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+		<visualsliderview originalwidth="500" originalheight="332" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="res/6.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="res/6b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+		<visualsliderview originalwidth="500" originalheight="332" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" onclick="parent.slideTo(this.slidenumber)" shadow="true">
+			<view width="${parent.width}" height="${parent.height}" resource="res/7.jpg" stretches="both" />
+			<view width="${parent.width}" height="${150*parent.factor}" resource="res/7b.png" stretches="both" y="${parent.height}" opacity="0.7" />
+		</visualsliderview>
+	</visualslider>
+</canvas>

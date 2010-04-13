@@ -95,11 +95,10 @@
 </div>
 
 <!--top panel ends here -->
-<div style="position: relative; margin-top: 1px;" class="fixed-lg relative container main">
+
 <div id="contentpanel"><decorator:body /></div>
 
-</div>
-
+ 
 <div style="clear: both;" class="fluid bar">
 <div class="fixed-lg container">
 <div style="width: 96%; text-align: center; height: 20px;"
