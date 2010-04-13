@@ -1,4 +1,4 @@
-var playListID="ff80818126750e150126750fa6640001,";
+var playListIDs="";
 
 function flushValidateCode() {
 	// set timeout is workaroud for update captcha in IE
@@ -7,18 +7,13 @@ function flushValidateCode() {
 }
 
 function vidContents(id){
-/**	alert(id);
-	alert(id.indexOf(playListID));
-	alert(playListID);
 	
-	if (id.indexOf(playListID)==-1){
-		if(playListID==","){
-			playListID = id;
-		}
-		playListID = playListID+","+id;**/
+	
+	if (playListIDs.indexOf(id)==-1){
+		playListIDs = playListIDs+","+id;
 		var vidContent = '#vidContent'+id;
 		$('#vid'+id).bt({
-			trigger: ['mouseover','click'],
+			trigger: ['focus mouseover', 'blur'],
 			contentSelector: "$('"+vidContent+"')",
 			positions: ['right', 'left'],
 			clickAnywhereToClose: true,              
@@ -37,20 +32,14 @@ function vidContents(id){
 				fontSize: '12px',
 				padding: '10px 14px'
 			},
-			//showTip: function(box){
-			    //$(box).fadeIn(500);
-			//},
-			//hideTip: function(box, callback){
-			    //$(box).animate({opacity: 0}, 500, callback);
-			//},
-			
+
 			shadow: true,
 			shadowColor: 'rgba(0,0,0,.5)',
 			shadowBlur: 8,
 			shadowOffsetX: 4,
 			shadowOffsetY: 4
 		});
-		/**	}else{
-		alert("不加载");
-	}**/
+	}else{
+		//alert("不加载");
+	}
 }
