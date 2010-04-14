@@ -28,6 +28,7 @@ public class EncodingFilter implements Filter {
             encoding = DEFAULT_ENCODING;
         }
         request.setCharacterEncoding(encoding);
+        response.setCharacterEncoding(encoding);
         // Pass control on to the next filter
         chain.doFilter(request, response);
 

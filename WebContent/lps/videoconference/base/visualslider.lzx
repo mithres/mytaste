@@ -250,7 +250,7 @@
 			}
 			if (!this._timerdel)
 				this._timerdel = new LzDelegate(this, "_timerRefresh");
-			LzTimer.addTimer(this._timerdel, this.timerms);
+			lz.Timer.addTimer(this._timerdel, this.timerms);
 			this._timerstop = false;
 			this.setAttribute("istimerstarted", true);
 		</method>
@@ -266,7 +266,7 @@
 				return;
 			}
 			this.slideUp()
-			LzTimer.addTimer(this._timerdel, this.timerms);
+			lz.Timer.addTimer(this._timerdel, this.timerms);
 		</method>
 		<view name="content" width="${parent.width}" height="${parent.height}" />
 	</class>
@@ -290,7 +290,6 @@
 			this.anim.paramw.setAttribute("duration", d - (d / 10));
 			this.anim.paramh.setAttribute("to", h);
 			this.anim.paramh.setAttribute("duration", d - (d / 10));
-			Debug.write(x+":"+y);
 			this.anim.doStart();
 		</method>
 		<_bottomshadow visible="${parent.shadow}" />
