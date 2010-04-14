@@ -135,14 +135,14 @@ width:170px;
 text-align:left;
 }
 ul.nv li a {
-font-size:18px;
+font-size:20px;
 font-family: "Comic Sans MS";
 font-weight:normal;
 text-decoration:none;
 color:#444444;
 }
 ul.nv li.tabvc a{
-padding:9px 8px;
+padding:7px 8px;
 height:42px;
 width:94px;
 }
@@ -150,8 +150,8 @@ ul.nv li.tabvc a:hover{
 	color:#9cc93b;
 	background-image:url(../images/tab-hover.gif);
 }
-ul.nv li#videos {
-
+ul.nv li#videos a{
+	padding:7px 34px;
 }
 
 ul.nv li#conferences {
@@ -521,11 +521,91 @@ vertical-align:text-bottom;
 width:16px;
 }
 
+#lzappContainer {
+	
+}
 
+body .fluid {
+min-width:970px;
+width:100%;
+}
+body.center .container {
+margin:0 auto;
+text-align:left;
+}
+#profile-tabs-container  {
+margin-top:3.5em;
+}
 
+div#base-middle-white{
+	background: url("../images/tab-base-middle-white.gif") repeat-x scroll 0% 0% transparent;
+}
 
-
-
-
-
-
+.vl-rss-link {
+margin-top:7px;
+padding-left:3px;
+}
+div#profile-tabs-container ul#profile-tab-container li, div#profile-sub-section-container ul#tab-container li {
+float:left;
+margin:0 2px 0 0;
+font-size:1.2em;
+line-height:1.6em;
+}
+div#profile-tabs-container ul#profile-tab-container li div {
+float:left;
+height:19px;
+padding:4px 10px 5px;
+}
+div#profile-sub-section-container ul#tab-container div {
+float:left;
+padding:2px 10px 3px;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected {
+background:url("../images/tab-bg.gif") repeat scroll right center transparent;
+font-weight:bold;
+}
+div#profile-sub-section-container ul#tab-container li.tab-unselected {
+background:url("../images/tab-subtab-bg.gif") repeat scroll right center transparent;
+font-weight:bold;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover {
+background:url("../images/tab-bg-hover.gif") repeat scroll right center transparent;
+cursor:pointer;
+}
+div#profile-sub-section-container ul#tab-container li.tab-unselected:hover {
+background:url("../images/tab-subtab-bg-hover.gif") repeat scroll right center transparent;
+cursor:pointer;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected a, div#profile-sub-section-container ul#tab-container li.tab-selected a, div#profile-sub-section-container ul#tab-container li.tab-unselected a {
+color:#FFFFFF;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover a, div#profile-sub-section-container ul#tab-container li.tab-unselected:hover a {
+color:#99CC33;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable, div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected {
+background:url("../images/tab-bg-disabled.gif") repeat scroll right center transparent;
+color:#FFFFFF;
+cursor:default;
+font-weight:bold;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable {
+cursor:pointer;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable a {
+color:#FFFFFF;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable:hover a {
+color:#99CC33;
+}
+div#profile-sub-section-container ul#tab-container li.tab-selected {
+background:url("../images/tab-subtab-bg-disabled.gif") repeat scroll right center transparent;
+color:#FFFFFF;
+cursor:default;
+font-weight:bold;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected div, div#profile-sub-section-container ul#tab-container li.tab-selected div {
+cursor:default;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected div, div#profile-sub-section-container ul#tab-container li.tab-unselected div {
+cursor:pointer;
+}

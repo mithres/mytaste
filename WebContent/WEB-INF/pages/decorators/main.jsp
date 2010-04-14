@@ -104,7 +104,7 @@
 
 <!--top panel ends here -->
 
-<div id="contentpanel"><decorator:body /></div>
+<div id="contentpanel" class="fixed-lg relative container main" style="position: relative; margin-top: 1px;"><decorator:body /></div>
 
  
 <div style="clear: both;" class="fluid bar">
