@@ -122,10 +122,55 @@ font-weight:bold;
 outline:medium none;
 text-decoration:none;
 }
+
+
 ul.nv  {
 height:42px;
 left:0;
 position:absolute;
+}
+ul.nv li.first {
+background:none repeat scroll 0 0 transparent;
+width:170px;
+text-align:left;
+}
+ul.nv li a {
+font-size:18px;
+font-family: "Comic Sans MS";
+font-weight:normal;
+text-decoration:none;
+color:#444444;
+}
+ul.nv li.tabvc a{
+padding:9px 8px;
+height:42px;
+width:94px;
+}
+ul.nv li.tabvc a:hover{
+	color:#9cc93b;
+	background-image:url(../images/tab-hover.gif);
+}
+ul.nv li#videos {
+
+}
+
+ul.nv li#conferences {
+
+}
+
+ul.nv li.current{
+background-image:url(../images/tab-current.gif);
+}
+ul.nv li {
+cursor:pointer;
+display:block;
+float:left;
+font-weight:normal;
+height:42px;
+line-height:42px;
+margin:0;
+padding:0;
+text-align:center;
 }
 ul, ol {
 margin:0;

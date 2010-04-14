@@ -40,10 +40,17 @@
 	<li class="signin-border-left"><a class="utility-link"
 		href="<web.page:path/>/signUp/signUpIndex">Sign Up</a></li>
 </ul>
+
+
 <ul class="nv">
 	<li id="home" class="first"><a rel="home" href="<web.page:path/>/"><img	height="42" border="0" title="Video Share" src="<web.page:path/>/images/logo.jpg" /></a> 
-	<a href="<web.page:path/>/vod/playListIndex">Videos</a> | <a href="<web.page:path/>/conference/roomListIndex">Conferences</a></li>
-	
+	<li class="tabvc current" id="videos">
+	<a href="<web.page:path/>/vod/playListIndex" class="">
+	Videos</a></li>
+	<li class="tabvc" id="conferences">
+	<a href="<web.page:path/>/conference/roomListIndex">
+	Conferences
+	</a></li>
 </ul>
 </div>
 </div>
