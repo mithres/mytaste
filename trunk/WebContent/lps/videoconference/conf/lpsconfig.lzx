@@ -1,43 +1,7 @@
 <library>
+
 	
-	<attribute name="vodContext" value="/vod" type="string"/>
-	<attribute name="conferenceContext" value="/conference" type="string"/>
+	<attribute name="webRootKey" value="MyTaste" type="string"/>
 	
-	<attribute name="webRootKey" value="VideoConference" type="string"/>
-	
-	<attribute name="serverIP" value="172.0.2.193" type="string"/>
-	<attribute name="httpPort" value="8080" type="string"/>
-	<attribute name="rtmp" value="" type="string"/>
-	<attribute name="rtmpPort" value="1935" type="string"/>
-	
-	<attribute name="vodRTMPAddress" value="vod" type="string"/>
-	<attribute name="conferenceRTMPAddress" value="conference" type="string"/>
-	
-	<class name="lpsConfig" extends="node">
-	
-		<method name="getWebPath">
-		<![CDATA[
-			var key = canvas.webRootKey == "" ? "" : canvas.webRootKey + "/";
-			var port = canvas.httpPort == "" ? 80 : canvas.httpPort;
-			var webPath = "http://" + canvas.serverIP + ":" + port + "/" + key;
-			return webPath;
-		]]>
-		</method>
-		
-		<method name="getRtmpPath">
-		<![CDATA[
-			var port = canvas.rtmpPort == "" ? 1953 : canvas.rtmpPort;
-			var rtmpPath = "rtmp://" + canvas.serverIP + ":" + port;
-			return rtmpPath;
-		]]>
-		</method>
-		
-		<method name="getVODPath">
-		<![CDATA[
-			return this.getRtmpPath() + canvas.vodContext;
-		]]>
-		</method>
-		
-	</class>
 	
 </library>

@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-<%@ page import="org.springframework.security.ui.AbstractProcessingFilter"%>
+<%@ page
+	import="org.springframework.security.ui.AbstractProcessingFilter"%>
 <%@ page import="org.springframework.security.AuthenticationException"%>
 
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
@@ -13,22 +15,10 @@
 <meta name="decorator" content="maindecorator" />
 <title><s:text name="vc.home.title" /></title>
 
-<script type="text/javascript" src="<web.page:path/>/lps/includes/embed-compressed.js"></script>
-
 </head>
 <body class="div">
 
-<%
-	if (session
-			.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null) {
-		out
-				.println(((AuthenticationException) session
-						.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
-						.getMessage());
-	}
-%>
-					  
-	
+
 <script>
 	lz.embed.swf( {	
 		url : '<web.page:path/>/vod/videoslideshower.lzx?lzt=swf',
@@ -38,24 +28,31 @@
 		id : 'lzapp'
 	});
 </script>
-					  
-<div style="position: relative; margin-top: 1px;" class="fixed-lg relative container main">
+
+<div style="position: relative; margin-top: 1px;"
+	class="fixed-lg relative container main">
 
 <h1>Popular Videos</h1>
-<div id="playListRender">
-	<s:iterator value="playLists.records" var="playList" status="stat">
+<div id="playListRender"><s:iterator value="playLists.records"
+	var="playList" status="stat">
 	<!-- s:property value="#stat.index"/-->
 	<%@include file="vod/playlistentryshort.jsp"%>
-	</s:iterator>
-</div>
+</s:iterator></div>
 
 <h1>Popular Moderators</h1>
 
-	
-	
+
+
 </div>
 
 <script type="text/javascript">
+
+function show(id){
+	var url = "<web.page:path/>/vod/play?playListID"+id;
+	alert(url);
+	//location.href = url;
+}
+
 $(document).ready(function() {
 	
 	$("ul#topnav li").hover(function() { //Hover over event on list item
@@ -104,31 +101,45 @@ $(document).ready(function() {
 });
 </script>
 
-
-<form  action="<web.page:path/>/signIn" method="POST">
+<%
+	if (session
+			.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null) {
+		out
+				.println(((AuthenticationException) session
+						.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
+						.getMessage());
+	}
+%>
+<form action="<web.page:path/>/signIn" method="POST">
 <table width="205">
 	<tr>
 		<td class="rp_user flt"><s:text name="vc.index.username" /></td>
-		<td><input class="rp_txt flt" type='text' name='userName' value="" /></td>
+		<td><input class="rp_txt flt" type='text' name='userName'
+			value="" /></td>
 	</tr>
 	<tr>
 		<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
-		<td><input class="rp_txt flt" type='password' name='password' AUTOCOMPLETE="off" /></td>
+		<td><input class="rp_txt flt" type='password' name='password'
+			AUTOCOMPLETE="off" /></td>
 	</tr>
 	<tr>
 		<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
 		<td><input class="rp_txt flt" type='text' name='ccode' value="" /></td>
 	</tr>
 	<tr>
-		<td colspan="2"><a href="javascript:void(0);" onClick="flushValidateCode();" title='<s:text name="vc.index.reload_checkcode" />'><img id="ccode" src="signUp/captcha" border="0"/></a></td>
+		<td colspan="2"><a href="javascript:void(0);"
+			onClick="flushValidateCode();"
+			title='<s:text name="vc.index.reload_checkcode" />'><img
+			id="ccode" src="signUp/captcha" border="0" /></a></td>
 	</tr>
 	<tr>
-		<td colspan='2'>
-		<input type="image" src="<web.page:path/>/images/rp_login.jpg"  name='<s:text name="vc.button.submit" />' />									</td>
+		<td colspan='2'><input type="image"
+			src="<web.page:path/>/images/rp_login.jpg"
+			name='<s:text name="vc.button.submit" />' /></td>
 	</tr>
- </table>
+</table>
 
- </form>
+</form>
 
 </body>
 </html>
