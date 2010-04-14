@@ -1,5 +1,10 @@
 var playListIDs="";
 
+$(document).ready(function(){
+	if ($("#lzappContainer").length > 0){
+		$("#contentpanel").css("width","100%");
+	}
+});
 function flushValidateCode() {
 	// set timeout is workaroud for update captcha in IE
 	setTimeout(function() {

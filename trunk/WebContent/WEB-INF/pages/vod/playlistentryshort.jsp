@@ -2,6 +2,7 @@
 	<ul id="vid<s:property value="id"/>" class="video">
 		<li class="vImg target">
 			<a onmouseover="javascript:vidContents('<s:property value="id"/>')" name="hotVideoList" href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>" class="tipAnchor">
+			
 			<img height="96" width="128" alt="<s:property value="playListName"/>" src="<web.page:path/>/images/generated.jpg"></a>	
 		</li>		
 		<li class="vMenu"><img onmouseout="this.src='<web.page:path/>/images/qls.gif'" onmouseover="this.src='<web.page:path/>/images/qlh.gif'" title="Add this video to your queue" style="display: block;" src="<web.page:path/>/images/qls.gif"></li>
