@@ -540,7 +540,10 @@ margin-top:3.5em;
 div#base-middle-white{
 	background: url("../images/tab-base-middle-white.gif") repeat-x scroll 0% 0% transparent;
 }
-
+.play {
+position:absolute;
+z-index:10;
+}
 .vl-rss-link {
 margin-top:7px;
 padding-left:3px;
