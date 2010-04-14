@@ -19,6 +19,7 @@
 <!--[if IE]><script src="<web.page:path/>/js/excanvas.js" type="text/javascript" charset="utf-8"></script><![endif]-->
 <script src="<web.page:path/>/js/jquery.bt.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/lps/includes/embed-compressed.js" type="text/javascript"></script>
 <decorator:head />
 </head>
 
