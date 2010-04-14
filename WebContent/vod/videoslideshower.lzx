@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<canvas>
+<canvas debug="true">
 	
 	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
 	<include href="../lps/videoconference/base/visualslider.lzx"/>
 	
 	<splash/>
 	
-	<dataset name="dsVideos" request="true"  querytype="get" type="http" src="$once{'/'+parent.webRootKey+'/common/recommend'}"/>
+	<script>
+		canvas.setDefaultContextMenu(new LzContextMenu());
+
+		function init(url) {
+			Debug.write(url);
+			dsVideos.setAttribute("src",url);
+			dsVideos.doRequest();
+		}
+	</script>
+	
+	<dataset name="dsVideos" request="true"  querytype="get" type="http">
+		<handler name="ondata">
+			Debug.write("data ok");
+			vs.setAttribute("datapath","dsVideos:/videos");
+		</handler>
+	</dataset>	
 	
 	<view id="bgView" width="100%" height="350" resource="../images/bg.png" stretches="both" />
-	<visualslider id="vs" width="100%" height="350" name="slider1" opacity="1" circular="true" timerms="5000" datapath="dsVideos:/videos" >
-		<handler name="oninit">
+	<visualslider id="vs" width="100%" height="350" name="slider1" opacity="1" circular="true" timerms="500">
+		<handler name="ondata">
+			Debug.write("vs on data");
 			this.startTimer();
+			this.setAttribute("timerms",10000);
 		</handler>
 		<visualsliderview datapath="*" originalwidth="600" originalheight="320" opacity="${1-((parent.width/5)-this.width-40)/100*2 &gt; 1 ? 1 : 1-((parent.width/5)-this.width-40)/100*2}" shadow="true">
 			<handler name="onstop">
@@ -24,7 +41,7 @@
 			<method name="show">
 				if (this.currentslide) {
 					this.fadeDelegate = new LzDelegate(mesView, "showMessage");
-					lz.Timer.addTimer(fadeDelegate, 1500);
+					lz.Timer.addTimer(fadeDelegate, 2000);
 				} else {
 					mesView.animate("opacity", 0, 500);
 					mesView.message.animate("opacity", 0, 500);
@@ -57,8 +74,6 @@
 					}
 				</method>
 			</view>
-			<!-- This view use to display Inverted image of the pic  -->
-			<!--view width="${parent.width}" height="${150*parent.factor}" resource="../test/res/1b.png" stretches="both" y="${parent.height}" opacity="0.7"/-->
 		</visualsliderview>
 	</visualslider>	
 </canvas>

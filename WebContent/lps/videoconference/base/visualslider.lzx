@@ -27,6 +27,8 @@
 		<attribute name="_slidedonedel"  type="expression" value="null" />
 		<attribute name="_timerdel"      type="expression" value="null" />
 		<attribute name="_timerstop"     type="boolean"    value="false" />
+		<attribute name="_inited"        type="boolean"    value="false" />
+		
 		<handler name="oninit">
 			this._recalculateSlides(currentslide);
 		</handler>
@@ -37,7 +39,12 @@
 			this._recalculateSlides(currentslide);
 		</handler>
 		<method name="slideUp">
-			this.slideTo(this.currentslide + 1);
+			if (_inited) {
+				this.slideTo(this.currentslide + 1);
+			}else{
+				this._inited = true;
+				this.slideTo(this.currentslide);
+			}
 		</method>
 		<method name="slideDown">
 			this.slideTo(this.currentslide - 1);
