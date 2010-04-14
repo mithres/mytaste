@@ -21,7 +21,7 @@
 
 <script>
 	lz.embed.swf( {	
-		url : '<web.page:path/>/vod/videoslideshower.lzx?lzt=swf',
+		url : '<web.page:path/>/vod/videoslideshower.swf8.swf',
 		allowfullscreen : 'false',
 		width : '100%',
 		height : '350',
@@ -45,7 +45,14 @@
 
 </div>
 
+
 <script type="text/javascript">
+
+function initSlideShower() {
+	var ss = lz.embed.lzapp;
+	var callMethod = "init('<web.page:path/>/common/recommend')";
+	ss.callMethod(callMethod);
+}
 
 function show(id){
 	var url = "<web.page:path/>/vod/play?playListID"+id;
@@ -54,7 +61,7 @@ function show(id){
 }
 
 $(document).ready(function() {
-	
+	initSlideShower();
 	$("ul#topnav li").hover(function() { //Hover over event on list item
 		$(this).css({ 'background' : 'url(<web.page:path/>/images/subnav-hover.gif) repeat-x'}); //Add background color + image on hovered list item
 		$(this).find("span").show(); //Show the subnav

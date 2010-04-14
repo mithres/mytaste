@@ -19,6 +19,7 @@
 	<property name="webcontent.dir" value="${basedir}/WebContent" />
 
 	<!-- LPS Properties -->
+	<property name="laszlo.vod.test" value="${basedir}/WebContent/test" />
 	<property name="laszlo.vod.src" value="${basedir}/WebContent/vod" />
 	<property name="laszlo.conference.src" value="${basedir}/WebContent/conference" />
 	<property name="laszlo.home" value="${basedir}/WebContent" />
@@ -85,5 +86,16 @@
 		</java>
 	</target>
 
+
+	<target name="compile.slideshower">
+		<java classname="org.openlaszlo.compiler.Main" fork="true" newenvironment="true" failonerror="true" dir="${laszlo.vod.src}" classpathref="laszlo.lib">
+			<jvmarg value="-DLPS_HOME=${laszlo.home}" />
+			<jvmarg value="-Dlzdebug=${laszlo.debug}" />
+			<jvmarg value="-Dlzproxied=${laszlo.proxied}" />
+			<jvmarg value="-Xms512M" />
+			<jvmarg value="-Xmx512M" />
+			<arg line="--runtime=swf8 --dir ${laszlo.vod.src} --mcache on --onerror warn videoslideshower.lzx" />
+		</java>
+	</target>
 
 </project>
