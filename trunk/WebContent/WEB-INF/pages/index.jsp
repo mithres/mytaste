@@ -18,10 +18,9 @@
 </head>
 <body class="div">
 
-
 <script>
 	lz.embed.swf( {	
-		url : '<web.page:path/>/vod/videoslideshower.swf8.swf',
+		url : '<web.page:path/>/flashcommons/videoslideshower.swf',
 		allowfullscreen : 'false',
 		width : '100%',
 		height : '350',
@@ -48,12 +47,7 @@
 
 <script type="text/javascript">
 
-function initSlideShower() {
-	var ss = lz.embed.lzapp;
-	var callMethod = "init('<web.page:path/>/common/recommend')";
-	ss.callMethod(callMethod);
-}
-
+//Call by flash object
 function show(id){
 	var url = "<web.page:path/>/vod/play?playListID"+id;
 	alert(url);
@@ -61,7 +55,7 @@ function show(id){
 }
 
 $(document).ready(function() {
-	initSlideShower();
+
 	$("ul#topnav li").hover(function() { //Hover over event on list item
 		$(this).css({ 'background' : 'url(<web.page:path/>/images/subnav-hover.gif) repeat-x'}); //Add background color + image on hovered list item
 		$(this).find("span").show(); //Show the subnav
@@ -69,17 +63,6 @@ $(document).ready(function() {
 		$(this).css({ 'background' : 'none'}); //Ditch the background
 		$(this).find("span").hide(); //Hide the subnav
 	});
-	
-	
-	$(function(){
-		$('#loopedSlider').loopedSlider({
-			container : 'container_pic',
-			slideClass: 'photo',
-			autoHeight: false,
-			fadeSpeed: 250,
-			slideSpeed: 150
-		});
-	});	
 	
 	$('.vidContents').hide();
 	$('#vid').bt({

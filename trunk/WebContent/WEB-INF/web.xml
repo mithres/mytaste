@@ -113,10 +113,6 @@
 		<servlet-name>LPS</servlet-name>
 		<servlet-class>org.openlaszlo.servlets.LZServlet</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>LZViewer</servlet-name>
-		<servlet-class>org.openlaszlo.servlets.LZViewer</servlet-class>
-	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>LPS</servlet-name>
@@ -126,12 +122,6 @@
 		<servlet-name>LPS</servlet-name>
 		<url-pattern>*.lzo</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>LZViewer</servlet-name>
-		<url-pattern>/LZViewer</url-pattern>
-	</servlet-mapping>
-	
-	
 		
 	<security-constraint> 
 		<web-resource-collection> 

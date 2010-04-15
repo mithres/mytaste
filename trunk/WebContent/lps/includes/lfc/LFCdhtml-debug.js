@@ -1,17 +1,17 @@
-var $backtrace = false;
+var $runtime = "dhtml";
 var $dhtml = true;
 var $as3 = false;
+var $as2 = false;
+var $swf10 = false;
+var $j2me = false;
+var $debug = true;
 var $js1 = true;
+var $backtrace = false;
 var $swf7 = false;
+var $swf9 = false;
 var $swf8 = false;
 var $svg = false;
-var $as2 = false;
-var $swf9 = false;
 var $profile = false;
-var $runtime = "dhtml";
-var $swf10 = false;
-var $debug = true;
-var $j2me = false;
 var _Copyright = "Portions of this file are copyright (c) 2001-2009 by Laszlo Systems, Inc.  All rights reserved.";
 var Debug = {backtraceStack: [], uncaughtBacktraceStack: null, FUNCTION_NAME: "displayName", FUNCTION_FILENAME: "_dbg_filename", FUNCTION_LINENO: "_dbg_lineno"};
 Debug.backtraceStack.maxDepth = 100;
@@ -35,6 +35,13 @@ return __ES3Globals[name_$0]
 return void 0
 };
 $lzsc$temp["displayName"] = "compiler/LzRuntime.lzs#95/19";
+return $lzsc$temp
+})();
+var $lzsc$issubclassof = (function () {
+var $lzsc$temp = function (one_$0, other_$1) {
+return one_$0 === other_$1 || (other_$1["$lzsc$isa"] ? other_$1.$lzsc$isa(one_$0.prototype) : one_$0.prototype instanceof other_$1)
+};
+$lzsc$temp["displayName"] = "compiler/LzRuntime.lzs#121/26";
 return $lzsc$temp
 })();
 var Instance = (function () {
@@ -1601,7 +1608,8 @@ line_$1 = 0;;case 2:
 message_$2 = "";;case 3:
 node_$3 = null
 };
-(arguments.callee["$superclass"] && arguments.callee.$superclass.prototype["$lzsc$initialize"] || this.nextMethod(arguments.callee, "$lzsc$initialize")).call(this, file_$0, line_$1, message_$2, node_$3)
+(arguments.callee["$superclass"] && arguments.callee.$superclass.prototype["$lzsc$initialize"] || this.nextMethod(arguments.callee, "$lzsc$initialize")).call(this, file_$0, line_$1, message_$2, node_$3);
+Debug.lastError = this
 };
 $lzsc$temp["displayName"] = "$lzsc$initialize";
 return $lzsc$temp
@@ -2417,7 +2425,7 @@ this.write(LzCanvas.versionInfoString())
 };
 $lzsc$temp["displayName"] = "versionInfo";
 return $lzsc$temp
-})(), "bugReport", (function () {
+})(), "lastError", null, "bugReport", (function () {
 var $lzsc$temp = function (error_$0, verbose) {
 var inspect;
 inspect = (function () {
@@ -2439,8 +2447,11 @@ verbose = null
 if (error_$0 == null) {
 try {
 with (this.environment) {
+if (LzSourceMessage["$lzsc$isa"] ? LzSourceMessage.$lzsc$isa(_) : _ instanceof LzSourceMessage) {
 error_$0 = _
-}}
+} else {
+error_$0 = this.lastError
+}}}
 catch (e_$1) {}};
 if (typeof error_$0 == "number") {
 error_$0 = this.ObjectForID(error_$0)
@@ -2472,7 +2483,7 @@ var args_$1 = frame_$0.arguments;
 for (var i_$2 = 0;i_$2 < args_$1.length;i_$2 += 2) {
 that.format("\n  %s: %#w", args_$1[i_$2], inspect(args_$1[i_$2 + 1], verbose))
 }};
-$lzsc$temp["displayName"] = "debugger/LzDebug.lzs#1571/7";
+$lzsc$temp["displayName"] = "debugger/LzDebug.lzs#1582/7";
 return $lzsc$temp
 })());
 var keys_$2 = [];
@@ -2487,7 +2498,7 @@ var al_$2 = parseInt(a_$0);
 var bl_$3 = parseInt(b_$1);
 return (al_$2 > bl_$3 ? 1 : 0) - (al_$2 < bl_$3 ? 1 : 0)
 };
-$lzsc$temp["displayName"] = "debugger/LzDebug.lzs#1589/17";
+$lzsc$temp["displayName"] = "debugger/LzDebug.lzs#1600/17";
 return $lzsc$temp
 })());
 for (var i_$4 = 0;i_$4 < keys_$2.length;i_$4++) {
@@ -4069,15 +4080,15 @@ var newvalue_$4 = target_$1[this.source];
 if (newvalue_$4 !== oldvalue_$3 || !target_$1.inited) {
 {
 if (!target_$1.__LZdeleted) {
-var $lzsc$14897126 = "$lzc$set_" + dest_$2;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(target_$1[$lzsc$14897126]) : target_$1[$lzsc$14897126] instanceof Function) {
-target_$1[$lzsc$14897126](newvalue_$4)
+var $lzsc$930316321 = "$lzc$set_" + dest_$2;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(target_$1[$lzsc$930316321]) : target_$1[$lzsc$930316321] instanceof Function) {
+target_$1[$lzsc$930316321](newvalue_$4)
 } else {
 target_$1[dest_$2] = newvalue_$4;
-var $lzsc$709776197 = target_$1["on" + dest_$2];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$709776197) : $lzsc$709776197 instanceof LzEvent) {
-if ($lzsc$709776197.ready) {
-$lzsc$709776197.sendEvent(newvalue_$4)
+var $lzsc$612200666 = target_$1["on" + dest_$2];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$612200666) : $lzsc$612200666 instanceof LzEvent) {
+if ($lzsc$612200666.ready) {
+$lzsc$612200666.sendEvent(newvalue_$4)
 }}}}}}};
 $lzsc$temp["displayName"] = "bind";
 return $lzsc$temp
@@ -4339,29 +4350,29 @@ Debug.error("Unknown style expression %w", styleValue_$7)
 }} else if (styleValue_$7 !== void 0) {
 {
 if (!this.__LZdeleted) {
-var $lzsc$438301822 = "$lzc$set_" + attr_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$438301822]) : this[$lzsc$438301822] instanceof Function) {
-this[$lzsc$438301822](styleValue_$7)
+var $lzsc$138436544 = "$lzc$set_" + attr_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$138436544]) : this[$lzsc$138436544] instanceof Function) {
+this[$lzsc$138436544](styleValue_$7)
 } else {
 this[attr_$0] = styleValue_$7;
-var $lzsc$1088312633 = this["on" + attr_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1088312633) : $lzsc$1088312633 instanceof LzEvent) {
-if ($lzsc$1088312633.ready) {
-$lzsc$1088312633.sendEvent(styleValue_$7)
+var $lzsc$686739289 = this["on" + attr_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$686739289) : $lzsc$686739289 instanceof LzEvent) {
+if ($lzsc$686739289.ready) {
+$lzsc$686739289.sendEvent(styleValue_$7)
 }}}}}} else if (LzInitExpr["$lzsc$isa"] ? LzInitExpr.$lzsc$isa(fallback_$3) : fallback_$3 instanceof LzInitExpr) {
 this.applyConstraintExpr(fallback_$3)
 } else {
 {
 if (!this.__LZdeleted) {
-var $lzsc$2005879953 = "$lzc$set_" + attr_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$2005879953]) : this[$lzsc$2005879953] instanceof Function) {
-this[$lzsc$2005879953](fallback_$3)
+var $lzsc$425056433 = "$lzc$set_" + attr_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$425056433]) : this[$lzsc$425056433] instanceof Function) {
+this[$lzsc$425056433](fallback_$3)
 } else {
 this[attr_$0] = fallback_$3;
-var $lzsc$1890050672 = this["on" + attr_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1890050672) : $lzsc$1890050672 instanceof LzEvent) {
-if ($lzsc$1890050672.ready) {
-$lzsc$1890050672.sendEvent(fallback_$3)
+var $lzsc$2001743023 = this["on" + attr_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$2001743023) : $lzsc$2001743023 instanceof LzEvent) {
+if ($lzsc$2001743023.ready) {
+$lzsc$2001743023.sendEvent(fallback_$3)
 }}}}}}};
 $lzsc$temp["displayName"] = "__LZstyleBindAttribute";
 return $lzsc$temp
@@ -5087,15 +5098,15 @@ if (duration_$2 == 0) {
 var val_$5 = isRelative_$3 ? this[prop_$0] + to_$1 : to_$1;
 {
 if (!this.__LZdeleted) {
-var $lzsc$748584479 = "$lzc$set_" + prop_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$748584479]) : this[$lzsc$748584479] instanceof Function) {
-this[$lzsc$748584479](val_$5)
+var $lzsc$1975700922 = "$lzc$set_" + prop_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$1975700922]) : this[$lzsc$1975700922] instanceof Function) {
+this[$lzsc$1975700922](val_$5)
 } else {
 this[prop_$0] = val_$5;
-var $lzsc$1867547149 = this["on" + prop_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1867547149) : $lzsc$1867547149 instanceof LzEvent) {
-if ($lzsc$1867547149.ready) {
-$lzsc$1867547149.sendEvent(val_$5)
+var $lzsc$1709277141 = this["on" + prop_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1709277141) : $lzsc$1709277141 instanceof LzEvent) {
+if ($lzsc$1709277141.ready) {
+$lzsc$1709277141.sendEvent(val_$5)
 }}}}};
 return null
 };
@@ -5155,15 +5166,15 @@ value_$2 = this.acceptTypeValue(type_$1, value_$2);
 if (this[name_$0] !== value_$2) {
 {
 if (!this.__LZdeleted) {
-var $lzsc$67115607 = "$lzc$set_" + name_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$67115607]) : this[$lzsc$67115607] instanceof Function) {
-this[$lzsc$67115607](value_$2)
+var $lzsc$2018741513 = "$lzc$set_" + name_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$2018741513]) : this[$lzsc$2018741513] instanceof Function) {
+this[$lzsc$2018741513](value_$2)
 } else {
 this[name_$0] = value_$2;
-var $lzsc$1672334780 = this["on" + name_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1672334780) : $lzsc$1672334780 instanceof LzEvent) {
-if ($lzsc$1672334780.ready) {
-$lzsc$1672334780.sendEvent(value_$2)
+var $lzsc$1950312115 = this["on" + name_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1950312115) : $lzsc$1950312115 instanceof LzEvent) {
+if ($lzsc$1950312115.ready) {
+$lzsc$1950312115.sendEvent(value_$2)
 }}}}}}};
 $lzsc$temp["displayName"] = "acceptAttribute";
 return $lzsc$temp
@@ -6045,7 +6056,7 @@ this.__callback = keyboardcallback_$1
 };
 $lzsc$temp["displayName"] = "kernel/dhtml/LzKeyboardKernel.js#169/19";
 return $lzsc$temp
-})(), setKeyboardControl: (function () {
+})(), __lastcontrolscope: null, setKeyboardControl: (function () {
 var $lzsc$temp = function (dhtmlKeyboardControl_$0, force_$1) {
 if (!force_$1 && LzKeyboardKernel.__lockFocus) {
 dhtmlKeyboardControl_$0 = true
@@ -6060,17 +6071,23 @@ var doc_$4 = window.top.document
 } else {
 var doc_$4 = document
 };
+var lastscope_$5 = LzKeyboardKernel.__lastcontrolscope;
+if (lastscope_$5 && lastscope_$5 != doc_$4) {
+lastscope_$5.onkeydown = lastscope_$5.onkeyup = lastscope_$5.onkeypress = null;
+if (handler_$2) {
+LzKeyboardKernel.__lastcontrolscope = doc_$4
+}};
 doc_$4.onkeydown = handler_$2;
 doc_$4.onkeyup = handler_$2;
 doc_$4.onkeypress = handler_$2
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzKeyboardKernel.js#173/26";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzKeyboardKernel.js#174/26";
 return $lzsc$temp
 })(), gotLastFocus: (function () {
 var $lzsc$temp = function () {
 if (!LzSprite.__mouseActivationDiv.mouseisover) LzKeyboardKernel.setKeyboardControl(false)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzKeyboardKernel.js#194/20";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzKeyboardKernel.js#205/20";
 return $lzsc$temp
 })(), setGlobalFocusTrap: (function () {
 var $lzsc$temp = function (istrapped_$0) {
@@ -6082,7 +6099,7 @@ activationdiv_$1.onmouseover()
 } else {
 activationdiv_$1.onmouseout()
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzKeyboardKernel.js#199/26";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzKeyboardKernel.js#210/26";
 return $lzsc$temp
 })()};
 var LzMouseKernel = {__lastMouseDown: null, __lastMouseOver: null, __x: 0, __y: 0, owner: null, __showncontextmenu: null, __mouseEvent: (function () {
@@ -6563,6 +6580,11 @@ if (quirks_$2.activate_on_mouseover) {
 div.mouseisover = false;
 div.onmouseover = (function () {
 var $lzsc$temp = function (e_$0) {
+if (LzSprite.quirks.keyboardlistentotop_in_frame) {
+if (LzSprite.__rootSprite.options.cancelkeyboardcontrol != true) {
+LzSprite.quirks.keyboardlistentotop = true;
+LzKeyboardKernel.setKeyboardControl(true)
+}};
 if (LzSprite.quirks.focus_on_mouseover) {
 if (LzSprite.prototype.getSelectedText() == "") {
 div.focus()
@@ -6631,9 +6653,19 @@ LzKeyboardKernel.setKeyboardControl(false);
 LzMouseKernel.setMouseControl(false);
 this.mouseisover = false
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#148/30";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#154/30";
 return $lzsc$temp
 })();
+if (LzSprite.quirks.keyboardlistentotop_in_frame) {
+window.onfocus = (function () {
+var $lzsc$temp = function (e_$0) {
+if (LzSprite.__rootSprite.options.cancelkeyboardcontrol != true) {
+div.onmouseover()
+}};
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#241/34";
+return $lzsc$temp
+})()
+};
 LzSprite.__mouseActivationDiv = div
 };
 var textsizecache_$d = document.createElement("div");
@@ -6670,7 +6702,7 @@ y_$3 += d_$1.offsetTop
 };
 return Debug.formatToString("%w/@sprite [%s x %s]*[1 0 %s, 0 1 %s, 0 0 1]", this.owner.sprite === this ? this.owner : "(orphan)", div_$0.offsetWidth || 0, div_$0.offsetHeight || 0, x_$2 || 0, y_$3 || 0)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#267/36";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#281/36";
 return $lzsc$temp
 })();
 LzSprite.__defaultStyles = {lzdiv: {position: "absolute"}, lzclickdiv: {position: "absolute"}, lzcanvasdiv: {position: "absolute"}, lzcanvasclickdiv: {zIndex: 100000, position: "absolute"}, lzcanvascontextdiv: {position: "absolute"}, lzappoverflow: {position: "absolute", overflow: "hidden"}, lztextcontainer: {position: "absolute", paddingTop: "2px", paddingRight: "2px", paddingBottom: "2px", paddingLeft: "2px", cursor: "default"}, lzinputtextcontainer: {position: "absolute", overflow: "hidden", paddingTop: "0px", paddingRight: "3px", paddingBottom: "4px", paddingLeft: "1px"}, lzinputtextcontainer_click: {position: "absolute", paddingTop: "0px", paddingRight: "3px", paddingBottom: "4px", paddingLeft: "1px"}, lzinputtextmultilinecontainer: {position: "absolute", overflow: "hidden", paddingTop: "1px", paddingRight: "3px", paddingBottom: "3px", paddingLeft: "1px"}, lzinputtextmultilinecontainer_click: {position: "absolute", paddingTop: "1px", paddingRight: "3px", paddingBottom: "3px", paddingLeft: "1px"}, lztext: {fontFamily: "Verdana,Vera,sans-serif", fontStyle: "normal", fontWeight: "normal", fontSize: "11px", whiteSpace: "normal", position: "absolute", textAlign: "left", textIndent: "0px", letterSpacing: "0px", textDecoration: "none"}, lzswftext: {fontFamily: "Verdana,Vera,sans-serif", fontStyle: "normal", fontWeight: "normal", fontSize: "11px", whiteSpace: "normal", position: "absolute", lineHeight: "1.2em", textAlign: "left", textIndent: "0px", letterSpacing: "0px", textDecoration: "none", wordWrap: "break-word", MsWordBreak: "break-all"}, lzinputtext: {fontFamily: "Verdana,Vera,sans-serif", fontStyle: "normal", fontWeight: "normal", fontSize: "11px", width: "100%", height: "100%", borderWidth: 0, backgroundColor: "transparent", position: "absolute", textAlign: "left", textIndent: "0px", letterSpacing: "0px", textDecoration: "none"}, lzswfinputtext: {fontFamily: "Verdana,Vera,sans-serif", fontStyle: "normal", fontWeight: "normal", fontSize: "11px", width: "100%", height: "100%", borderWidth: 0, backgroundColor: "transparent", position: "absolute", lineHeight: "1.2em", textAlign: "left", textIndent: "0px", letterSpacing: "0px", textDecoration: "none", wordWrap: "break-word", MsWordBreak: "break-all", outline: "none", resize: "none"}, lzswfinputtextmultiline: {fontFamily: "Verdana,Vera,sans-serif", fontStyle: "normal", fontWeight: "normal", fontSize: "11px", width: "100%", height: "100%", borderWidth: 0, backgroundColor: "transparent", position: "absolute", overflow: "hidden", lineHeight: "1.2em", textAlign: "left", textIndent: "0px", letterSpacing: "0px", textDecoration: "none", wordWrap: "break-word", MsWordBreak: "break-all", outline: "none", resize: "none"}, lztextlink: {cursor: "pointer"}, lzaccessibilitydiv: {display: "none"}, lzcontext: {position: "absolute"}, lzimg: {position: "absolute", backgroundRepeat: "no-repeat"}, "#lzTextSizeCache": {zoom: 1}, lzgraphicscanvas: {position: "absolute"}, writeCSS: (function () {
@@ -6700,23 +6732,23 @@ o_$7.appendChild(document.createTextNode(css_$2));
 var heads_$8 = document.getElementsByTagName("head");
 heads_$8[0].appendChild(o_$7)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#473/15";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#487/15";
 return $lzsc$temp
 })(), __re: new RegExp("[A-Z]", "g"), hyphenate: (function () {
 var $lzsc$temp = function (n_$0) {
 return n_$0.replace(this.__re, this.__replace)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#505/16";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#519/16";
 return $lzsc$temp
 })(), __replace: (function () {
 var $lzsc$temp = function (found_$0) {
 return "-" + found_$0.toLowerCase()
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#508/16";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#522/16";
 return $lzsc$temp
 })()};
 LzSprite.prototype.uid = 0;
-LzSprite.quirks = {fix_clickable: true, fix_ie_background_height: false, fix_ie_clickable: false, ie_alpha_image_loader: false, ie_leak_prevention: false, prevent_selection: false, ie_elementfrompoint: false, invisible_parent_image_sizing_fix: false, emulate_flash_font_metrics: true, inner_html_strips_newlines: true, inner_html_no_entity_apos: false, css_hide_canvas_during_init: true, firefox_autocomplete_bug: false, hand_pointer_for_clickable: true, alt_key_sends_control: false, safari_textarea_subtract_scrollbar_height: false, no_cursor_colresize: false, safari_visibility_instead_of_display: false, preload_images_only_once: false, absolute_position_accounts_for_offset: false, canvas_div_cannot_be_clipped: false, inputtext_parents_cannot_contain_clip: false, set_height_for_multiline_inputtext: false, ie_opacity: false, text_measurement_use_insertadjacenthtml: false, text_content_use_inner_text: false, text_selection_use_range: false, document_size_use_offsetheight: false, text_ie_carriagereturn: false, ie_paste_event: false, safari_paste_event: false, text_event_charcode: true, keypress_function_keys: true, ie_timer_closure: false, keyboardlistentotop: false, document_size_compute_correct_height: false, ie_mouse_events: false, activate_on_mouseover: true, ie6_improve_memory_performance: false, text_height_includes_padding: false, inputtext_size_includes_margin: false, listen_for_mouseover_out: true, focus_on_mouseover: true, textstyle_on_textdiv: false, textdeco_on_textdiv: false, use_css_sprites: true, preload_images: true, scrollbar_width: 15, inputtext_strips_newlines: false, swf8_contextmenu: true, inputtext_anonymous_div: false, clipped_scrollbar_causes_display_turd: false, hasmetakey: true, textgrabsinputtextfocus: false, input_highlight_bug: false, autoscroll_textarea: false, fix_contextmenu: true, size_blank_to_zero: true, has_dom2_mouseevents: false, container_divs_require_overflow: false, fix_ie_css_syntax: false, match_swf_letter_spacing: false, use_css_master_sprite: false, write_css_with_createstylesheet: false, inputtext_use_background_image: false};
+LzSprite.quirks = {fix_clickable: true, fix_ie_background_height: false, fix_ie_clickable: false, ie_alpha_image_loader: false, ie_leak_prevention: false, prevent_selection: false, ie_elementfrompoint: false, invisible_parent_image_sizing_fix: false, emulate_flash_font_metrics: true, inner_html_strips_newlines: true, inner_html_no_entity_apos: false, css_hide_canvas_during_init: true, firefox_autocomplete_bug: false, hand_pointer_for_clickable: true, alt_key_sends_control: false, safari_textarea_subtract_scrollbar_height: false, no_cursor_colresize: false, safari_visibility_instead_of_display: false, preload_images_only_once: false, absolute_position_accounts_for_offset: false, canvas_div_cannot_be_clipped: false, inputtext_parents_cannot_contain_clip: false, set_height_for_multiline_inputtext: false, ie_opacity: false, text_measurement_use_insertadjacenthtml: false, text_content_use_inner_text: false, text_selection_use_range: false, document_size_use_offsetheight: false, text_ie_carriagereturn: false, ie_paste_event: false, safari_paste_event: false, text_event_charcode: true, keypress_function_keys: true, ie_timer_closure: false, keyboardlistentotop: false, document_size_compute_correct_height: false, ie_mouse_events: false, activate_on_mouseover: true, ie6_improve_memory_performance: false, text_height_includes_padding: false, inputtext_size_includes_margin: false, listen_for_mouseover_out: true, focus_on_mouseover: true, textstyle_on_textdiv: false, textdeco_on_textdiv: false, use_css_sprites: true, preload_images: true, scrollbar_width: 15, inputtext_strips_newlines: false, swf8_contextmenu: true, inputtext_anonymous_div: false, clipped_scrollbar_causes_display_turd: false, hasmetakey: true, textgrabsinputtextfocus: false, input_highlight_bug: false, autoscroll_textarea: false, fix_contextmenu: true, size_blank_to_zero: true, has_dom2_mouseevents: false, container_divs_require_overflow: false, fix_ie_css_syntax: false, match_swf_letter_spacing: false, use_css_master_sprite: false, write_css_with_createstylesheet: false, inputtext_use_background_image: false, keyboardlistentotop_in_frame: false};
 LzSprite.prototype.capabilities = {rotation: false, scalecanvastopercentage: false, readcanvassizefromsprite: true, opacity: true, colortransform: false, audio: false, accessibility: true, htmlinputtext: false, advancedfonts: false, bitmapcaching: false, persistence: false, clickmasking: false, minimize_opacity_changes: false, history: true, runtimemenus: false, setclipboard: false, proxypolicy: false, linescrolling: false, allowfullscreen: false, setid: true, globalfocustrap: false, "2dcanvas": true, dropshadows: false, cornerradius: false, rgba: false, css2boxmodel: true};
 LzSprite.__updateQuirks = (function () {
 var $lzsc$temp = function () {
@@ -6782,6 +6814,9 @@ quirks_$0["safari_paste_event"] = true;
 quirks_$0["keypress_function_keys"] = false;
 if (browser_$3.version < 523.15) {
 quirks_$0["keyboardlistentotop"] = true
+};
+if (window.top !== window) {
+quirks_$0["keyboardlistentotop_in_frame"] = true
 };
 if (browser_$3.version >= 530.19) {
 capabilities_$1["threedtransform"] = true
@@ -6860,7 +6895,7 @@ defaultStyles_$2.lzswftext.letterSpacing = defaultStyles_$2.lzswfinputtext.lette
 }};
 LzSprite.prototype.quirks = quirks_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#631/27";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#646/27";
 return $lzsc$temp
 })();
 LzSprite._getScrollbarWidth = (function () {
@@ -6883,7 +6918,7 @@ var w2_$4 = div_$0.clientWidth;
 LzSprite.prototype.__discardElement(div_$0);
 return w1_$3 - w2_$4
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#890/31";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#909/31";
 return $lzsc$temp
 })();
 LzSprite.__updateQuirks();
@@ -6894,7 +6929,7 @@ rootcontainer_$1.style.position = "absolute";
 rootcontainer_$1.style.left = LzSprite.prototype.CSSDimension(v_$0);
 LzScreenKernel.__resizeEvent()
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#927/21";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#946/21";
 return $lzsc$temp
 })();
 LzSprite.setRootWidth = (function () {
@@ -6902,7 +6937,7 @@ var $lzsc$temp = function (v_$0) {
 LzSprite.__rootSpriteContainer.style.width = LzSprite.prototype.CSSDimension(v_$0);
 LzScreenKernel.__resizeEvent()
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#941/25";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#960/25";
 return $lzsc$temp
 })();
 LzSprite.setRootY = (function () {
@@ -6912,7 +6947,7 @@ rootcontainer_$1.style.position = "absolute";
 rootcontainer_$1.style.top = LzSprite.prototype.CSSDimension(v_$0);
 LzScreenKernel.__resizeEvent()
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#953/21";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#972/21";
 return $lzsc$temp
 })();
 LzSprite.setRootHeight = (function () {
@@ -6920,7 +6955,7 @@ var $lzsc$temp = function (v_$0) {
 LzSprite.__rootSpriteContainer.style.height = LzSprite.prototype.CSSDimension(v_$0);
 LzScreenKernel.__resizeEvent()
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#967/26";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#986/26";
 return $lzsc$temp
 })();
 LzSprite.prototype.__LZdiv = null;
@@ -6966,7 +7001,7 @@ lz.embed[this._id]._ready(this.owner)
 };
 this.__initdone = true
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1020/27";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1039/27";
 return $lzsc$temp
 })();
 LzSprite.prototype.__topZ = 1;
@@ -6995,7 +7030,7 @@ this.__LZclickcontainerdiv.appendChild(sprite_$0.__LZclickcontainerdiv)
 };
 sprite_$0.__setZ(++this.__topZ)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1055/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1074/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.setResource = (function () {
@@ -7031,7 +7066,7 @@ this.__preloadFrames()
 this.skiponload = true;
 this.setSource(urls_$2[0], true)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1084/34";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1103/34";
 return $lzsc$temp
 })();
 LzSprite.prototype.getResourceUrls = (function () {
@@ -7048,14 +7083,14 @@ urls_$1[i_$4] = baseurl_$3 + res_$2.frames[i_$4]
 };
 return urls_$1
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1126/38";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1145/38";
 return $lzsc$temp
 })();
 LzSprite.prototype.getBaseUrl = (function () {
 var $lzsc$temp = function (resource_$0) {
 return LzSprite.__rootSprite.options[resource_$0.ptype == "sr" ? "serverroot" : "approot"]
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1146/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1165/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.CSSDimension = LzKernelUtils.CSSDimension;
@@ -7122,7 +7157,7 @@ this.__updateStretches()
 }};
 if (this.clickable) this.setClickable(true)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1157/32";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1176/32";
 return $lzsc$temp
 })();
 LzSprite.prototype.__bindImage = (function () {
@@ -7134,7 +7169,7 @@ this.__LZimg = im_$0
 this.__LZimg = im_$0;
 this.__LZdiv.appendChild(this.__LZimg)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1242/34";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1261/34";
 return $lzsc$temp
 })();
 LzSprite.prototype.__setBGImage = (function () {
@@ -7145,7 +7180,7 @@ if (bgurl_$1 != null) {
 var y_$2 = -this.__cssspriteoffset || 0;
 this.__LZimg.style.backgroundPosition = "0px " + y_$2 + "px"
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1253/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1272/35";
 return $lzsc$temp
 })();
 if (LzSprite.quirks.ie_alpha_image_loader) {
@@ -7166,7 +7201,7 @@ if (h_$2 == null) h_$2 = this.height == null ? "100%" : this.CSSDimension(this.h
 who_$0.style.width = w_$1;
 who_$0.style.height = h_$2
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1269/42";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1288/42";
 return $lzsc$temp
 })()
 };
@@ -7226,7 +7261,7 @@ this.__setClickable(c_$0, this.__LZdiv)
 }};
 this.clickable = c_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1292/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1311/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.__setClickable = (function () {
@@ -7247,7 +7282,7 @@ div_$1.onmouseout = f_$2
 div_$1.onmouseover = f_$2;
 div_$1.onmouseout = f_$2
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1361/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1380/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.__clickDispatcher = (function () {
@@ -7257,7 +7292,7 @@ if (e_$0.button == 2) return false;
 this.owner.__mouseEvent(e_$0);
 return false
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1385/40";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1404/40";
 return $lzsc$temp
 })();
 LzSprite.prototype.__mouseisdown = false;
@@ -7346,7 +7381,7 @@ return
 }};
 LzMouseKernel.__sendEvent(eventname_$2, this.owner)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1406/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1425/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.__isMouseOver = (function () {
@@ -7356,7 +7391,7 @@ var visible_$2 = this.__findParents("visible", false);
 if (visible_$2.length) return false;
 return p_$1.x >= 0 && p_$1.y >= 0 && p_$1.x < this.width && p_$1.y < this.height
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1550/36";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1569/36";
 return $lzsc$temp
 })();
 LzSprite.prototype.__globalmouseup = (function () {
@@ -7372,7 +7407,7 @@ if (LzMouseKernel.__lastMouseOver) {
 LzMouseKernel.__lastMouseOver.__mouseEvent("onmouseover", true);
 LzMouseKernel.__lastMouseOver = null
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1562/38";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1581/38";
 return $lzsc$temp
 })();
 LzSprite.prototype.setX = (function () {
@@ -7390,7 +7425,7 @@ this.__LZclickcontainerdiv.style.left = x_$0
 if (this.quirks.fix_contextmenu && this.__LZcontextcontainerdiv) {
 this.__LZcontextcontainerdiv.style.left = x_$0
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1581/27";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1600/27";
 return $lzsc$temp
 })();
 LzSprite.prototype.setWidth = (function () {
@@ -7418,7 +7453,7 @@ LzSprite.__rootSpriteOverflowContainer.style.width = w_$0
 };
 return w_$0
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1598/31";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1617/31";
 return $lzsc$temp
 })();
 LzSprite.prototype.setY = (function () {
@@ -7436,7 +7471,7 @@ this.__LZclickcontainerdiv.style.top = y_$0
 if (this.quirks.fix_contextmenu && this.__LZcontextcontainerdiv) {
 this.__LZcontextcontainerdiv.style.top = y_$0
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1628/27";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1647/27";
 return $lzsc$temp
 })();
 LzSprite.prototype.setHeight = (function () {
@@ -7464,17 +7499,17 @@ LzSprite.__rootSpriteOverflowContainer.style.height = h_$0
 };
 return h_$0
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1646/32";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1665/32";
 return $lzsc$temp
 })();
 LzSprite.prototype.setMaxLength = (function () {
 var $lzsc$temp = function (v_$0) {};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1679/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1698/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.setPattern = (function () {
 var $lzsc$temp = function (v_$0) {};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1686/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1705/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.setVisible = (function () {
@@ -7491,7 +7526,7 @@ this.__LZclickcontainerdiv.style.display = vis_$1;
 if (this.quirks.fix_contextmenu && this.__LZcontextcontainerdiv) {
 this.__LZcontextcontainerdiv.style.display = vis_$1
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1690/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1709/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.setColor = (function () {
@@ -7500,7 +7535,7 @@ if (this.color == c_$0) return;
 this.color = c_$0;
 this.__LZdiv.style.color = LzColorUtils.inttohex(c_$0)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1707/31";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1726/31";
 return $lzsc$temp
 })();
 LzSprite.prototype.setBGColor = (function () {
@@ -7521,7 +7556,7 @@ this.setSource(LzSprite.blankimage, true)
 } else if (!this._fontSize) {
 this.__LZdiv.style.fontSize = "0px"
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1713/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1732/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.__restoreSize = (function () {
@@ -7531,7 +7566,7 @@ this.__sizedtozero = false;
 this.__LZdiv.style.width = this._w;
 this.__LZdiv.style.height = this._h
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1735/36";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1754/36";
 return $lzsc$temp
 })();
 LzSprite.prototype.setOpacity = (function () {
@@ -7557,7 +7592,7 @@ this.__LZdiv.style.opacity = ""
 } else {
 this.__LZdiv.style.opacity = o_$0
 }}}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1744/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1763/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.play = (function () {
@@ -7572,7 +7607,7 @@ this.playing = true;
 this.owner.resourceevent("play", null, true);
 LzIdleKernel.addCallback(this, "__incrementFrame")
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1774/27";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1793/27";
 return $lzsc$temp
 })();
 LzSprite.prototype.stop = (function () {
@@ -7587,7 +7622,7 @@ f_$0 = parseInt(f_$0);
 if (!isNaN(f_$0)) {
 this.__setFrame(f_$0)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1787/27";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1806/27";
 return $lzsc$temp
 })();
 LzSprite.prototype.__incrementFrame = (function () {
@@ -7595,7 +7630,7 @@ var $lzsc$temp = function () {
 var newframe_$0 = this.frame + 1 > this.frames.length ? 1 : this.frame + 1;
 this.__setFrame(newframe_$0)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1804/39";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1823/39";
 return $lzsc$temp
 })();
 if (LzSprite.quirks.preload_images_only_once) {
@@ -7618,7 +7653,7 @@ var im_$3 = this.__ImgPool.get(src_$2, false, true);
 if (this.quirks.ie_alpha_image_loader) {
 this.__updateIEAlpha(im_$3)
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1816/38";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1835/38";
 return $lzsc$temp
 })();
 LzSprite.prototype.__findParents = (function () {
@@ -7632,7 +7667,7 @@ sprite_$4 = sprite_$4.__parent
 };
 return parents_$2
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1840/36";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1859/36";
 return $lzsc$temp
 })();
 LzSprite.prototype.__imgonload = (function () {
@@ -7658,7 +7693,7 @@ var $lzsc$temp = function (i_$0) {
 this.resourceWidth = i_$0.width;
 this.resourceHeight = i_$0.height
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1878/21";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1897/21";
 return $lzsc$temp
 })();
 this.__processHiddenParents(f_$2, i_$0)
@@ -7684,7 +7719,7 @@ this.__clearImageEvents(this.__LZimg)
 } else {
 this.__clearImageEvents(i_$0)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1854/34";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1873/34";
 return $lzsc$temp
 })();
 LzSprite.prototype.__processHiddenParents = (function () {
@@ -7705,7 +7740,7 @@ v_$5.__LZdiv.style.display = vals_$2[n_$4]
 };
 return result_$7
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1922/45";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1941/45";
 return $lzsc$temp
 })();
 LzSprite.prototype.__imgonerror = (function () {
@@ -7738,7 +7773,7 @@ this.__clearImageEvents(this.__LZimg)
 } else {
 this.__clearImageEvents(i_$0)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1949/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1968/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.__imgontimeout = (function () {
@@ -7768,7 +7803,7 @@ this.__clearImageEvents(this.__LZimg)
 } else {
 this.__clearImageEvents(i_$0)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#1989/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2008/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.__updateLoadStatus = (function () {
@@ -7776,7 +7811,7 @@ var $lzsc$temp = function (val_$0) {
 this.owner.resourceevent("loadratio", val_$0);
 this.owner.resourceevent("framesloadratio", val_$0)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2026/41";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2045/41";
 return $lzsc$temp
 })();
 LzSprite.prototype.__destroyImage = (function () {
@@ -7796,7 +7831,7 @@ LzSprite.prototype.__discardElement(img_$1)
 if (LzSprite.quirks.preload_images_only_once) {
 LzSprite.prototype.__preloadurls[url_$0] = null
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2040/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2059/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.__clearImageEvents = (function () {
@@ -7819,7 +7854,7 @@ img_$0.onload = null
 };
 img_$0.__cleared = true
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2063/41";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2082/41";
 return $lzsc$temp
 })();
 LzSprite.prototype.__gotImage = (function () {
@@ -7832,7 +7867,7 @@ this.owner[obj_$1.__lastcondition](obj_$1.sizer, true)
 } else {
 this.owner[obj_$1.__lastcondition](obj_$1, true)
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2089/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2108/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.__getImage = (function () {
@@ -7850,7 +7885,7 @@ im.sizer.onload = (function () {
 var $lzsc$temp = function () {
 im.sizer.tId = setTimeout(this.onloadforeal, 1)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2120/31";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2139/31";
 return $lzsc$temp
 })();
 im.sizer.onloadforeal = lz.BrowserUtils.getcallbackfunc(this.owner, "__imgonload", [im.sizer]);
@@ -7880,7 +7915,7 @@ im.src = url_$0
 if (im) im.__lastcondition = "__imgonload";
 return im
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2107/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2126/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.setClip = (function () {
@@ -7893,7 +7928,7 @@ this.__restoreSize()
 }};
 this.__updateClip()
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2157/30";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2176/30";
 return $lzsc$temp
 })();
 LzSprite.prototype.__updateClip = (function () {
@@ -7915,7 +7950,7 @@ this.__LZclickcontainerdiv.style.clip = s_$1
 if (quirks_$0.fix_contextmenu && this.__LZcontextcontainerdiv) {
 this.__LZcontextcontainerdiv.style.clip = s_$1
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2172/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2191/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.stretchResource = (function () {
@@ -7930,7 +7965,7 @@ this.__setFrame(this.frame, true)
 };
 this.__updateStretches()
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2204/38";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2223/38";
 return $lzsc$temp
 })();
 LzSprite.prototype.__updateStretches = (function () {
@@ -7955,12 +7990,12 @@ this.__LZimg.height = this.resourceHeight
 };
 this.__LZimg.style.display = dsp_$0
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2222/40";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2241/40";
 return $lzsc$temp
 })();
 LzSprite.prototype.predestroy = (function () {
 var $lzsc$temp = function () {};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2249/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2268/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.destroy = (function () {
@@ -8034,14 +8069,14 @@ delete this.__sprites[this.uid]
 if (this.isroot) {
 lz.BrowserUtils.scopes = null
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2252/30";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2271/30";
 return $lzsc$temp
 })();
 LzSprite.prototype.getMouse = (function () {
 var $lzsc$temp = function () {
 var p_$0 = this.__getPos();
 return {x: LzMouseKernel.__x - p_$0.x, y: LzMouseKernel.__y - p_$0.y}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2340/31";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2359/31";
 return $lzsc$temp
 })();
 LzSprite.prototype.__poscache = null;
@@ -8080,7 +8115,7 @@ this.__poscache = pos_$7
 }};
 return pos_$7
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2362/31";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2381/31";
 return $lzsc$temp
 })();
 LzSprite.prototype.getWidth = (function () {
@@ -8088,7 +8123,7 @@ var $lzsc$temp = function () {
 var w_$0 = this.__LZdiv.clientWidth;
 return w_$0 == 0 ? this.width : w_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2409/31";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2428/31";
 return $lzsc$temp
 })();
 LzSprite.prototype.getHeight = (function () {
@@ -8096,7 +8131,7 @@ var $lzsc$temp = function () {
 var h_$0 = this.__LZdiv.clientHeight;
 return h_$0 == 0 ? this.height : h_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2415/32";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2434/32";
 return $lzsc$temp
 })();
 LzSprite.prototype.setCursor = (function () {
@@ -8110,7 +8145,7 @@ this.cursor = c_$0;
 var c_$0 = LzSprite.__defaultStyles.hyphenate(c_$0);
 this.__LZclick.style.cursor = c_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2428/32";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2447/32";
 return $lzsc$temp
 })();
 LzSprite.prototype.setShowHandCursor = (function () {
@@ -8120,14 +8155,14 @@ this.setCursor("pointer")
 } else {
 this.setCursor("default")
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2445/40";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2464/40";
 return $lzsc$temp
 })();
 LzSprite.prototype.getDisplayObject = (function () {
 var $lzsc$temp = function () {
 return this.__LZdiv
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2453/39";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2472/39";
 return $lzsc$temp
 })();
 LzSprite.prototype.__LZcanvas = null;
@@ -8149,7 +8184,7 @@ this.__initcanvasie()
 } else {
 return this.__LZcanvas.getContext("2d")
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2460/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2479/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.setContextCallback = (function () {
@@ -8157,7 +8192,7 @@ var $lzsc$temp = function (callbackscope_$0, callbackname_$1) {
 this.__canvascallbackscope = callbackscope_$0;
 this.__canvascallbackname = callbackname_$1
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2486/41";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2505/41";
 return $lzsc$temp
 })();
 LzSprite.prototype.bringToFront = (function () {
@@ -8171,7 +8206,7 @@ if (c_$0.length < 2) return;
 c_$0.sort(LzSprite.prototype.__zCompare);
 this.sendInFrontOf(c_$0[c_$0.length - 1])
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2492/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2511/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.__setZ = (function () {
@@ -8186,7 +8221,7 @@ this.__LZcontextcontainerdiv.style.zIndex = z_$0
 };
 this.__z = z_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2510/29";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2529/29";
 return $lzsc$temp
 })();
 LzSprite.prototype.__zCompare = (function () {
@@ -8195,7 +8230,7 @@ if (a_$0.__z < b_$1.__z) return -1;
 if (a_$0.__z > b_$1.__z) return 1;
 return 0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2525/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2544/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.sendToBack = (function () {
@@ -8209,7 +8244,7 @@ if (c_$0.length < 2) return;
 c_$0.sort(LzSprite.prototype.__zCompare);
 this.sendBehind(c_$0[0])
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2533/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2552/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.sendBehind = (function () {
@@ -8231,7 +8266,7 @@ s_$4.__setZ(++s_$4.__z)
 }};
 this.__setZ(behindZ_$2)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2548/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2567/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.sendInFrontOf = (function () {
@@ -8254,7 +8289,7 @@ if (s_$4 == frontSprite_$0) frontZ_$2 = frontSprite_$0.__z + 1
 };
 this.__setZ(frontZ_$2)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2574/36";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2593/36";
 return $lzsc$temp
 })();
 LzSprite.prototype.__setFrame = (function () {
@@ -8287,7 +8322,7 @@ if (skipevent_$2) return;
 this.owner.resourceevent("frame", this.frame);
 if (this.frames.length == this.frame) this.owner.resourceevent("lastframe", null, true)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2604/33";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2623/33";
 return $lzsc$temp
 })();
 LzSprite.prototype.__discardElement = (function () {
@@ -8295,21 +8330,21 @@ var $lzsc$temp = function (element_$0) {
 if (this.__skipdiscards) return;
 if (element_$0.parentNode) element_$0.parentNode.removeChild(element_$0)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2644/39";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2663/39";
 return $lzsc$temp
 })();
 LzSprite.prototype.getZ = (function () {
 var $lzsc$temp = function () {
 return this.__z
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2653/27";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2672/27";
 return $lzsc$temp
 })();
 LzSprite.prototype.updateResourceSize = (function () {
 var $lzsc$temp = function () {
 this.owner.resourceload({width: this.resourceWidth, height: this.resourceHeight, resource: this.resource, skiponload: true})
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2657/41";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2676/41";
 return $lzsc$temp
 })();
 LzSprite.prototype.unload = (function () {
@@ -8328,7 +8363,7 @@ this.__LZimg = null
 };
 this.__updateLoadStatus(0)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2661/29";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2680/29";
 return $lzsc$temp
 })();
 LzSprite.prototype.__setCSSClassProperty = (function () {
@@ -8343,14 +8378,14 @@ for (var j_$9 = rl_$8;j_$9 >= 0;j_$9--) {
 if (rules_$7[j_$9].selectorText == classname_$0) {
 rules_$7[j_$9].style[name_$1] = value_$2
 }}}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2680/44";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2699/44";
 return $lzsc$temp
 })();
 LzSprite.prototype.setDefaultContextMenu = (function () {
 var $lzsc$temp = function (cmenu_$0) {
 LzSprite.__rootSprite.__contextmenu = cmenu_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2700/44";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2719/44";
 return $lzsc$temp
 })();
 LzSprite.prototype.setContextMenu = (function () {
@@ -8379,7 +8414,7 @@ cxdiv_$5.style.width = this._w;
 cxdiv_$5.style.height = this._h;
 cxdiv_$5.owner = this
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2709/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2728/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.__copystyles = (function () {
@@ -8390,14 +8425,14 @@ to_$1.style.display = from_$0.style.display;
 to_$1.style.clip = from_$0.style.clip;
 to_$1.style.zIndex = from_$0.style.zIndex
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2751/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2770/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.getContextMenu = (function () {
 var $lzsc$temp = function () {
 return this.__contextmenu
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2763/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2782/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.setRotation = (function () {
@@ -8408,7 +8443,7 @@ this.__LZdiv.style["WebkitTransform"] = "rotate(" + r_$0 + "deg)"
 } else if (browser_$1.isFirefox) {
 this.__LZdiv.style["MozTransform"] = "rotate(" + r_$0 + "deg)"
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2767/34";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2786/34";
 return $lzsc$temp
 })();
 if (LzSprite.quirks.ie_leak_prevention) {
@@ -8438,7 +8473,7 @@ document.body.appendChild(garbageBin_$1)
 garbageBin_$1.appendChild(element_$0);
 garbageBin_$1.innerHTML = ""
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2795/43";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2814/43";
 return $lzsc$temp
 })()
 };
@@ -8451,7 +8486,7 @@ return document.selection.createRange().text.toString()
 } else if (document.getSelection) {
 return document.getSelection()
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2819/38";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2838/38";
 return $lzsc$temp
 })();
 LzSprite.prototype.setAADescription = (function () {
@@ -8466,14 +8501,14 @@ this.__LZdiv.appendChild(aadiv_$1)
 };
 aadiv_$1.innerHTML = s_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2833/39";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2852/39";
 return $lzsc$temp
 })();
 LzSprite.prototype.setAccessible = (function () {
 var $lzsc$temp = function (accessible_$0) {
 LzSprite.__rootSprite.accessible = accessible_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2853/36";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2872/36";
 return $lzsc$temp
 })();
 LzSprite.prototype._accProps = null;
@@ -8481,17 +8516,17 @@ LzSprite.prototype.setAAActive = (function () {
 var $lzsc$temp = function (s_$0) {
 this.__LzAccessibilityActive = s_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2870/34";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2889/34";
 return $lzsc$temp
 })();
 LzSprite.prototype.setAASilent = (function () {
 var $lzsc$temp = function (s_$0) {};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2880/34";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2899/34";
 return $lzsc$temp
 })();
 LzSprite.prototype.setAAName = (function () {
 var $lzsc$temp = function (s_$0) {};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2889/32";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2908/32";
 return $lzsc$temp
 })();
 LzSprite.prototype.aafocus = (function () {
@@ -8502,12 +8537,12 @@ this.__LZdiv.blur();
 this.__LZdiv.focus()
 }}
 catch (e_$0) {}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2897/30";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2916/30";
 return $lzsc$temp
 })();
 LzSprite.prototype.setAATabIndex = (function () {
 var $lzsc$temp = function (s_$0) {};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2911/36";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2930/36";
 return $lzsc$temp
 })();
 LzSprite.prototype.sendAAEvent = (function () {
@@ -8517,7 +8552,7 @@ if (this.__LZdiv != null) {
 this.__LZdiv.focus()
 }}
 catch (e_$3) {}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2918/34";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2937/34";
 return $lzsc$temp
 })();
 LzSprite.prototype.setID = (function () {
@@ -8527,7 +8562,7 @@ if (!this.__LZdiv.id) this.__LZdiv.id = this._dbg_typename + id_$0;
 if (!this.__LZclickcontainerdiv.id) this.__LZclickcontainerdiv.id = "click" + id_$0;
 if (this.__LZcontextcontainerdiv && !this.__LZcontextcontainerdiv.id) this.__LZcontextcontainerdiv.id = this.__LZcontextcontainerdiv.id = "context" + id_$0
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2927/28";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2946/28";
 return $lzsc$temp
 })();
 LzSprite.prototype.__resizecanvas = (function () {
@@ -8545,7 +8580,7 @@ this.__LZcanvas.style.display = ""
 this._canvashidden = true;
 this.__LZcanvas.style.display = "none"
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2934/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2953/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.__docanvascallback = (function () {
@@ -8554,7 +8589,7 @@ var callback_$0 = this.__canvascallbackscope[this.__canvascallbackname];
 if (callback_$0) {
 callback_$0.call(this.__canvascallbackscope, this.__LZcanvas.getContext("2d"))
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2952/41";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2971/41";
 return $lzsc$temp
 })();
 LzSprite.prototype.__initcanvasie = (function () {
@@ -8571,7 +8606,7 @@ if (--this.__maxTries > 0) {
 var callback_$1 = lz.BrowserUtils.getcallbackstr(this, "__initcanvasie");
 this.__canvasTId = setTimeout(callback_$1, 50)
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2960/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2979/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.__getShadowCSS = (function () {
@@ -8585,7 +8620,7 @@ var yoffset_$6 = this.CSSDimension(Math.sin(radians_$4) * shadowdistance_$1);
 var rgbcolor_$7 = LzColorUtils.torgb(shadowcolor_$0);
 return rgbcolor_$7 + " " + xoffset_$5 + " " + yoffset_$6 + " " + this.CSSDimension(shadowblurradius_$3)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2977/37";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2996/37";
 return $lzsc$temp
 })();
 LzSprite.prototype.updateShadow = (function () {
@@ -8597,14 +8632,14 @@ if (this.quirks.size_blank_to_zero) {
 if (this.__sizedtozero) {
 this.__restoreSize()
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#2993/35";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#3012/35";
 return $lzsc$temp
 })();
 LzSprite.prototype.setCornerRadius = (function () {
 var $lzsc$temp = function (radius_$0) {
 this.__LZdiv.style.MozBorderRadius = this.__LZdiv.style.webkitBorderRadius = this.__LZdiv.style.borderRadius = this.CSSDimension(radius_$0)
 };
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#3007/38";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#3026/38";
 return $lzsc$temp
 })();
 LzSprite.prototype.__csscache;
@@ -8627,7 +8662,7 @@ this.__LZclickcontainerdiv.style[name_$0] = value_$1
 if (this.quirks.fix_contextmenu && this.__LZcontextcontainerdiv) {
 this.__LZcontextcontainerdiv.style[name_$0] = value_$1
 }}};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#3012/29";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#3031/29";
 return $lzsc$temp
 })();
 LzSprite.prototype.set_borderWidth = (function () {
@@ -8644,7 +8679,7 @@ this.__LZcontext.style.borderWidth = width_$0;
 this.__LZcontext.style.borderStyle = "solid";
 this.__LZcontext.style.borderColor = this.__csscache.borderColor
 }};
-$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#3036/38";
+$lzsc$temp["displayName"] = "kernel/dhtml/LzSprite.js#3055/38";
 return $lzsc$temp
 })();
 Class.make("LzLibrary", LzNode, ["loaded", false, "loading", false, "sprite", null, "href", void 0, "stage", "late", "onload", LzDeclaredEvent, "construct", (function () {
@@ -11504,15 +11539,15 @@ return $lzsc$temp
 var $lzsc$temp = function (attrname_$0, value_$1) {
 if (this[attrname_$0]) {
 if (!this.__LZdeleted) {
-var $lzsc$1121560842 = "$lzc$set_" + attrname_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$1121560842]) : this[$lzsc$1121560842] instanceof Function) {
-this[$lzsc$1121560842](value_$1)
+var $lzsc$403870220 = "$lzc$set_" + attrname_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$403870220]) : this[$lzsc$403870220] instanceof Function) {
+this[$lzsc$403870220](value_$1)
 } else {
 this[attrname_$0] = value_$1;
-var $lzsc$622680132 = this["on" + attrname_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$622680132) : $lzsc$622680132 instanceof LzEvent) {
-if ($lzsc$622680132.ready) {
-$lzsc$622680132.sendEvent(value_$1)
+var $lzsc$238416163 = this["on" + attrname_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$238416163) : $lzsc$238416163 instanceof LzEvent) {
+if ($lzsc$238416163.ready) {
+$lzsc$238416163.sendEvent(value_$1)
 }}}}}};
 $lzsc$temp["displayName"] = "__spriteAttribute";
 return $lzsc$temp
@@ -12626,32 +12661,32 @@ var val_$3 = refView_$1[prop_$0];
 if (prop_$0 == "x" || prop_$0 == "y") {
 tLink_$2.update(prop_$0);
 {
-var $lzsc$1742505852 = (val_$3 - tLink_$2.offset[prop_$0]) / tLink_$2.scale[prop_$0];
+var $lzsc$1752534463 = (val_$3 - tLink_$2.offset[prop_$0]) / tLink_$2.scale[prop_$0];
 if (!this.__LZdeleted) {
-var $lzsc$89188953 = "$lzc$set_" + prop_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$89188953]) : this[$lzsc$89188953] instanceof Function) {
-this[$lzsc$89188953]($lzsc$1742505852)
+var $lzsc$1746918632 = "$lzc$set_" + prop_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$1746918632]) : this[$lzsc$1746918632] instanceof Function) {
+this[$lzsc$1746918632]($lzsc$1752534463)
 } else {
-this[prop_$0] = $lzsc$1742505852;
-var $lzsc$1488839614 = this["on" + prop_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1488839614) : $lzsc$1488839614 instanceof LzEvent) {
-if ($lzsc$1488839614.ready) {
-$lzsc$1488839614.sendEvent($lzsc$1742505852)
+this[prop_$0] = $lzsc$1752534463;
+var $lzsc$1212218432 = this["on" + prop_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1212218432) : $lzsc$1212218432 instanceof LzEvent) {
+if ($lzsc$1212218432.ready) {
+$lzsc$1212218432.sendEvent($lzsc$1752534463)
 }}}}}} else if (prop_$0 == "width" || prop_$0 == "height") {
 var axis_$4 = prop_$0 == "width" ? "x" : "y";
 tLink_$2.update(axis_$4);
 {
-var $lzsc$328890012 = val_$3 / tLink_$2.scale[axis_$4];
+var $lzsc$447351567 = val_$3 / tLink_$2.scale[axis_$4];
 if (!this.__LZdeleted) {
-var $lzsc$108398816 = "$lzc$set_" + prop_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$108398816]) : this[$lzsc$108398816] instanceof Function) {
-this[$lzsc$108398816]($lzsc$328890012)
+var $lzsc$2055659075 = "$lzc$set_" + prop_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this[$lzsc$2055659075]) : this[$lzsc$2055659075] instanceof Function) {
+this[$lzsc$2055659075]($lzsc$447351567)
 } else {
-this[prop_$0] = $lzsc$328890012;
-var $lzsc$1405420150 = this["on" + prop_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1405420150) : $lzsc$1405420150 instanceof LzEvent) {
-if ($lzsc$1405420150.ready) {
-$lzsc$1405420150.sendEvent($lzsc$328890012)
+this[prop_$0] = $lzsc$447351567;
+var $lzsc$640084063 = this["on" + prop_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$640084063) : $lzsc$640084063 instanceof LzEvent) {
+if ($lzsc$640084063.ready) {
+$lzsc$640084063.sendEvent($lzsc$447351567)
 }}}}}}};
 $lzsc$temp["displayName"] = "setAttributeRelative";
 return $lzsc$temp
@@ -13247,10 +13282,10 @@ if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this["$lzc$set_context"]) : this[
 this["$lzc$set_context"](context_$0)
 } else {
 this["context"] = context_$0;
-var $lzsc$613463042 = this["oncontext"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$613463042) : $lzsc$613463042 instanceof LzEvent) {
-if ($lzsc$613463042.ready) {
-$lzsc$613463042.sendEvent(context_$0)
+var $lzsc$2130468601 = this["oncontext"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$2130468601) : $lzsc$2130468601 instanceof LzEvent) {
+if ($lzsc$2130468601.ready) {
+$lzsc$2130468601.sendEvent(context_$0)
 }}}}}}} else {
 LzView.__warnCapability("view.createContext", "2dcanvas")
 }};
@@ -15413,17 +15448,17 @@ var targ_$0 = this.target;
 var attr_$1 = this.attribute;
 if (this.from != null) {
 {
-var $lzsc$1171259498 = Number(this.from);
+var $lzsc$914779321 = Number(this.from);
 if (!targ_$0.__LZdeleted) {
-var $lzsc$1727074471 = "$lzc$set_" + attr_$1;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$0[$lzsc$1727074471]) : targ_$0[$lzsc$1727074471] instanceof Function) {
-targ_$0[$lzsc$1727074471]($lzsc$1171259498)
+var $lzsc$1571296750 = "$lzc$set_" + attr_$1;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$0[$lzsc$1571296750]) : targ_$0[$lzsc$1571296750] instanceof Function) {
+targ_$0[$lzsc$1571296750]($lzsc$914779321)
 } else {
-targ_$0[attr_$1] = $lzsc$1171259498;
-var $lzsc$2045035976 = targ_$0["on" + attr_$1];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$2045035976) : $lzsc$2045035976 instanceof LzEvent) {
-if ($lzsc$2045035976.ready) {
-$lzsc$2045035976.sendEvent($lzsc$1171259498)
+targ_$0[attr_$1] = $lzsc$914779321;
+var $lzsc$2051631344 = targ_$0["on" + attr_$1];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$2051631344) : $lzsc$2051631344 instanceof LzEvent) {
+if ($lzsc$2051631344.ready) {
+$lzsc$2051631344.sendEvent($lzsc$914779321)
 }}}}}};
 if (this.relative) {
 this.to = this.origto
@@ -15446,15 +15481,15 @@ var from_$2 = this.from;
 if (from_$2 != null) {
 {
 if (!targ_$0.__LZdeleted) {
-var $lzsc$970217754 = "$lzc$set_" + attr_$1;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$0[$lzsc$970217754]) : targ_$0[$lzsc$970217754] instanceof Function) {
-targ_$0[$lzsc$970217754](from_$2)
+var $lzsc$340547849 = "$lzc$set_" + attr_$1;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$0[$lzsc$340547849]) : targ_$0[$lzsc$340547849] instanceof Function) {
+targ_$0[$lzsc$340547849](from_$2)
 } else {
 targ_$0[attr_$1] = from_$2;
-var $lzsc$952017715 = targ_$0["on" + attr_$1];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$952017715) : $lzsc$952017715 instanceof LzEvent) {
-if ($lzsc$952017715.ready) {
-$lzsc$952017715.sendEvent(from_$2)
+var $lzsc$1217821436 = targ_$0["on" + attr_$1];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1217821436) : $lzsc$1217821436 instanceof LzEvent) {
+if ($lzsc$1217821436.ready) {
+$lzsc$1217821436.sendEvent(from_$2)
 }}}}};
 var d_$3 = from_$2 - targ_$0.getExpectedAttribute(attr_$1);
 targ_$0.addToExpectedAttribute(attr_$1, d_$3)
@@ -15510,17 +15545,17 @@ targ_$0[e_prop_$2].c -= 1;
 if (targ_$0[e_prop_$2].c <= 0) {
 targ_$0[e_prop_$2].c = 0;
 {
-var $lzsc$171734493 = targ_$0[e_prop_$2].v;
+var $lzsc$2041946398 = targ_$0[e_prop_$2].v;
 if (!targ_$0.__LZdeleted) {
-var $lzsc$536697747 = "$lzc$set_" + attr_$1;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$0[$lzsc$536697747]) : targ_$0[$lzsc$536697747] instanceof Function) {
-targ_$0[$lzsc$536697747]($lzsc$171734493)
+var $lzsc$1448427973 = "$lzc$set_" + attr_$1;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$0[$lzsc$1448427973]) : targ_$0[$lzsc$1448427973] instanceof Function) {
+targ_$0[$lzsc$1448427973]($lzsc$2041946398)
 } else {
-targ_$0[attr_$1] = $lzsc$171734493;
-var $lzsc$324962919 = targ_$0["on" + attr_$1];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$324962919) : $lzsc$324962919 instanceof LzEvent) {
-if ($lzsc$324962919.ready) {
-$lzsc$324962919.sendEvent($lzsc$171734493)
+targ_$0[attr_$1] = $lzsc$2041946398;
+var $lzsc$359373561 = targ_$0["on" + attr_$1];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$359373561) : $lzsc$359373561 instanceof LzEvent) {
+if ($lzsc$359373561.ready) {
+$lzsc$359373561.sendEvent($lzsc$2041946398)
 }}}}};
 targ_$0[e_prop_$2].v = null
 };
@@ -15574,17 +15609,17 @@ var targ_$1 = this.target;
 var attr_$2 = this.attribute;
 var aDiff_$3 = value_$0 - this.currentValue;
 {
-var $lzsc$1518357067 = targ_$1[attr_$2] + aDiff_$3;
+var $lzsc$1604296620 = targ_$1[attr_$2] + aDiff_$3;
 if (!targ_$1.__LZdeleted) {
-var $lzsc$774290891 = "$lzc$set_" + attr_$2;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$1[$lzsc$774290891]) : targ_$1[$lzsc$774290891] instanceof Function) {
-targ_$1[$lzsc$774290891]($lzsc$1518357067)
+var $lzsc$311334299 = "$lzc$set_" + attr_$2;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(targ_$1[$lzsc$311334299]) : targ_$1[$lzsc$311334299] instanceof Function) {
+targ_$1[$lzsc$311334299]($lzsc$1604296620)
 } else {
-targ_$1[attr_$2] = $lzsc$1518357067;
-var $lzsc$742734844 = targ_$1["on" + attr_$2];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$742734844) : $lzsc$742734844 instanceof LzEvent) {
-if ($lzsc$742734844.ready) {
-$lzsc$742734844.sendEvent($lzsc$1518357067)
+targ_$1[attr_$2] = $lzsc$1604296620;
+var $lzsc$439778623 = targ_$1["on" + attr_$2];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$439778623) : $lzsc$439778623 instanceof LzEvent) {
+if ($lzsc$439778623.ready) {
+$lzsc$439778623.sendEvent($lzsc$1604296620)
 }}}}};
 this.currentValue = value_$0
 };
@@ -19303,19 +19338,20 @@ $lzsc$temp["displayName"] = "serialize";
 return $lzsc$temp
 })()], ["parseQueryString", (function () {
 var $lzsc$temp = function (query_$0) {
-var parameters_$1 = query_$0.split("&");
-var queries_$2 = {};
-for (var i_$3 = 0;i_$3 < parameters_$1.length;++i_$3) {
-var key_$4 = parameters_$1[i_$3];
+var queries_$1 = {};
+if (!query_$0) return queries_$1;
+var parameters_$2 = query_$0.split("&");
+for (var i_$3 = 0;i_$3 < parameters_$2.length;++i_$3) {
+var key_$4 = parameters_$2[i_$3];
 var value_$5 = "";
 var n_$6 = key_$4.indexOf("=");
 if (n_$6 > 0) {
 value_$5 = unescape(key_$4.substring(n_$6 + 1));
 key_$4 = key_$4.substring(0, n_$6)
 };
-queries_$2[key_$4] = value_$5
+queries_$1[key_$4] = value_$5
 };
-return queries_$2
+return queries_$1
 };
 $lzsc$temp["displayName"] = "parseQueryString";
 return $lzsc$temp
@@ -20519,15 +20555,15 @@ var newvalue_$7 = node_$5.acceptTypeValue(this.type, data_$4);
 if (pchg_$2 || node_$5[attr_$6] !== newvalue_$7 || !node_$5.inited || this.parsedPath.operator == "attributes") {
 {
 if (!node_$5.__LZdeleted) {
-var $lzsc$985000545 = "$lzc$set_" + attr_$6;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(node_$5[$lzsc$985000545]) : node_$5[$lzsc$985000545] instanceof Function) {
-node_$5[$lzsc$985000545](newvalue_$7)
+var $lzsc$1462643502 = "$lzc$set_" + attr_$6;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(node_$5[$lzsc$1462643502]) : node_$5[$lzsc$1462643502] instanceof Function) {
+node_$5[$lzsc$1462643502](newvalue_$7)
 } else {
 node_$5[attr_$6] = newvalue_$7;
-var $lzsc$1061338833 = node_$5["on" + attr_$6];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1061338833) : $lzsc$1061338833 instanceof LzEvent) {
-if ($lzsc$1061338833.ready) {
-$lzsc$1061338833.sendEvent(newvalue_$7)
+var $lzsc$1542945779 = node_$5["on" + attr_$6];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1542945779) : $lzsc$1542945779 instanceof LzEvent) {
+if ($lzsc$1542945779.ready) {
+$lzsc$1542945779.sendEvent(newvalue_$7)
 }}}}}}};
 return result_$3
 };
@@ -20687,18 +20723,18 @@ args_$1.spacing = 0
 };
 this.totalsize = this.viewsize + args_$1.spacing;
 {
-var $lzsc$1807179283 = this.axis;
-var $lzsc$1075148474 = this.totalsize;
+var $lzsc$1299002584 = this.axis;
+var $lzsc$1324148958 = this.totalsize;
 if (!v_$6.__LZdeleted) {
-var $lzsc$260079511 = "$lzc$set_" + $lzsc$1807179283;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(v_$6[$lzsc$260079511]) : v_$6[$lzsc$260079511] instanceof Function) {
-v_$6[$lzsc$260079511]($lzsc$1075148474)
+var $lzsc$1152418729 = "$lzc$set_" + $lzsc$1299002584;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(v_$6[$lzsc$1152418729]) : v_$6[$lzsc$1152418729] instanceof Function) {
+v_$6[$lzsc$1152418729]($lzsc$1324148958)
 } else {
-v_$6[$lzsc$1807179283] = $lzsc$1075148474;
-var $lzsc$1681425438 = v_$6["on" + $lzsc$1807179283];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1681425438) : $lzsc$1681425438 instanceof LzEvent) {
-if ($lzsc$1681425438.ready) {
-$lzsc$1681425438.sendEvent($lzsc$1075148474)
+v_$6[$lzsc$1299002584] = $lzsc$1324148958;
+var $lzsc$774284208 = v_$6["on" + $lzsc$1299002584];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$774284208) : $lzsc$774284208 instanceof LzEvent) {
+if ($lzsc$774284208.ready) {
+$lzsc$774284208.sendEvent($lzsc$1324148958)
 }}}}};
 this.__LZdataoffset = 0;
 this.updateDel = new LzDelegate(this, "__LZhandleUpdate");
@@ -20742,17 +20778,17 @@ if (_nodes_$3) {
 var nodelen_$7 = _nodes_$3.length;
 if (this.__LZoldnodelen != nodelen_$7) {
 {
-var $lzsc$200364335 = nodelen_$7 * _totalsize_$6 - this.spacing;
+var $lzsc$698310780 = nodelen_$7 * _totalsize_$6 - this.spacing;
 if (!cloneip_$2.__LZdeleted) {
-var $lzsc$297709278 = "$lzc$set_" + _sizeAxis_$5;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cloneip_$2[$lzsc$297709278]) : cloneip_$2[$lzsc$297709278] instanceof Function) {
-cloneip_$2[$lzsc$297709278]($lzsc$200364335)
+var $lzsc$892718804 = "$lzc$set_" + _sizeAxis_$5;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cloneip_$2[$lzsc$892718804]) : cloneip_$2[$lzsc$892718804] instanceof Function) {
+cloneip_$2[$lzsc$892718804]($lzsc$698310780)
 } else {
-cloneip_$2[_sizeAxis_$5] = $lzsc$200364335;
-var $lzsc$2092570824 = cloneip_$2["on" + _sizeAxis_$5];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$2092570824) : $lzsc$2092570824 instanceof LzEvent) {
-if ($lzsc$2092570824.ready) {
-$lzsc$2092570824.sendEvent($lzsc$200364335)
+cloneip_$2[_sizeAxis_$5] = $lzsc$698310780;
+var $lzsc$1998406060 = cloneip_$2["on" + _sizeAxis_$5];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1998406060) : $lzsc$1998406060 instanceof LzEvent) {
+if ($lzsc$1998406060.ready) {
+$lzsc$1998406060.sendEvent($lzsc$698310780)
 }}}}};
 this.__LZoldnodelen = nodelen_$7
 }};
@@ -20795,17 +20831,17 @@ cl_$g = this.getNewClone()
 if (cl_$g) {
 this.clones[i_$f] = cl_$g;
 {
-var $lzsc$359969038 = (i_$f + newstart_$8) * _totalsize_$6;
+var $lzsc$284330892 = (i_$f + newstart_$8) * _totalsize_$6;
 if (!cl_$g.__LZdeleted) {
-var $lzsc$1426985662 = "$lzc$set_" + _axis_$4;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cl_$g[$lzsc$1426985662]) : cl_$g[$lzsc$1426985662] instanceof Function) {
-cl_$g[$lzsc$1426985662]($lzsc$359969038)
+var $lzsc$507305910 = "$lzc$set_" + _axis_$4;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cl_$g[$lzsc$507305910]) : cl_$g[$lzsc$507305910] instanceof Function) {
+cl_$g[$lzsc$507305910]($lzsc$284330892)
 } else {
-cl_$g[_axis_$4] = $lzsc$359969038;
-var $lzsc$446399017 = cl_$g["on" + _axis_$4];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$446399017) : $lzsc$446399017 instanceof LzEvent) {
-if ($lzsc$446399017.ready) {
-$lzsc$446399017.sendEvent($lzsc$359969038)
+cl_$g[_axis_$4] = $lzsc$284330892;
+var $lzsc$1041657667 = cl_$g["on" + _axis_$4];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1041657667) : $lzsc$1041657667 instanceof LzEvent) {
+if ($lzsc$1041657667.ready) {
+$lzsc$1041657667.sendEvent($lzsc$284330892)
 }}}}};
 cl_$g.clonenumber = newstart_$8 + i_$f;
 if (_nodes_$3) {
@@ -21009,50 +21045,50 @@ this.clones[i_$e] = cl_$m
 };
 this.clones[i_$e] = cl_$m;
 {
-var $lzsc$1533806340 = this.axis;
+var $lzsc$1649814384 = this.axis;
 if (!cl_$m.__LZdeleted) {
-var $lzsc$775247468 = "$lzc$set_" + $lzsc$1533806340;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cl_$m[$lzsc$775247468]) : cl_$m[$lzsc$775247468] instanceof Function) {
-cl_$m[$lzsc$775247468](clpos_$n)
+var $lzsc$2066959854 = "$lzc$set_" + $lzsc$1649814384;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cl_$m[$lzsc$2066959854]) : cl_$m[$lzsc$2066959854] instanceof Function) {
+cl_$m[$lzsc$2066959854](clpos_$n)
 } else {
-cl_$m[$lzsc$1533806340] = clpos_$n;
-var $lzsc$1636814689 = cl_$m["on" + $lzsc$1533806340];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1636814689) : $lzsc$1636814689 instanceof LzEvent) {
-if ($lzsc$1636814689.ready) {
-$lzsc$1636814689.sendEvent(clpos_$n)
+cl_$m[$lzsc$1649814384] = clpos_$n;
+var $lzsc$507933699 = cl_$m["on" + $lzsc$1649814384];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$507933699) : $lzsc$507933699 instanceof LzEvent) {
+if ($lzsc$507933699.ready) {
+$lzsc$507933699.sendEvent(clpos_$n)
 }}}}};
 var ds_$g = cnode_$f.getUserData(this.datasizevar);
 var csiz_$h = ds_$g == null ? this.viewsize : ds_$g;
 if (cl_$m[this.sizeAxis] != csiz_$h) {
 {
-var $lzsc$1080324828 = this.sizeAxis;
+var $lzsc$1228801456 = this.sizeAxis;
 if (!cl_$m.__LZdeleted) {
-var $lzsc$908223578 = "$lzc$set_" + $lzsc$1080324828;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cl_$m[$lzsc$908223578]) : cl_$m[$lzsc$908223578] instanceof Function) {
-cl_$m[$lzsc$908223578](csiz_$h)
+var $lzsc$844073983 = "$lzc$set_" + $lzsc$1228801456;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(cl_$m[$lzsc$844073983]) : cl_$m[$lzsc$844073983] instanceof Function) {
+cl_$m[$lzsc$844073983](csiz_$h)
 } else {
-cl_$m[$lzsc$1080324828] = csiz_$h;
-var $lzsc$470810255 = cl_$m["on" + $lzsc$1080324828];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$470810255) : $lzsc$470810255 instanceof LzEvent) {
-if ($lzsc$470810255.ready) {
-$lzsc$470810255.sendEvent(csiz_$h)
+cl_$m[$lzsc$1228801456] = csiz_$h;
+var $lzsc$1691042761 = cl_$m["on" + $lzsc$1228801456];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1691042761) : $lzsc$1691042761 instanceof LzEvent) {
+if ($lzsc$1691042761.ready) {
+$lzsc$1691042761.sendEvent(csiz_$h)
 }}}}}};
 clpos_$n += csiz_$h + this.spacing
 };
 this.__LZdataoffset = newoffset_$5;
 {
-var $lzsc$437352171 = this.cloneimmediateparent;
-var $lzsc$1551839138 = this.sizeAxis;
-if (!$lzsc$437352171.__LZdeleted) {
-var $lzsc$1162208335 = "$lzc$set_" + $lzsc$1551839138;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa($lzsc$437352171[$lzsc$1162208335]) : $lzsc$437352171[$lzsc$1162208335] instanceof Function) {
-$lzsc$437352171[$lzsc$1162208335](cpos_$9)
+var $lzsc$1728758628 = this.cloneimmediateparent;
+var $lzsc$1396084903 = this.sizeAxis;
+if (!$lzsc$1728758628.__LZdeleted) {
+var $lzsc$2042811169 = "$lzc$set_" + $lzsc$1396084903;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa($lzsc$1728758628[$lzsc$2042811169]) : $lzsc$1728758628[$lzsc$2042811169] instanceof Function) {
+$lzsc$1728758628[$lzsc$2042811169](cpos_$9)
 } else {
-$lzsc$437352171[$lzsc$1551839138] = cpos_$9;
-var $lzsc$1036900155 = $lzsc$437352171["on" + $lzsc$1551839138];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1036900155) : $lzsc$1036900155 instanceof LzEvent) {
-if ($lzsc$1036900155.ready) {
-$lzsc$1036900155.sendEvent(cpos_$9)
+$lzsc$1728758628[$lzsc$1396084903] = cpos_$9;
+var $lzsc$1145081604 = $lzsc$1728758628["on" + $lzsc$1396084903];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1145081604) : $lzsc$1145081604 instanceof LzEvent) {
+if ($lzsc$1145081604.ready) {
+$lzsc$1145081604.sendEvent(cpos_$9)
 }}}}};
 this.__LZresizeupdating = false
 };
@@ -22571,6 +22607,12 @@ LzKeyboardKernel.__allKeysUp()
 };
 $lzsc$temp["displayName"] = "__allKeysUp";
 return $lzsc$temp
+})(), "__browserTabEvent", (function () {
+var $lzsc$temp = function (shiftdown_$0) {
+LzKeyboardKernel.__browserTabEvent(shiftdown_$0)
+};
+$lzsc$temp["displayName"] = "__browserTabEvent";
+return $lzsc$temp
 })(), "gotKeyDown", (function () {
 var $lzsc$temp = function (kC_$0, info_$1) {
 switch (arguments.length) {
@@ -22816,19 +22858,19 @@ var h_$3 = this.__lzhistq[offset_$2];
 for (var u_$4 in h_$3) {
 var obj_$5 = h_$3[u_$4];
 {
-var $lzsc$335234935 = global[obj_$5.c];
-var $lzsc$692457704 = obj_$5.n;
-var $lzsc$424161483 = obj_$5.v;
-if (!$lzsc$335234935.__LZdeleted) {
-var $lzsc$1582472452 = "$lzc$set_" + $lzsc$692457704;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa($lzsc$335234935[$lzsc$1582472452]) : $lzsc$335234935[$lzsc$1582472452] instanceof Function) {
-$lzsc$335234935[$lzsc$1582472452]($lzsc$424161483)
+var $lzsc$2110307285 = global[obj_$5.c];
+var $lzsc$670081291 = obj_$5.n;
+var $lzsc$1029242689 = obj_$5.v;
+if (!$lzsc$2110307285.__LZdeleted) {
+var $lzsc$2129488016 = "$lzc$set_" + $lzsc$670081291;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa($lzsc$2110307285[$lzsc$2129488016]) : $lzsc$2110307285[$lzsc$2129488016] instanceof Function) {
+$lzsc$2110307285[$lzsc$2129488016]($lzsc$1029242689)
 } else {
-$lzsc$335234935[$lzsc$692457704] = $lzsc$424161483;
-var $lzsc$1773021632 = $lzsc$335234935["on" + $lzsc$692457704];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1773021632) : $lzsc$1773021632 instanceof LzEvent) {
-if ($lzsc$1773021632.ready) {
-$lzsc$1773021632.sendEvent($lzsc$424161483)
+$lzsc$2110307285[$lzsc$670081291] = $lzsc$1029242689;
+var $lzsc$1227776513 = $lzsc$2110307285["on" + $lzsc$670081291];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1227776513) : $lzsc$1227776513 instanceof LzEvent) {
+if ($lzsc$1227776513.ready) {
+$lzsc$1227776513.sendEvent($lzsc$1029242689)
 }}}}}};
 this.offset = offset_$2;
 if (this.onoffset.ready) this.onoffset.sendEvent(offset_$2);
@@ -22840,15 +22882,15 @@ return $lzsc$temp
 var $lzsc$temp = function (n_$0, v_$1) {
 {
 if (!canvas.__LZdeleted) {
-var $lzsc$292429287 = "$lzc$set_" + n_$0;
-if (Function["$lzsc$isa"] ? Function.$lzsc$isa(canvas[$lzsc$292429287]) : canvas[$lzsc$292429287] instanceof Function) {
-canvas[$lzsc$292429287](v_$1)
+var $lzsc$245574358 = "$lzc$set_" + n_$0;
+if (Function["$lzsc$isa"] ? Function.$lzsc$isa(canvas[$lzsc$245574358]) : canvas[$lzsc$245574358] instanceof Function) {
+canvas[$lzsc$245574358](v_$1)
 } else {
 canvas[n_$0] = v_$1;
-var $lzsc$127571107 = canvas["on" + n_$0];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$127571107) : $lzsc$127571107 instanceof LzEvent) {
-if ($lzsc$127571107.ready) {
-$lzsc$127571107.sendEvent(v_$1)
+var $lzsc$473466081 = canvas["on" + n_$0];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$473466081) : $lzsc$473466081 instanceof LzEvent) {
+if ($lzsc$473466081.ready) {
+$lzsc$473466081.sendEvent(v_$1)
 }}}}}};
 $lzsc$temp["displayName"] = "receiveEvent";
 return $lzsc$temp
@@ -24210,10 +24252,10 @@ if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this["$lzc$set_width"]) : this["$
 this["$lzc$set_width"]($1)
 } else {
 this["width"] = $1;
-var $lzsc$1244510535 = this["onwidth"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1244510535) : $lzsc$1244510535 instanceof LzEvent) {
-if ($lzsc$1244510535.ready) {
-$lzsc$1244510535.sendEvent($1)
+var $lzsc$1828789752 = this["onwidth"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1828789752) : $lzsc$1828789752 instanceof LzEvent) {
+if ($lzsc$1828789752.ready) {
+$lzsc$1828789752.sendEvent($1)
 }}}}}}}};
 $lzsc$temp["displayName"] = "contextmenu.js#35/124";
 return $lzsc$temp
@@ -24235,10 +24277,10 @@ if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this["$lzc$set_height"]) : this["
 this["$lzc$set_height"]($1)
 } else {
 this["height"] = $1;
-var $lzsc$1013892833 = this["onheight"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1013892833) : $lzsc$1013892833 instanceof LzEvent) {
-if ($lzsc$1013892833.ready) {
-$lzsc$1013892833.sendEvent($1)
+var $lzsc$954728108 = this["onheight"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$954728108) : $lzsc$954728108 instanceof LzEvent) {
+if ($lzsc$954728108.ready) {
+$lzsc$954728108.sendEvent($1)
 }}}}}}}};
 $lzsc$temp["displayName"] = "contextmenu.js#42/11";
 return $lzsc$temp
@@ -24330,28 +24372,28 @@ $0.y = canvas.height - this.height
 };
 this.bringToFront();
 {
-var $lzsc$1660671732 = $0.x;
+var $lzsc$196408295 = $0.x;
 if (!this.__LZdeleted) {
 if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this["$lzc$set_x"]) : this["$lzc$set_x"] instanceof Function) {
-this["$lzc$set_x"]($lzsc$1660671732)
+this["$lzc$set_x"]($lzsc$196408295)
 } else {
-this["x"] = $lzsc$1660671732;
-var $lzsc$1207961315 = this["onx"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1207961315) : $lzsc$1207961315 instanceof LzEvent) {
-if ($lzsc$1207961315.ready) {
-$lzsc$1207961315.sendEvent($lzsc$1660671732)
+this["x"] = $lzsc$196408295;
+var $lzsc$872638056 = this["onx"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$872638056) : $lzsc$872638056 instanceof LzEvent) {
+if ($lzsc$872638056.ready) {
+$lzsc$872638056.sendEvent($lzsc$196408295)
 }}}}};
 {
-var $lzsc$1865896172 = $0.y;
+var $lzsc$361194831 = $0.y;
 if (!this.__LZdeleted) {
 if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this["$lzc$set_y"]) : this["$lzc$set_y"] instanceof Function) {
-this["$lzc$set_y"]($lzsc$1865896172)
+this["$lzc$set_y"]($lzsc$361194831)
 } else {
-this["y"] = $lzsc$1865896172;
-var $lzsc$1976487100 = this["ony"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1976487100) : $lzsc$1976487100 instanceof LzEvent) {
-if ($lzsc$1976487100.ready) {
-$lzsc$1976487100.sendEvent($lzsc$1865896172)
+this["y"] = $lzsc$361194831;
+var $lzsc$489704101 = this["ony"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$489704101) : $lzsc$489704101 instanceof LzEvent) {
+if ($lzsc$489704101.ready) {
+$lzsc$489704101.sendEvent($lzsc$361194831)
 }}}}};
 {
 if (!this.__LZdeleted) {
@@ -24359,10 +24401,10 @@ if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this["$lzc$set_visible"]) : this[
 this["$lzc$set_visible"](true)
 } else {
 this["visible"] = true;
-var $lzsc$149737148 = this["onvisible"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$149737148) : $lzsc$149737148 instanceof LzEvent) {
-if ($lzsc$149737148.ready) {
-$lzsc$149737148.sendEvent(true)
+var $lzsc$734234995 = this["onvisible"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$734234995) : $lzsc$734234995 instanceof LzEvent) {
+if ($lzsc$734234995.ready) {
+$lzsc$734234995.sendEvent(true)
 }}}}};
 this.__globalmousedel.register(lz.GlobalMouse, "onmousedown")
 }};
@@ -24382,10 +24424,10 @@ if (Function["$lzsc$isa"] ? Function.$lzsc$isa(this["$lzc$set_visible"]) : this[
 this["$lzc$set_visible"](false)
 } else {
 this["visible"] = false;
-var $lzsc$236499896 = this["onvisible"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$236499896) : $lzsc$236499896 instanceof LzEvent) {
-if ($lzsc$236499896.ready) {
-$lzsc$236499896.sendEvent(false)
+var $lzsc$1915504677 = this["onvisible"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1915504677) : $lzsc$1915504677 instanceof LzEvent) {
+if ($lzsc$1915504677.ready) {
+$lzsc$1915504677.sendEvent(false)
 }}}}}}};
 $lzsc$temp["displayName"] = "contextmenu.js#83/11";
 return $lzsc$temp
@@ -24414,10 +24456,10 @@ if (Function["$lzsc$isa"] ? Function.$lzsc$isa($8["$lzc$set_y"]) : $8["$lzc$set_
 $8["$lzc$set_y"]($5)
 } else {
 $8["y"] = $5;
-var $lzsc$1274846465 = $8["ony"];
-if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$1274846465) : $lzsc$1274846465 instanceof LzEvent) {
-if ($lzsc$1274846465.ready) {
-$lzsc$1274846465.sendEvent($5)
+var $lzsc$976635814 = $8["ony"];
+if (LzEvent["$lzsc$isa"] ? LzEvent.$lzsc$isa($lzsc$976635814) : $lzsc$976635814 instanceof LzEvent) {
+if ($lzsc$976635814.ready) {
+$lzsc$976635814.sendEvent($5)
 }}}}};
 $5 += $8.height
 }};

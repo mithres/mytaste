@@ -21,26 +21,26 @@ public class IndexAction extends BaseAction {
 	private ISystemService systemService = null;
 	@Autowired
 	private IPlayListService playListService = null;
-	
+
 	private MenuVO menuVO = null;
-	
+
 	private IPageList<PlayList> playLists = null;
 
 	@Override
 	public String process() {
-		
-		if(getSession().getAttribute(Constants.MENU_STAT) == null){
+
+		if (getSession().getAttribute(Constants.MENU_STAT) == null) {
 			menuVO = new MenuVO();
 			menuVO.setChannels(systemService.findParentChannels());
-		}else{
-			menuVO = (MenuVO)getSession().getAttribute(Constants.MENU_STAT);
+		} else {
+			menuVO = (MenuVO) getSession().getAttribute(Constants.MENU_STAT);
 		}
 		menuVO.setMenuStat(Constants.VOD_SCOPE_NAME);
 		getSession().setAttribute(Constants.MENU_STAT, menuVO);
-		
+
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 		condition.setOrderBy("All");
-		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),8), condition);
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(), 8), condition);
 		
 		return Action.SUCCESS;
 	}
