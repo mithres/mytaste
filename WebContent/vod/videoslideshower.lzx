@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<canvas debug="true">
-	
-	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
-	<include href="../lps/videoconference/base/visualslider.lzx"/>
+<canvas>
 	
 	<splash/>
-	
-	<script>
-		canvas.setDefaultContextMenu(new LzContextMenu());
 
-		function init(url) {
-			Debug.write(url);
-			dsVideos.setAttribute("src",url);
-			dsVideos.doRequest();
-		}
+	<include href="../lps/videoconference/conf/lpsconfig.lzx"/>
+	<include href="../lps/videoconference/base/visualslider.lzx"/>
+
+	<script>
+		<![CDATA[
+		canvas.setDefaultContextMenu(new LzContextMenu());
+		]]>
 	</script>
 	
-	<dataset name="dsVideos" request="true"  querytype="get" type="http">
+	
+	<dataset name="dsVideos" request="true" querytype="get" type="http" src="${'/'+canvas.webRootKey+'/common/recommend'}">
 		<handler name="ondata">
-			Debug.write("data ok");
 			vs.setAttribute("datapath","dsVideos:/videos");
 		</handler>
 	</dataset>	

@@ -1,5 +1,6 @@
 <library>
-
+   
+   <!-- maindebug.lzx?lzproxied=solo&lzr=swf8 -->
 	
 	<attribute name="webRootKey" value="MyTaste" type="string"/>
 	

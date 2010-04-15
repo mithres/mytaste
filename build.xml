@@ -19,7 +19,7 @@
 	<property name="webcontent.dir" value="${basedir}/WebContent" />
 
 	<!-- LPS Properties -->
-	<property name="laszlo.vod.test" value="${basedir}/WebContent/test" />
+	<property name="laszlo.commons.src" value="${basedir}/WebContent/flashcommons" />
 	<property name="laszlo.vod.src" value="${basedir}/WebContent/vod" />
 	<property name="laszlo.conference.src" value="${basedir}/WebContent/conference" />
 	<property name="laszlo.home" value="${basedir}/WebContent" />
@@ -62,9 +62,16 @@
 			</fileset>
 		</copy>
 
+
+
 	</target>
 
-	<target name="compile.vodplayer">
+	<target name="copyFlashCommons">
+		<copy file="${laszlo.vod.src}/videoslideshower.lzx.swf8.swf" tofile="${laszlo.commons.src}/videoslideshower.swf"/>
+	</target>
+
+
+	<target name="compile.vodplayer" depends="compile.trainingplayer">
 		<java classname="org.openlaszlo.compiler.Main" fork="true" newenvironment="true" failonerror="true" dir="${laszlo.vod.src}" classpathref="laszlo.lib">
 			<jvmarg value="-DLPS_HOME=${laszlo.home}" />
 			<jvmarg value="-Dlzdebug=${laszlo.debug}" />
@@ -83,18 +90,6 @@
 			<jvmarg value="-Xms512M" />
 			<jvmarg value="-Xmx512M" />
 			<arg line="--runtime=swf8 --dir ${laszlo.conference.src} --mcache on --onerror warn training.lzx" />
-		</java>
-	</target>
-
-
-	<target name="compile.slideshower">
-		<java classname="org.openlaszlo.compiler.Main" fork="true" newenvironment="true" failonerror="true" dir="${laszlo.vod.src}" classpathref="laszlo.lib">
-			<jvmarg value="-DLPS_HOME=${laszlo.home}" />
-			<jvmarg value="-Dlzdebug=${laszlo.debug}" />
-			<jvmarg value="-Dlzproxied=${laszlo.proxied}" />
-			<jvmarg value="-Xms512M" />
-			<jvmarg value="-Xmx512M" />
-			<arg line="--runtime=swf8 --dir ${laszlo.vod.src} --mcache on --onerror warn videoslideshower.lzx" />
 		</java>
 	</target>
 
