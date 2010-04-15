@@ -29,7 +29,7 @@
 <script>
 	lz.embed.swf( {	
 		url : '<web.page:path/>/vod/vodplayer.swf8.swf',
-		allowfullscreen : 'false',
+		allowfullscreen : 'true',
 		width : '640',
 		height : '496',
 		id : 'lzapp'

@@ -255,12 +255,13 @@
         </view>
 
     <view name="controls" layout="axis:x">
+		
         <view name="timefield"
           width="140"
           height="${parent.height}"
           visible="${classroot.showTimeDisplay}"
         >
-
+	
 
             <view name="background"
                 x="0"
@@ -284,7 +285,6 @@
 
 
         </view>
-
 
         <videovolumebutton name="volumebutton"
             visible="${classroot.showVolumeControl}"

@@ -31,7 +31,7 @@
 			//rc.getSignature.callRPC();
 		}
 	</script>
-	
+
 	<vcrtmpconnection name="rc" autoconnect="false">
 		
 		<handler name="onconnect">
@@ -71,18 +71,25 @@
 	
 	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
 	
-	<view layout="axis:y;">
-		
+	<view bgcolor="black" width="${parent.width}" layout="axis:y">
 		<handler name="onclick">
-			if(!s2. playing){
+			if (!s2.playing) {
 				s2.play();
 			}
 		</handler>
+		<videoview id="vid" width="${parent.width}" height="${canvas.height - 18}" type="rtmp" stream="${s2}"/>
+			
+		<view name="fullScreen" width="${parent.width -2 }" x="1" y="1" height="18">
+			<videoslider name="vslider"	width="${parent.width - parent.height}" height="${parent.height}" visible="true" ms="${s2}" showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
+			<button name="ful" width="${parent.height}" height="${parent.height}" x="${parent.width - parent.height}">
+				<handler name="onclick">
+					Debug.write(canvas.width + ":" + canvas.height);
+					canvas.setAttribute("fullscreen", true);
+				</handler>
+			</button>	
+		</view>
 		
-		<videoview id="vid" width="640" height="480" type="rtmp" stream="${s2}"/>
-
-		<videoslider name="vslider"	width="640"	height="16"	visible="true"	ms="${s2}" y="${vid.height}" 
-			showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
+		
 	</view>
 	
 	
