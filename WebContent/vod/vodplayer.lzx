@@ -75,6 +75,8 @@
 		<handler name="onclick">
 			if (!s2.playing) {
 				s2.play();
+			}else{
+				s2.pause();
 			}
 		</handler>
 		<videoview id="vid" width="${parent.width}" height="${canvas.height - 18}" type="rtmp" stream="${s2}"/>
