@@ -18,6 +18,8 @@
 		<intercept-url pattern="/flashcommons/**" filters="none"/>
 		<intercept-url pattern="/lps/includes/**" filters="none"/>
 		<intercept-url pattern="/accessdenied.jsp" filters="none"/>
+		<!-- TODO:remove it later -->
+		<intercept-url pattern="/photos/**" filters="none"/>
 		
 		<intercept-url pattern="/" filters="none"/>
 		<concurrent-session-control max-sessions="2" exception-if-maximum-exceeded="true"/> 
