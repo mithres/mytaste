@@ -301,13 +301,6 @@ div.main{
 	margin:10px 0px 0px 405px;
 }	
 
-
-
-
-
-
-
-
 /* Clear fix */
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 .clearfix { display: inline-block; }
@@ -334,19 +327,6 @@ li.n { position:absolute; top:150px; right:-32px; }
 /* Type */
 h1 { font:normal 20px/18px georgia, times, serif; letter-spacing:-0.5px; margin:0; }
 p { margin-bottom:18px; }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 td {
 	text-align: center;
@@ -471,7 +451,7 @@ margin-right:15px;
 left:0;
 position:relative;
 top:0;
-width:128px;
+width:192px;
 z-index:0;
 }
 .indexV .iVideo .video li {
@@ -479,11 +459,11 @@ line-height:16px;
 }
 
 .video .videoImg, .video .vImg {
-height: 96px;
+height: 108px;
 left:0;
 position:relative;
 top:0;
-width:128px;
+width:192px;
 z-index:0;
 }
 .indexV .iVideo .vTitle {
@@ -611,4 +591,39 @@ cursor:default;
 }
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected div, div#profile-sub-section-container ul#tab-container li.tab-unselected div {
 cursor:pointer;
+}
+
+
+#divTab .tabs {
+	width: auto; 
+	height: 25px;
+	border-bottom: #dddddd 1px solid; 
+}
+
+#divTab .tabs li:hover{
+	background:#99CC33;
+}
+
+#divTab .tabs li {
+	float: left;
+	border: #dddddd 1px solid; 
+	padding-left: 10px;
+	padding-right: 10px;   
+	padding-top: 0px;
+	padding-bottom: 0px;
+	line-height: 24px;  
+	curser: pointer;   
+	color: #333333;
+}
+
+#divTab .tabs .selectedTab {
+	font-weight: bold; 
+	background: #dddddd;   
+	color: #333333;
+	height: 24px;
+}
+
+#divTab .tabs a{
+	font-weight:bold;
+	text-decoration:none;
 }
