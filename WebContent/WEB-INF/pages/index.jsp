@@ -27,16 +27,16 @@
 	});
 </script>
 
-<div style="position: relative; margin-top: 1px;" class="fixed-lg relative container main">
-
+<div style="margin-top: 1px;" class="fixed-lg relative container main">
+<div id="playListRender">
 <h1>Popular Videos</h1>
-<div id="playListRender"><s:iterator value="playLists.records"
+<s:iterator value="playLists.records"
 	var="playList" status="stat">
-	<!-- s:property value="#stat.index"/-->
 	<%@include file="vod/playlistentryshort.jsp"%>
-</s:iterator></div>
+</s:iterator>
+</div>
 
-<h1>Popular Moderators</h1>
+
 
 
 
