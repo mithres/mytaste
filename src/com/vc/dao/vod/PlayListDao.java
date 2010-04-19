@@ -14,15 +14,24 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 
 	private static final String FIND_PLAYLIST_COUNT_BASE = " select count(pl.id) from PlayList pl ";
 
-	private static final String FIND_PLAYLIST_BASE = " from PlayList pl left join fetch pl.comments ";
+	private static final String FIND_PLAYLIST_BASE = " from PlayList pl ";
 
 	public Long findPlayListCount(PlayListSearchCondition condition) {
 		return this.findRowCount(FIND_PLAYLIST_COUNT_BASE);
 	}
 
 	public List<PlayList> findPlayList(PlayListSearchCondition condition, Hints hnts) {
-		String hql = FIND_PLAYLIST_BASE + createHqlCondition(condition) + createHqlOrderByCondition(condition);
+		String hql = createHqlBodyByCondition(condition) + createHqlCondition(condition)
+				+ createHqlOrderByCondition(condition);
 		return this.findPaged(hql, hnts);
+	}
+
+	private static final String createHqlBodyByCondition(PlayListSearchCondition condition) {
+		if (condition.isWithComments()) {
+			return FIND_PLAYLIST_BASE + " left join fetch pl.comments ";
+		} else {
+			return FIND_PLAYLIST_BASE;
+		}
 	}
 
 	private static final String createHqlOrderByCondition(PlayListSearchCondition condition) {
