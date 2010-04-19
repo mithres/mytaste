@@ -23,7 +23,7 @@ public class PlayListIndexAction extends BaseAction {
 	@Autowired
 	private IPlayListService playListService = null;
 	
-	private IPageList<PlayList> playList = null;
+	private IPageList<PlayList> playLists = null;
 	
 	private MenuVO menuVO = null;
 	
@@ -41,7 +41,7 @@ public class PlayListIndexAction extends BaseAction {
 		
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 		condition.setOrderBy("AddedTime");
-		playList = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()),condition);
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()),condition);
 		return Action.SUCCESS;
 	}
 	
@@ -49,12 +49,13 @@ public class PlayListIndexAction extends BaseAction {
 		return playListService;
 	}
 
-	public IPageList<PlayList> getPlayList() {
-		return playList;
-	}
 
 	public MenuVO getMenuVO() {
 		return menuVO;
+	}
+
+	public IPageList<PlayList> getPlayLists() {
+		return playLists;
 	}
 
 }
