@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page
-	import="org.springframework.security.ui.AbstractProcessingFilter"%>
+<%@ page import="org.springframework.security.ui.AbstractProcessingFilter"%>
 <%@ page import="org.springframework.security.AuthenticationException"%>
 
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
+<%@ taglib prefix="p" uri="/WEB-INF/tlds/photo.tld"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,8 +27,7 @@
 	});
 </script>
 
-<div style="position: relative; margin-top: 1px;"
-	class="fixed-lg relative container main">
+<div style="position: relative; margin-top: 1px;" class="fixed-lg relative container main">
 
 <h1>Popular Videos</h1>
 <div id="playListRender"><s:iterator value="playLists.records"
@@ -123,9 +121,11 @@ $(document).ready(function() {
 			id="ccode" src="signUp/captcha" border="0" /></a></td>
 	</tr>
 	<tr>
-		<td colspan='2'><input type="image"
+		<td colspan='2'>
+		<input type="submit"/>
+		<!-- input type="image"
 			src="<web.page:path/>/images/rp_login.jpg"
-			name='<s:text name="vc.button.submit" />' /></td>
+			name='<s:text name="vc.button.submit" />' /--></td>
 	</tr>
 </table>
 

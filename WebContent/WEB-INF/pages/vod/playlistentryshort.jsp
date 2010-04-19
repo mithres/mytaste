@@ -4,8 +4,7 @@
 		<a onmouseover="javascript:vidContents('<s:property value="id"/>');$('#btnplay<s:property value="id"/>').css('visibility','visible')" id="btnplay<s:property value="id"/>" style="visibility: hidden; left: 47px; top: 30px; height: 32px; width: 33px;" class="play" target="" href="#">
 		<img border="0" style="height: 32px; width: 33px;" src="<web.page:path/>/images/btn-play-big.png"></a>
 			<a onmouseout="$('#btnplay<s:property value="id"/>').css('visibility','hidden')" onmouseover="javascript:vidContents('<s:property value="id"/>');$('#btnplay<s:property value="id"/>').css('visibility','visible')" name="hotVideoList" href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>" class="tipAnchor">
-			
-			<img height="96" width="128" alt="<s:property value="playListName"/>" src="<web.page:path/>/images/generated.jpg"></a>	
+			<img height="96" width="128" alt="<s:property value="playListName"/>" src="<p:photo index="${playList.playListIndex}" photoType="FilmScreenShot"/>"></a>	
 		</li>		
 		<li class="vMenu"><img onmouseout="this.src='<web.page:path/>/images/qls.gif'" onmouseover="this.src='<web.page:path/>/images/qlh.gif'" title="Add this video to your queue" style="display: block;" src="<web.page:path/>/images/qls.gif"></li>
 		<li class="vTitle"><a href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>" style="text-decoration: none;font-weight:bold;font-size:14px;" title="<s:property value="playListName"/>"><s:property value="playListName"/></a></li>
