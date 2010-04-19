@@ -32,11 +32,21 @@
 	class="fixed-lg relative">
 <div class="section top">
 <div class="standard tidy">
+
+<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
+
+<ul style="" class="usernav" id="logged-out-nav">
+	<li class="first sign-out-link">Welcome : <a class="utility-link" href="<web.page:path/>/user/accountInfo"><security:authentication property="name"/></a></li>
+	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/logout">Logout</a></li>
+</ul>
+</security:authorize>
+<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER">
 <ul style="" class="usernav" id="logged-out-nav">
 	<li class="first sign-out-link"><a onclick="FloatingLoginForm.showTop(this); return false;" id="login-link" href="#" class="utility-link">Login</a></li>
 	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/forgot_password">Forgot Password?</a></li>
 	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/signUp/signUpIndex">Sign Up</a></li>
 </ul>
+</security:authorize>
 
 
 <ul class="nv">

@@ -14,15 +14,11 @@
 		<intercept-url pattern="/images/**" filters="none"/>
 		<intercept-url pattern="/signUp/**" filters="none"/>
 		<intercept-url pattern="/common/**" filters="none"/>
-		<intercept-url pattern="/login.jsp" filters="none"/>
 		<intercept-url pattern="/flashcommons/**" filters="none"/>
 		<intercept-url pattern="/lps/includes/**" filters="none"/>
 		<intercept-url pattern="/accessdenied.jsp" filters="none"/>
-		<!-- TODO:remove it later -->
-		<intercept-url pattern="/photos/**" filters="none"/>
-		
-		<intercept-url pattern="/" filters="none"/>
-		<concurrent-session-control max-sessions="2" exception-if-maximum-exceeded="true"/> 
+		<concurrent-session-control max-sessions="2" exception-if-maximum-exceeded="true"/>
+		<anonymous granted-authority="ROLE_ANONYMOUS"/>   
 	</http>
 	
 	<beans:bean id="authenticationProcessingFilter" class="com.vc.presentation.filter.VCAuthenticationProcessingFilter">
