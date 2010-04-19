@@ -42,10 +42,10 @@ public class PlayListIndexAction extends BaseAction {
 		getSession().setAttribute(Constants.MENU_STAT, menuVO);
 		
 		PlayListSearchCondition condition = new PlayListSearchCondition();
-		condition.setOrderBy("AddedTime");
+		condition.setOrderBy("All");
 		playLists = playListService.findPlayListByCondition(new Hints(Constants.DEFAULT_START,Constants.DEFAULT_COUNT),condition);
 		
-		condition.setOrderBy("All");
+		condition.setOrderBy("AddedTime");
 		recentlyAddedPlayLists = playListService.findPlayListByCondition(new Hints(Constants.DEFAULT_START,Constants.DEFAULT_COUNT),condition);
 		
 		return Action.SUCCESS;
