@@ -9,6 +9,8 @@ public class PlayListSearchCondition {
 	private String channelId = null;
 	
 	private String orderBy = null;
+	
+	private boolean withComments = true;
 
 	public PlayListType getPlayListType() {
 		return playListType;
@@ -32,6 +34,14 @@ public class PlayListSearchCondition {
 
 	public void setOrderBy(String orderBy) {
 		this.orderBy = orderBy;
+	}
+
+	public boolean isWithComments() {
+		return withComments;
+	}
+
+	public void setWithComments(boolean withComments) {
+		this.withComments = withComments;
 	}
 	
 }

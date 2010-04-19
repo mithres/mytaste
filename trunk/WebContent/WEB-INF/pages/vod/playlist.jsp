@@ -8,31 +8,26 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="decorator" content="maindecorator" />
 		<title><s:text name="vc.playlist.index.title"/></title>
 	</head>
 <body>
-
-<div class="cp_align flt">
-	<div class="cp_tab flt">
-		<a href="#" class="cp_fea flt">Most Popular</a>
-		<a href="#" class="cp_feas flt">Highest Rated<img src="<web.page:path/>/images/cp_arrows.jpg" width="10" height="7" alt="" /></a>
-	</div>
-</div>
 				
 <div id="playListRender">
+<h1>Popular Videos</h1>
 	<s:iterator value="playLists.records" var="playList">
 		<%@include file="playlistentryshort.jsp" %>
-	</s:iterator>
+	</s:iterator> 
+	<a href="#">More</a><br/>
 </div>
 
+<div>
+<h1>Recently Added</h1>
+<s:iterator value="recentlyAddedPlayLists.records" var="playList">
+		<%@include file="playlistentryshort.jsp" %>
+	</s:iterator>
+	<a href="#">More</a><br/>
+</div>
 
-
-<paginator:page totalCount="${playLists.recordTotal}"
-	pageCount="${pageCount}" currentPage="${pageNumber}"
-	action="/vod/playListIndex" className="pageable-div pagination"
-	render="playListRender"
-	innerStyle="padding-top: 20px; float: left; width: 100%" />
 
 </body>
 </html>
