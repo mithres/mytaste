@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
 
@@ -8,10 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="maindecorator" />
-<title>VOD Player</title>
+<title>Video Share - Video: <s:property value="playList.playListName"/></title>
 
-<script type="text/javascript"
-	src="<web.page:path/>/lps/includes/embed-compressed.js "></script>
 <script>
 	function initPlayer() {
 		var vodPlayer = lz.embed.lzapp;
@@ -25,7 +22,12 @@
 </head>
 
 <body onload="initPlayer();">
-
+<div>
+	<div><h1><s:property value="playList.playListName"/></h1></div>
+	<div><s:property value="playList.totalTime"/> | This is rating value</div>
+	<div><s:property value="playList.description"/></div>
+</div>
+<div>
 <script>
 	lz.embed.swf( {	
 		url : '<web.page:path/>/vod/vodplayer.swf8.swf',
@@ -35,6 +37,22 @@
 		id : 'lzapp'
 	});
 </script>
+</div>
+<div>
+<div><a>All</a>|<a>Reviews</a>|<a>Tags</a></div>
+<div><h1>You Might Alos Like</h1></div>
+<div>xxxxx xxxxxxxxxxxxx</div>
+<div><h1>Reviews</h1></div>
+<div>
+<s:iterator value="comments">
+	<s:property value="author.userName"/><s:date name="createdTime" nice="true"/>
+</s:iterator>
+</div>
+<div><h1>Tags</h1></div>
+
+<div><h1>Recommended Videos</h1></div>
+<div>dfffffffffffffffff</div>
+</div>
 
 
 

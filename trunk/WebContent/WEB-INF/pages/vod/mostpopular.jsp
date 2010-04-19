@@ -12,7 +12,8 @@
 </head>
 <body>
 	
-	Video Type: <br/> 
+	Video Type:<select name="playListType"><option value="all">All</option><s:iterator value="playListTypes"><option value="<s:property />"><s:property /></option></s:iterator></select>
+	Channel:<select name="channel"><option value="all">All</option><s:iterator value="channelList"><option value="<s:property value="id"/>"><s:property value="channelName"/></option></s:iterator></select><br/> 
 	<a href="<web.page:path/>/vod/popular?timeFrame=All">All Time</a> | <a href="<web.page:path/>/vod/popular?timeFrame=Today">Today</a> | <a href="<web.page:path/>/vod/popular?timeFrame=ThisWeek">This Week</a> | <a href="<web.page:path/>/vod/popular?timeFrame=ThisMonth">This Month</a><br/>
 <div class="fluid">
 	<div class="fixed-lg container">
