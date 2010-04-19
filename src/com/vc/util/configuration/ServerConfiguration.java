@@ -19,6 +19,7 @@ public class ServerConfiguration {
 
 			// load photo configuration
 			Constants.PHOTO_PATH = rb.getString("photo_path");
+			Constants.PHOTO_PATH_AUTH = rb.getString("photo_path_auth");
 			Constants.PHOTO_URL = rb.getString("photo_url");
 			Constants.ALLOWED_HTML_DOMAINS = rb.getString("allowedHTMLDomains");
 			Constants.ALLOWED_SWF_DOMAINS = rb.getString("allowedSWFDomains");
