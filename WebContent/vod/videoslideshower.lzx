@@ -50,7 +50,7 @@
 					</view>	
 					<view name="mesView" width="${parent.width / 3}" height="${parent.height}" x="${parent.width - parent.width / 3}" bgcolor="black" opacity="0"  fgcolor="white" fontsize="14" fontstyle="bold">
 						<text name="message" datapath="@des" opacity="0"/>
-						<button name="watchButton" text="Watch" x="${parent.width /2}" y="260">
+						<button  showhandcursor="true" name="watchButton" text="Watch" x="${parent.width /2}" y="260">
 							<handler name="onclick">
 							<![CDATA[
 								var videoId = parent.parent.datapath

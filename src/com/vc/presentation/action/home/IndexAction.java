@@ -8,7 +8,9 @@ import com.vc.core.constants.Constants;
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
+import com.vc.entity.UserInfo;
 import com.vc.service.system.ISystemService;
+import com.vc.service.user.IUserService;
 import com.vc.service.vod.IPlayListService;
 import com.vc.service.vod.PlayListSearchCondition;
 import com.vc.vo.MenuVO;
@@ -21,10 +23,14 @@ public class IndexAction extends BaseAction {
 	private ISystemService systemService = null;
 	@Autowired
 	private IPlayListService playListService = null;
+	@Autowired
+	private IUserService userService = null;
 
 	private MenuVO menuVO = null;
 
 	private IPageList<PlayList> playLists = null;
+	
+	private IPageList<UserInfo> users = null;
 
 	@Override
 	public String process() {
@@ -40,7 +46,9 @@ public class IndexAction extends BaseAction {
 
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 		condition.setOrderBy("All");
-		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(), 8), condition);
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(), 20), condition);
+		
+		users = userService.findPopularUser(new Hints(getStartRow(), 20));
 		
 		return Action.SUCCESS;
 	}
@@ -51,6 +59,10 @@ public class IndexAction extends BaseAction {
 
 	public IPageList<PlayList> getPlayLists() {
 		return playLists;
+	}
+
+	public IPageList<UserInfo> getUsers() {
+		return users;
 	}
 
 }

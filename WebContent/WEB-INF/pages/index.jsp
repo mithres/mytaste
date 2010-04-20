@@ -13,16 +13,18 @@
 </head>
 <body class="div">
 
-<script>
-	lz.embed.swf( {	
-		url : '<web.page:path/>/flashcommons/videoslideshower.swf',
-		allowfullscreen : 'false',
-		width : '100%',
-		height : '350',
-		id : 'lzapp',
-		wmode:'opaque'
-	});
-</script>
+<div>
+	<script>
+		lz.embed.swf( {	
+			url : '<web.page:path/>/flashcommons/videoslideshower.swf',
+			allowfullscreen : 'false',
+			width : '100%',
+			height : '350',
+			id : 'lzapp',
+			wmode:'opaque'
+		});
+	</script>
+</div>
 
 <div style="margin-top: 1px;" class="fixed-lg relative container main">
 	<div id="playListRender">
@@ -34,14 +36,16 @@
 	</div>
 </div>
 
+<div style="margin-top: 1px;" class="fixed-lg relative container main">
+<h1>Popular People</h1>
+</div>
 
 <script type="text/javascript">
 
 //Call by flash object
 function show(id){
-	var url = "<web.page:path/>/vod/play?playListID"+id;
-	alert(url);
-	//location.href = url;
+	var url = "<web.page:path/>/vod/play?playListID="+id;
+	location.href = url;
 }
 
 $(document).ready(function() {
