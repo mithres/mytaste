@@ -393,36 +393,7 @@ div.main {
 }
 
 /* Custom settings */
-.pagination,.nav-buttons {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
 
-.pagination {
-	margin: 9px auto;
-	width: 132px;
-}
-
-.pagination li,.nav-buttons li {
-	float: left;
-	margin: 0 5px;
-}
-
-.pagination a {
-	display: block;
-	width: 12px;
-	padding-top: 12px;
-	height: 0;
-	overflow: hidden;
-	background-image: url(../images/pagination.png);
-	background-position: 0 0;
-	background-repeat: no-repeat;
-}
-
-.pagination a.active {
-	background-position: 0 -12px
-}
 
 li.p {
 	position: absolute;
