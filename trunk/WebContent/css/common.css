@@ -653,7 +653,7 @@ div#base-middle-white {
 	z-index: 10;
 }
 
-.vl-rss-link {
+.vl-rss-link{
 	margin-top: 7px;
 	padding-left: 3px;
 }
@@ -692,8 +692,7 @@ div#profile-sub-section-container ul#tab-container li.tab-unselected {
 
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover
 	{
-	background: url("../images/tab-bg-hover.gif") repeat scroll right center
-		transparent;
+	background: url("../images/tab-bg-hover.gif") repeat scroll right center transparent;
 	cursor: pointer;
 }
 
@@ -800,4 +799,45 @@ div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected di
 	opacity:0;
 	height: 200px;
 	width: 300px;
+}
+
+div.pagination span.current {
+background: scroll 0 0 #b4b4b4;
+border:1px solid #3B5888;
+color:#FFFFFF;
+font-weight:bold;
+margin-right:2px;
+padding:1px 5px;
+}
+div.pagination  {
+margin:3px;
+padding:3px;
+text-align:center;
+}
+
+.pageable-div {
+float:left;
+margin-bottom:20px;
+margin-top:16px;
+text-align:center;
+width:100%;
+}
+div.pagination a {
+background:url("../images/paginator_bg.gif") repeat-x scroll 0 0 #D7E0DC;
+border:1px solid #D7E0DC;
+color:#888E8B;
+margin-right:2px;
+padding:1px 5px;
+text-decoration:none;
+}
+div.pagination span.disabled {
+border:1px solid #D7E0DC;
+color:#CCCCCC;
+margin-right:2px;
+padding:1px 5px;
+}
+div.pagination a:hover, div.pagination a:active {
+	border:1px solid #3B5888;
+	color: #FFF;
+	background: #3B5888 ;
 }
