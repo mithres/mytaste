@@ -51,15 +51,14 @@
 <div id="playListRender"><s:iterator value="playLists.records"
 	var="playList" status="stat">
 	<%@include file="playlistentryshort.jsp"%>
-</s:iterator></div>
+</s:iterator>
 
-
-<div>
 <paginator:page totalCount="${playLists.recordTotal}"
 	pageCount="${pageCount}" currentPage="${pageNumber}"
 	action="/vod/popular" className="pageable-div pagination"
-	innerStyle="padding-top: 20px; float: left; width: 100%" />
+	innerStyle="margin-top: 50px; float: left;" />
 </div>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
