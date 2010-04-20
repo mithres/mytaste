@@ -20,7 +20,7 @@ function vidContents(id) {
 		$('#vid' + id)
 				.bt(
 						{
-							trigger : [ 'hover'],
+							trigger : ['hover'],
 							contentSelector : "$('" + vidContent + "')",
 							positions : [ 'right', 'left' ],
 							clickAnywhereToClose : false,
