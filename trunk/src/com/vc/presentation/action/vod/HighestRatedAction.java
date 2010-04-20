@@ -16,9 +16,9 @@ import com.vc.service.system.ISystemService;
 import com.vc.service.vod.IPlayListService;
 import com.vc.service.vod.PlayListSearchCondition;
 
-public class MostPopularAction extends BaseAction {
+public class HighestRatedAction extends BaseAction {
 
-	private static final long serialVersionUID = -6835692798165059935L;
+	private static final long serialVersionUID = 8639580324727467646L;
 
 	@Autowired
 	private ISystemService systemService = null;
@@ -26,24 +26,24 @@ public class MostPopularAction extends BaseAction {
 	private IPlayListService playListService = null;
 
 	private List<PlayListType> playListTypes = null;
-	
+
 	private IPageList<PlayList> playLists = null;
-	
+
 	private List<Channels> channelList = null;
+
+	private String timeFrame = "All";
 	
-	private String timeFrame = "Today";
-	
-	private String type = "Popular";
+	private String type = "Rate";
 
 	@Override
 	public String process() {
-		
+
 		playListTypes = Arrays.asList(PlayListType.values());
 		channelList = systemService.findParentChannels();
-		
+
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 		condition.setOrderBy(timeFrame);
-		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()), condition);
+		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(), getPageCount()), condition);
 		return Action.SUCCESS;
 	}
 
@@ -70,5 +70,4 @@ public class MostPopularAction extends BaseAction {
 	public String getType() {
 		return type;
 	}
-
 }
