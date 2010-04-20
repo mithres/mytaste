@@ -3,6 +3,8 @@ package com.vc.service.user;
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
 
+import com.vc.core.dao.Hints;
+import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.entity.UserInfo;
 import com.vc.presentation.exception.UserExistException;
@@ -18,5 +20,7 @@ public interface IUserService {
 
 	@Secured( { "ROLE_ADMIN" })
 	public abstract UserInfo createUser(UserInfo user) throws UserExistException;
+	
+	public abstract IPageList<UserInfo> findPopularUser(Hints hint);
 
 }

@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vc.core.constants.Constants;
 import com.vc.core.dao.Hints;
+import com.vc.core.entity.IPageList;
+import com.vc.core.entity.PageListImpl;
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
@@ -117,35 +119,35 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 			user.setAccountBalance(user.getAccountBalance() - playList.getPrice());
 			userInfoDao.update(user);
 			playList.setViewCount(playList.getViewCount() + 1);
-			
+
 			int dayIndex = TimeUtil.getDateIndex(new Date(), "Day");
 			int weekIndex = TimeUtil.getDateIndex(new Date(), "Week");
 			int monthIndex = TimeUtil.getDateIndex(new Date(), "Month");
-			
-			if(playList.getDayIndex() == -1){
+
+			if (playList.getDayIndex() == -1) {
 				playList.setDayIndex(dayIndex);
 				playList.setWeekIndex(weekIndex);
 				playList.setMonthIndex(monthIndex);
 				playList.setTodayViewCount(1);
 				playList.setThisWeekViewCount(1);
 				playList.setThisMonthViewCount(1);
-			}else{
-				if(playList.getDayIndex() != dayIndex){
+			} else {
+				if (playList.getDayIndex() != dayIndex) {
 					playList.setDayIndex(dayIndex);
 					playList.setTodayViewCount(1);
-				}else{
+				} else {
 					playList.setTodayViewCount(playList.getTodayViewCount() + 1);
 				}
-				if(playList.getWeekIndex() != weekIndex){
+				if (playList.getWeekIndex() != weekIndex) {
 					playList.setWeekIndex(weekIndex);
 					playList.setThisWeekViewCount(1);
-				}else{
+				} else {
 					playList.setThisWeekViewCount(playList.getThisWeekViewCount() + 1);
 				}
-				if(playList.getMonthIndex() != monthIndex){
+				if (playList.getMonthIndex() != monthIndex) {
 					playList.setMonthIndex(monthIndex);
 					playList.setThisWeekViewCount(1);
-				}else{
+				} else {
 					playList.setThisMonthViewCount(playList.getThisMonthViewCount() + 1);
 				}
 			}
@@ -170,6 +172,14 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 		}
 		userInfoDao.create(user);
 		return user;
+	}
+
+	@Override
+	public IPageList<UserInfo> findPopularUser(Hints hint) {
+		IPageList<UserInfo> users = new PageListImpl<UserInfo>();
+		users.setRecordTotal(userInfoDao.findPopularUserCount());
+		users.setRecords(userInfoDao.findPopularUser(hint));
+		return users;
 	}
 
 }
