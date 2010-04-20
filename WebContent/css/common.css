@@ -716,8 +716,7 @@ div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:ho
 
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable,div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected
 	{
-	background: url("../images/tab-bg-disabled.gif") repeat scroll right
-		center transparent;
+	background-color:#636363;
 	color: #FFFFFF;
 	cursor: default;
 	font-weight: bold;
@@ -747,18 +746,19 @@ div#profile-sub-section-container ul#tab-container li.tab-selected {
 }
 
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected div,div#profile-sub-section-container ul#tab-container li.tab-selected div
-	{
+{
 	cursor: default;
 }
 
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected div,div#profile-sub-section-container ul#tab-container li.tab-unselected div
-	{
+{
+	background-color:#b4b4b4;
 	cursor: pointer;
 }
 
 #divTab .tabs {
 	width: auto;
-	height: 25px;
+	height: 24px;
 	border-bottom: #dddddd 1px solid;
 }
 
@@ -773,7 +773,7 @@ div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected di
 	padding-right: 10px;
 	padding-top: 0px;
 	padding-bottom: 0px;
-	line-height: 24px;
+	line-height: 22px;
 	curser: pointer;
 	color: #333333;
 }
@@ -782,7 +782,7 @@ div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected di
 	font-weight: bold;
 	background: #dddddd;
 	color: #333333;
-	height: 24px;
+	height: 22px;
 }
 
 #divTab .tabs a {

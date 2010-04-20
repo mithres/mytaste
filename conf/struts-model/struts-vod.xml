@@ -29,6 +29,10 @@
 			<result>/WEB-INF/pages/vod/mostpopular.jsp</result>
 		</action>
 		
+		<action name="highestRate"  class="com.vc.presentation.action.vod.HighestRatedAction">
+			<result>/WEB-INF/pages/vod/mostpopular.jsp</result>
+		</action>
+		
 		<action name="recentAdded"  class="com.vc.presentation.action.vod.RecentAddedAction">
 			<result>/WEB-INF/pages/vod/recentadded.jsp</result>
 		</action>
