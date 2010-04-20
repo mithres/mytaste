@@ -812,3 +812,10 @@ div.pagination a:hover, div.pagination a:active {
 	color: #FFF;
 	background: #3B5888 ;
 }
+.playListRender{
+	float:left;
+	margin-bottom:30px;
+}
+.more_link{
+margin-right:80px;margin-top:30px;float:right;
+}

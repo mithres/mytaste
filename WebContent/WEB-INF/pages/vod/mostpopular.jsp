@@ -48,7 +48,7 @@
 </div>
 </div>
 
-<div id="playListRender"><s:iterator value="playLists.records"
+<div class="playListRender"><s:iterator value="playLists.records"
 	var="playList" status="stat">
 	<%@include file="playlistentryshort.jsp"%>
 </s:iterator>
@@ -61,10 +61,6 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('.vidContents').hide();
-	});
-
 	function TabSwitch(selectedTab) {
 		jQuery("#divTab .tabs LI[class!='tabspace']").removeClass();
 		jQuery("#" + selectedTab).addClass("selectedTab");  

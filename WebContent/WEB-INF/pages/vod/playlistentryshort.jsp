@@ -23,5 +23,9 @@
 		<s:property value="description"/><br/>
 		Tags:<s:property value="tags"/><br/>
 	</div>
-	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('.vidContents').hide();
+	});
+	</script>
 
