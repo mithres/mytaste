@@ -68,7 +68,6 @@
 			},
 			success : function(xml) {
 				if(xml.success){
-					alert("ok");
 					location.href = "<web.page:path/>/";
 				}else{
 					$('#errorMessage').html(xml.errors); 
