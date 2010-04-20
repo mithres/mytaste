@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
-	prefix="decorator"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"	prefix="decorator"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
 <%@ taglib prefix="security" uri="/WEB-INF/tlds/security.tld"%>
@@ -11,6 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><decorator:title default="Welcome!" /></title>
+
 <link rel="stylesheet" type="text/css" href="<web.page:path/>/css/common.css" />
 
 <script src="<web.page:path/>/js/jquery.js" type="text/javascript" charset="utf-8"></script>
@@ -36,15 +36,95 @@
 <security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
 
 <ul style="" class="usernav" id="logged-out-nav">
-	<li class="first sign-out-link">Welcome : <a class="utility-link" href="<web.page:path/>/user/accountInfo"><security:authentication property="name"/></a></li>
+	<li class="first sign-out-link">Welcome : <security:authentication property="name"/></li>
+	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Profile</a></li>
+	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Queue</a></li>
 	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/logout">Logout</a></li>
 </ul>
 </security:authorize>
 <security:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER">
+<script>
+	function showLoginForm(){
+		$('#message_box').animate({top:14, opacity:100 },"slow");  
+	}
+	function hideLoginForm(){
+		$('#message_box').animate({ top:24,opacity:0 }, "slow");
+	};
+	
+	function login() {
+
+		$('#errorMessage').html(""); 
+		
+		var url = "<web.page:path/>/signIn";
+		var param = "userName="+$('#userName').val()+"&password="+$('#userPassword').val()+"&ccode="+$('#checkcode').val();
+		
+		$.ajax( {
+			url : url,
+			data: param,
+			type : 'post',
+			dataType : 'json',
+			error : function(xml) {
+				alert("Login Error.");
+			},
+			success : function(xml) {
+				if(xml.success){
+					alert("ok");
+					location.href = "<web.page:path/>/";
+				}else{
+					$('#errorMessage').html(xml.errors); 
+					flushValidateCode();
+				}
+			}
+		});
+	}
+	
+</script>
 <ul style="" class="usernav" id="logged-out-nav">
-	<li class="first sign-out-link"><a onclick="FloatingLoginForm.showTop(this); return false;" id="login-link" href="#" class="utility-link">Login</a></li>
+	<li class="first sign-out-link"><a onclick="showLoginForm();" id="login-link" href="javascript:void(0);" style="cursor:pointer;" class="utility-link">Login</a></li>
 	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/forgot_password">Forgot Password?</a></li>
 	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/signUp/signUpIndex">Sign Up</a></li>
+	<li>
+		<div id="message_box">
+			<div style="float:left;height:14px;width:100%;background:url('<web.page:path/>/images/subnav-hover.gif') repeat-x;"><img id="close_message" onclick="hideLoginForm();" style="float:right;cursor:pointer" src="<web.page:path/>/images/close_12em.png"/></div>
+			<div style="float:left;width:100%;">
+					
+							<table width="100%">
+								<tr>
+									<td><img src="<web.page:path/>/images/int-warning.gif"/></td>
+									<td style="text-align:left;">Please enter your account and password.</td>
+								</tr>
+								<tr>
+									<td colspan="2"><span id="errorMessage"></span></td>
+								</tr>
+								<tr>
+									<td class="rp_user flt"><s:text name="vc.index.username" /></td>
+									<td><input id="userName" class="rp_txt flt" type='text' name='userName'
+										value="" /></td>
+								</tr>
+								<tr>
+									<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
+									<td><input id="userPassword" class="rp_txt flt" type='password' name='password' autocomplete="off" /></td>
+								</tr>
+								<tr>
+									<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
+									<td><input autocomplete="off" id="checkcode" class="rp_txt flt" type='text' name='ccode' value="" /></td>
+								</tr>
+								<tr>
+									<td colspan="2"><a href="javascript:void(0);" onclick="flushValidateCode();"
+										title='<s:text name="vc.index.reload_checkcode" />'><img id="ccode" src="signUp/captcha" border="0" /></a></td>
+								</tr>
+								<tr>
+									<td colspan='2'>
+									<input type="button" value="Submit" onclick="login();"/> <input type="button" onclick="hideLoginForm();" value="Close"/>
+									<!-- input type="image"
+										src="<web.page:path/>/images/rp_login.jpg"
+										name='<s:text name="vc.button.submit" />' /--></td>
+								</tr>
+							</table>
+
+			</div>
+		</div>
+	</li>
 </ul>
 </security:authorize>
 

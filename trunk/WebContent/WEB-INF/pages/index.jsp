@@ -11,7 +11,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="decorator" content="maindecorator" />
 <title><s:text name="vc.home.title" /></title>
 
 </head>
@@ -23,23 +22,19 @@
 		allowfullscreen : 'false',
 		width : '100%',
 		height : '350',
-		id : 'lzapp'
+		id : 'lzapp',
+		wmode:'opaque'
 	});
 </script>
 
 <div style="margin-top: 1px;" class="fixed-lg relative container main">
-<div id="playListRender">
-<h1>Popular Videos</h1>
-<s:iterator value="playLists.records"
-	var="playList" status="stat">
-	<%@include file="vod/playlistentryshort.jsp"%>
-</s:iterator>
-</div>
-
-
-
-
-
+	<div id="playListRender">
+		<h1>Popular Videos</h1>
+		<s:iterator value="playLists.records"
+			var="playList" status="stat">
+			<%@include file="vod/playlistentryshort.jsp"%>
+		</s:iterator>
+	</div>
 </div>
 
 
@@ -98,38 +93,7 @@ $(document).ready(function() {
 						.getMessage());
 	}
 %>
-<form action="<web.page:path/>/signIn" method="POST">
-<table width="205">
-	<tr>
-		<td class="rp_user flt"><s:text name="vc.index.username" /></td>
-		<td><input class="rp_txt flt" type='text' name='userName'
-			value="" /></td>
-	</tr>
-	<tr>
-		<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
-		<td><input class="rp_txt flt" type='password' name='password'
-			AUTOCOMPLETE="off" /></td>
-	</tr>
-	<tr>
-		<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
-		<td><input class="rp_txt flt" type='text' name='ccode' value="" /></td>
-	</tr>
-	<tr>
-		<td colspan="2"><a href="javascript:void(0);"
-			onClick="flushValidateCode();"
-			title='<s:text name="vc.index.reload_checkcode" />'><img
-			id="ccode" src="signUp/captcha" border="0" /></a></td>
-	</tr>
-	<tr>
-		<td colspan='2'>
-		<input type="submit"/>
-		<!-- input type="image"
-			src="<web.page:path/>/images/rp_login.jpg"
-			name='<s:text name="vc.button.submit" />' /--></td>
-	</tr>
-</table>
 
-</form>
 
 </body>
 </html>

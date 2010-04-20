@@ -1,10 +1,12 @@
 package com.vc.presentation.filter;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.red5.logging.Red5LoggerFactory;
@@ -62,8 +64,30 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 					"clientManager");
 			WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 			clientManager.addClientListItem(details.getSessionId(), authentication);
+
+			String message = "{ \"success\" : true}";
+			writeMessageToClient(response, message);
 		}
 
+	}
+
+	@Override
+	protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException failed) throws IOException {
+
+		String message = "{ \"success\": false, \"errors\": \"" + failed.getLocalizedMessage() + "\"}";
+		writeMessageToClient(response, message);
+	}
+
+	private void writeMessageToClient(HttpServletResponse response, String jsonMessage) {
+		HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(response);
+		try {
+			Writer out = responseWrapper.getWriter();
+			out.write(jsonMessage);
+			out.close();
+		} catch (IOException e) {
+			logger.error("return login state message to client error.", e);
+		}
 	}
 
 	private boolean acquireCaptchaTicket(HttpSession session) {
