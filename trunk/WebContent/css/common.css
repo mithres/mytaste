@@ -568,7 +568,7 @@ p {
 	left: 0;
 	position: relative;
 	top: 0;
-	width: 192px;
+	width: 145px;
 	z-index: 0;
 }
 
@@ -577,11 +577,11 @@ p {
 }
 
 .video .videoImg,.video .vImg {
-	height: 108px;
+	height: 80px;
 	left: 0;
 	position: relative;
 	top: 0;
-	width: 192px;
+	width: 145px;
 	z-index: 0;
 }
 
@@ -598,11 +598,11 @@ p {
 	background-repeat: no-repeat;
 	cursor: pointer;
 	height: 16px;
-	left: 110px;
+	left: 150px;
 	line-height: 16px;
 	padding: 0;
 	position: absolute;
-	top: 78px;
+	top: 70px;
 	width: 16px;
 	z-index: 3;
 }
