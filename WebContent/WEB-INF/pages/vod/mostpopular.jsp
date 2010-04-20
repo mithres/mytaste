@@ -18,14 +18,12 @@
 <div id="profile-tabs-container" class="fixed-lg container relative">
 <ul id="profile-tab-container">
 	<li class="<s:if test="type.equals('Popular')">profile-tab-selected</s:if><s:else>profile-tab-unselected</s:else>">
-	<div><a href="<web.page:path/>/vod/popular">Most Popular</a></div>
+	<div><s:if test="type.equals('Popular')">Most Popular</s:if><s:else><a style="text-decoration: none;" href="<web.page:path/>/vod/popular">Most Popular</a></s:else></div>
 	</li>
 	<li class="<s:if test="type.equals('Rate')">profile-tab-selected</s:if><s:else>profile-tab-unselected</s:else>">
-	<div><a href="<web.page:path/>/vod/highestRate">Highest Rated</a></div>
+	<div><s:if test="type.equals('Rate')">Highest Rated</s:if><s:else><a style="text-decoration: none;" href="<web.page:path/>/vod/highestRate">Highest Rated</a></s:else></div>
 	</li>
-	<li><a href="#"><img border="0" title="Highest Rated RSS link"
-		src="<web.page:path/>/images/btn-rss.gif" id="" class="vl-rss-link"
-		alt="Highest Rated RSS link" style="cursor: pointer;"></a></li>
+	<li><a href="#"><img border="0" title="Highest Rated RSS link" src="<web.page:path/>/images/btn-rss.gif" id="" class="vl-rss-link" alt="Highest Rated RSS link" style="cursor: pointer;"></a></li>
 	<br style="clear: both;">
 </ul>
 </div>
@@ -56,12 +54,12 @@
 </s:iterator></div>
 
 
-
+<div>
 <paginator:page totalCount="${playLists.recordTotal}"
 	pageCount="${pageCount}" currentPage="${pageNumber}"
-	action="/vod/playListIndex" className="pageable-div pagination"
-	render="playListRender"
+	action="/vod/popular" className="pageable-div pagination"
 	innerStyle="padding-top: 20px; float: left; width: 100%" />
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function() {
