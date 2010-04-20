@@ -48,11 +48,13 @@
 		$('#message_box').animate({top:14, opacity:100 },"slow");  
 	}
 	function hideLoginForm(){
+		$('#loading').animate({opacity:0});	
 		$('#message_box').animate({ top:24,opacity:0 }, "slow");
 	};
 	
 	function login() {
 
+		$('#loading').animate({opacity:100});	
 		$('#errorMessage').html(""); 
 		
 		var url = "<web.page:path/>/signIn";
@@ -64,9 +66,11 @@
 			type : 'post',
 			dataType : 'json',
 			error : function(xml) {
+				$('#loading').animate({opacity:0});		
 				alert("Login Error.");
 			},
 			success : function(xml) {
+				$('#loading').animate({opacity:0});
 				if(xml.success){
 					location.href = "<web.page:path/>/";
 				}else{
@@ -109,12 +113,12 @@
 									<td><input autocomplete="off" id="checkcode" class="rp_txt flt" type='text' name='ccode' value="" /></td>
 								</tr>
 								<tr>
-									<td colspan="2"><a href="javascript:void(0);" onclick="flushValidateCode();"
+									<td colspan="2" style="text-align:left"><a href="javascript:void(0);" onclick="flushValidateCode();"
 										title='<s:text name="vc.index.reload_checkcode" />'><img id="ccode" src="signUp/captcha" border="0" /></a></td>
 								</tr>
 								<tr>
 									<td colspan='2'>
-									<input type="button" value="Submit" onclick="login();"/> <input type="button" onclick="hideLoginForm();" value="Close"/>
+									<input type="button" value="Submit" onclick="login();"/> <input type="button" onclick="hideLoginForm();" value="Close"/> <img style="opacity:0;" id="loading" src="<web.page:path/>/images/loading.gif" border="0" />
 									<!-- input type="image"
 										src="<web.page:path/>/images/rp_login.jpg"
 										name='<s:text name="vc.button.submit" />' /--></td>

@@ -31,12 +31,15 @@ public class RecommendAction extends BaseAction {
 				new Hints(getStartRow(), getPageCount()), condition);
 		Document doc = DocumentHelper.createDocument();
 		Element root = doc.addElement("videos");
+		int i = 0;
 		for (PlayList playList : playLists.getRecords()) {
 			Element video = root.addElement("video");
 			video.addAttribute("id", playList.getId());
+			video.addAttribute("index", String.valueOf(i));
 			video.addAttribute("des", playList.getDescription());
 			String photoUrl = PicUtil.loadPhotoUrl(playList.getPlayListIndex(), PhotoType.FilmScreenShot)+playList.getPlayListIndex()+".jpg";
 			video.addAttribute("photo", photoUrl);
+			i++;
 		}
 		try {
 			log.info(doc.asXML());

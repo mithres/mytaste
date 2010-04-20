@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="org.springframework.security.ui.AbstractProcessingFilter"%>
-<%@ page import="org.springframework.security.AuthenticationException"%>
-
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
 <%@ taglib prefix="p" uri="/WEB-INF/tlds/photo.tld"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
@@ -83,17 +80,5 @@ $(document).ready(function() {
 	});
 });
 </script>
-
-<%
-	if (session
-			.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null) {
-		out
-				.println(((AuthenticationException) session
-						.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
-						.getMessage());
-	}
-%>
-
-
 </body>
 </html>
