@@ -21,6 +21,7 @@ public class RecentAddedAction extends BaseAction {
 	
 	@Override
 	public String process() {
+		
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 		condition.setOrderBy("AddedTime");
 		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()),condition);

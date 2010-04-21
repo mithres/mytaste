@@ -26,7 +26,7 @@ public class Constants {
 	
 	//Pagination 
 	public static final int DEFAULT_START = 0;
-	public static final int DEFAULT_COUNT = 10;
+	public static final int DEFAULT_COUNT = 5;
 	
 	// Photo properties
 	public static final int DEFAULT_WIDTH = 128;
@@ -57,6 +57,9 @@ public class Constants {
 	
 	//Current menu state
 	public static final String MENU_STAT = "MenuStat";
+	
+	//Condition for search 
+	public static final String SEARCH_CONDITION_ALL = "All";
 	
 	//Constants for security handler
 	public static String ALLOWED_HTML_DOMAINS = null;

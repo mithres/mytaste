@@ -27,19 +27,18 @@
 	<br style="clear: both;">
 </ul>
 </div>
-<div id="base-middle-white"><br>
 
- Video Type: <select name="playListType"><option value="all">All</option><s:iterator value="playListTypes"><option value="<s:property />"><s:property /></option></s:iterator></select> 
- Channel: <select name="channel"><option value="all">All</option><s:iterator value="channelList"><option value="<s:property value="id"/>"><s:property value="channelName" /></option></s:iterator></select> 
- <br />
+<s:action id="list" namespace="/vod" name="showPlayListTypeAndChannel" executeResult="true"/>
+
+<div>
 
 <s:if test="type.equals('Popular')">
 <div id="divTab" style="width: 100%;">
 <ul class="tabs">
-	<li id="tab1" onclick="TabSwitch('tab1');" class="<s:if test="timeFrame.equals('All')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=All">All Time</a></li>
-	<li id="tab2" onclick="TabSwitch('tab2');" class="<s:if test="timeFrame.equals('Today')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=Today">Today</a></li>
-	<li id="tab3" onclick="TabSwitch('tab3');" class="<s:if test="timeFrame.equals('ThisWeek')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=ThisWeek">This Week</a></li>
-	<li id="tab4" onclick="TabSwitch('tab4');" class="<s:if test="timeFrame.equals('ThisMonth')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=ThisMonth">This Month</a></li>
+	<li id="All" onclick="TabSwitch('All');" class="<s:if test="timeFrame.equals('All')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=All">All Time</a></li>
+	<li id="Today" onclick="TabSwitch('Today');" class="<s:if test="timeFrame.equals('Today')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=Today">Today</a></li>
+	<li id="ThisWeek" onclick="TabSwitch('ThisWeek');" class="<s:if test="timeFrame.equals('ThisWeek')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=ThisWeek">This Week</a></li>
+	<li id="ThisMonth" onclick="TabSwitch('ThisMonth');" class="<s:if test="timeFrame.equals('ThisMonth')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=ThisMonth">This Month</a></li>
 </ul>
 </div>
 </s:if>
@@ -48,16 +47,26 @@
 </div>
 </div>
 
-<div class="playListRender"><s:iterator value="playLists.records"
-	var="playList" status="stat">
-	<%@include file="playlistentryshort.jsp"%>
-</s:iterator>
+<div class="playListRender">
+	<s:iterator value="playLists.records" var="playList" status="stat">
+		<%@include file="playlistentryshort.jsp"%>
+	</s:iterator>
+</div>
 
-<paginator:page totalCount="${playLists.recordTotal}"
+<s:if test="type.equals('Popular')">
+	<paginator:page totalCount="${playLists.recordTotal}"
 	pageCount="${pageCount}" currentPage="${pageNumber}"
 	action="/vod/popular" className="pageable-div pagination"
 	innerStyle="margin-top: 50px; float: left;" />
-</div>
+	
+</s:if><s:else>
+	<paginator:page totalCount="${playLists.recordTotal}"
+	pageCount="${pageCount}" currentPage="${pageNumber}"
+	action="/vod/highestRate" className="pageable-div pagination"
+	innerStyle="margin-top: 50px; float: left;" />
+
+</s:else>
+
 
 
 <script type="text/javascript">

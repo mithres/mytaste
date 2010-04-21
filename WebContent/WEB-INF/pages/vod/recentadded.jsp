@@ -10,11 +10,37 @@
 <title>My Taste - Recently Added Videos</title>
 </head>
 <body>
-	<div id="playListRender">
+	
+	
+	<div class="fluid">
+<div class="fixed-lg container">
+<div id="profile-tabs-container" class="fixed-lg container relative">
+<ul id="profile-tab-container">
+	<li class="profile-tab-selected">
+	<div>Latest</div>
+	</li>
+	<li class="profile-tab-unselected">
+	<div>Feature Content</div>
+	</li>
+	<li><a href="#"><img border="0" title="Highest Rated RSS link" src="<web.page:path/>/images/btn-rss.gif" id="" class="vl-rss-link" alt="Highest Rated RSS link" style="cursor: pointer;"></a></li>
+	<br style="clear: both;">
+</ul>
+</div>
+	<s:action id="list" namespace="/vod" name="showPlayListTypeAndChannel" executeResult="true"/>
+</div>
+</div>
+
+<div class="playListRender">
 	<s:iterator value="playLists.records" var="playList" status="stat">
-	<!-- s:property value="#stat.index"/-->
-	<%@include file="playlistentryshort.jsp"%>
+		<%@include file="playlistentryshort.jsp"%>
 	</s:iterator>
-	</div>
+</div>
+	
+<paginator:page totalCount="${playLists.recordTotal}"
+	pageCount="${pageCount}" currentPage="${pageNumber}"
+	action="/vod/recentAdded" className="pageable-div pagination"
+	innerStyle="margin-top: 50px; float: left;" />
+	
+	
 </body>
 </html>
