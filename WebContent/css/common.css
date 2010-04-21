@@ -338,7 +338,7 @@ a.footer-link:hover {
 }
 
 div.main {
-	min-height: 600px;
+	min-height: 480px;
 }
 
 .fp_align {
@@ -620,9 +620,6 @@ p {
 	width: 16px;
 }
 
-#lzappContainer {
-	
-}
 
 body .fluid {
 	min-width: 970px;
@@ -876,5 +873,61 @@ div.cbx-choice {
 	width:100%;
 	z-index:100;
 }
+.title {
+background:url("../images/bg-player_title.gif") repeat-x scroll left top #FFFFFF;
+}
+.fluid  {
+min-width:970px;
+width:100%;
+}
+.section, .standard, .classic, .layout {
+clear:both;
+width:100%;
+}
+.title h2 {
+color:#666666;
+padding:0;
+}
+.title h4 {
+color:#4D4D4D;
+font-size:12px;
+}
+h3.h2-equiv, h2 {
+color:#444444;
+font-family:"Helvetica","Arial","Verdana",sans-serif;
+font-size:20px;
+font-weight:normal;
+}
+.form-table-wrapper {
+margin-top:5px;
+text-align:left;
+}
+.center .container {
+margin:0 auto;
+text-align:left;
+}
+.section, .gr {
+position:relative;
+}
+.ptop {
+padding-top:15px;
+}
+#createUser .wwFormTable .tdLabel{
+	font-size:12px;
+	text-align:right;
+	width:180px;
+}
+
+#createUser tr td {
+border:0 none;
+padding:5px;
+}
+
+
+
+
+
+
+
 
 
