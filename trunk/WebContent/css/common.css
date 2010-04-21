@@ -4,6 +4,30 @@ body {
 	padding: 0;
 }
 
+.form-input {
+	border:1px solid #CCCCCC;
+	height:16px;
+	width:220px;
+}
+
+.form-table-wrapper {
+	margin-top:5px;
+	text-align:center;
+	width:400px;
+	float:left;
+}
+
+
+h1 {
+	color:#666666;
+	padding-top:10px;
+}
+
+h4.subtag {
+	color:#444444;
+	font-weight:normal;
+}
+
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td
 	{
 	margin: 0;
@@ -755,6 +779,10 @@ div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected di
 	height: 22px;
 }
 
+#divTab .tabs .selectedTab a{
+	font-weight:bolder;
+}
+
 #divTab .tabs a {
 	font-weight: bold;
 	text-decoration: none;
@@ -819,3 +847,34 @@ div.pagination a:hover, div.pagination a:active {
 .more_link{
 margin-right:80px;margin-top:30px;float:right;
 }
+
+
+div.cbx-hover {
+	background-image:url(../images/combobox-arrow-hover.gif);
+	color:#69B521;
+}
+
+div.cbx-choice {
+	background:white url(../images/combobox-arrow.gif) no-repeat scroll right center;
+	border:1px solid #BBBBBB;
+	font-size:11px;
+	font-weight:normal;
+	line-height:6pt;
+	overflow:hidden;
+	padding:4px 17px 4px 4px;
+}
+
+.cbx {
+	float:left;
+	margin:0 20px 0 4px;
+}
+
+.cbx-options {
+	left:0;
+	margin:0;
+	position:absolute;
+	width:100%;
+	z-index:100;
+}
+
+
