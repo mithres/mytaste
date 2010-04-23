@@ -3,6 +3,7 @@ package com.vc.service.vod;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 
 import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
@@ -19,8 +20,10 @@ import com.vc.core.entity.IPageList;
 import com.vc.core.entity.PageListImpl;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
+import com.vc.dao.vod.PlayListQueueDao;
 import com.vc.dao.vod.VideoCollectionDao;
 import com.vc.entity.PlayList;
+import com.vc.entity.PlayListQueue;
 import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.presentation.exception.FilePersistException;
@@ -37,6 +40,8 @@ public class PlayListService implements IPlayListService {
 	private UserInfoDao userInfoDao = null;
 	@Autowired
 	private VideoCollectionDao videoCollectionDao = null;
+	@Autowired
+	private PlayListQueueDao playListQueueDao = null;
 
 	@Override
 	public PlayList findPlayListById(String playListID) {
@@ -58,7 +63,7 @@ public class PlayListService implements IPlayListService {
 
 		return user.getAccountBalance() >= playList.getPrice();
 	}
-	
+
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) throws FilePersistException {
@@ -101,7 +106,8 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public VideoCollection createVideoCollection(VideoCollection collection) {
-		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
 		collection.setCollectionIndex(index);
 		videoCollectionDao.create(collection);
 		return collection;
@@ -127,5 +133,49 @@ public class PlayListService implements IPlayListService {
 		videoCollectionDao.update(collection);
 		return collection;
 	}
-	
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public PlayListQueue createQueue(PlayListQueue queue) {
+		playListQueueDao.create(queue);
+		return queue;
+	}
+
+	@Override
+	public IPageList<PlayListQueue> findUserQueue(Hints hnts, String userName) {
+		IPageList<PlayListQueue> list = new PageListImpl<PlayListQueue>();
+		list.setRecordTotal(playListQueueDao.findUserPlayListQueueCount(userName));
+		list.setRecords(playListQueueDao.findUserPlayListQueue(hnts, userName));
+		return list;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void removeQueue(String id) {
+		playListQueueDao.delete(id);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public PlayListQueue updateQueue(PlayListQueue queue) {
+		playListQueueDao.update(queue);
+		return queue;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void addPlayListToQueue(UserInfo user, PlayList playList) {
+
+		PlayListQueue queue = playListQueueDao.findPlayListInUserQueue(user.getUsername(), playList.getId());
+		if (queue != null) {
+			return;
+		} else {
+			queue = new PlayListQueue();
+			queue.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+			queue.setPlayList(playList);
+			queue.setUser(user);
+			playListQueueDao.create(queue);
+		}
+	}
+
 }
