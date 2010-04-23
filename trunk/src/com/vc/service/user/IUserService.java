@@ -22,5 +22,7 @@ public interface IUserService {
 	public abstract UserInfo createUser(UserInfo user) throws UserExistException;
 	
 	public abstract IPageList<UserInfo> findPopularUser(Hints hint);
+	
+	public Long findUserQueueCount(String userName);
 
 }

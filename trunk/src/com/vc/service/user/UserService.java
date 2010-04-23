@@ -31,6 +31,7 @@ import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
+import com.vc.dao.vod.PlayListQueueDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
@@ -46,13 +47,16 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	private static Logger log = Red5LoggerFactory.getLogger(UserService.class, "VideoConference");
 
 	@Autowired
+	private RoleDao roleDao = null;
+	@Autowired
 	private UserInfoDao userInfoDao = null;
 	@Autowired
 	private ResourceDao resourceDao = null;
 	@Autowired
 	private PlayListDao playListDao = null;
 	@Autowired
-	private RoleDao roleDao = null;
+	private PlayListQueueDao playListQueueDao = null;
+
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -180,6 +184,11 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 		users.setRecordTotal(userInfoDao.findPopularUserCount());
 		users.setRecords(userInfoDao.findPopularUser(hint));
 		return users;
+	}
+
+	@Override
+	public Long findUserQueueCount(String userName) {
+		return playListQueueDao.findUserPlayListQueueCount(userName);
 	}
 
 }
