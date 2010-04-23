@@ -1,5 +1,9 @@
 var playListIDs = "";
 
+function showMessage(message){
+	alert(message);
+}
+
 $(document).ready(function() {
 	if ($("#lzappContainer").length > 0) {
 		$("#contentpanel").css("width", "100%");
@@ -12,8 +16,22 @@ function flushValidateCode() {
 	}, 100);
 }
 
-function showMessage(message){
-	alert(message);
+
+function findUserQueueCount(){
+	
+	var url = webPath+"/user/findQueueCount";
+	
+	$.ajax( {
+		url : url,
+		type : 'get',
+		dataType : 'json',
+		error : function(xml) {
+			showMessage("Find queue count error.");
+		},
+		success : function(xml) {
+			$('#queueCount').html("("+xml.count+")"); 
+		}
+	});
 }
 
 function addToQueue(pid){
@@ -27,7 +45,7 @@ function addToQueue(pid){
 		type : 'post',
 		dataType : 'json',
 		error : function(xml) {
-			alert("Login Error.");
+			showMessage("Add to queue error.");
 		},
 		success : function(xml) {
 			$('#loading').animate({opacity:0});
@@ -79,6 +97,6 @@ function vidContents(id) {
 							shadowOffsetY : 4
 						});
 	} else {
-		// alert("不加载");
+		// showMessage("不加载");
 	}
 }

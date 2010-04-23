@@ -24,6 +24,8 @@
 			<result type="redirect">/user/accountInfo</result>
 			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
 		</action>
+		
+		<action name="findQueueCount"  class="com.vc.presentation.action.user.FindQueueCountAction"/>
 			
 	</package>
 	

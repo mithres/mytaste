@@ -41,12 +41,15 @@
 <security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
 
 <ul style="" class="usernav" id="logged-out-nav">
-
+	
 	<li class="first sign-out-link">Welcome : <security:authentication property="name"/></li>
 	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Profile</a></li>
-	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Queue</a></li>
+	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Queue <span id="queueCount"></span></a></li>
 	<security:authorize ifAllGranted="ROLE_ADMIN"><li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">System</a></li></security:authorize>
 	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/logout">Logout</a></li>
+	<script>
+		findUserQueueCount();
+	</script>
 </ul>
 </security:authorize>
 
