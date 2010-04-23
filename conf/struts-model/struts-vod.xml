@@ -46,7 +46,7 @@
 			<result name="channels">/WEB-INF/pages/vod/channels.jsp</result>
 		</action>
 		
-		
+		<action name="addToQueue"  class="com.vc.presentation.action.vod.AddPlayListQueueAction"/>
 		
 	</package>
 	

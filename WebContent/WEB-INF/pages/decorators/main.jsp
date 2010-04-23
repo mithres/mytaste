@@ -21,11 +21,14 @@
 <script src="<web.page:path/>/lps/includes/embed-compressed.js" type="text/javascript"></script>
 <script src="<web.page:path/>/js/json.js" type="text/javascript" charset="utf-8"></script>
 
+<script type="text/javascript">
+	var webPath = "<web.page:path/>"; 
+</script>
+
 <decorator:head />
 </head>
 
-<body
-	<decorator:getProperty property="body.onload" writeEntireProperty="true" />>
+<body <decorator:getProperty property="body.onload" writeEntireProperty="true" />>
 
 
 <div style="position: relative;" id="container"

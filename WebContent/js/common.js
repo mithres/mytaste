@@ -12,6 +12,38 @@ function flushValidateCode() {
 	}, 100);
 }
 
+function showMessage(message){
+	alert(message);
+}
+
+function addToQueue(pid){
+	
+	var param = "id="+pid;
+	var url = webPath+"/vod/addToQueue";
+	
+	$.ajax( {
+		url : url,
+		data: param,
+		type : 'post',
+		dataType : 'json',
+		error : function(xml) {
+			alert("Login Error.");
+		},
+		success : function(xml) {
+			$('#loading').animate({opacity:0});
+			if(xml.success){
+				//showMessage(xml.messages);
+				var img = "<img title='You have queued this video.' style='display: block' src='"+webPath+"/images/icon-check.gif'>";
+				$('#queueState'+pid).html(img);
+			}else{
+				$('#errorMessage').html(xml.errors); 
+				flushValidateCode();
+			}
+		}
+	});
+	
+}
+
 function vidContents(id) {
 
 	if (playListIDs.indexOf(id) == -1) {
