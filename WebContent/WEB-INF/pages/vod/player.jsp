@@ -32,7 +32,7 @@
 <span class="name"><s:property value="playList.playListName"/> </span>
 <span> | ★★★☆☆</span>
 </h1>
-
+<div><s:property value="playList.description"/></div>
 <div class="clear"></div>
 </div>
 </div>
@@ -48,7 +48,7 @@
 			wmode:'opaque'
 		});
 	</script>
-	<div><s:property value="playList.description"/></div>
+	
 	<div id="vpcomment_wrap">
 		<div id="vpcomment">
 			<div class="commentArea">

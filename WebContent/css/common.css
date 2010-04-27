@@ -83,9 +83,8 @@ ul#topnav li:hover {
 	background: #1376c9 url(../images/subnav-hover.gif) repeat-x;
 }
 
-ul#topnav li span {
+ul#topnav li div {
 	float: left;
-	padding: 8px 0;
 	position: absolute;
 	left: 0;
 	top: 27px;
@@ -102,15 +101,15 @@ ul#topnav li span {
 	-webkit-border-bottom-left-radius: 5px;
 }
 
-ul#topnav li:hover span {
+ul#topnav li:hover div {
 	display: block;
 }
 
-ul#topnav li span a {
+ul#topnav li div a {
 	display: inline;
 }
 
-ul#topnav li span a:hover {
+ul#topnav li div a:hover {
 	text-decoration: underline;
 }
 
@@ -752,6 +751,9 @@ div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected di
 	height: 24px;
 	border-bottom: #dddddd 1px solid;
 }
+#divTab .tabs a{
+	color:#333333;
+}
 
 #divTab .tabs li:hover {
 	background: #99CC33;
@@ -1092,5 +1094,42 @@ z-index:1;
 .f_c {
 	clear:both;
 }
-
-
+div.channels-dock {
+background:url("../images/dock_bg.gif") repeat-x scroll left top transparent;
+color:#CCCCCC;
+cursor:default;
+left:0;
+margin:0 auto;
+position:absolute;
+width:970px;
+z-index:15;
+}
+div.channels-dock table {
+border:medium none;
+border-collapse:collapse;
+height:100%;
+margin:0;
+padding:5px;
+width:100%;
+}
+div.channels-dock td {
+border-color:#666666 -moz-use-text-color -moz-use-text-color;
+border-right:medium none;
+border-style:solid none none;
+border-width:1px medium medium;
+cursor:pointer;
+width:16%;
+text-align:left;
+}
+div.channels-dock a, div.channels-dock span {
+border-left:1px solid #666666;
+color:white;
+display:block;
+font-size:12px;
+font-weight:normal;
+margin:0;
+padding-bottom:4px;
+padding-left:6px;
+padding-top:4px;
+width:100%;
+}
