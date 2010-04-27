@@ -5,7 +5,10 @@ import org.springframework.security.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
+import com.vc.core.dao.Hints;
+import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
+import com.vc.entity.VideoComments;
 import com.vc.service.cluster.ILoadBalancer;
 import com.vc.service.vod.IPlayListService;
 
@@ -17,7 +20,9 @@ public class PlayVideoAction extends BaseAction {
 	private IPlayListService playListService = null;
 	@Autowired
 	private ILoadBalancer loadBalancer = null;
-	
+
+	private IPageList<VideoComments> videoComments = null;
+
 	private PlayList playList = null;
 
 	private String playListID = null;
@@ -40,6 +45,8 @@ public class PlayVideoAction extends BaseAction {
 		}
 
 		playList = playListService.findPlayListById(playListID);
+		videoComments = playListService.findPlayListComments(playListID, new Hints(getStartRow(), getPageCount()));
+
 		sid = this.getRequest().getSession().getId();
 		nodeUrl = loadBalancer.getLBNode().getVodServiceUrl();
 		log.info(loadBalancer.getLBNode().toString());
@@ -65,6 +72,10 @@ public class PlayVideoAction extends BaseAction {
 
 	public PlayList getPlayList() {
 		return playList;
+	}
+
+	public IPageList<VideoComments> getVideoComments() {
+		return videoComments;
 	}
 
 }

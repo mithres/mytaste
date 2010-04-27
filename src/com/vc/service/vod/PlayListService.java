@@ -22,10 +22,12 @@ import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
 import com.vc.dao.vod.PlayListQueueDao;
 import com.vc.dao.vod.VideoCollectionDao;
+import com.vc.dao.vod.VideoCommentsDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListQueue;
 import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
+import com.vc.entity.VideoComments;
 import com.vc.presentation.exception.FilePersistException;
 import com.vc.util.configuration.ServerConfiguration;
 
@@ -42,6 +44,8 @@ public class PlayListService implements IPlayListService {
 	private VideoCollectionDao videoCollectionDao = null;
 	@Autowired
 	private PlayListQueueDao playListQueueDao = null;
+	@Autowired
+	private VideoCommentsDao videoCommentsDao = null;
 
 	@Override
 	public PlayList findPlayListById(String playListID) {
@@ -67,14 +71,12 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) throws FilePersistException {
-		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
-				.longValue();
+		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
 		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
 
 		if (playList.getFilmFile() != null) {
-			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
-					+ playList.getFileName());
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
 			try {
 				FileUtil.copyFile(playList.getFilmFile(), destFile);
 			} catch (IOException e) {
@@ -106,8 +108,7 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public VideoCollection createVideoCollection(VideoCollection collection) {
-		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
-				.longValue();
+		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
 		collection.setCollectionIndex(index);
 		videoCollectionDao.create(collection);
 		return collection;
@@ -176,6 +177,41 @@ public class PlayListService implements IPlayListService {
 			queue.setUser(user);
 			playListQueueDao.create(queue);
 		}
+	}
+
+	@Override
+	public IPageList<VideoComments> findPlayListComments(String playListId, Hints hnts) {
+		IPageList<VideoComments> list = new PageListImpl<VideoComments>();
+		list.setRecordTotal(videoCommentsDao.findPlayListCommentsCount(playListId));
+		list.setRecords(videoCommentsDao.findPlayListComments(hnts, playListId));
+		return list;
+	}
+
+	@Override
+	public IPageList<PlayList> alsoLikedVideo(String userName, Hints hnts) {
+		// TODO to do
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+	
+		IPageList<PlayList> list = new PageListImpl<PlayList>();
+		list.setRecordTotal(playListDao.findPlayListCount(condition));
+		if (list.getRecordTotal() > 0) {
+			hnts.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+			list.setRecords(playListDao.findPlayList(condition, hnts));
+		}
+		return list;
+	}
+
+	@Override
+	public IPageList<PlayList> recommentedVideo(Hints hnts) {
+		// TODO Auto-generated method stub
+		PlayListSearchCondition condition = new PlayListSearchCondition();
+		IPageList<PlayList> list = new PageListImpl<PlayList>();
+		list.setRecordTotal(playListDao.findPlayListCount(condition));
+		if (list.getRecordTotal() > 0) {
+			hnts.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+			list.setRecords(playListDao.findPlayList(condition, hnts));
+		}
+		return list;
 	}
 
 }
