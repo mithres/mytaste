@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
+import com.vc.core.constants.Constants;
+import com.vc.entity.Channels;
 import com.vc.entity.FilmType;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
+import com.vc.entity.Tags;
+import com.vc.service.system.ISystemService;
 import com.vc.service.vod.IPlayListService;
 import com.vc.util.photo.PicUtil;
 import com.vc.util.security.ItemChecker;
@@ -22,7 +26,9 @@ public class SavePlayListAction extends BaseAction {
 
 	@Autowired
 	private IPlayListService playListService = null;
-	
+	@Autowired
+	private ISystemService systemService = null;
+
 	private PlayList playList = null;
 
 	private List<FilmType> fileTypes = null;
@@ -37,7 +43,8 @@ public class SavePlayListAction extends BaseAction {
 
 	private String filmContentType = null;
 	private String filmFileName = null;
-	
+
+	private String channel = null;
 	private String tags = null;
 
 	@Override
@@ -52,7 +59,7 @@ public class SavePlayListAction extends BaseAction {
 			this.addActionError(this.getText("vc.playlist.playname.empty"));
 
 		}
-		if (playList.getPrice()  != null) {
+		if (playList.getPrice() != null) {
 			if (!ItemChecker.checkPrice(playList.getPrice())) {
 				this.addActionError(this.getText("vc.playlist.price.error"));
 			}
@@ -66,13 +73,29 @@ public class SavePlayListAction extends BaseAction {
 
 	@Override
 	public String process() {
-		
+
 		playList.setFileName(filmFileName);
 		playList.setFilmFile(film);
 		playList.setAddedTime(new Timestamp(System.currentTimeMillis()));
-		if(playList.getPrice() == null){
+
+		if (playList.getPrice() == null) {
 			playList.setPrice(new Float(0));
 		}
+
+		if (channel != null) {
+			Channels channels = systemService.findChannelById(channel);
+			if (channels != null) {
+				playList.setChannel(channels);
+			}
+		}
+
+		String[] playListTags = tags.split(Constants.TAG_SPLIT_EXPRESSION);
+		for (String tag : playListTags) {
+			Tags tags = new Tags();
+			tags.setTag(tag);
+			playList.getTags().add(tags);
+		}
+
 		playListService.savePlayList(playList);
 
 		if (screenShot != null) {

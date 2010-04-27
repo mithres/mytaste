@@ -34,7 +34,7 @@ public class Channels {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Channels parentChannel = null;
 	
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@OrderBy("channelName")
 	private List<Channels> childChannels = new ArrayList<Channels>();
 	

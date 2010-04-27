@@ -56,11 +56,11 @@
 <security:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER">
 <script>
 	function showLoginForm(){
-		$('#message_box').animate({top:14, opacity:100 },"slow");  
+		$('#message_box').animate({ opacity:100 },"slow");  
 	}
 	function hideLoginForm(){
 		$('#loading').animate({opacity:0});	
-		$('#message_box').animate({ top:24,opacity:0 }, "slow");
+		$('#message_box').animate({opacity:0 }, "slow");
 	};
 	
 	function login() {
@@ -83,7 +83,8 @@
 			success : function(xml) {
 				$('#loading').animate({opacity:0});
 				if(xml.success){
-					location.href = "<web.page:path/>/";
+					var url = xml.targetUrl;
+					location.href = "<web.page:path/>"+url;
 				}else{
 					$('#errorMessage').html(xml.errors); 
 					flushValidateCode();
