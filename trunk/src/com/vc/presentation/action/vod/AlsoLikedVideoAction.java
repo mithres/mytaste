@@ -17,7 +17,9 @@ public class AlsoLikedVideoAction extends BaseAction {
 	private IPlayListService playListService = null;
 
 	private IPageList<PlayList> videos = null;
-
+	
+	private String type = "alsoLiked";
+	
 	@Override
 	public String process() {
 		videos = playListService.recommentedVideo(new Hints(getStartRow(), getPageCount()));
@@ -26,6 +28,10 @@ public class AlsoLikedVideoAction extends BaseAction {
 
 	public IPageList<PlayList> getVideos() {
 		return videos;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 

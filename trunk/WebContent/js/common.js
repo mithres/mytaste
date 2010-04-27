@@ -34,7 +34,7 @@ function findUserQueueCount(){
 	});
 }
 
-function addToQueue(pid){
+function addToQueue(pid,vender){
 	
 	var param = "id="+pid;
 	var url = webPath+"/vod/addToQueue";
@@ -52,7 +52,8 @@ function addToQueue(pid){
 			if(xml.success){
 				//showMessage(xml.messages);
 				var img = "<img title='You have queued this video.' style='display: block' src='"+webPath+"/images/icon-check.gif'>";
-				$('#queueState'+pid).html(img);
+				$('#'+vender).html(img);
+				findUserQueueCount();
 			}else{
 				$('#errorMessage').html(xml.errors); 
 				flushValidateCode();

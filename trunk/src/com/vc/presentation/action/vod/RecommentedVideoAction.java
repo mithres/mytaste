@@ -17,6 +17,8 @@ public class RecommentedVideoAction extends BaseAction {
 	private IPlayListService playListService = null;
 
 	private IPageList<PlayList> videos = null;
+	
+	private String type = "recommented";
 
 	@Override
 	public String process() {
@@ -26,6 +28,10 @@ public class RecommentedVideoAction extends BaseAction {
 
 	public IPageList<PlayList> getVideos() {
 		return videos;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 
