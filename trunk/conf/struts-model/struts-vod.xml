@@ -46,7 +46,21 @@
 			<result name="channels">/WEB-INF/pages/vod/channels.jsp</result>
 		</action>
 		
+		<action name="showComments"  class="com.vc.presentation.action.vod.ShowPlayListCommentsAction">
+			<result>/WEB-INF/pages/vod/playlistcomments.jsp</result>
+		</action>	
+		
+		<action name="showRecommented"  class="com.vc.presentation.action.vod.RecommentedVideoAction">
+			<result>/WEB-INF/pages/vod/playlistentry.jsp</result>
+		</action>	
+		
+		<action name="alsoLiked"  class="com.vc.presentation.action.vod.AlsoLikedVideoAction">
+			<result>/WEB-INF/pages/vod/playlistentry.jsp</result>
+		</action>	
+		
 		<action name="addToQueue"  class="com.vc.presentation.action.vod.AddPlayListQueueAction"/>
+		
+		
 		
 	</package>
 	

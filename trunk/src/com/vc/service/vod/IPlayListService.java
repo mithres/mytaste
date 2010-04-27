@@ -9,6 +9,7 @@ import com.vc.entity.PlayList;
 import com.vc.entity.PlayListQueue;
 import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
+import com.vc.entity.VideoComments;
 import com.vc.presentation.exception.FilePersistException;
 
 public interface IPlayListService {
@@ -42,8 +43,14 @@ public interface IPlayListService {
 	public abstract void removeQueue(String id);
 
 	public abstract IPageList<PlayListQueue> findUserQueue(Hints hnts, String userName);
-	
-	// Play list queue 
+
+	// Play list queue
 	public abstract void addPlayListToQueue(UserInfo user, PlayList playList);
-	
+
+	public abstract IPageList<VideoComments> findPlayListComments(String playListId, Hints hnts);
+
+	public abstract IPageList<PlayList> recommentedVideo(Hints hnts);
+
+	public abstract IPageList<PlayList> alsoLikedVideo(String userName, Hints hnts);
+
 }
