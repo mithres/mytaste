@@ -43,7 +43,7 @@
 			allowfullscreen : 'true',
 			width : '640',
 			height : '496',
-			id : 'videoshare'
+			id : 'lzapp'
 		});
 	</script>
 	<div><s:property value="playList.description"/></div>

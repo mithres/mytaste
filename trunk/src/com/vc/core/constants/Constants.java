@@ -26,7 +26,7 @@ public class Constants {
 	
 	//Pagination 
 	public static final int DEFAULT_START = 0;
-	public static final int DEFAULT_COUNT = 5;
+	public static final int DEFAULT_COUNT = 30;
 	
 	// Photo properties
 	public static final int DEFAULT_WIDTH = 128;
