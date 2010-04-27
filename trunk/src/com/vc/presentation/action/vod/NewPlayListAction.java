@@ -1,5 +1,6 @@
 package com.vc.presentation.action.vod;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,21 +16,27 @@ import com.vc.service.system.ISystemService;
 public class NewPlayListAction extends BaseAction {
 
 	private static final long serialVersionUID = 7076437865438221434L;
-	
+
 	@Autowired
 	private ISystemService systemService = null;
-	
+
 	private List<FilmType> fileTypes = null;
 	private List<PlayListType> playListTypes = null;
-	private List<Channels> channels = null;
-	
+	private List<Channels> channels = new ArrayList<Channels>();
+
 	@Override
 	public String process() {
 
-		fileTypes =  Arrays.asList(FilmType.values());
+		fileTypes = Arrays.asList(FilmType.values());
 		playListTypes = Arrays.asList(PlayListType.values());
-		channels = systemService.findParentChannels();
-		
+		List<Channels> pChannels = systemService.findParentChannels();
+		for (Channels channel : pChannels) {
+			channels.add(channel);
+			for (Channels subChannel : channel.getChildChannels()) {
+				channels.add(subChannel);
+			}
+		}
+
 		return Action.SUCCESS;
 	}
 

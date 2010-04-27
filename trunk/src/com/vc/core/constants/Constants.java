@@ -61,6 +61,9 @@ public class Constants {
 	//Condition for search 
 	public static final String SEARCH_CONDITION_ALL = "All";
 	
+	//Tag split express
+	public static final String TAG_SPLIT_EXPRESSION = ",|:|;| ";
+	
 	//Constants for security handler
 	public static String ALLOWED_HTML_DOMAINS = null;
 	public static String ALLOWED_SWF_DOMAINS = null;

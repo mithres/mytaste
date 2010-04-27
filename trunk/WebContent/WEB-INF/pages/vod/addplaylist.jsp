@@ -19,6 +19,7 @@
 		list="playListTypes" />
 	<s:select name="playList.filmType" label="%{getText('vc.playlist.filmtype')}"
 		list="fileTypes" />
+	<s:select name="channel" label="Channel" list="channels" listKey="id" listValue="channelName" />
 	<s:textarea label="%{getText('vc.playlist.description')}" cols="40" rows="6"
 		name="playList.description" />
 		

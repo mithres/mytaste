@@ -65,7 +65,7 @@ public class VCAuthenticationProcessingFilter extends AuthenticationProcessingFi
 			WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 			clientManager.addClientListItem(details.getSessionId(), authentication);
 
-			String message = "{ \"success\" : true}";
+			String message = "{ \"success\" : true,\"targetUrl\":\"" + this.getDefaultTargetUrl() + "\"}";
 			writeMessageToClient(response, message);
 		}
 

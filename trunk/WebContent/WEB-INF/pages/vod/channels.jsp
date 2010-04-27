@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Taste - Channels</title>
+<title>Video Share - Channels</title>
 </head>
 <body>
 	
-	<h1>My Taste Channels</h1>
-	Browse all of My Taste's videos by category.<br/>
+	<h1>Video Share Channels</h1>
+	Browse all of Video Share's videos by category.<br/>
 	
 	<s:iterator value="channelList">
 		<a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a><br/>

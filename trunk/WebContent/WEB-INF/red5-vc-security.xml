@@ -24,7 +24,7 @@
 	<beans:bean id="authenticationProcessingFilter" class="com.vc.presentation.filter.VCAuthenticationProcessingFilter">
 		<custom-filter position="AUTHENTICATION_PROCESSING_FILTER"/>  
 		<beans:property name="authenticationManager" ref="authenticationManager"/>  
-		<beans:property name="defaultTargetUrl" value="/home"/>
+		<beans:property name="defaultTargetUrl" value="/vod/playListIndex"/>
 		<beans:property name="authenticationFailureUrl" value="/"/>  
 		<beans:property name="usernameParameter" value="userName"/>  
 		<beans:property name="passwordParameter" value="password"/>  
