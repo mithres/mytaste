@@ -20,7 +20,7 @@
 			allowfullscreen : 'false',
 			width : '100%',
 			height : '350',
-			id : 'lzapp',
+			id : 'slideShower',
 			wmode:'opaque'
 		});
 	</script>
