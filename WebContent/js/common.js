@@ -5,7 +5,7 @@ function showMessage(message){
 }
 
 $(document).ready(function() {
-	if ($("#lzappContainer").length > 0) {
+	if ($("#slideShower").length > 0) {
 		$("#contentpanel").css("width", "100%");
 	}
 });
