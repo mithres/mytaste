@@ -7,7 +7,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Taste - Recently Added Videos</title>
+<title>Video Share - Recently Added Videos</title>
+
+
 </head>
 <body>
 	
