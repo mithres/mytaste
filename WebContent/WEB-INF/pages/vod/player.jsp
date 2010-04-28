@@ -52,9 +52,6 @@
 <span class="label">Video:</span>
 <span class="name"><s:property value="playList.playListName"/> </span>
 <span> | </span>
-
-</h1>
-
 <form id="ratings" action="" method="post">			
 	<input type="radio" name="rate" value="1" title="Poor" id="rate1" /> <label for="rate1">Poor</label><br />
 	<input type="radio" name="rate" value="2" title="Fair" id="rate2" /> <label for="rate2">Fair</label><br />
@@ -62,6 +59,9 @@
 	<input type="radio" name="rate" value="4" title="Good" id="rate4" /> <label for="rate4">Good</label><br />
 	<input type="radio" name="rate" value="5" title="Excellent" id="rate5" /> <label for="rate5">Excellent</label><br />
 </form>
+</h1>
+
+
 
 
 <div><s:property value="playList.description"/></div>

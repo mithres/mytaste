@@ -1136,3 +1136,38 @@ width:100%;
 	font-weight:bolder;
 	font-size:12px;
 }
+#search-bar  {
+margin-bottom:15px;
+position:relative;
+}
+
+div.embed_search_bar {
+background:url("../images/search-bar-bg.gif") repeat-x scroll 0 0 transparent;
+border-left:1px solid #EAEAEA;
+border-right:1px solid #EAEAEA;
+height:27px;
+margin-top:0px;
+padding:0;
+position:relative;
+width:100%;
+}
+input.channel_search_term  {
+border-color:#CCCCCC -moz-use-text-color #CCCCCC #CCCCCC;
+border-style:solid none solid solid;
+border-width:1px 0 1px 1px;
+color:#030303;
+font-size:11px;
+height:17px;
+line-height:15px;
+padding:1px 1px 0;
+vertical-align:middle;
+width:230px;
+}
+#ratings{
+	left:120px;
+	top:7px;
+	position:absolute;
+}
+
+
+
