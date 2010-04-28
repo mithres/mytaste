@@ -86,7 +86,7 @@ public class PlayList {
 	private int weekIndex = -1;
 	private int monthIndex = -1;
 	
-	private float averageRateValue = 0 ;
+	private Integer averageRateValue = null;
 
 	@Transient
 	private File filmFile = null;
@@ -275,12 +275,13 @@ public class PlayList {
 		this.videoCollection = videoCollection;
 	}
 
-	public float getAverageRateValue() {
+	public Integer getAverageRateValue() {
 		return averageRateValue;
 	}
 
-	public void setAverageRateValue(float averageRateValue) {
+	public void setAverageRateValue(Integer averageRateValue) {
 		this.averageRateValue = averageRateValue;
 	}
+
 
 }

@@ -17,9 +17,9 @@ public class PlayListRatingDao extends GenericDAO<PlayListRating, String> {
 		return (PlayListRating)this.findUnique(FIND_RATING_BY_USER_PLAYLIST, new Hints(0, 1), playListId, userName);
 	}
 	
-	public float findPlayListAverageRateValue(String playListId){
+	public int findPlayListAverageRateValue(String playListId){
 		this.find(FIND_PLAYLIST_AVERAGE_RATEVALUE, new Hints(0), playListId);
-		return 0f;
+		return 0;
 	}
 	
 }
