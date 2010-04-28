@@ -62,6 +62,8 @@
 		
 		<action name="getSubChannel"  class="com.vc.presentation.action.vod.GetSubChannelAction"/>
 		
+		<action name="ratePlayList"  class="com.vc.presentation.action.vod.RatePlayListAction"/>
+		
 	</package>
 	
 	
