@@ -24,5 +24,7 @@ public interface ISystemService {
 	public abstract void deleteChannel(String channelId);
 
 	public abstract List<Channels> findParentChannels();
+	
+	public abstract List<Channels> findAllSubChannels(String channelId);
 
 }

@@ -28,17 +28,30 @@
 </ul>
 </div>
 
-<s:action id="list" namespace="/vod" name="showPlayListTypeAndChannel" executeResult="true"/>
+<s:if test="type.equals('Popular')">
+	<s:action id="list" namespace="/vod" name="showPlayListTypeAndChannel" executeResult="true">
+		<s:param name="action">Popular</s:param>
+		<s:param name="timeFrame">${timeFrame}</s:param>
+		<s:param name="parentChannelId">${channel}</s:param>
+	</s:action>
+</s:if><s:elseif test="type.equals('Rate')">
+	<s:action id="list" namespace="/vod" name="showPlayListTypeAndChannel" executeResult="true">
+		<s:param name="action">Rate</s:param>
+		<s:param name="parentChannelId">${channel}</s:param>
+	</s:action>
+</s:elseif>
+
+
 
 <div>
 
 <s:if test="type.equals('Popular')">
 <div id="divTab" style="width: 100%;">
 <ul class="tabs">
-	<li id="All" onclick="TabSwitch('All');" class="<s:if test="timeFrame.equals('All')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=All">All Time</a></li>
-	<li id="Today" onclick="TabSwitch('Today');" class="<s:if test="timeFrame.equals('Today')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=Today">Today</a></li>
-	<li id="ThisWeek" onclick="TabSwitch('ThisWeek');" class="<s:if test="timeFrame.equals('ThisWeek')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=ThisWeek">This Week</a></li>
-	<li id="ThisMonth" onclick="TabSwitch('ThisMonth');" class="<s:if test="timeFrame.equals('ThisMonth')">selectedTab</s:if>"><a href="<web.page:path/>/vod/popular?timeFrame=ThisMonth">This Month</a></li>
+	<li id="All" onclick="TabSwitch('All');" class="<s:if test="timeFrame.equals('All')">selectedTab</s:if>"><a onclick="searchPlayListByCondition('<s:property value="type"/>','All');" href="javascript:void();">All Time</a></li>
+	<li id="Today" onclick="TabSwitch('Today');" class="<s:if test="timeFrame.equals('Today')">selectedTab</s:if>"><a onclick="searchPlayListByCondition('<s:property value="type"/>','Today');" href="javascript:void();">Today</a></li>
+	<li id="ThisWeek" onclick="TabSwitch('ThisWeek');" class="<s:if test="timeFrame.equals('ThisWeek')">selectedTab</s:if>"><a onclick="searchPlayListByCondition('<s:property value="type"/>','ThisWeek');" href="javascript:void();">This Week</a></li>
+	<li id="ThisMonth" onclick="TabSwitch('ThisMonth');" class="<s:if test="timeFrame.equals('ThisMonth')">selectedTab</s:if>"><a onclick="searchPlayListByCondition('<s:property value="type"/>','ThisMonth');" href="javascript:void();">This Month</a></li>
 </ul>
 </div>
 </s:if>
@@ -64,7 +77,6 @@
 	pageCount="${pageCount}" currentPage="${pageNumber}"
 	action="/vod/highestRate" className="pageable-div pagination"
 	innerStyle="margin-top: 50px; float: left;" />
-
 </s:else>
 
 

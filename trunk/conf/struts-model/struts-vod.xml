@@ -60,7 +60,7 @@
 		
 		<action name="addToQueue"  class="com.vc.presentation.action.vod.AddPlayListQueueAction"/>
 		
-		
+		<action name="getSubChannel"  class="com.vc.presentation.action.vod.GetSubChannelAction"/>
 		
 	</package>
 	
