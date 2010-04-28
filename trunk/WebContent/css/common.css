@@ -73,7 +73,7 @@ ul#topnav li {
 }
 
 ul#topnav li a {
-	padding: 6px 15px;
+	padding: 6px 15px;	
 	display: block;
 	color: #ffffff;
 	text-decoration: none;
@@ -93,12 +93,7 @@ ul#topnav li div {
 	background-image: url(../images/dock_bg.gif);
 	color: #f0f0f0;
 	z-index: 1000;
-	-moz-border-radius-bottomright: 5px;
-	-khtml-border-radius-bottomright: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	-khtml-border-radius-bottomleft: 5px;
-	-webkit-border-bottom-left-radius: 5px;
+
 }
 
 ul#topnav li:hover div {
@@ -1119,9 +1114,10 @@ border-style:solid none none;
 border-width:1px medium medium;
 cursor:pointer;
 width:16%;
+height:20px;
 text-align:left;
 }
-div.channels-dock a, div.channels-dock span {
+ul#topnav li div.channels-dock a, ul#topnav li div.channels-dock span {
 border-left:1px solid #666666;
 color:white;
 display:block;

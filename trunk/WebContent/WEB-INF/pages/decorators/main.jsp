@@ -164,12 +164,21 @@
 
 <ul id="topnav">
 	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="<web.page:path/>/vod/channels">Channels</a>
-	<span> 
-		<s:iterator value="#session.MenuStat.channels" status="stat">
-		<a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a>
-		<s:if test="(#stat.index+1)%8 == 0"><br/></s:if>
-		</s:iterator>
-	</span>
+	<div class="channels-dock"> 
+		<table>
+			<tbody>
+				<tr>
+				<s:iterator value="#session.MenuStat.channels" status="stat">
+					<td><a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a></td>
+					<s:if test="(#stat.index+1)%6 == 0"></tr><tr></s:if>
+				</s:iterator>
+				</tr>
+				
+			</tbody>
+		</table>
+	
+
+	</div>
 	</li>
 
 <s:if test="#session.MenuStat.menuStat.equals('vod')">
