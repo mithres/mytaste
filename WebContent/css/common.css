@@ -1133,3 +1133,10 @@ padding-left:6px;
 padding-top:4px;
 width:100%;
 }
+
+.conditionDiv{
+	float: left; 
+	padding-right: 10px;
+	font-weight:bolder;
+	font-size:12px;
+}

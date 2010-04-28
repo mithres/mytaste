@@ -122,4 +122,9 @@ public class SystemService implements ISystemService {
 		return channelDao.findById(channelId);
 	}
 
+	@Override
+	public List<Channels> findAllSubChannels(String channelId) {
+		return channelDao.findSubChannels(channelId);
+	}
+
 }

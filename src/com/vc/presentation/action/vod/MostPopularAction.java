@@ -29,12 +29,23 @@ public class MostPopularAction extends BaseAction {
 	
 	private PlayListType vt = null;
 	
-	private String c = Constants.SEARCH_CONDITION_ALL;
+	private String channel = Constants.SEARCH_CONDITION_ALL;
+	
+	private String subChannel = Constants.SEARCH_CONDITION_ALL;
+
 
 	@Override
 	public String process() {
-		
+
 		PlayListSearchCondition condition = new PlayListSearchCondition();
+		if(vt != null){
+			condition.setPlayListType(vt);
+		}
+		if(channel != Constants.SEARCH_CONDITION_ALL && subChannel == Constants.SEARCH_CONDITION_ALL){
+			condition.setChannelId(channel);
+		}else if(channel != Constants.SEARCH_CONDITION_ALL && subChannel != Constants.SEARCH_CONDITION_ALL){
+			condition.setChannelId(subChannel);
+		}
 		condition.setOrderBy(timeFrame);
 		
 		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()), condition);
@@ -57,4 +68,27 @@ public class MostPopularAction extends BaseAction {
 		return type;
 	}
 
+	public PlayListType getVt() {
+		return vt;
+	}
+
+	public void setVt(PlayListType vt) {
+		this.vt = vt;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+
+	public String getSubChannel() {
+		return subChannel;
+	}
+
+	public void setSubChannel(String subChannel) {
+		this.subChannel = subChannel;
+	}
 }

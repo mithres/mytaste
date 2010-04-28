@@ -17,7 +17,8 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	private static final String FIND_PLAYLIST_BASE = " from PlayList pl ";
 
 	public Long findPlayListCount(PlayListSearchCondition condition) {
-		return this.findRowCount(FIND_PLAYLIST_COUNT_BASE);
+		String hql = FIND_PLAYLIST_COUNT_BASE + createHqlCondition(condition);
+		return this.findRowCount(hql);
 	}
 
 	public List<PlayList> findPlayList(PlayListSearchCondition condition, Hints hnts) {
@@ -62,7 +63,7 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 			} else {
 				sb.append(" and ");
 			}
-			sb.append(" pl.playListType " + condition.getPlayListType());
+			sb.append(" pl.playListType = " + condition.getPlayListType().ordinal());
 		}
 
 		if (condition.getChannelId() != null) {

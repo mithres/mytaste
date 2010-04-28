@@ -1,26 +1,27 @@
 var playListIDs = "";
 
-function showMessage(message){
-	alert(message);
-}
-
 $(document).ready(function() {
 	if ($("#slideShower").length > 0) {
 		$("#contentpanel").css("width", "100%");
 	}
 });
+
+function showMessage(message) {
+	alert(message);
+}
+
 function flushValidateCode() {
 	// set timeout is workaroud for update captcha in IE
 	setTimeout(function() {
-		$('#ccode').attr('src',	'signUp/captcha?_=' + parseInt(Math.random() * 1000 + 1));
+		$('#ccode').attr('src',
+				'signUp/captcha?_=' + parseInt(Math.random() * 1000 + 1));
 	}, 100);
 }
 
+function findUserQueueCount() {
 
-function findUserQueueCount(){
-	
-	var url = webPath+"/user/findQueueCount";
-	
+	var url = webPath + "/user/findQueueCount";
+
 	$.ajax( {
 		url : url,
 		type : 'get',
@@ -29,38 +30,39 @@ function findUserQueueCount(){
 			showMessage("Find queue count error.");
 		},
 		success : function(xml) {
-			$('#queueCount').html("("+xml.count+")"); 
+			$('#queueCount').html("(" + xml.count + ")");
 		}
 	});
 }
 
-function addToQueue(pid,vender){
-	
-	var param = "id="+pid;
-	var url = webPath+"/vod/addToQueue";
-	
+function addToQueue(pid, vender) {
+
+	var param = "id=" + pid;
+	var url = webPath + "/vod/addToQueue";
 	$.ajax( {
 		url : url,
-		data: param,
+		data : param,
 		type : 'post',
 		dataType : 'json',
 		error : function(xml) {
 			showMessage("Add to queue error.");
 		},
 		success : function(xml) {
-			$('#loading').animate({opacity:0});
-			if(xml.success){
-				//showMessage(xml.messages);
-				var img = "<img title='You have queued this video.' style='display: block' src='"+webPath+"/images/icon-check.gif'>";
-				$('#'+vender).html(img);
+			$('#loading').animate( {
+				opacity : 0
+			});
+			if (xml.success) {
+				// showMessage(xml.messages);
+				var img = "<img title='You have queued this video.' style='display: block' src='"
+						+ webPath + "/images/icon-check.gif'>";
+				$('#' + vender).html(img);
 				findUserQueueCount();
-			}else{
-				$('#errorMessage').html(xml.errors); 
+			} else {
+				$('#errorMessage').html(xml.errors);
 				flushValidateCode();
 			}
 		}
 	});
-	
 }
 
 function vidContents(id) {
@@ -71,7 +73,7 @@ function vidContents(id) {
 		$('#vid' + id)
 				.bt(
 						{
-							trigger : ['hover'],
+							trigger : [ 'hover' ],
 							contentSelector : "$('" + vidContent + "')",
 							positions : [ 'right', 'left' ],
 							clickAnywhereToClose : false,
@@ -100,4 +102,59 @@ function vidContents(id) {
 	} else {
 		// showMessage("不加载");
 	}
+}
+
+function searchPlayListByCondition(action, timeFrame) {
+
+	var vt = $('#vt').val();
+	var channel = $('#channel').val();
+	var subChannel = $('#subChannels').val();
+	
+	var url;
+	if (action == 'Popular') {
+
+		url = webPath + "/vod/popular?timeFrame=" + timeFrame;
+
+		if (vt != 'All') {
+			url = webPath + "/vod/popular?timeFrame=" + timeFrame + "&vt=" + vt;
+		}
+		
+		if (channel != 'All') {
+			url += "&channel=" + channel;
+		}
+		
+		if(subChannel != 'All'){
+			url += "&subChannel=" + subChannel;
+		}
+		
+	} else if (action == 'Rate') {
+		var hasCondition = false;
+		url = webPath + "vod/highestRate";
+		
+		if (vt != 'All') {
+			url = webPath + "/vod/highestRate?vt=" + vt;
+			hasCondition = true;
+		}
+		
+		if (channel != 'All') {
+			if(hasCondition){
+				url += "&channel=" + channel;
+			}else{
+				url += "?channel=" + channel;
+				hasCondition = true;
+			}
+		}
+		
+		if(subChannel != 'All'){
+			if(hasCondition){
+				url += "&subChannel=" + subChannel;
+			}else{
+				url += "?subChannel=" + subChannel;
+			}
+			
+		}
+		
+	}
+
+	location.href = url;
 }

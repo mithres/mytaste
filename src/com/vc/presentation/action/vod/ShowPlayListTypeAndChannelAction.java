@@ -21,14 +21,21 @@ public class ShowPlayListTypeAndChannelAction extends BaseAction {
 	private List<PlayListType> playListTypes = null;
 	
 	private List<Channels> channelList = null;
+	private List<Channels> subChannelList = null;
 	
+	private String action = null;
+	private String timeFrame = null;
+	private String parentChannelId = null;
+
 	
 	@Override
 	public String process() {
-		
+	
 		playListTypes = Arrays.asList(PlayListType.values());
 		channelList = systemService.findParentChannels();
-		
+		if(parentChannelId != null){
+			subChannelList = systemService.findAllSubChannels(parentChannelId);
+		}
 		return Action.SUCCESS;
 	}
 
@@ -40,6 +47,36 @@ public class ShowPlayListTypeAndChannelAction extends BaseAction {
 
 	public List<Channels> getChannelList() {
 		return channelList;
+	}
+
+
+	public String getAction() {
+		return action;
+	}
+
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+
+	public String getTimeFrame() {
+		return timeFrame;
+	}
+
+
+	public void setTimeFrame(String timeFrame) {
+		this.timeFrame = timeFrame;
+	}
+
+
+	public void setParentChannelId(String parentChannelId) {
+		this.parentChannelId = parentChannelId;
+	}
+
+
+	public List<Channels> getSubChannelList() {
+		return subChannelList;
 	}
 
 }
