@@ -235,7 +235,7 @@ public class PlayListService implements IPlayListService {
 			playListRatingDao.create(rating);
 		}
 		PlayList playList = rating.getPlayList();
-		float averageValue = playListRatingDao.findPlayListAverageRateValue(playList.getId());
+		int averageValue = playListRatingDao.findPlayListAverageRateValue(playList.getId());
 		playList.setAverageRateValue(averageValue);
 		playListDao.update(playList);
 		return averageValue;

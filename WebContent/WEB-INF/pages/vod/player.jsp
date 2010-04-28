@@ -10,6 +10,10 @@
 <meta name="decorator" content="maindecorator" />
 <title>Video Share - Video: <s:property value="playList.playListName"/></title>
 
+<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/jquery.ui.stars.css" />
+<script src="<web.page:path/>/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/jquery.ui.stars.js" type="text/javascript" charset="utf-8"></script>
+
 <script>
 	function initPlayer() {
 		var vodPlayer = lz.embed.lzapp;
