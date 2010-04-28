@@ -21,10 +21,12 @@ import com.vc.core.entity.PageListImpl;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
 import com.vc.dao.vod.PlayListQueueDao;
+import com.vc.dao.vod.PlayListRatingDao;
 import com.vc.dao.vod.VideoCollectionDao;
 import com.vc.dao.vod.VideoCommentsDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListQueue;
+import com.vc.entity.PlayListRating;
 import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
@@ -46,6 +48,8 @@ public class PlayListService implements IPlayListService {
 	private PlayListQueueDao playListQueueDao = null;
 	@Autowired
 	private VideoCommentsDao videoCommentsDao = null;
+	@Autowired
+	private PlayListRatingDao playListRatingDao = null;
 
 	@Override
 	public PlayList findPlayListById(String playListID) {
@@ -191,7 +195,7 @@ public class PlayListService implements IPlayListService {
 	public IPageList<PlayList> alsoLikedVideo(String userName, Hints hnts) {
 		// TODO to do
 		PlayListSearchCondition condition = new PlayListSearchCondition();
-	
+
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCount(condition));
 		if (list.getRecordTotal() > 0) {
@@ -212,6 +216,29 @@ public class PlayListService implements IPlayListService {
 			list.setRecords(playListDao.findPlayList(condition, hnts));
 		}
 		return list;
+	}
+
+	@Override
+	public float findPlayListAverageRateValue(String playListId) {
+		return playListRatingDao.findPlayListAverageRateValue(playListId);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public float ratePlayList(PlayListRating rating) {
+
+		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser().getUsername());
+		if (plr != null) {
+			plr.setRateVale(rating.getRateVale());
+			playListRatingDao.update(plr);
+		} else {
+			playListRatingDao.create(rating);
+		}
+		PlayList playList = rating.getPlayList();
+		float averageValue = playListRatingDao.findPlayListAverageRateValue(playList.getId());
+		playList.setAverageRateValue(averageValue);
+		playListDao.update(playList);
+		return averageValue;
 	}
 
 }

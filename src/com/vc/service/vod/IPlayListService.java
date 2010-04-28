@@ -7,6 +7,7 @@ import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListQueue;
+import com.vc.entity.PlayListRating;
 import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
@@ -52,5 +53,10 @@ public interface IPlayListService {
 	public abstract IPageList<PlayList> recommentedVideo(Hints hnts);
 
 	public abstract IPageList<PlayList> alsoLikedVideo(String userName, Hints hnts);
+
+	public abstract float findPlayListAverageRateValue(String playListId);
+
+	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
+	public abstract float ratePlayList(PlayListRating rating);
 
 }
