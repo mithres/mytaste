@@ -10,11 +10,28 @@
 <meta name="decorator" content="maindecorator" />
 <title>Video Share - Video: <s:property value="playList.playListName"/></title>
 
-<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/jquery.ui.stars.css" />
-<script src="<web.page:path/>/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/jquery-ui.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/jquery.uni-form.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/js/jquery.ui.stars.js" type="text/javascript" charset="utf-8"></script>
 
+<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/jquery.ui.stars.css" />
+
 <script>
+
+	$(function(){
+		$("#ratings").children().not(":radio").hide();
+		$("#ratings").stars({
+			cancelShow: false,
+			callback: function(ui, type, value)
+			{
+				$.post("demo1.php", {rate: value}, function(data)
+				{
+					$("#ajax_response").html(data);
+				});
+			}
+		});
+	});
+
 	function initPlayer() {
 		var vodPlayer = lz.embed.lzapp;
 		var playListID = '<s:property value="playListID"/>';
@@ -34,8 +51,19 @@
 <h1 class="videotitle">
 <span class="label">Video:</span>
 <span class="name"><s:property value="playList.playListName"/> </span>
-<span> | ★★★☆☆</span>
+<span> | </span>
+
 </h1>
+
+<form id="ratings" action="" method="post">			
+	<input type="radio" name="rate" value="1" title="Poor" id="rate1" /> <label for="rate1">Poor</label><br />
+	<input type="radio" name="rate" value="2" title="Fair" id="rate2" /> <label for="rate2">Fair</label><br />
+	<input type="radio" name="rate" value="3" title="Average" id="rate3" /> <label for="rate3">Average</label><br />
+	<input type="radio" name="rate" value="4" title="Good" id="rate4" /> <label for="rate4">Good</label><br />
+	<input type="radio" name="rate" value="5" title="Excellent" id="rate5" /> <label for="rate5">Excellent</label><br />
+</form>
+
+
 <div><s:property value="playList.description"/></div>
 <div class="clear"></div>
 </div>
@@ -43,6 +71,14 @@
 <div class="left">
 
 	<script>
+
+		$(function(){
+			$("#starify").children().not(":input").hide();
+			$("#starify").stars({
+				cancelShow: false
+			});
+		});
+	
 		lz.embed.swf( {	
 			url : '<web.page:path/>/vod/vodplayer.swf8.swf',
 			allowfullscreen : 'true',
@@ -51,6 +87,9 @@
 			id : 'lzapp',
 			wmode:'opaque'
 		});
+
+		$("#stars-wrapper1").stars();
+		
 	</script>
 	
 	<div id="vpcomment_wrap">
