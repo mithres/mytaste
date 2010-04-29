@@ -1169,6 +1169,51 @@ width:230px;
 	top:7px;
 	position:absolute;
 }
+div.channel-groups{
+	margin-top:10px;
+}
+div.channel-group {
+margin-bottom:30px;
+float:left;
+width:90%;
+margin-left:10px;
+}
+div.channel-group-title  {
+background:none repeat scroll 0 0 #F4F4F4;
+color:#444444;
+font-size:18px;
+font-weight:bold;
+line-height:33px;
+margin-bottom:0;
+padding-bottom:0;
+padding-left:6px;
+
+}
+div.channel-group-title a {
+color:#444444;
+font-size:16px;
+font-weight:bold;
+text-decoration:none;
+}
+div.channel-group-title a:hover{
+color:#69b521;
+
+}
+
+div.channel-group div div {
+font-size:12px;
+margin:0;
+padding:6px 0 0 12px;
+}
+div.channel-group div div a {
+color:#444444;
+font-size:12px;
+}
+
+
+
+
+
 
 
 
