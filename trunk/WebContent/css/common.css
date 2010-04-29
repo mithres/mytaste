@@ -83,7 +83,7 @@ ul#topnav li:hover {
 	background: #1376c9 url(../images/subnav-hover.gif) repeat-x;
 }
 
-ul#topnav li div {
+ul#topnav li span {
 	float: left;
 	position: absolute;
 	left: 0;
@@ -96,15 +96,15 @@ ul#topnav li div {
 
 }
 
-ul#topnav li:hover div {
+ul#topnav li:hover span {
 	display: block;
 }
 
-ul#topnav li div a {
+ul#topnav li span a {
 	display: inline;
 }
 
-ul#topnav li div a:hover {
+ul#topnav li span a:hover {
 	text-decoration: underline;
 }
 
@@ -1089,7 +1089,7 @@ z-index:1;
 .f_c {
 	clear:both;
 }
-div.channels-dock {
+span.channels-dock {
 background:url("../images/dock_bg.gif") repeat-x scroll left top transparent;
 color:#CCCCCC;
 cursor:default;
@@ -1099,7 +1099,7 @@ position:absolute;
 width:970px;
 z-index:15;
 }
-div.channels-dock table {
+span.channels-dock table {
 border:medium none;
 border-collapse:collapse;
 height:100%;
@@ -1107,18 +1107,19 @@ margin:0;
 padding:5px;
 width:100%;
 }
-div.channels-dock td {
+span.channels-dock td {
 border-color:#666666 -moz-use-text-color -moz-use-text-color;
 border-right:medium none;
 border-style:solid none none;
 border-width:1px medium medium;
+border-left:1px solid #666666;
 cursor:pointer;
 width:16%;
 height:20px;
 text-align:left;
 }
-ul#topnav li div.channels-dock a, ul#topnav li div.channels-dock span {
-border-left:1px solid #666666;
+ul#topnav li span.channels-dock a, ul#topnav li span.channels-dock span {
+
 color:white;
 display:block;
 font-size:12px;

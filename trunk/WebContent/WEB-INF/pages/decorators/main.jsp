@@ -164,21 +164,29 @@
 
 <ul id="topnav">
 	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="<web.page:path/>/vod/channels">Channels</a>
-	<div class="channels-dock"> 
+	<span class="channels-dock"> 
 		<table>
 			<tbody>
 				<tr>
-				<s:iterator value="#session.MenuStat.channels" status="stat">
-					<td><a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a></td>
-					<s:if test="(#stat.index+1)%6 == 0"></tr><tr></s:if>
-				</s:iterator>
+					<s:iterator value="#session.MenuStat.channels" status="stat">
+						<td><a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a></td>
+						<s:if test="(#stat.index+1)%6 == 0"></tr><tr></s:if>
+					</s:iterator>
+					<s:set name="count" value="#session.MenuStat.channels.size()%6"/>
+			        <s:bean name="org.apache.struts2.util.Counter" id="counter">
+			          <s:param name="first" value="1" />
+			          <s:param name="last" value="6-#count"/>
+			          <s:iterator>
+			            <td>&nbsp;</td>
+			          </s:iterator>
+			        </s:bean>         
 				</tr>
 				
 			</tbody>
 		</table>
 	
 
-	</div>
+	</span>
 	</li>
 
 <s:if test="#session.MenuStat.menuStat.equals('vod')">
