@@ -21,7 +21,7 @@ public class RatePlayListAction extends BaseAction {
 	private IPlayListService playListService = null;
 	
 	private String playListId = null;
-	private float rateValue ;
+	private double rateValue ;
 	
 	@Override
 	public String process() {
@@ -31,7 +31,8 @@ public class RatePlayListAction extends BaseAction {
 		plr.setPlayList(playList);
 		plr.setUser(user);
 		plr.setRateVale(rateValue);
-		playListService.ratePlayList(plr);
+		Double averageRateValue = playListService.ratePlayList(plr);
+		this.write(String.valueOf(averageRateValue.intValue()));
 		return Action.NONE;
 	}
 
@@ -39,8 +40,9 @@ public class RatePlayListAction extends BaseAction {
 		this.playListId = playListId;
 	}
 
-	public void setRateValue(float rateValue) {
+	public void setRateValue(double rateValue) {
 		this.rateValue = rateValue;
 	}
+
 
 }

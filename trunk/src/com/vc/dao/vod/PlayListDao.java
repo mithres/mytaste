@@ -46,6 +46,8 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 				return " order by thisMonthViewCount desc ";
 			} else if ("AddedTime".equals(condition.getOrderBy())) {
 				return " order by addedTime desc ";
+			}else if  ("RateValue".equals(condition.getOrderBy())){
+				return " order by averageRateValue desc ";
 			} else if ("All".equals(condition.getOrderBy())) {
 				return " order by viewCount desc ";
 			}

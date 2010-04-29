@@ -22,6 +22,7 @@ public class HighestRatedAction extends BaseAction {
 	private IPageList<PlayList> playLists = null;
 
 	private String timeFrame = "All";
+	private String rateValue = "RateValue";
 	
 	private String type = "Rate";
 	
@@ -35,7 +36,16 @@ public class HighestRatedAction extends BaseAction {
 	public String process() {
 
 		PlayListSearchCondition condition = new PlayListSearchCondition();
-		condition.setOrderBy(timeFrame);
+		condition.setOrderBy(rateValue);
+		if(vt != null){
+			condition.setPlayListType(vt);
+		}
+		if(channel != Constants.SEARCH_CONDITION_ALL && subChannel == Constants.SEARCH_CONDITION_ALL){
+			condition.setChannelId(channel);
+		}else if(channel != Constants.SEARCH_CONDITION_ALL && subChannel != Constants.SEARCH_CONDITION_ALL){
+			condition.setChannelId(subChannel);
+		}
+		
 		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(), getPageCount()), condition);
 		return Action.SUCCESS;
 	}

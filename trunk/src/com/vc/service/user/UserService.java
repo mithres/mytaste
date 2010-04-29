@@ -32,7 +32,9 @@ import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
 import com.vc.dao.vod.PlayListQueueDao;
+import com.vc.dao.vod.PlayListRatingDao;
 import com.vc.entity.PlayList;
+import com.vc.entity.PlayListRating;
 import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
 import com.vc.entity.Role;
@@ -56,7 +58,8 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	private PlayListDao playListDao = null;
 	@Autowired
 	private PlayListQueueDao playListQueueDao = null;
-
+	@Autowired
+	private PlayListRatingDao playListRatingDao = null;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -116,9 +119,11 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public boolean playVod(Authentication auth, PlayList playList) {
+	public boolean playVod(Authentication auth, String playListId) {
 
+		PlayList playList = playListDao.findById(playListId);
 		UserInfo user = userInfoDao.findById(auth.getName());
+		
 		if (user.getAccountBalance() >= playList.getPrice()) {
 			user.setAccountBalance(user.getAccountBalance() - playList.getPrice());
 			userInfoDao.update(user);
@@ -155,7 +160,19 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 					playList.setThisMonthViewCount(playList.getThisMonthViewCount() + 1);
 				}
 			}
+			
+			PlayListRating plr = playListRatingDao.findUserPlayListRateValue(playList.getId(), user.getUserName());
+			if (plr == null) {
+				plr = new PlayListRating();
+				plr.setPlayList(playList);
+				plr.setUser(user);
+				plr.setRateVale(3d);
+				playListRatingDao.create(plr);
+				playList.setAverageRateValue(playListRatingDao.findPlayListAverageRateValue(playList.getId()));
+			}
+			
 			playListDao.update(playList);
+			
 		} else {
 			return false;
 		}
