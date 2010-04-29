@@ -61,6 +61,8 @@ public class SlopeOne {
     SlopeOne so = new SlopeOne(data);
     System.out.println("Here's the data I have accumulated...");
     so.printData();
+    
+    
     // then, I'm going to test it out...
     HashMap<ItemId,Float> user = new HashMap<ItemId,Float>();
     System.out.println("Ok, now we predict...");
