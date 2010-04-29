@@ -63,7 +63,7 @@ public class PlayList {
 	private Channels channel = null;
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-	private Set<PlayListRate> rates = new HashSet<PlayListRate>();
+	private Set<PlayListRating> rates = new HashSet<PlayListRating>();
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private VideoCollection videoCollection = null;
@@ -85,7 +85,7 @@ public class PlayList {
 	private int dayIndex = -1;
 	private int weekIndex = -1;
 	private int monthIndex = -1;
-	
+
 	private Double averageRateValue = new Double(0);
 
 	@Transient
@@ -199,11 +199,11 @@ public class PlayList {
 		this.channel = channel;
 	}
 
-	public Set<PlayListRate> getRates() {
+	public Set<PlayListRating> getRates() {
 		return rates;
 	}
 
-	public void setRates(Set<PlayListRate> rates) {
+	public void setRates(Set<PlayListRating> rates) {
 		this.rates = rates;
 	}
 
@@ -282,6 +282,5 @@ public class PlayList {
 	public void setAverageRateValue(Double averageRateValue) {
 		this.averageRateValue = averageRateValue;
 	}
-
 
 }

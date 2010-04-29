@@ -1,6 +1,6 @@
 package com.vc.service.vod;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
@@ -14,6 +14,8 @@ import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
 import com.vc.presentation.exception.FilePersistException;
+import com.vc.service.recommendation.ItemId;
+import com.vc.service.recommendation.UserId;
 
 public interface IPlayListService {
 
@@ -61,28 +63,6 @@ public interface IPlayListService {
 	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
 	public abstract Double ratePlayList(PlayListRating rating);
 
-	// Methods for recommendation
-	public Double findUserPlayListRatingValue(String userName, String playListId);
+	public abstract Map<UserId, Map<ItemId, Double>> loadBasicRatingData();
 
-	public List<PlayListRating> findRateValueFromUser(String userName);
-
-	public PlayListRating savePlayListRating(String userName, String playListId, double rateValue);
-	
-	public void removePlayListRating(String userName,String playListId);
-	
-	public List<String> findAllUsers();
-	
-	public List<PlayListRating> getPreferencesForItem(String playListId);
-	
-	public Long getNumPreferenceForItems(String... playListIds);
-	
-	public Long getNumPreferenceForItem(String playListId);
-	
-	public Long getNumItems();
-	
-	public Long getNumUsers();
-	
-	public List<String> getUsers();
-	
-	public List<String> getItems();
 }
