@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
@@ -219,13 +220,13 @@ public class PlayListService implements IPlayListService {
 	}
 
 	@Override
-	public float findPlayListAverageRateValue(String playListId) {
+	public Double findPlayListAverageRateValue(String playListId) {
 		return playListRatingDao.findPlayListAverageRateValue(playListId);
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public float ratePlayList(PlayListRating rating) {
+	public Double ratePlayList(PlayListRating rating) {
 
 		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser().getUsername());
 		if (plr != null) {
@@ -235,10 +236,22 @@ public class PlayListService implements IPlayListService {
 			playListRatingDao.create(rating);
 		}
 		PlayList playList = rating.getPlayList();
-		int averageValue = playListRatingDao.findPlayListAverageRateValue(playList.getId());
+		Double averageValue = playListRatingDao.findPlayListAverageRateValue(playList.getId());
 		playList.setAverageRateValue(averageValue);
 		playListDao.update(playList);
 		return averageValue;
+	}
+
+	@Override
+	public List<PlayListRating> findRateValueFromUser(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double findUserPlayListRatingValue(String userName, String playListId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

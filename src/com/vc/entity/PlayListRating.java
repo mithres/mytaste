@@ -25,7 +25,7 @@ public class PlayListRating {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo user = null;
 	
-	private Float rateVale = new Float(0);
+	private Double rateVale = new Double(0);
 
 	public String getId() {
 		return id;
@@ -51,11 +51,11 @@ public class PlayListRating {
 		this.user = user;
 	}
 
-	public Float getRateVale() {
+	public Double getRateVale() {
 		return rateVale;
 	}
 
-	public void setRateVale(Float rateVale) {
+	public void setRateVale(Double rateVale) {
 		this.rateVale = rateVale;
 	}
 

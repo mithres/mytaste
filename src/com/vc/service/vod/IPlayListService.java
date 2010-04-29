@@ -1,5 +1,7 @@
 package com.vc.service.vod;
 
+import java.util.List;
+
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
 
@@ -54,9 +56,15 @@ public interface IPlayListService {
 
 	public abstract IPageList<PlayList> alsoLikedVideo(String userName, Hints hnts);
 
-	public abstract float findPlayListAverageRateValue(String playListId);
+	public abstract Double findPlayListAverageRateValue(String playListId);
 
 	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
-	public abstract float ratePlayList(PlayListRating rating);
+	public abstract Double ratePlayList(PlayListRating rating);
+	
+	//Methods for recommendation 
+	public Double findUserPlayListRatingValue(String userName,String playListId);
+	public List<PlayListRating> findRateValueFromUser(String userName);
+
+	
 
 }

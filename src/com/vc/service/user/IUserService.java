@@ -5,7 +5,6 @@ import org.springframework.security.annotation.Secured;
 
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
-import com.vc.entity.PlayList;
 import com.vc.entity.UserInfo;
 import com.vc.presentation.exception.UserExistException;
 
@@ -16,7 +15,7 @@ public interface IUserService {
 	public abstract UserInfo findUserByName(String userName);
 
 	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
-	public abstract boolean playVod(Authentication auth, PlayList playList);
+	public abstract boolean playVod(Authentication auth, String playListId);
 
 	@Secured( { "ROLE_ADMIN" })
 	public abstract UserInfo createUser(UserInfo user) throws UserExistException;

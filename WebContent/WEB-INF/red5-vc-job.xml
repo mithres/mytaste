@@ -8,21 +8,38 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
 	default-autowire="byName">
 		
-	<bean name="rtmpServerHeartbeat" class="org.springframework.scheduling.quartz.JobDetailBean">
-		<property name="jobClass" value="com.vc.core.jobs.RTMPServerHeartbeatChecker"/>
+	<!--bean name="rtmpServerHeartbeat" class="org.springframework.scheduling.quartz.JobDetailBean">
+			<property name="jobClass" value="com.vc.core.jobs.RTMPServerHeartbeatChecker"/>
+		</bean-->
+
+	<!--bean id="rtmpServerHeartbeatTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+			<property name="jobDetail" ref="rtmpServerHeartbeat"/>
+			<property name="startDelay" value="10000"/>
+			<property name="repeatInterval" value="3600000"/>
+		</bean-->
+		
+	<bean id="slopeOneRecommender" class="com.vc.core.jobs.SlopeOneRecommender" >
+		<property name="hibernateDataModel" ref="hibernateDataModel"/>
+	</bean>
+	
+	<bean id="recommender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject" ref="slopeOneRecommender"/>
+		<property name="targetMethod" value="doJob"/>
+	</bean> 
+
+
+	
+	<bean id="recommendTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">	
+		<property name="jobDetail" ref="recommender"/>
+		<property name="startDelay" value="10000"/>
+		<property name="repeatInterval" value="5000"/>
 	</bean>
 
-	<bean id="rtmpServerHeartbeatTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
-		<property name="jobDetail" ref="rtmpServerHeartbeat"/>
-		<property name="startDelay" value="10000"/>
-		<!-- repeat every 1 hour -->
-		<property name="repeatInterval" value="3600000"/>
-	</bean>
 
 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">
 		<property name="triggers">
 			<list>
-				<ref bean="rtmpServerHeartbeatTrigger" />
+				<ref bean="recommendTrigger" />
 			</list>
 		</property>
 	</bean>

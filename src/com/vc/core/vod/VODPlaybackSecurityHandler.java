@@ -59,8 +59,7 @@ public class VODPlaybackSecurityHandler extends SecurityHandlerBase implements I
 			}
 		}
 
-		PlayList playList = playListService.findPlayListById(name);
-		boolean result = userService.playVod(SecurityContextHolder.getContext().getAuthentication(), playList);
+		boolean result = userService.playVod(SecurityContextHolder.getContext().getAuthentication(), name);
 
 		if (!result) {
 			

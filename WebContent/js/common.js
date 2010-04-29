@@ -129,7 +129,7 @@ function searchPlayListByCondition(action, timeFrame) {
 		
 	} else if (action == 'Rate') {
 		var hasCondition = false;
-		url = webPath + "vod/highestRate";
+		url = webPath + "/vod/highestRate";
 		
 		if (vt != 'All') {
 			url = webPath + "/vod/highestRate?vt=" + vt;

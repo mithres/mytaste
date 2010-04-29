@@ -16,51 +16,23 @@
 
 <link rel="stylesheet" type="text/css" href="<web.page:path/>/css/jquery.ui.stars.css" />
 
-<script>
-
-	$(function(){
-		$("#ratings").children().not(":radio").hide();
-		$("#ratings").stars({
-			cancelShow: false,
-			callback: function(ui, type, value)
-			{
-				$.post("demo1.php", {rate: value}, function(data)
-				{
-					$("#ajax_response").html(data);
-				});
-			}
-		});
-	});
-
-	function initPlayer() {
-		var vodPlayer = lz.embed.lzapp;
-		var playListID = '<s:property value="playListID"/>';
-		var sid = '<s:property value="sid"/>';
-		var nodeUrl = '<s:property value="nodeUrl"/>';
-		var callMethod = "init('" + playListID + "','" + sid + "','" + nodeUrl + "')";
-		vodPlayer.callMethod(callMethod);
-	}
-</script>
 </head>
 
 <body onload="initPlayer();">
-
 <div id="vpvideotitle">
 <div class="base">
-
 <h1 class="videotitle">
 <span class="label">Video:</span>
 <span class="name"><s:property value="playList.playListName"/> </span>
 <span> | </span>
-<form id="ratings" action="" method="post">			
-	<input type="radio" name="rate" value="1" title="Poor" id="rate1" /> <label for="rate1">Poor</label><br />
-	<input type="radio" name="rate" value="2" title="Fair" id="rate2" /> <label for="rate2">Fair</label><br />
-	<input type="radio" name="rate" value="3" title="Average" id="rate3" /> <label for="rate3">Average</label><br />
-	<input type="radio" name="rate" value="4" title="Good" id="rate4" /> <label for="rate4">Good</label><br />
-	<input type="radio" name="rate" value="5" title="Excellent" id="rate5" /> <label for="rate5">Excellent</label><br />
-</form>
 </h1>
-
+<form id="ratings" action="<web.page:path/>/vod/ratePlayList" method="post" style="padding-left:30px;">
+	<input type="radio" id="rate1" name="rateValue" value="1" title="Poor" id="rate1" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 1">checked="checked"</s:if> /><br />
+	<input type="radio" id="rate2" name="rateValue" value="2" title="Fair" id="rate2" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 2">checked="checked"</s:if> /><br />
+	<input type="radio" id="rate3" name="rateValue" value="3" title="Average" id="rate3" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 3">checked="checked"</s:if>  /><br />
+	<input type="radio" id="rate4" name="rateValue" value="4" title="Good" id="rate4" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 4">checked="checked"</s:if> /><br />
+	<input type="radio" id="rate5" name="rateValue" value="5" title="Excellent" id="rate5" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 5">checked="checked"</s:if> /><br />
+</form>
 
 
 
@@ -71,14 +43,6 @@
 <div class="left">
 
 	<script>
-
-		$(function(){
-			$("#starify").children().not(":input").hide();
-			$("#starify").stars({
-				cancelShow: false
-			});
-		});
-	
 		lz.embed.swf( {	
 			url : '<web.page:path/>/vod/vodplayer.swf8.swf',
 			allowfullscreen : 'true',
@@ -87,11 +51,8 @@
 			id : 'lzapp',
 			wmode:'opaque'
 		});
-
-		$("#stars-wrapper1").stars();
-		
 	</script>
-	
+
 	<div id="vpcomment_wrap">
 		<div id="vpcomment">
 			<div class="commentArea">
@@ -109,12 +70,7 @@
 				</div>
 			</div>
 		</div>
-		
-		
 	</div>
-
-
-
 </div>
 
 
@@ -152,7 +108,37 @@
 
 </div>
 
+<script>
 
+	$(function(){
+		$("#starify").children().not(":input").hide();
+		$("#starify").stars({
+			cancelShow: false
+		});
+	});
+	
+	$(function(){
+		$("#ratings").children().not(":radio").hide();
+		$("#ratings").stars({
+			cancelShow: false,
+			callback: function(ui, type, value){
+				var playListId = "<s:property value="playListID"/>";
+				$.post("<web.page:path/>/vod/ratePlayList", {rateValue: value,playListId:playListId}, function(data){
+
+				});
+			}
+		});
+	});
+
+	function initPlayer() {
+		var vodPlayer = lz.embed.lzapp;
+		var playListID = '<s:property value="playListID"/>';
+		var sid = '<s:property value="sid"/>';
+		var nodeUrl = '<s:property value="nodeUrl"/>';
+		var callMethod = "init('" + playListID + "','" + sid + "','" + nodeUrl + "')";
+		vodPlayer.callMethod(callMethod);
+	}
+</script>
 
 </body>
 
