@@ -19,7 +19,7 @@
 		</bean-->
 		
 	<bean id="slopeOneRecommender" class="com.vc.core.jobs.SlopeOneRecommender" >
-		<property name="hibernateDataModel" ref="hibernateDataModel"/>
+		<!--property name="hibernateDataModel" ref="hibernateDataModel"/-->
 	</bean>
 	
 	<bean id="recommender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
