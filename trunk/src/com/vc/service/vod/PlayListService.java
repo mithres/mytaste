@@ -241,7 +241,7 @@ public class PlayListService implements IPlayListService {
 		playListDao.update(playList);
 		return averageValue;
 	}
-
+	
 	@Override
 	public List<PlayListRating> findRateValueFromUser(String userName) {
 		// TODO Auto-generated method stub
@@ -250,6 +250,66 @@ public class PlayListService implements IPlayListService {
 
 	@Override
 	public Double findUserPlayListRatingValue(String userName, String playListId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> findAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getItems() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long getNumItems() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long getNumPreferenceForItem(String playListId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long getNumPreferenceForItems(String... playListIds) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long getNumUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PlayListRating> getPreferencesForItem(String playListId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removePlayListRating(String userName, String playListId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public PlayListRating savePlayListRating(String userName, String playListId, double rateValue) {
 		// TODO Auto-generated method stub
 		return null;
 	}
