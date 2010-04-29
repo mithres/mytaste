@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
@@ -32,6 +34,8 @@ import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
 import com.vc.presentation.exception.FilePersistException;
+import com.vc.service.recommendation.ItemId;
+import com.vc.service.recommendation.UserId;
 import com.vc.util.configuration.ServerConfiguration;
 
 @Service
@@ -241,77 +245,29 @@ public class PlayListService implements IPlayListService {
 		playListDao.update(playList);
 		return averageValue;
 	}
-	
-	@Override
-	public List<PlayListRating> findRateValueFromUser(String userName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public Double findUserPlayListRatingValue(String userName, String playListId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Map<UserId, Map<ItemId, Double>> loadBasicRatingData() {
 
-	@Override
-	public List<String> findAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		UserId currentUser = null;
+		Map<ItemId, Double> userData = new HashMap<ItemId, Double>();
 
-	@Override
-	public List<String> getItems() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Map<UserId, Map<ItemId, Double>> data = new HashMap<UserId, Map<ItemId, Double>>();
 
-	@Override
-	public Long getNumItems() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<PlayListRating> plrs = playListRatingDao.findAllRateValue();
 
-	@Override
-	public Long getNumPreferenceForItem(String playListId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		for (PlayListRating plr : plrs) {
+			UserId temp = new UserId(plr.getUser().getUserName());
+			if (temp.equals(currentUser) || currentUser == null) {
+				userData.put(new ItemId(plr.getPlayList().getId()), plr.getRateVale());
+			} else {
+				data.put(currentUser, userData);
+				userData = new HashMap<ItemId, Double>();
+			}
+			currentUser = temp;
+		}
+		data.put(currentUser, userData);
 
-	@Override
-	public Long getNumPreferenceForItems(String... playListIds) {
-		// TODO Auto-generated method stub
-		return null;
+		return data;
 	}
-
-	@Override
-	public Long getNumUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PlayListRating> getPreferencesForItem(String playListId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removePlayListRating(String userName, String playListId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public PlayListRating savePlayListRating(String userName, String playListId, double rateValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
