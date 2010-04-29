@@ -60,11 +60,29 @@ public interface IPlayListService {
 
 	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
 	public abstract Double ratePlayList(PlayListRating rating);
-	
-	//Methods for recommendation 
-	public Double findUserPlayListRatingValue(String userName,String playListId);
+
+	// Methods for recommendation
+	public Double findUserPlayListRatingValue(String userName, String playListId);
+
 	public List<PlayListRating> findRateValueFromUser(String userName);
 
+	public PlayListRating savePlayListRating(String userName, String playListId, double rateValue);
 	
-
+	public void removePlayListRating(String userName,String playListId);
+	
+	public List<String> findAllUsers();
+	
+	public List<PlayListRating> getPreferencesForItem(String playListId);
+	
+	public Long getNumPreferenceForItems(String... playListIds);
+	
+	public Long getNumPreferenceForItem(String playListId);
+	
+	public Long getNumItems();
+	
+	public Long getNumUsers();
+	
+	public List<String> getUsers();
+	
+	public List<String> getItems();
 }
