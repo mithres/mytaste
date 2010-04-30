@@ -64,6 +64,11 @@ public class Constants {
 	//Tag split express
 	public static final String TAG_SPLIT_EXPRESSION = ",|:|;| ";
 	
+	//Rate value 
+	public static final double PLAYED = 4d;
+	public static final double COLLECTED = 2d;
+	
+	
 	//Constants for security handler
 	public static String ALLOWED_HTML_DOMAINS = null;
 	public static String ALLOWED_SWF_DOMAINS = null;
