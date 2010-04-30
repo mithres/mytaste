@@ -1,7 +1,5 @@
 package com.vc.service.vod;
 
-import java.util.Map;
-
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
 
@@ -14,8 +12,6 @@ import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
 import com.vc.presentation.exception.FilePersistException;
-import com.vc.service.recommendation.ItemId;
-import com.vc.service.recommendation.UserId;
 
 public interface IPlayListService {
 
@@ -50,7 +46,7 @@ public interface IPlayListService {
 	public abstract IPageList<PlayListQueue> findUserQueue(Hints hnts, String userName);
 
 	// Play list queue
-	public abstract void addPlayListToQueue(UserInfo user, PlayList playList);
+	public abstract void addPlayListToQueue(String userName, String playListId);
 
 	public abstract IPageList<VideoComments> findPlayListComments(String playListId, Hints hnts);
 
@@ -62,7 +58,5 @@ public interface IPlayListService {
 
 	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
 	public abstract Double ratePlayList(PlayListRating rating);
-
-	public abstract Map<UserId, Map<ItemId, Double>> loadBasicRatingData();
 
 }

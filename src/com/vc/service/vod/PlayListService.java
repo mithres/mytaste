@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
@@ -34,8 +31,6 @@ import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
 import com.vc.presentation.exception.FilePersistException;
-import com.vc.service.recommendation.ItemId;
-import com.vc.service.recommendation.UserId;
 import com.vc.util.configuration.ServerConfiguration;
 
 @Service
@@ -80,12 +75,14 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList) throws FilePersistException {
-		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
 		playList.setPlayListIndex(playListIndex);
 		playListDao.create(playList);
 
 		if (playList.getFilmFile() != null) {
-			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
+					+ playList.getFileName());
 			try {
 				FileUtil.copyFile(playList.getFilmFile(), destFile);
 			} catch (IOException e) {
@@ -117,7 +114,8 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public VideoCollection createVideoCollection(VideoCollection collection) {
-		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
 		collection.setCollectionIndex(index);
 		videoCollectionDao.create(collection);
 		return collection;
@@ -174,18 +172,38 @@ public class PlayListService implements IPlayListService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void addPlayListToQueue(UserInfo user, PlayList playList) {
+	public void addPlayListToQueue(String userName, String playListId) {
+		
+		
+		PlayListQueue queue = playListQueueDao.findPlayListInUserQueue(userName, playListId);
 
-		PlayListQueue queue = playListQueueDao.findPlayListInUserQueue(user.getUsername(), playList.getId());
 		if (queue != null) {
 			return;
 		} else {
+			PlayList playList = playListDao.findById(playListId);
+			UserInfo user = userInfoDao.findById(userName);
 			queue = new PlayListQueue();
 			queue.setCreatedTime(new Timestamp(System.currentTimeMillis()));
 			queue.setPlayList(playList);
 			queue.setUser(user);
 			playListQueueDao.create(queue);
+
+			PlayListRating plr = playListRatingDao.findUserPlayListRateValue(playListId, userName);
+			if (plr == null) {
+				plr = new PlayListRating();
+				plr.setPlayList(playList);
+				plr.setUser(user);
+				plr.setRateVale(Constants.COLLECTED);
+				playListRatingDao.create(plr);
+				playList.setAverageRateValue(playListRatingDao.findPlayListAverageRateValue(playList.getId()));
+			} else {
+				if (plr.getRateVale() < Constants.COLLECTED) {
+					plr.setRateVale(Constants.COLLECTED);
+				}
+				playListRatingDao.update(plr);
+			}
 		}
+
 	}
 
 	@Override
@@ -232,7 +250,8 @@ public class PlayListService implements IPlayListService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Double ratePlayList(PlayListRating rating) {
 
-		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser().getUsername());
+		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser()
+				.getUsername());
 		if (plr != null) {
 			plr.setRateVale(rating.getRateVale());
 			playListRatingDao.update(plr);
@@ -246,28 +265,4 @@ public class PlayListService implements IPlayListService {
 		return averageValue;
 	}
 
-	@Override
-	public Map<UserId, Map<ItemId, Double>> loadBasicRatingData() {
-
-		UserId currentUser = null;
-		Map<ItemId, Double> userData = new HashMap<ItemId, Double>();
-
-		Map<UserId, Map<ItemId, Double>> data = new HashMap<UserId, Map<ItemId, Double>>();
-
-		List<PlayListRating> plrs = playListRatingDao.findAllRateValue();
-
-		for (PlayListRating plr : plrs) {
-			UserId temp = new UserId(plr.getUser().getUserName());
-			if (temp.equals(currentUser) || currentUser == null) {
-				userData.put(new ItemId(plr.getPlayList().getId()), plr.getRateVale());
-			} else {
-				data.put(currentUser, userData);
-				userData = new HashMap<ItemId, Double>();
-			}
-			currentUser = temp;
-		}
-		data.put(currentUser, userData);
-
-		return data;
-	}
 }

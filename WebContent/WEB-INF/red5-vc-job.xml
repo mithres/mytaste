@@ -19,7 +19,7 @@
 		</bean-->
 		
 	<bean id="slopeOneRecommendJob" class="com.vc.core.jobs.SlopeOneRecommendJob" >
-		<property name="playListService" ref="playListService"/>
+		<property name="recommendationService" ref="recommendationService"/>
 	</bean>
 	
 	<bean id="recommender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
@@ -31,8 +31,8 @@
 	
 	<bean id="recommendTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">	
 		<property name="jobDetail" ref="recommender"/>
-		<property name="startDelay" value="10000"/>
-		<property name="repeatInterval" value="10000"/>
+		<property name="startDelay" value="30000"/>
+		<property name="repeatInterval" value="30000"/>
 	</bean>
 
 

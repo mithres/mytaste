@@ -26,15 +26,10 @@ public class AddPlayListQueueAction extends BaseAction {
 		String messageToClient = "";
 
 		if (id != null) {
-			PlayList playList = playListService.findPlayListById(id);
-			if (playList != null) {
-				String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-				playListService.addPlayListToQueue(userService.findUserByName(userName), playList);
-				messageToClient = "{ \"success\": true,\"messages\":\"Added to queue success.\" }";
-			} else {
-				messageToClient = "{ \"success\": true, \"errors\": \" Play list not exist.\"}";
-			}
-		}else{
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			playListService.addPlayListToQueue(userName, id);
+			messageToClient = "{ \"success\": true,\"messages\":\"Added to queue success.\" }";
+		} else {
 			messageToClient = "{ \"success\": true, \"errors\": \" Play list id is empty.\"}";
 		}
 		write(messageToClient);

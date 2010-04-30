@@ -123,7 +123,7 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 
 		PlayList playList = playListDao.findById(playListId);
 		UserInfo user = userInfoDao.findById(auth.getName());
-		
+
 		if (user.getAccountBalance() >= playList.getPrice()) {
 			user.setAccountBalance(user.getAccountBalance() - playList.getPrice());
 			userInfoDao.update(user);
@@ -160,19 +160,24 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 					playList.setThisMonthViewCount(playList.getThisMonthViewCount() + 1);
 				}
 			}
-			
+
 			PlayListRating plr = playListRatingDao.findUserPlayListRateValue(playList.getId(), user.getUserName());
 			if (plr == null) {
 				plr = new PlayListRating();
 				plr.setPlayList(playList);
 				plr.setUser(user);
-				plr.setRateVale(3d);
+				plr.setRateVale(Constants.PLAYED);
 				playListRatingDao.create(plr);
 				playList.setAverageRateValue(playListRatingDao.findPlayListAverageRateValue(playList.getId()));
+			} else {
+				if (plr.getRateVale() < Constants.PLAYED) {
+					plr.setRateVale(Constants.PLAYED);
+				}
+				playListRatingDao.update(plr);
 			}
-			
+
 			playListDao.update(playList);
-			
+
 		} else {
 			return false;
 		}
