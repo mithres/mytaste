@@ -104,7 +104,10 @@
 
 
 
-	<div><h1>Tags</h1></div>
+<div>
+	<h1>Tags</h1>
+	<s:action namespace="/tag" name="tagCloud" executeResult="true"/>	
+</div>
 
 </div>
 

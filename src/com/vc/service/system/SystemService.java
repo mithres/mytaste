@@ -15,12 +15,14 @@ import com.vc.dao.system.ChannelDao;
 import com.vc.dao.system.ConfigurationDao;
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
+import com.vc.dao.system.TagDao;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.entity.Channels;
 import com.vc.entity.Configuration;
 import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
 import com.vc.entity.Role;
+import com.vc.entity.Tags;
 import com.vc.entity.UserInfo;
 import com.vc.entity.UserLevel;
 import com.vc.util.security.MD5;
@@ -39,7 +41,9 @@ public class SystemService implements ISystemService {
 	@Autowired
 	private UserInfoDao userInfoDao = null;
 	@Autowired
-	private ChannelDao channelDao = null; 
+	private ChannelDao channelDao = null;
+	@Autowired
+	private TagDao tagDao = null;
 
 	@Override
 	public Configuration checkStatus() {
@@ -80,10 +84,10 @@ public class SystemService implements ISystemService {
 		admin.getRoles().add(roleUser);
 		admin.getRoles().add(role);
 		userInfoDao.create(admin);
-		
+
 		conf.setInited(Boolean.TRUE);
 		configurationDao.create(conf);
-		
+
 		return conf;
 	}
 
@@ -125,6 +129,11 @@ public class SystemService implements ISystemService {
 	@Override
 	public List<Channels> findAllSubChannels(String channelId) {
 		return channelDao.findSubChannels(channelId);
+	}
+
+	@Override
+	public List<Tags> findTags(Hints hnts) {
+		return tagDao.findTags(hnts);
 	}
 
 }

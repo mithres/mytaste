@@ -1197,7 +1197,6 @@ text-decoration:none;
 }
 div.channel-group-title a:hover{
 color:#69b521;
-
 }
 
 div.channel-group div div {
@@ -1210,6 +1209,16 @@ color:#444444;
 font-size:12px;
 }
 
+div.tag-cloud a {
+	color:#444444;
+	font-size:16px;
+	font-weight:bold;
+	text-decoration:none
+}
+
+div.tag-cloud a:hover{
+	color:#69b521;
+}
 
 
 

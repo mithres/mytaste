@@ -29,7 +29,7 @@ public class PlayListServiceTest extends BaseTest {
 		list.setFilmType(FilmType.Normal);
 		list.setPlayListType(PlayListType.Game);
 
-		playListService.savePlayList(list);
+		playListService.savePlayList(list,new String[]{"tag1","tag2"});
 		
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 		condition.setOrderBy("AddedTime");

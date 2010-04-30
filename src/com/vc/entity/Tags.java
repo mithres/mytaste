@@ -26,6 +26,16 @@ public class Tags {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<PlayList> playLists = new HashSet<PlayList>();
 
+	private int count = 1;
+
+	public Tags() {
+
+	}
+
+	public Tags(String name) {
+		this.tag = name;
+	}
+
 	public String getTag() {
 		return tag;
 	}
@@ -65,6 +75,14 @@ public class Tags {
 		} else if (!tag.equals(other.tag))
 			return false;
 		return true;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 }
