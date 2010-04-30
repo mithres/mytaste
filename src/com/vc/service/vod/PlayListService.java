@@ -93,9 +93,9 @@ public class PlayListService implements IPlayListService {
 				// Update playlist tags
 				for (String tag : tags) {
 					Tags temp = tagDao.findById(tag);
-					if(temp == null){
+					if (temp == null) {
 						temp = new Tags(tag);
-					}else{
+					} else {
 						temp.setCount(temp.getCount() + 1);
 					}
 					tagDao.update(temp);
@@ -226,6 +226,14 @@ public class PlayListService implements IPlayListService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void updateUserReview(VideoComments vc, String[] tags) {
+		// Update comment content
+		videoCommentsDao.update(vc);
+		// update tags
+	}
+
+	@Override
 	public IPageList<VideoComments> findPlayListComments(String playListId, Hints hnts) {
 		IPageList<VideoComments> list = new PageListImpl<VideoComments>();
 		list.setRecordTotal(videoCommentsDao.findPlayListCommentsCount(playListId));
@@ -238,19 +246,6 @@ public class PlayListService implements IPlayListService {
 		// TODO to do
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 
-		IPageList<PlayList> list = new PageListImpl<PlayList>();
-		list.setRecordTotal(playListDao.findPlayListCount(condition));
-		if (list.getRecordTotal() > 0) {
-			hnts.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
-			list.setRecords(playListDao.findPlayList(condition, hnts));
-		}
-		return list;
-	}
-
-	@Override
-	public IPageList<PlayList> recommentedVideo(Hints hnts) {
-		// TODO Auto-generated method stub
-		PlayListSearchCondition condition = new PlayListSearchCondition();
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCount(condition));
 		if (list.getRecordTotal() > 0) {

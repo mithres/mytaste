@@ -49,13 +49,14 @@ public interface IPlayListService {
 
 	public abstract IPageList<VideoComments> findPlayListComments(String playListId, Hints hnts);
 
-	public abstract IPageList<PlayList> recommentedVideo(Hints hnts);
-
 	public abstract IPageList<PlayList> alsoLikedVideo(String userName, Hints hnts);
 
 	public abstract Double findPlayListAverageRateValue(String playListId);
 
 	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
 	public abstract Double ratePlayList(PlayListRating rating);
+
+	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
+	public abstract void updateUserReview(VideoComments vc, String[] tags);
 
 }

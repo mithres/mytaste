@@ -64,6 +64,8 @@
 		
 		<action name="ratePlayList"  class="com.vc.presentation.action.vod.RatePlayListAction"/>
 		
+		<action name="addReview" class="com.vc.presentation.action.vod.AddReviewAction"/>
+		
 	</package>
 	
 	
