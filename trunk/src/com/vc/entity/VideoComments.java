@@ -26,7 +26,9 @@ public class VideoComments {
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo author = null;
-
+	
+	private String title = null;
+	
 	private String content = null;
 
 	private Timestamp createdTime = null;
@@ -69,6 +71,14 @@ public class VideoComments {
 
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

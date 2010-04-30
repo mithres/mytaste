@@ -39,6 +39,7 @@ function addToQueue(pid, vender) {
 
 	var param = "id=" + pid;
 	var url = webPath + "/vod/addToQueue";
+	
 	$.ajax( {
 		url : url,
 		data : param,
@@ -70,37 +71,34 @@ function vidContents(id) {
 	if (playListIDs.indexOf(id) == -1) {
 		playListIDs = playListIDs + "," + id;
 		var vidContent = '#vidContent' + id;
-		$('#vid' + id)
-				.bt(
-						{
-							trigger : [ 'hover' ],
-							contentSelector : "$('" + vidContent + "')",
-							positions : [ 'right', 'left' ],
-							clickAnywhereToClose : false,
-							closeWhenOthersOpen : true,
-							shrinkToFit : false,
-							fill : '#F4F4F4',
-							strokeStyle : '#666666',
-							spikeLength : 20,
-							spikeGirth : 10,
-							width : 350,
-							overlap : 0,
-							centerPointY : 1,
-							cornerRadius : 0,
-							cssStyles : {
-								fontFamily : '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif',
-								fontSize : '12px',
-								padding : '10px 14px'
-							},
-
-							shadow : true,
-							shadowColor : 'rgba(0,0,0,.5)',
-							shadowBlur : 8,
-							shadowOffsetX : 4,
-							shadowOffsetY : 4
-						});
+		$('#vid' + id).bt({
+			trigger : [ 'hover' ],
+			contentSelector : "$('" + vidContent + "')",
+			positions : [ 'right', 'left' ],
+			clickAnywhereToClose : false,
+			closeWhenOthersOpen : true,
+			shrinkToFit : false,
+			fill : '#F4F4F4',
+			strokeStyle : '#666666',
+			spikeLength : 20,
+			spikeGirth : 10,
+			width : 350,
+			overlap : 0,
+			centerPointY : 1,
+			cornerRadius : 0,
+			cssStyles : {
+				fontFamily : '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif',
+				fontSize : '12px',
+				padding : '10px 14px'
+			},
+			shadow : true,
+			shadowColor : 'rgba(0,0,0,.5)',
+			shadowBlur : 8,
+			shadowOffsetX : 4,
+			shadowOffsetY : 4
+		});
 	} else {
-		// showMessage("不加载");
+		
 	}
 }
 
@@ -158,3 +156,31 @@ function searchPlayListByCondition(action, timeFrame) {
 
 	location.href = url;
 }
+
+
+//Review js 
+
+function addReview(formId){
+	
+	var url = webPath + "/vod/addReview";
+	
+	$.ajax( {
+		url : url,
+		data : $('#'+formId).serialize(),
+		type : 'post',
+		dataType : 'json',
+		error : function(data) {
+			showMessage("Create review error.");
+		},
+		success : function(data) {
+			$('#reviewDiv').hide();
+		}
+	});
+}
+
+function showReview(){
+	$('#reviewDiv').show();
+}
+
+
+

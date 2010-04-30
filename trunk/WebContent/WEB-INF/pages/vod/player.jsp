@@ -58,12 +58,12 @@
 			<div class="commentArea">
 				<div class="nBox" id="commentAreaBox">
 					<div style="cursor: pointer;" class="head">
-					<h3 id="comment_title" style="border-bottom:none;">Reviews</h3>
+						<div style="float:left;"><h3 id="comment_title" style="border-bottom:none; width:50px;">Reviews</h3></div>
+						<div style="float:right;">
+							<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER"><a href="javascript:void(0)" onclick="showReview();">Create a new review</a></security:authorize>
+						</div>
 					</div>
 					
-					<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
-						Add Comment
-					</security:authorize>
 				</div>
 				<div class="videoComment">
 					<s:action namespace="/vod" name="showComments" executeResult="true"/>
@@ -104,21 +104,13 @@
 
 
 
-<div>
-	<h1>Tags</h1>
+<div class="tag-cloud">
 	<s:action namespace="/tag" name="tagCloud" executeResult="true"/>	
 </div>
 
 </div>
 
 <script>
-
-	$(function(){
-		$("#starify").children().not(":input").hide();
-		$("#starify").stars({
-			cancelShow: false
-		});
-	});
 	
 	$(function(){
 		$("#ratings").children().not(":radio").hide();
@@ -126,9 +118,7 @@
 			cancelShow: false,
 			callback: function(ui, type, value){
 				var playListId = "<s:property value="playListID"/>";
-				$.post("<web.page:path/>/vod/ratePlayList", {rateValue: value,playListId:playListId}, function(data){
-
-				});
+				$.post("<web.page:path/>/vod/ratePlayList", {rateValue: value,playListId:playListId}, function(data){});
 			}
 		});
 	});
@@ -141,6 +131,7 @@
 		var callMethod = "init('" + playListID + "','" + sid + "','" + nodeUrl + "')";
 		vodPlayer.callMethod(callMethod);
 	}
+
 </script>
 
 </body>

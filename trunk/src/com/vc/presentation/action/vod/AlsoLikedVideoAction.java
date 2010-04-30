@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
-import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.service.vod.IPlayListService;
@@ -22,7 +21,7 @@ public class AlsoLikedVideoAction extends BaseAction {
 	
 	@Override
 	public String process() {
-		videos = playListService.recommentedVideo(new Hints(getStartRow(), getPageCount()));
+		//videos = playListService.recommentedVideo(new Hints(getStartRow(), getPageCount()));
 		return Action.SUCCESS;
 	}
 

@@ -57,6 +57,7 @@ public class PlayList {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "playlist_tags", joinColumns = @JoinColumn(name = "playlist_id"), inverseJoinColumns = @JoinColumn(name = "tags_tag"))
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@OrderBy("tag")
 	private Set<Tags> tags = new HashSet<Tags>();
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
