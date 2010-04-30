@@ -5,10 +5,11 @@
 
 <struts>
 	
-	<package name="common" extends="default" namespace="/common">
+	<package name="tag" extends="default" namespace="/tag">
 		
-		<!-- Called by flash slideshower -->
-		<action name="recommend" class="com.vc.presentation.action.common.RecommendAction"/>
+		<action name="tagCloud" class="com.vc.presentation.action.common.TagCloudAction">
+			<result>/WEB-INF/pages/tag/tagcloud.jsp</result>
+		</action>	
 			
 	</package>
 	

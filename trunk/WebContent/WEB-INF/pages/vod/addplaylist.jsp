@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,14 +25,14 @@
 
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_price"><s:text name="vc.playlist.price"/>:</label></td>
-			    <td><input type="password" class="form-input" id="createPlayList_price" name="playList.price"></td>
+			    <td><input type="text" class="form-input" id="createPlayList_price" name="playList.price"></td>
 			</tr>
 
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_playListType"><s:text name="vc.playlist.type"/>:</label></td>
 			    <td><select id="createPlayList_playListType" name="playList.playListType">
 			    	<s:iterator value="playListTypes">
-			    		<s:property/>
+			    		<option value="<s:property/>"><s:property/></option>
 			    	</s:iterator>
 			    </select></td>
 			</tr>
@@ -41,7 +41,7 @@
 			    <td class="tdLabel"><label class="label" for="createPlayList_fileTypes"><s:text name="vc.playlist.filmtype"/>:</label></td>
 			    <td><select id="createPlayList_fileTypes" name="playList.filmType">
 			    	<s:iterator value="fileTypes">
-			    		<s:property/>
+			    		<option value="<s:property/>"><s:property/></option>
 			    	</s:iterator>
 			    </select></td>
 			</tr>

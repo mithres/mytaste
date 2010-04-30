@@ -68,7 +68,7 @@
 	<include file="struts-model/struts-installer.xml" />
 	<include file="struts-model/struts-admin.xml" />
 	<include file="struts-model/struts-conference.xml" />
-	
+	<include file="struts-model/struts-tag.xml" />
 	<include file="struts-model/struts-common.xml" />
 	
 </struts>

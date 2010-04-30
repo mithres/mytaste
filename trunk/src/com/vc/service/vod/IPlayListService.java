@@ -8,7 +8,6 @@ import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListQueue;
 import com.vc.entity.PlayListRating;
-import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
 import com.vc.presentation.exception.FilePersistException;
@@ -18,7 +17,7 @@ public interface IPlayListService {
 	public abstract PlayList findPlayListById(String playListID);
 
 	@Secured( { "ROLE_ADMIN" })
-	public abstract PlayList savePlayList(PlayList playList) throws FilePersistException;
+	public abstract PlayList savePlayList(PlayList playList, String[] tags) throws FilePersistException;
 
 	public abstract Boolean canPlay(Authentication auth, String playListID);
 

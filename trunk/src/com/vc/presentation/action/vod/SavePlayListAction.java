@@ -14,7 +14,6 @@ import com.vc.entity.Channels;
 import com.vc.entity.FilmType;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListType;
-import com.vc.entity.Tags;
 import com.vc.service.system.ISystemService;
 import com.vc.service.vod.IPlayListService;
 import com.vc.util.photo.PicUtil;
@@ -90,13 +89,8 @@ public class SavePlayListAction extends BaseAction {
 		}
 
 		String[] playListTags = tags.split(Constants.TAG_SPLIT_EXPRESSION);
-		for (String tag : playListTags) {
-			Tags tags = new Tags();
-			tags.setTag(tag);
-			playList.getTags().add(tags);
-		}
 
-		playListService.savePlayList(playList);
+		playListService.savePlayList(playList, playListTags);
 
 		if (screenShot != null) {
 			if (screenShot.length() > PicUtil.DEFAULT_AVATOR_SIZE) {

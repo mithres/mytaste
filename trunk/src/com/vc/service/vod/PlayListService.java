@@ -18,6 +18,7 @@ import com.vc.core.constants.Constants;
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.core.entity.PageListImpl;
+import com.vc.dao.system.TagDao;
 import com.vc.dao.user.UserInfoDao;
 import com.vc.dao.vod.PlayListDao;
 import com.vc.dao.vod.PlayListQueueDao;
@@ -27,6 +28,7 @@ import com.vc.dao.vod.VideoCommentsDao;
 import com.vc.entity.PlayList;
 import com.vc.entity.PlayListQueue;
 import com.vc.entity.PlayListRating;
+import com.vc.entity.Tags;
 import com.vc.entity.UserInfo;
 import com.vc.entity.VideoCollection;
 import com.vc.entity.VideoComments;
@@ -50,6 +52,8 @@ public class PlayListService implements IPlayListService {
 	private VideoCommentsDao videoCommentsDao = null;
 	@Autowired
 	private PlayListRatingDao playListRatingDao = null;
+	@Autowired
+	private TagDao tagDao = null;
 
 	@Override
 	public PlayList findPlayListById(String playListID) {
@@ -74,21 +78,37 @@ public class PlayListService implements IPlayListService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public PlayList savePlayList(PlayList playList) throws FilePersistException {
-		Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
-				.longValue();
-		playList.setPlayListIndex(playListIndex);
-		playListDao.create(playList);
+	public PlayList savePlayList(PlayList playList, String[] tags) throws FilePersistException {
 
 		if (playList.getFilmFile() != null) {
 			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
 					+ playList.getFileName());
 			try {
+
 				FileUtil.copyFile(playList.getFilmFile(), destFile);
+				Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0))
+						.get(0)).longValue();
+				playList.setPlayListIndex(playListIndex);
+
+				// Update playlist tags
+				for (String tag : tags) {
+					Tags temp = tagDao.findById(tag);
+					if(temp == null){
+						temp = new Tags(tag);
+					}else{
+						temp.setCount(temp.getCount() + 1);
+					}
+					tagDao.update(temp);
+					playList.getTags().add(temp);
+				}
+
+				playListDao.create(playList);
+
 			} catch (IOException e) {
 				throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
 			}
 		}
+
 		return playList;
 	}
 
@@ -173,8 +193,7 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void addPlayListToQueue(String userName, String playListId) {
-		
-		
+
 		PlayListQueue queue = playListQueueDao.findPlayListInUserQueue(userName, playListId);
 
 		if (queue != null) {
