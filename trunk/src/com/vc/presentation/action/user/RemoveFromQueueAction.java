@@ -10,30 +10,32 @@ import com.vc.core.entity.IPageList;
 import com.vc.entity.PlayListQueue;
 import com.vc.service.vod.IPlayListService;
 
-public class QueueAction extends BaseAction {
+public class RemoveFromQueueAction extends BaseAction {
 
-	private static final long serialVersionUID = -2831915310182553759L;
-
-	@Autowired
-	private IPlayListService playListService = null;
-
+	private static final long serialVersionUID = 1392201520556397673L;
+	
 	private IPageList<PlayListQueue> queue = null;
 	
-	private String type = "Queue";
-
+	@Autowired
+	private IPlayListService playListService = null;
+	
+	private String id = null;
+	
 	@Override
 	public String process() {
 		
+		//playListService.removePlayListQueue(id);
 		queue = playListService.findUserPlayListQueue(SecurityContextHolder.getContext().getAuthentication().getName(),	new Hints(getStartRow(), getPageCount()));
+		
 		return Action.SUCCESS;
-	}
-
-	public String getType() {
-		return type;
 	}
 
 	public IPageList<PlayListQueue> getQueue() {
 		return queue;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

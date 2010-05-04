@@ -8,24 +8,21 @@ import com.vc.core.action.BaseAction;
 import com.vc.entity.UserInfo;
 import com.vc.service.user.IUserService;
 
-public class AccountInfoAction extends BaseAction {
+public class ProfileTitleAction extends BaseAction {
 
-	private static final long serialVersionUID = -4957914706358757856L;
-
+	private static final long serialVersionUID = -7792071025948945780L;
+	
 	@Autowired
 	private IUserService userService = null;
-
+	
 	private UserInfo userAccount = null;
 	
-	private String type = "Main";
-	
-
 	@Override
 	public String process() {
 		
 		String currentName = SecurityContextHolder.getContext().getAuthentication().getName();
 		userAccount = userService.findUserByName(currentName);
-
+		
 		return Action.SUCCESS;
 	}
 
@@ -33,11 +30,4 @@ public class AccountInfoAction extends BaseAction {
 		return userAccount;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 }

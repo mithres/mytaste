@@ -32,7 +32,7 @@
       
         
         <div style="margin: 1em;">
-			<img title="Change your profile photo"  
+			<img 
 			<s:if test="userAccount.uploadedAvatar">src="<p:photo index="${userAccount.userIndex}" photoType="UserPhoto"/>"</s:if><s:else>src="<web.page:path/>/images/avatar.png"</s:else>/>
         </div>
         <s:actionerror/>

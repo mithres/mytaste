@@ -12,13 +12,13 @@
 		</action>
 		
 		<action name="accountDeposits" method="index" class="com.vc.presentation.action.user.DepositServiceAction">
-			<result>/WEB-INF/pages/user/depositservice.jsp</result>
+			<result>/WEB-INF/pages/user/account.jsp</result>
 		</action>
 		
-		<action name="depositSummary" method="summary" class="com.vc.presentation.action.user.DepositServiceAction">
+		<!--action name="depositSummary" method="summary" class="com.vc.presentation.action.user.DepositServiceAction">
 			<result>/WEB-INF/pages/user/depositsummary.jsp</result>
 			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
-		</action>
+		</action-->
 		
 		<action name="deposit" class="com.vc.presentation.action.user.DepositServiceAction">
 			<result type="redirect">/user/accountInfo</result>
@@ -39,7 +39,23 @@
 			<result>/WEB-INF/pages/user/account.jsp</result>
 		</action>
 		
-		<action name="findQueueCount"  class="com.vc.presentation.action.user.FindQueueCountAction"/>
+		<action name="profileMenu" class="com.vc.presentation.action.user.ProfileMenuAction">
+			<result>/WEB-INF/pages/user/profilemenu.jsp</result>
+		</action>
+		
+		<action name="userProfileTitle" class="com.vc.presentation.action.user.ProfileTitleAction">
+			<result>/WEB-INF/pages/user/profiletitle.jsp</result>
+		</action>
+		
+		<action name="findQueueCount" class="com.vc.presentation.action.user.FindQueueCountAction"/>
+		
+		<action name="removeFromQueue" class="com.vc.presentation.action.user.RemoveFromQueueAction">
+			<result>/WEB-INF/pages/vod/queueajax.jsp</result>
+		</action>	
+		
+		<action name="showTags" class="com.vc.presentation.action.user.ShowTagsAction">
+			<result>/WEB-INF/pages/user/account</result>
+		</action>
 			
 	</package>
 	

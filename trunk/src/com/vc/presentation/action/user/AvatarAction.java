@@ -3,9 +3,11 @@ package com.vc.presentation.action.user;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
+import com.vc.entity.UserInfo;
 import com.vc.service.user.IUserService;
 
 public class AvatarAction extends BaseAction {
@@ -19,7 +21,11 @@ public class AvatarAction extends BaseAction {
 
 	private String photoContentType = null;
 	private String photoFileName = null;
-
+	
+	private String type = "Main";
+	
+	private UserInfo userAccount = null;
+	
 	public String saveAvatar() {
 
 		if (photo == null || photo.length() > 3145728) {
@@ -37,11 +43,13 @@ public class AvatarAction extends BaseAction {
 			this.addActionError("Upload profile photo error.");
 			return Action.INPUT;
 		}
+		
 		return Action.SUCCESS;
 	}
 
 	@Override
 	public String process() {
+		userAccount = userService.findUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
 		return Action.SUCCESS;
 	}
 
@@ -67,6 +75,18 @@ public class AvatarAction extends BaseAction {
 
 	public void setPhotoFileName(String photoFileName) {
 		this.photoFileName = photoFileName;
+	}
+
+	public UserInfo getUserAccount() {
+		return userAccount;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

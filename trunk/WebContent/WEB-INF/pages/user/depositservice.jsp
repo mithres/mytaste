@@ -11,8 +11,7 @@
 <body>
 	
 	<s:text name="vc.accountdeposits.message"/>
-	<s:actionerror/>
-	<s:form namespace="/user" action="depositSummary">
+	<s:form id="depositForm" namespace="/user" action="depositSummary">
 	<s:textfield label="%{getText('vc.accountdeposits.account')}" name="account" />
 	<s:textfield label="%{getText('vc.accountdeposits.cardpassword')}" name="cardPassword" />
 	<s:submit/>

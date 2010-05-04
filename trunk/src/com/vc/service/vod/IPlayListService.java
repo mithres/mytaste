@@ -59,6 +59,10 @@ public interface IPlayListService {
 	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
 	public abstract void updateUserReview(VideoComments vc, String[] tags);
 
-	public abstract IPageList<PlayList> findUserPlayListQueue(String userName, Hints hnts);
+	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
+	public abstract IPageList<PlayListQueue> findUserPlayListQueue(String userName, Hints hnts);
+
+	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
+	public abstract void removePlayListQueue(String id);
 
 }

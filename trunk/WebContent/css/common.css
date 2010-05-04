@@ -1263,3 +1263,14 @@ div.default-avatar {
 	overflow:hidden;
 	text-align:center;
 }
+.playListTable tr td{
+	padding:5px;
+	text-align:left;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.playListTable td.content{
+	font-size: 12px;
+	font-weight: normal;
+}

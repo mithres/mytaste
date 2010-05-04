@@ -182,5 +182,37 @@ function showReview(){
 	$('#reviewDiv').show();
 }
 
+function removeFromQueue(playListId,cp,ps){
+	var url = webPath+"/user/removeFromQueue";
+	var para = "id="+playListId+"&page="+cp+"&count="+ps;
+	alert(para);
+	$.ajax( {
+		url : url,
+		data : para,
+		type : 'post',
+		error : function(data) {
+			showMessage("Remove video from queue error.");
+		},
+		success : function(data) {
+			$('#accountContent').html(data);
+		}
+	});
+}
 
-
+function deposit(formId){
+	
+	var url = webPath + "/user/deposit";
+	
+	$.ajax( {
+		url : url,
+		data : $('#'+formId).serialize(),
+		type : 'post',
+		dataType : 'json',
+		error : function(data) {
+			showMessage("Deposit error.");
+		},
+		success : function(data) {
+			showMessage("Deposit ok.");
+		}
+	});
+}

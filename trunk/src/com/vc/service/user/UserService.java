@@ -220,7 +220,7 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean updateProfilePhoto(File file) {
 		UserInfo user = userInfoDao.findById(SecurityContextHolder.getContext().getAuthentication().getName());
-		if (PicUtil.uploadImage(file, user) && !user.getUploadedAvatar()) {
+		if (PicUtil.uploadImage(file, user)) {
 			user.setUploadedAvatar(Boolean.TRUE);
 			userInfoDao.update(user);
 			return true;
