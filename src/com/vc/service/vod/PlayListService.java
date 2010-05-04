@@ -86,7 +86,7 @@ public class PlayListService implements IPlayListService {
 			try {
 
 				FileUtil.copyFile(playList.getFilmFile(), destFile);
-				Long playListIndex = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0))
+				Long playListIndex = ((BigInteger) playListDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0))
 						.get(0)).longValue();
 				playList.setPlayListIndex(playListIndex);
 
@@ -134,7 +134,7 @@ public class PlayListService implements IPlayListService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public VideoCollection createVideoCollection(VideoCollection collection) {
-		Long index = ((BigInteger) userInfoDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+		Long index = ((BigInteger) playListDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
 				.longValue();
 		collection.setCollectionIndex(index);
 		videoCollectionDao.create(collection);
@@ -277,6 +277,14 @@ public class PlayListService implements IPlayListService {
 		playList.setAverageRateValue(averageValue);
 		playListDao.update(playList);
 		return averageValue;
+	}
+
+	@Override
+	public IPageList<PlayList> findUserPlayListQueue(String userName, Hints hnts) {
+		IPageList<PlayList> list = new PageListImpl<PlayList>();
+		list.setRecordTotal(playListDao.findUserPlayListQueueCount(userName));
+		list.setRecords(playListDao.findUserPlayListQueue(userName, hnts));
+		return list;
 	}
 
 }

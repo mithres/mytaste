@@ -25,6 +25,20 @@
 			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
 		</action>
 		
+		
+		<action name="avatar" class="com.vc.presentation.action.user.AvatarAction">
+			<result>/WEB-INF/pages/user/changeavatar.jsp</result>
+		</action>
+		
+		<action name="saveAvatar" method="saveAvatar" class="com.vc.presentation.action.user.AvatarAction">
+			<result type="redirect">/user/accountInfo</result>
+			<result name="input">/WEB-INF/pages/user/changeavatar.jsp</result>
+		</action>
+		
+		<action name="queue" class="com.vc.presentation.action.user.QueueAction">
+			<result>/WEB-INF/pages/user/account.jsp</result>
+		</action>
+		
 		<action name="findQueueCount"  class="com.vc.presentation.action.user.FindQueueCountAction"/>
 			
 	</package>

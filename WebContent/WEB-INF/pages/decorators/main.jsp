@@ -113,16 +113,16 @@
 								</tr>
 								<tr>
 									<td class="rp_user flt"><s:text name="vc.index.username" /></td>
-									<td><input id="userName" class="rp_txt flt" type='text' name='userName'
+									<td><input id="userName" class="form-input" type='text' name='userName'
 										value="" /></td>
 								</tr>
 								<tr>
 									<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
-									<td><input id="userPassword" class="rp_txt flt" type='password' name='password' autocomplete="off" /></td>
+									<td><input id="userPassword" class="form-input" type='password' name='password' autocomplete="off" /></td>
 								</tr>
 								<tr>
 									<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
-									<td><input autocomplete="off" id="checkcode" class="rp_txt flt" type='text' name='ccode' value="" /></td>
+									<td><input autocomplete="off" id="checkcode" class="form-input" type='text' name='ccode' value="" /></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:left"><a href="javascript:void(0);" onclick="flushValidateCode();"

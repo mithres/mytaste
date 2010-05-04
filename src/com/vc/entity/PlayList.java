@@ -54,6 +54,10 @@ public class PlayList {
 	@OrderBy("createdTime desc")
 	private List<VideoComments> comments = new ArrayList<VideoComments>();
 
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OrderBy("createdTime desc")
+	private List<PlayListQueue> queues = new ArrayList<PlayListQueue>();
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "playlist_tags", joinColumns = @JoinColumn(name = "playlist_id"), inverseJoinColumns = @JoinColumn(name = "tags_tag"))
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -282,6 +286,14 @@ public class PlayList {
 
 	public void setAverageRateValue(Double averageRateValue) {
 		this.averageRateValue = averageRateValue;
+	}
+
+	public List<PlayListQueue> getQueues() {
+		return queues;
+	}
+
+	public void setQueues(List<PlayListQueue> queues) {
+		this.queues = queues;
 	}
 
 }
