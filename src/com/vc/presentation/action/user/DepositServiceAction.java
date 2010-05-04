@@ -3,6 +3,7 @@ package com.vc.presentation.action.user;
 import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
@@ -25,24 +26,18 @@ public class DepositServiceAction extends BaseAction {
 	private IUserService userService = null;
 
 	private String cardPassword = null;
-
-	private String account = null;
+	
+	private String type = "Balance";
 
 	private PointCard pointCard = null;
 	private UserInfo userAccount = null;
 
 	public String index() {
+		userAccount = userService.findUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
 		return Action.SUCCESS;
 	}
 
 	private final void preValidate() {
-
-		if (ItemChecker.checkNull(account)) {
-			this.addActionError(this.getText("vc.accountdeposits.account.empty"));
-		}
-		if (!ItemChecker.checkUserName(account)) {
-			this.addActionError(this.getText("vc.accountdeposits.account.error"));
-		}
 
 		if (ItemChecker.checkNull(cardPassword)) {
 			this.addActionError(this.getText("vc.accountdeposits.card.password.empty"));
@@ -59,12 +54,6 @@ public class DepositServiceAction extends BaseAction {
 			if (this.getActionErrors().size() > 0) {
 				return Action.INPUT;
 			}
-			UserInfo user = userService.findUserByName(account);
-			if (user == null) {
-				this.addActionError(getText("vc.user.notfound", new String[] { account }));
-			} else if (!user.isEnabled()) {
-				this.addActionError(getText("vc.user.disabled", new String[] { account }));
-			}
 
 			pointCard = purchaseService.findCardInfoByPassword(cardPassword);
 			if (pointCard.getUsed()) {
@@ -75,7 +64,7 @@ public class DepositServiceAction extends BaseAction {
 				return Action.INPUT;
 			}
 
-			userAccount = userService.findUserByName(account);
+			userAccount = userService.findUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
 		} catch (PointCardException e) {
 			this.addActionError(getText(e.getMessageKey()));
 			return Action.INPUT;
@@ -88,23 +77,30 @@ public class DepositServiceAction extends BaseAction {
 
 		preValidate();
 		if (this.getActionErrors().size() > 0) {
-			return Action.INPUT;
+			String json = "{\"status\":\"error\",\"messages\",\""+this.getActionErrors().iterator().next()+"\"}";
+			this.write(json);
+			return Action.NONE;
 		}
 
 		PurchaseVO vo = new PurchaseVO();
-		vo.setAccount(account);
+		vo.setAccount(SecurityContextHolder.getContext().getAuthentication().getName());
 		vo.setCardPassword(cardPassword);
 		vo.setRemoteIp(request.getRemoteAddr());
 		try {
 			purchaseService.purchase(vo);
+			String json = "{\"status\":\"success\"}";
+			this.write(json);
 		} catch (DepositException e) {
-			this.addActionError(e.getMessage());
-			return Action.INPUT;
+//			this.addActionError(e.getMessage());
+			String json = "{\"status\":\"error\",\"messages\",\""+e.getMessage()+"\"}";
+			this.write(json);
+			return Action.NONE;
 		} catch (PointCardException e) {
-			this.addActionError(e.getMessage());
-			return Action.INPUT;
+			String json = "{\"status\":\"error\",\"messages\",\""+e.getMessage()+"\"}";
+			this.write(json);
+			return Action.NONE;
 		}
-		return Action.SUCCESS;
+		return Action.NONE;
 	}
 
 	public String getCardPassword() {
@@ -115,20 +111,16 @@ public class DepositServiceAction extends BaseAction {
 		this.cardPassword = cardPassword;
 	}
 
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
 	public PointCard getPointCard() {
 		return pointCard;
 	}
 
 	public UserInfo getUserAccount() {
 		return userAccount;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 }

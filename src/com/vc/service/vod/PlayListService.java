@@ -280,11 +280,16 @@ public class PlayListService implements IPlayListService {
 	}
 
 	@Override
-	public IPageList<PlayList> findUserPlayListQueue(String userName, Hints hnts) {
-		IPageList<PlayList> list = new PageListImpl<PlayList>();
-		list.setRecordTotal(playListDao.findUserPlayListQueueCount(userName));
-		list.setRecords(playListDao.findUserPlayListQueue(userName, hnts));
+	public IPageList<PlayListQueue> findUserPlayListQueue(String userName, Hints hnts) {
+		IPageList<PlayListQueue> list = new PageListImpl<PlayListQueue>();
+		list.setRecordTotal(playListQueueDao.findUserPlayListQueueCount(userName));
+		list.setRecords(playListQueueDao.findUserPlayListQueue(hnts, userName));
 		return list;
+	}
+
+	@Override
+	public void removePlayListQueue(String id) {
+		playListQueueDao.delete(id);
 	}
 
 }

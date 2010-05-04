@@ -16,18 +16,6 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 
 	private static final String FIND_PLAYLIST_BASE = " from PlayList pl ";
 
-	private static final String FIND_USER_PLAYLIST_QUEUE_COUNT = " select count(pl.id) from PlayList pl join pl.queues queue where queue.user.userName = ? ";
-
-	private static final String FIND_USER_PLAYLIST_QUEUE = " from PlayList pl join pl.queues queue where queue.user.userName = ? order by queue.createdTime desc ";
-
-	public List<PlayList> findUserPlayListQueue(String userName, Hints hnts) {
-		return this.findPaged(FIND_USER_PLAYLIST_QUEUE, hnts, userName);
-	}
-
-	public Long findUserPlayListQueueCount(String userName) {
-		return this.findRowCount(FIND_USER_PLAYLIST_QUEUE_COUNT, userName);
-	}
-
 	public Long findPlayListCount(PlayListSearchCondition condition) {
 		String hql = FIND_PLAYLIST_COUNT_BASE + createHqlCondition(condition);
 		return this.findRowCount(hql);
