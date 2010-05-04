@@ -54,6 +54,8 @@ public class UserInfo implements UserDetails {
 	private Set<PurchasesHistory> purchasesHistory = new HashSet<PurchasesHistory>();
 
 	private Float accountBalance = new Float(0);
+	
+	private Boolean uploadedAvatar = Boolean.FALSE;
 
 	@Transient
 	private GrantedAuthority[] authorities = null;
@@ -179,5 +181,13 @@ public class UserInfo implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getUploadedAvatar() {
+		return uploadedAvatar;
+	}
+
+	public void setUploadedAvatar(Boolean uploadedAvatar) {
+		this.uploadedAvatar = uploadedAvatar;
 	}
 }

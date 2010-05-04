@@ -1,5 +1,7 @@
 package com.vc.service.user;
 
+import java.io.File;
+
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
 
@@ -19,9 +21,12 @@ public interface IUserService {
 
 	@Secured( { "ROLE_ADMIN" })
 	public abstract UserInfo createUser(UserInfo user) throws UserExistException;
-	
+
 	public abstract IPageList<UserInfo> findPopularUser(Hints hint);
-	
+
 	public Long findUserQueueCount(String userName);
+
+	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
+	public boolean updateProfilePhoto(File file);
 
 }

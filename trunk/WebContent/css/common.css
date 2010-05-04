@@ -690,17 +690,18 @@ div#profile-sub-section-container ul#tab-container li.tab-unselected:hover
 }
 
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected a,div#profile-sub-section-container ul#tab-container li.tab-selected a,div#profile-sub-section-container ul#tab-container li.tab-unselected a
-	{
+{
 	color: #FFFFFF;
 }
 
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover a,div#profile-sub-section-container ul#tab-container li.tab-unselected:hover a
-	{
+{
 	color: #99CC33;
+
 }
 
 div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable,div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected
-	{
+{
 	background-color:#636363;
 	color: #FFFFFF;
 	cursor: default;
@@ -1239,6 +1240,26 @@ div.review-title {
 	padding:5px;
 	text-align:left;
 }
+div.avatar {
+	float:left;
+}
 
+div.content {
+	float:left;
+	min-height:80px;
+	padding-left:30px;
+	position:relative;
+	width:510px;
+}
 
-
+div.default-avatar {
+	border:1px solid #BBBBBB;
+	color:#999999;
+	display:block;
+	font-family:"Helvetica Neue";
+	font-size:36px;
+	font-weight:bold;
+	height:36px;
+	overflow:hidden;
+	text-align:center;
+}

@@ -1,5 +1,6 @@
 package com.vc.service.user;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -16,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.security.userdetails.UserDetailsService;
 import org.springframework.security.userdetails.UsernameNotFoundException;
@@ -40,6 +42,7 @@ import com.vc.entity.ResourceType;
 import com.vc.entity.Role;
 import com.vc.entity.UserInfo;
 import com.vc.presentation.exception.UserExistException;
+import com.vc.util.photo.PicUtil;
 import com.vc.util.security.MD5;
 import com.vc.util.server.TimeUtil;
 
@@ -211,6 +214,18 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	@Override
 	public Long findUserQueueCount(String userName) {
 		return playListQueueDao.findUserPlayListQueueCount(userName);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public boolean updateProfilePhoto(File file) {
+		UserInfo user = userInfoDao.findById(SecurityContextHolder.getContext().getAuthentication().getName());
+		if (PicUtil.uploadImage(file, user) && !user.getUploadedAvatar()) {
+			user.setUploadedAvatar(Boolean.TRUE);
+			userInfoDao.update(user);
+			return true;
+		}
+		return false;
 	}
 
 }
