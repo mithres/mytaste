@@ -27,13 +27,18 @@
 		<property name="targetMethod" value="doJob"/>
 	</bean> 
 
+	<bean id="recommendTrigger"   
+		class="org.springframework.scheduling.quartz.CronTriggerBean">  
+		<property  name="jobDetail" ref="recommender"/>
+		<property name="cronExpression" value="0 0 6 * * ?"/>
+	</bean>  
 
 	
-	<bean id="recommendTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">	
+	<!--bean id="recommendTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">	
 		<property name="jobDetail" ref="recommender"/>
 		<property name="startDelay" value="30000"/>
 		<property name="repeatInterval" value="30000"/>
-	</bean>
+	</bean-->
 
 
 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">

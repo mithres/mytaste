@@ -201,7 +201,7 @@ function removeFromQueue(playListId,cp,ps){
 
 function deposit(formId){
 	
-	var url = webPath + "/user/deposit";
+	var url = webPath + "/user/pay";
 	
 	$.ajax( {
 		url : url,
@@ -209,10 +209,15 @@ function deposit(formId){
 		type : 'post',
 		dataType : 'json',
 		error : function(data) {
-			showMessage("Deposit error.");
+			showMessage("Payment error.");
 		},
 		success : function(data) {
-			showMessage("Deposit ok.");
+			if(data.status == 'success'){
+				showMessage("Payment successfully, current account balance:"+data.messages);
+				$('#accountBalance').html(data.messages);
+			}else{
+				showMessage("Payment error:"+data.messages);
+			}
 		}
 	});
 }

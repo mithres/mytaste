@@ -1,7 +1,9 @@
 
 <div style="float:left;width:100%;margin:2px;">
 <div style="float:left;width:145px;height:80px;">
-	<img height="80" width="145" alt="<s:property value="playList.playListName"/>" src="<p:photo index="${playListQueue.playList.playListIndex}" photoType="FilmScreenShot"/>">
+	<a href="<web.page:path/>/vod/play?playListID=<s:property value="playList.id"/>">
+		<img height="80" width="145" alt="<s:property value="playList.playListName"/>" src="<p:photo index="${playListQueue.playList.playListIndex}" photoType="FilmScreenShot"/>">
+	</a>
 </div>
 <div style="float:left;width:750px;">
 	<table class="playListTable">
