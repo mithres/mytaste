@@ -12,6 +12,7 @@
 <s:actionerror/>
 
 	<form method="post" action="<web.page:path/>/vod/savePlayList" enctype="multipart/form-data" name="createPlayList" id="createPlayList">
+	<input type="hidden" name="playList.id" value="<s:property value="playList.id"/>"/>
 		<table class="wwFormTable">
 			<tbody>
 			<tr>
@@ -20,28 +21,29 @@
 			</tr>
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_playListName"><s:text name="vc.playlist.name"/>:</label></td>
-			    <td><input type="text" class="form-input" id="createPlayList_playListName" value="" name="playList.playListName"></td>
+			    <td><input type="text" class="form-input" id="createPlayList_playListName" value="<s:property value="playList.playListName"/>" name="playList.playListName"></td>
 			</tr>
 
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_price"><s:text name="vc.playlist.price"/>:</label></td>
-			    <td><input type="text" class="form-input" id="createPlayList_price" name="playList.price"></td>
+			    <td><input type="text" class="form-input" id="createPlayList_price" value="<s:property value="playList.price"/>" name="playList.price"></td>
 			</tr>
 
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_playListType"><s:text name="vc.playlist.type"/>:</label></td>
 			    <td><select id="createPlayList_playListType" name="playList.playListType">
-			    	<s:iterator value="playListTypes">
-			    		<option value="<s:property/>"><s:property/></option>
+			    	<s:iterator value="playListTypes" var="plt">
+			    		<option <s:if test="#plt.equals(playList.playListType)">selected='selected'</s:if> value='<s:property/>'><s:property /></option>
 			    	</s:iterator>
 			    </select></td>
 			</tr>
 
+
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_fileTypes"><s:text name="vc.playlist.filmtype"/>:</label></td>
 			    <td><select id="createPlayList_fileTypes" name="playList.filmType">
-			    	<s:iterator value="fileTypes">
-			    		<option value="<s:property/>"><s:property/></option>
+			    	<s:iterator value="fileTypes" var="ft">
+			    		<option <s:if test="#ft.equals(playList.filmType)">selected='selected'</s:if> value='<s:property/>'><s:property /></option>
 			    	</s:iterator>
 			    </select></td>
 			</tr>
@@ -58,12 +60,12 @@
 			
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_playListDescrition"><s:text name="vc.playlist.description"/>:</label></td>
-			    <td><textarea id="createPlayList_playListDescrition" name="playList.description"></textarea></td>
+			    <td><textarea id="createPlayList_playListDescrition" name="playList.description"><s:property value="playList.description"/></textarea></td>
 			</tr>
 			
 			<tr>
 			    <td class="tdLabel"><label class="label" for="createPlayList_playListTags"><s:text name="vc.playlist.tag"/>:</label></td>
-			    <td><input type="text" class="form-input" id="createPlayList_playListTags" name="tags"></td>
+			    <td><input type="text" class="form-input" id="createPlayList_playListTags" name="tags" value="<s:iterator value="playList.tags"><s:property value="tag"/> </s:iterator>"></td>
 			</tr>
 			
 

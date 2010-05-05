@@ -75,11 +75,44 @@ public class PlayListService implements IPlayListService {
 
 		return user.getAccountBalance() >= playList.getPrice();
 	}
-
+	
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public PlayList updatePlayList(PlayList playList, String[] tags) throws FilePersistException {
+		
+		if (playList.getFilmFile() != null) {
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
+	
+			try {
+				FileUtil.copyFile(playList.getFilmFile(), destFile);
+			} catch (IOException e) {
+				throw new FilePersistException("Update vod file:" + destFile.getPath() + " error.", e);
+			}
+		}
+		
+		// Update playlist tags
+		for (String tag : tags) {
+			Tags temp = tagDao.findById(tag);
+			if (temp == null) {
+				temp = new Tags(tag);
+			} else {
+				temp.setCount(temp.getCount() + 1);
+			}
+			tagDao.update(temp);
+			playList.getTags().clear();
+			playList.getTags().add(temp);
+		}
+		playListDao.update(playList);
+		
+		
+		return playList;
+	}
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList, String[] tags) throws FilePersistException {
-
+		
+		
 		if (playList.getFilmFile() != null) {
 			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
 					+ playList.getFileName());

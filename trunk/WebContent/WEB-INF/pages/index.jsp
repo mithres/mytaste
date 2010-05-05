@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="security" uri="/WEB-INF/tlds/security.tld"%>
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
 <%@ taglib prefix="p" uri="/WEB-INF/tlds/photo.tld"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
