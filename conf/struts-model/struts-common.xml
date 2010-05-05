@@ -9,6 +9,10 @@
 		
 		<!-- Called by flash slideshower -->
 		<action name="recommend" class="com.vc.presentation.action.common.RecommendAction"/>
+		
+		<action name="channelSlider" class="com.vc.presentation.action.common.ChannelSliderAction">
+			<result>/WEB-INF/pages/commons/playlistslider.jsp</result>
+		</action>	
 			
 	</package>
 	

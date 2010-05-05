@@ -63,6 +63,11 @@ public class Constants {
 	
 	//Condition for search 
 	public static final String SEARCH_CONDITION_ALL = "All";
+	public static final String SEARCH_CONDITION_TODAY = "Today";
+	public static final String SEARCH_CONDITION_THIS_WEEK = "ThisWeek";
+	public static final String SEARCH_CONDITION_THIS_MONTH = "ThisMonth";
+	public static final String SEARCH_CONDITION_ADDED_TIME = "AddedTime";
+	public static final String SEARCH_CONDITION_RATE= "RateValue";
 	
 	//Tag split express
 	public static final String TAG_SPLIT_EXPRESSION = ",|:|;| ";

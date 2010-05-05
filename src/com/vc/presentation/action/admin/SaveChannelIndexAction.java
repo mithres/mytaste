@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
+import com.vc.core.constants.Constants;
 import com.vc.entity.Channels;
 import com.vc.service.system.ISystemService;
+import com.vc.vo.MenuVO;
 
 public class SaveChannelIndexAction extends BaseAction {
 
@@ -21,10 +23,14 @@ public class SaveChannelIndexAction extends BaseAction {
 	@Override
 	public String process() {
 
-		if (parentChannel != null) {
-			channel.setParentChannel(systemService.findChannelById(parentChannel));
+		if (!parentChannel.equals("00")) {
+			channel.setParentId(parentChannel);
 		}
 		systemService.createChannel(channel);
+		
+		MenuVO menuVO = new MenuVO();
+		menuVO.setChannels(systemService.findParentChannels());
+		getSession().setAttribute(Constants.MENU_STAT, menuVO);
 
 		return Action.SUCCESS;
 	}
