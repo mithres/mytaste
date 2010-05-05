@@ -72,15 +72,9 @@ public class SavePlayListAction extends BaseAction {
 
 	@Override
 	public String process() {
-
-		playList.setFileName(filmFileName);
-		playList.setFilmFile(film);
-		playList.setAddedTime(new Timestamp(System.currentTimeMillis()));
-
-		if (playList.getPrice() == null) {
-			playList.setPrice(new Float(0));
-		}
-
+		
+		String[] playListTags = tags.split(Constants.TAG_SPLIT_EXPRESSION);
+		
 		if (channel != null) {
 			Channels channels = systemService.findChannelById(channel);
 			if (channels != null) {
@@ -88,9 +82,32 @@ public class SavePlayListAction extends BaseAction {
 			}
 		}
 
-		String[] playListTags = tags.split(Constants.TAG_SPLIT_EXPRESSION);
+		if (playList.getId() != null) {
+			PlayList temp = playListService.findPlayListById(playList.getId());
+			temp.setFileName(filmFileName);
+			temp.setFilmFile(film);
+			temp.setPlayListName(playList.getPlayListName());
+			temp.setPlayListType(playList.getPlayListType());
+			temp.setFilmType(playList.getFilmType());
+			temp.setPrice(playList.getPrice());
+			temp.setDescription(playList.getDescription());
 
-		playListService.savePlayList(playList, playListTags);
+			if (temp.getPrice() == null) {
+				temp.setPrice(new Float(0));
+			}
+			
+			playListService.updatePlayList(temp, playListTags);
+		}else{
+			playList.setFileName(filmFileName);
+			playList.setFilmFile(film);
+			playList.setAddedTime(new Timestamp(System.currentTimeMillis()));
+
+			if (playList.getPrice() == null) {
+				playList.setPrice(new Float(0));
+			}
+			
+			playListService.savePlayList(playList, playListTags);
+		}
 
 		if (screenShot != null) {
 			if (screenShot.length() > PicUtil.DEFAULT_AVATOR_SIZE) {

@@ -11,6 +11,10 @@
 			<result>/WEB-INF/pages/vod/playlistypechannelselector.jsp</result>
 		</action>	
 		
+		<action name="edit" class="com.vc.presentation.action.vod.EditPlayListAction">
+			<result>/WEB-INF/pages/vod/addplaylist.jsp</result>
+		</action>
+		
 		<action name="playListIndex" class="com.vc.presentation.action.vod.PlayListIndexAction">
 			<result>/WEB-INF/pages/vod/playlist.jsp</result>
 		</action>
