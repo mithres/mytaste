@@ -31,7 +31,7 @@
 		      <form  method="post" action="#" name="search_form" id="channel_search_form" style="float: left; width: 96%;">
 		        <div style="float: left;padding-top:2px;">
 		          <span style="font-size: 11px; font-weight: bold; color: rgb(100, 100, 100); margin-right: 8px; vertical-align: middle;">Search this channel</span>
-		          <input type="text" value="" autocomplete="off" name="query" style="vertical-align: middle; width: 230px; height: 17px; border-color: rgb(204, 204, 204) -moz-use-text-color rgb(204, 204, 204) rgb(204, 204, 204); color: rgb(3, 3, 3); border-right: 0px none;" class="search channel_search_term" id="embed-search-bar-query">
+		          <input type="text" autocomplete="off" name="query" style="vertical-align: middle; width: 230px; height: 17px; border-color: rgb(204, 204, 204) -moz-use-text-color rgb(204, 204, 204) rgb(204, 204, 204); color: rgb(3, 3, 3); border-right: 0px none;" class="search channel_search_term" id="embed-search-bar-query">
 		          <a href="javascript:void(0);">
 		          <img border="0" onmouseout="this.src='<web.page:path/>/images/button-search-in-channel.gif'" onmouseover="this.src='<web.page:path/>/images/button-search-in-channel-hover.gif'" title="Find specific shows from this channel" style="vertical-align: middle; margin-left: -4px; cursor: pointer;" src="<web.page:path/>/images/button-search-in-channel.gif"  id="embed-search-button" class="" alt=""></a>
 		        </div> 
@@ -47,10 +47,10 @@
 	</div>
 
 	<script type="text/javascript">
-	$(document).ready(function(){	
-		$("#slider").easySlider();
-	});	
-</script>
+		$(document).ready(function(){	
+			$("#slider").easySlider();
+		});	
+	</script>
 
 </body>
 </html>

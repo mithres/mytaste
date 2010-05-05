@@ -11,7 +11,7 @@
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 			
 		<!-- show sql -->
-		<property name="show_sql">true</property>
+		<!--property name="show_sql">true</property-->
 		<property name="format_sql">true</property>
 		<property name="jdbc.batch_size">100</property>
 			
@@ -22,7 +22,7 @@
 		<property name="cache.use_structured_entries">true</property>
 			
 		<!-- enable use hibernate second level cache -->
-		<property name="cache.use_second_level_cache">true</property>
+		<property name="cache.use_second_level_cache">false</property>
 		<property name="cache.use_query_cache">true</property>
 		<property name="cache.provider_class">org.terracotta.hibernate.TerracottaHibernateCacheProvider</property>
 			

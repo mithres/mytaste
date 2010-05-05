@@ -19,22 +19,22 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class VideoCollection {
-	
+
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id = null;
-	
+
 	private String name = null;
-	
+
 	private int videoCount = 0;
-	
+
 	private Timestamp addedTime = null;
-	
+
 	@GeneratedValue(generator = "hibseq")
 	private Long collectionIndex = null;
-	
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "videoCollection")
 	@OrderBy("addedTime desc")
 	private List<PlayList> playLists = new ArrayList<PlayList>();
 

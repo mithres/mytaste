@@ -27,6 +27,9 @@ public class ChannelSliderAction extends BaseAction {
 		PlayListSearchCondition condition = new PlayListSearchCondition();
 		condition.setChannelId(channelId);
 		condition.setOrderBy(Constants.SEARCH_CONDITION_ALL);
+		condition.setWithComments(false);
+		condition.setWithTags(false);
+		condition.setWithChannel(false);
 		playLists =  playListService.findPlayListByCondition(new Hints(0,15), condition);
 		return Action.SUCCESS;
 	}

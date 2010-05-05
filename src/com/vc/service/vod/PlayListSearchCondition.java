@@ -11,6 +11,8 @@ public class PlayListSearchCondition {
 	private String orderBy = null;
 	
 	private boolean withComments = true;
+	private boolean withTags = false;
+	private boolean withChannel = false;
 
 	public PlayListType getPlayListType() {
 		return playListType;
@@ -42,6 +44,22 @@ public class PlayListSearchCondition {
 
 	public void setWithComments(boolean withComments) {
 		this.withComments = withComments;
+	}
+
+	public boolean isWithTags() {
+		return withTags;
+	}
+
+	public void setWithTags(boolean withTags) {
+		this.withTags = withTags;
+	}
+
+	public boolean isWithChannel() {
+		return withChannel;
+	}
+
+	public void setWithChannel(boolean withChannel) {
+		this.withChannel = withChannel;
 	}
 	
 }

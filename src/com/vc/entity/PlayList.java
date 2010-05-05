@@ -50,11 +50,11 @@ public class PlayList {
 
 	private Float price = new Float(0);
 
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "playList")
 	@OrderBy("createdTime desc")
 	private List<VideoComments> comments = new ArrayList<VideoComments>();
 
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "playList")
 	@OrderBy("createdTime desc")
 	private List<PlayListQueue> queues = new ArrayList<PlayListQueue>();
 
@@ -64,13 +64,13 @@ public class PlayList {
 	@OrderBy("tag")
 	private Set<Tags> tags = new HashSet<Tags>();
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
 	private Channels channel = null;
 
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "playList")
 	private Set<PlayListRating> rates = new HashSet<PlayListRating>();
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
 	private VideoCollection videoCollection = null;
 
 	private String totalTime = null;

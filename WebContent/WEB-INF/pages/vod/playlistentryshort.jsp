@@ -20,7 +20,8 @@
 		Created date: <s:date name="addedTime" nice="true"/><br/>
 		Avg. user rating: <br/>
 		<s:property value="description"/><br/>
-		Tags:<s:property value="tags"/><br/>
+		Tags:<s:iterator value="tags"><s:property value="tag"/></s:iterator>
+		<br/>
 	</div>
 	<script type="text/javascript">
 	$(document).ready(function() {

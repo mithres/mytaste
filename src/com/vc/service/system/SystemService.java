@@ -136,4 +136,14 @@ public class SystemService implements ISystemService {
 		return tagDao.findTags(hnts);
 	}
 
+	@Override
+	public List<Channels> findAllChannels() {
+		return channelDao.findAllChannels();
+	}
+
+	@Override
+	public Channels findChannelWithSubChannel(String channelId) {
+		return channelDao.findChannelWithSubChannel(channelId);
+	}
+
 }

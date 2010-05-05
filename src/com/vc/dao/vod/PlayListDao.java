@@ -29,12 +29,19 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	}
 
 	private static final String createHqlBodyByCondition(PlayListSearchCondition condition) {
+		
+		String hql = FIND_PLAYLIST_BASE;
+		
 		if (condition.isWithComments()) {
-			//return FIND_PLAYLIST_BASE + " left join fetch pl.comments ";
-			return FIND_PLAYLIST_BASE;
-		} else {
-			return FIND_PLAYLIST_BASE;
+			hql += " left join fetch pl.comments ";
 		}
+		if (condition.isWithTags()) {
+			hql += " left join fetch pl.tags ";
+		}
+		if(condition.isWithChannel()){
+			hql += " left join fetch pl.channel ";
+		}
+		return hql;
 	}
 
 	private static final String createHqlOrderByCondition(PlayListSearchCondition condition) {
