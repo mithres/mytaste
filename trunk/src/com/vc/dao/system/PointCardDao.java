@@ -9,10 +9,10 @@ import com.vc.entity.PointCard;
 @Repository
 public class PointCardDao extends GenericDAO<PointCard, String> {
 
-	private static final String FIND_CARD_BY_PASSWORD = " from PointCard where cardPassword = ? ";
+	private static final String FIND_CARD_BY_PASSWORD = " from PointCard where cardPassword = ? and cardId = ? ";
 
-	public PointCard findPointCardByPassword(String password) {
-		return (PointCard)findUnique(FIND_CARD_BY_PASSWORD, new Hints(0), password);
+	public PointCard findPointCardByIdAndPassword(String cardId, String password) {
+		return (PointCard) findUnique(FIND_CARD_BY_PASSWORD, new Hints(0), password, cardId);
 	}
 
 }

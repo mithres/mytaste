@@ -4,6 +4,8 @@ public class PurchaseVO {
 	
 	private String account = null;
 	
+	private String cardId = null;
+	
 	private String cardPassword = null;
 	
 	private String remoteIp = null;
@@ -30,6 +32,14 @@ public class PurchaseVO {
 
 	public void setRemoteIp(String remoteIp) {
 		this.remoteIp = remoteIp;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
 	}
 	
 }

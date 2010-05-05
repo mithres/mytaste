@@ -15,7 +15,7 @@ public interface IPurchaseService {
 	@Secured( { "ROLE_ADMIN" })
 	public abstract boolean importPointCardInfo(File file);
 
-	public abstract PointCard findCardInfoByPassword(String password) throws PointCardException;
+	public abstract PointCard findCardInfoByIdAndPassword(String cardNo,String password) throws PointCardException;
 
 	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
 	public abstract UserInfo purchase(PurchaseVO vo) throws DepositException, PointCardException;

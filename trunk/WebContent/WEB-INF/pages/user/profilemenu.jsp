@@ -19,20 +19,20 @@
 		class="<s:if test="type.equals('Rate')">profile-tab-selected</s:if><s:else>profile-tab-unselected</s:else>">
 	<div><s:if test="type.equals('Rate')">Tags</s:if><s:else>
 		<a style="text-decoration: none;"
-			href="<web.page:path/>/vod/highestRate">Tags</a>
+			href="#">Tags</a>
 	</s:else></div>
 	</li>
 	<li
-		class="<s:if test="type.equals('Balance')">profile-tab-selected</s:if><s:else>profile-tab-unselected</s:else>">
-	<div><s:if test="type.equals('Balance')">Balance</s:if><s:else>
-		<a style="text-decoration: none;" href="<web.page:path/>/user/accountDeposits">Balance</a>
+		class="<s:if test="type.equals('Payment')">profile-tab-selected</s:if><s:else>profile-tab-unselected</s:else>">
+	<div><s:if test="type.equals('Payment')">Payment</s:if><s:else>
+		<a style="text-decoration: none;" href="<web.page:path/>/user/payment">Payment</a>
 	</s:else></div>
 	</li>
 	<li
 		class="<s:if test="type.equals('Rate')">profile-tab-selected</s:if><s:else>profile-tab-unselected</s:else>">
 	<div><s:if test="type.equals('Rate')">Setting</s:if><s:else>
 		<a style="text-decoration: none;"
-			href="<web.page:path/>/vod/highestRate">Setting</a>
+			href="#">Setting</a>
 	</s:else></div>
 	</li>
 	<br style="clear: both;">

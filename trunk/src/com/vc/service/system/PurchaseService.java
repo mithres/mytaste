@@ -29,10 +29,10 @@ public class PurchaseService implements IPurchaseService {
 	private UserInfoDao userInfoDao = null;
 
 	@Override
-	public PointCard findCardInfoByPassword(String password) throws PointCardException {
-		PointCard card = pointCardDao.findPointCardByPassword(password);
+	public PointCard findCardInfoByIdAndPassword(String cardId, String password) throws PointCardException {
+		PointCard card = pointCardDao.findPointCardByIdAndPassword(cardId, password);
 		if (card == null) {
-			throw new PointCardException("Point card with password {" + password + "} not found.",
+			throw new PointCardException("Point Card with NO {" + cardId + "} and password {" + password + "} not found.",
 					"vc.accountdeposits.card.notfound");
 		}
 		return card;
@@ -51,7 +51,7 @@ public class PurchaseService implements IPurchaseService {
 
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
-		PointCard card = findCardInfoByPassword(vo.getCardPassword());
+		PointCard card = findCardInfoByIdAndPassword(vo.getCardId(), vo.getCardPassword());
 
 		if (card.getExpireTime().before(currentTime)) {
 			throw new DepositException("Card {" + card.getCardId() + "} expired.", "vc.accountdeposits.card.expired");

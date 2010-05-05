@@ -11,7 +11,7 @@
 			<result>/WEB-INF/pages/user/account.jsp</result>
 		</action>
 		
-		<action name="accountDeposits" method="index" class="com.vc.presentation.action.user.DepositServiceAction">
+		<action name="payment" method="index" class="com.vc.presentation.action.user.DepositServiceAction">
 			<result>/WEB-INF/pages/user/account.jsp</result>
 		</action>
 		
@@ -20,7 +20,7 @@
 			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
 		</action-->
 		
-		<action name="deposit" class="com.vc.presentation.action.user.DepositServiceAction">
+		<action name="pay" class="com.vc.presentation.action.user.DepositServiceAction">
 			<result type="redirect">/user/accountInfo</result>
 			<result name="input">/WEB-INF/pages/user/depositservice.jsp</result>
 		</action>

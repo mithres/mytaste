@@ -59,13 +59,26 @@
 	pageCount="${pageCount}" currentPage="${pageNumber}"
 	action="/user/queue" className="pageable-div pagination"
 	innerStyle="margin-top: 50px; float: left;" />
-</s:elseif><s:elseif test="type.equals('Balance')">
-	<span style="font-weight:bold;font-size: 16px;">Current account balance:</span> <s:property value="userAccount.accountBalance"/>
-	<s:text name="vc.accountdeposits.message"/>
+</s:elseif><s:elseif test="type.equals('Payment')">
+
+	<span style="font-weight:bold;font-size: 16px;">Current account balance:</span><span id="accountBalance"><s:property value="userAccount.accountBalance"/></span>
 	<form id="depositForm">
-		Card NO: <input type="text" class="form-input" name="cardNo"/><br/> 
-		<s:text name="vc.accountdeposits.cardpassword"/>: <input type="text" class="form-input" name="cardPassword"/><br/>
-		<input type="button" value="Submit" onclick="deposit('depositForm');"/> 
+		<table style="margin-top:10px;">
+			<tr>
+				<td colspan="2"><s:text name="vc.accountdeposits.message"/></td>
+			</tr>
+			<tr>
+				<td style="text-align:right;">Card NO:</td>
+				<td><input type="text" class="form-input" name="cardId" autocomplete="off"/></td>
+			</tr>
+			<tr>
+				<td style="text-align:right;"><s:text name="vc.accountdeposits.cardpassword"/>:</td>
+				<td><input type="text" class="form-input" name="cardPassword" autocomplete="off"/></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="button" value="Submit" onclick="deposit('depositForm');"/> </td>
+			</tr>
+		</table>		
 	</form>
 </s:elseif>
 </div>

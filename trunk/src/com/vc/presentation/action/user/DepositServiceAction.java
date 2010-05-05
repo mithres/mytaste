@@ -1,7 +1,5 @@
 package com.vc.presentation.action.user;
 
-import java.sql.Timestamp;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.context.SecurityContextHolder;
 
@@ -27,7 +25,9 @@ public class DepositServiceAction extends BaseAction {
 
 	private String cardPassword = null;
 	
-	private String type = "Balance";
+	private String cardId = null;
+	
+	private String type = "Payment";
 
 	private PointCard pointCard = null;
 	private UserInfo userAccount = null;
@@ -47,37 +47,37 @@ public class DepositServiceAction extends BaseAction {
 		}
 	}
 
-	public String summary() {
-		try {
-
-			preValidate();
-			if (this.getActionErrors().size() > 0) {
-				return Action.INPUT;
-			}
-
-			pointCard = purchaseService.findCardInfoByPassword(cardPassword);
-			if (pointCard.getUsed()) {
-				this.addActionError(getText("vc.accountdeposits.cardused"));
-				return Action.INPUT;
-			} else if (pointCard.getExpireTime().before(new Timestamp(System.currentTimeMillis()))) {
-				this.addActionError(getText("vc.accountdeposits.card.expired"));
-				return Action.INPUT;
-			}
-
-			userAccount = userService.findUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
-		} catch (PointCardException e) {
-			this.addActionError(getText(e.getMessageKey()));
-			return Action.INPUT;
-		}
-		return Action.SUCCESS;
-	}
+//	public String summary() {
+//		try {
+//
+//			preValidate();
+//			if (this.getActionErrors().size() > 0) {
+//				return Action.INPUT;
+//			}
+//
+//			pointCard = purchaseService.findCardInfoByPassword(cardPassword);
+//			if (pointCard.getUsed()) {
+//				this.addActionError(getText("vc.accountdeposits.cardused"));
+//				return Action.INPUT;
+//			} else if (pointCard.getExpireTime().before(new Timestamp(System.currentTimeMillis()))) {
+//				this.addActionError(getText("vc.accountdeposits.card.expired"));
+//				return Action.INPUT;
+//			}
+//
+//			userAccount = userService.findUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
+//		} catch (PointCardException e) {
+//			this.addActionError(getText(e.getMessageKey()));
+//			return Action.INPUT;
+//		}
+//		return Action.SUCCESS;
+//	}
 
 	@Override
 	public String process() {
 
 		preValidate();
 		if (this.getActionErrors().size() > 0) {
-			String json = "{\"status\":\"error\",\"messages\",\""+this.getActionErrors().iterator().next()+"\"}";
+			String json = "{\"status\":\"error\",\"messages\":\""+this.getActionErrors().iterator().next()+"\"}";
 			this.write(json);
 			return Action.NONE;
 		}
@@ -85,18 +85,20 @@ public class DepositServiceAction extends BaseAction {
 		PurchaseVO vo = new PurchaseVO();
 		vo.setAccount(SecurityContextHolder.getContext().getAuthentication().getName());
 		vo.setCardPassword(cardPassword);
+		vo.setCardId(cardId);
 		vo.setRemoteIp(request.getRemoteAddr());
+		
 		try {
-			purchaseService.purchase(vo);
-			String json = "{\"status\":\"success\"}";
+			UserInfo user = purchaseService.purchase(vo);
+			String json = "{\"status\":\"success\",\"messages\":"+user.getAccountBalance()+"}";
 			this.write(json);
 		} catch (DepositException e) {
 //			this.addActionError(e.getMessage());
-			String json = "{\"status\":\"error\",\"messages\",\""+e.getMessage()+"\"}";
+			String json = "{\"status\":\"error\",\"messages\":\""+e.getMessage()+"\"}";
 			this.write(json);
 			return Action.NONE;
 		} catch (PointCardException e) {
-			String json = "{\"status\":\"error\",\"messages\",\""+e.getMessage()+"\"}";
+			String json = "{\"status\":\"error\",\"messages\":\""+e.getMessage()+"\"}";
 			this.write(json);
 			return Action.NONE;
 		}
@@ -121,6 +123,10 @@ public class DepositServiceAction extends BaseAction {
 
 	public String getType() {
 		return type;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
 	}
 
 }
