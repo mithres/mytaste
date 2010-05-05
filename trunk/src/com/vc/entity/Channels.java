@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
@@ -31,13 +32,13 @@ public class Channels {
 	@OrderBy("addedTime desc")
 	private List<PlayList> playLists = new ArrayList<PlayList>();
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private Channels parentChannel = null;
-	
-	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@Column(name = "parent_id")
+	private String parentId = null;
+
+	@OneToMany(targetEntity = Channels.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id")
 	@OrderBy("channelName")
 	private List<Channels> childChannels = new ArrayList<Channels>();
-	
 
 	public String getId() {
 		return id;
@@ -63,20 +64,20 @@ public class Channels {
 		this.playLists = playLists;
 	}
 
-	public Channels getParentChannel() {
-		return parentChannel;
-	}
-
-	public void setParentChannel(Channels parentChannel) {
-		this.parentChannel = parentChannel;
-	}
-
 	public List<Channels> getChildChannels() {
 		return childChannels;
 	}
 
 	public void setChildChannels(List<Channels> childChannels) {
 		this.childChannels = childChannels;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
 }

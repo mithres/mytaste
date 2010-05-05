@@ -12,21 +12,21 @@ import com.vc.entity.Channels;
 @Repository
 public class ChannelDao extends GenericDAO<Channels, String> {
 
-	private static final String FIND_PARENT_CHANNEL = " from Channels where parentChannel = null ";
+	private static final String FIND_PARENT_CHANNEL = " from Channels where parentId = null ";
 
-	private static final String FIND_SUB_CHANNELS = " from Channels where parentChannel.id = ? order by channelName ";
+	private static final String FIND_SUB_CHANNELS = " from Channels where parentId = ? order by channelName ";
 
 	@SuppressWarnings("unchecked")
 	public List<Channels> findSubChannels(String channelId) {
 		Hints hints = new Hints(0);
-		hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+		//hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 		return this.find(FIND_SUB_CHANNELS, hints, channelId);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Channels> findParentChannels() {
 		Hints hints = new Hints(0);
-		hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+		//hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 		return this.find(FIND_PARENT_CHANNEL, hints);
 	}
 

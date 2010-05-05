@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.vc.core.constants.Constants;
 import com.vc.core.dao.GenericDAO;
 import com.vc.core.dao.Hints;
 import com.vc.entity.PlayList;
@@ -29,7 +30,8 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 
 	private static final String createHqlBodyByCondition(PlayListSearchCondition condition) {
 		if (condition.isWithComments()) {
-			return FIND_PLAYLIST_BASE + " left join fetch pl.comments ";
+			//return FIND_PLAYLIST_BASE + " left join fetch pl.comments ";
+			return FIND_PLAYLIST_BASE;
 		} else {
 			return FIND_PLAYLIST_BASE;
 		}
@@ -38,17 +40,17 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	private static final String createHqlOrderByCondition(PlayListSearchCondition condition) {
 
 		if (condition.getOrderBy() != null) {
-			if ("Today".equals(condition.getOrderBy())) {
+			if (Constants.SEARCH_CONDITION_TODAY.equals(condition.getOrderBy())) {
 				return " order by todayViewCount desc ";
-			} else if ("ThisWeek".equals(condition.getOrderBy())) {
+			} else if (Constants.SEARCH_CONDITION_THIS_WEEK.equals(condition.getOrderBy())) {
 				return " order by thisWeekViewCount desc ";
-			} else if ("ThisMonth".equals(condition.getOrderBy())) {
+			} else if (Constants.SEARCH_CONDITION_THIS_MONTH.equals(condition.getOrderBy())) {
 				return " order by thisMonthViewCount desc ";
-			} else if ("AddedTime".equals(condition.getOrderBy())) {
+			} else if (Constants.SEARCH_CONDITION_ADDED_TIME.equals(condition.getOrderBy())) {
 				return " order by addedTime desc ";
-			} else if ("RateValue".equals(condition.getOrderBy())) {
+			} else if (Constants.SEARCH_CONDITION_RATE.equals(condition.getOrderBy())) {
 				return " order by averageRateValue desc ";
-			} else if ("All".equals(condition.getOrderBy())) {
+			} else if (Constants.SEARCH_CONDITION_ALL.equals(condition.getOrderBy())) {
 				return " order by viewCount desc ";
 			}
 		}
@@ -74,7 +76,7 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 			} else {
 				sb.append(" and ");
 			}
-			sb.append(" (pl.channel.parentChannel.id = '" + condition.getChannelId() + "' or pl.channel.id = '"
+			sb.append(" (pl.channel.id = '" + condition.getChannelId() + "' or pl.channel.parentId = '"
 					+ condition.getChannelId() + "' )");
 		}
 

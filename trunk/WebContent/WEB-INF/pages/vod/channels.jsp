@@ -33,9 +33,9 @@ $(function() {
 				<div class="channel-group-title">
 				<h3 style="border-bottom:none;"><a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a></h3>
 				</div>
-				<div>
+				<div style="margin-left:20px;">
 					<s:iterator value="childChannels">
-						<s:property value="channelName"/><br>
+						<a style="text-decoration:none;" href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a><br>
 					</s:iterator>
 				</div>
 				</div>

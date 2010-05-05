@@ -64,7 +64,7 @@ public class PlayList {
 	@OrderBy("tag")
 	private Set<Tags> tags = new HashSet<Tags>();
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	private Channels channel = null;
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

@@ -1,21 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="p" uri="/WEB-INF/tlds/photo.tld"%>
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
 <%@ taglib prefix="paginator" uri="/WEB-INF/tlds/pageview.tld"%>
-<%@ taglib prefix="photo" uri="/WEB-INF/tlds/photo.tld"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Channels - <s:property value="channel.channelName"/></title>
+
+<script type="text/javascript" src="<web.page:path/>/js/easyslider1.5.js"></script>
+
+
+
+
 </head>
 <body>
 	
 	<h1><s:property value="channel.channelName"/></h1><br/>
+	<s:iterator value="channel.childChannels">
+		<a style="text-decoration:none;" href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a>&nbsp;
+	</s:iterator>
 	
+	<s:action namespace="/common" name="channelSlider" executeResult="true"/>
 	
-	<s:iterator value="childChannels"><a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a></s:iterator>
 	<div id="search-bar" class="embed_search_bar">
 		<div class="fixed-lg container">
 		    <div style="padding: 2px 0pt 0pt 9px; overflow: hidden;" class="video-info">
@@ -30,12 +39,18 @@
 		    </div>
 	  	</div>
   	</div>
-	
-	<s:iterator value="playLists.records" var="playList" status="stat">
-	<!-- s:property value="#stat.index"/-->
-	<%@include file="playlistentryshort.jsp"%>
-	</s:iterator>
-	
-	
+
+	<div class="playListRender">
+		<s:iterator value="playLists.records" var="playList" status="stat">
+			<%@include file="playlistentryshort.jsp"%>
+		</s:iterator>
+	</div>
+
+	<script type="text/javascript">
+	$(document).ready(function(){	
+		$("#slider").easySlider();
+	});	
+</script>
+
 </body>
 </html>

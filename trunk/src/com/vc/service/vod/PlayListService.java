@@ -117,7 +117,7 @@ public class PlayListService implements IPlayListService {
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCount(condition));
 		if (list.getRecordTotal() > 0) {
-			hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+			//hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 			list.setRecords(playListDao.findPlayList(condition, hints));
 		}
 		return list;
@@ -249,7 +249,7 @@ public class PlayListService implements IPlayListService {
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCount(condition));
 		if (list.getRecordTotal() > 0) {
-			hnts.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+			//hnts.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 			list.setRecords(playListDao.findPlayList(condition, hnts));
 		}
 		return list;

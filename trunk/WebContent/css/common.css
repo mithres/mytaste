@@ -1274,3 +1274,39 @@ div.default-avatar {
 	font-size: 12px;
 	font-weight: normal;
 }
+
+/** for jquery slider**/
+
+#slider{}	
+
+#slider ul, #slider li{
+	margin:0;
+	padding:0;
+	list-style:none;
+	
+}
+#slider li{ 
+	height:160px;
+	overflow:hidden; 
+}	
+#prevBtn, #nextBtn{ 
+	display:block;
+	width:30px;
+	height:77px;
+	position:absolute;
+	left:-20px;
+	margin-top:80px;
+	float:left;
+}	
+#nextBtn{ 
+	left:880px;
+}														
+#prevBtn a, #nextBtn a{  
+	display:block;
+	width:30px;
+	height:77px;
+	background:url(../images/pagination-arrow-prev.gif) no-repeat 0 0;	
+}	
+#nextBtn a{ 
+	background:url(../images/pagination-arrow-next.gif) no-repeat 0 0;	
+}

@@ -19,7 +19,7 @@ public class UserInfoDao extends GenericDAO<UserInfo, String> {
 
 	public UserInfo findUserByName(String userName, boolean enable) {
 		Hints hints = new Hints(0);
-		hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+		//hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
 		return (UserInfo) findUnique(FIND_USER_BY_USERPASSWORD, hints, userName, enable);
 	}
 	
