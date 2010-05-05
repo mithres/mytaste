@@ -37,15 +37,17 @@ public class ChannelDetailAction extends BaseAction {
 	public String process() {
 		
 		if(cid == null && sort == null){
-			channelList = systemService.findParentChannels();
+			channelList = systemService.findAllChannels();
 			return "channels";
 		}else{
 			PlayListSearchCondition condition = new PlayListSearchCondition();
 			condition.setChannelId(cid);
 			condition.setOrderBy(sort);
-			
+			condition.setWithTags(true);
+			condition.setWithComments(false);
+			condition.setWithChannel(true);
 			playLists = playListService.findPlayListByCondition(new Hints(getStartRow(),getPageCount()), condition);
-			channel = systemService.findChannelById(cid);
+			channel = systemService.findChannelWithSubChannel(cid);
 			return Action.SUCCESS;
 		}
 		

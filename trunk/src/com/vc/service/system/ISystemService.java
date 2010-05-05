@@ -19,6 +19,8 @@ public interface ISystemService {
 	// Channel manage
 	public abstract Channels findChannelById(String channelId);
 
+	public abstract Channels findChannelWithSubChannel(String channelId);
+
 	public abstract Channels createChannel(Channels channel);
 
 	public abstract Channels updateChannel(Channels channel);
@@ -28,6 +30,8 @@ public interface ISystemService {
 	public abstract List<Channels> findParentChannels();
 
 	public abstract List<Channels> findAllSubChannels(String channelId);
+
+	public abstract List<Channels> findAllChannels();
 
 	public abstract List<Tags> findTags(Hints hnts);
 
