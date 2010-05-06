@@ -51,6 +51,9 @@ public class HighestRatedAction extends BaseAction {
 			condition.setChannelId(subChannel);
 		}
 		
+		condition.setWithTags(true);
+		condition.setWithChannel(true);
+		
 		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(), getPageCount()), condition);
 		return Action.SUCCESS;
 	}

@@ -44,6 +44,8 @@ public class RecentAddedAction extends BaseAction {
 		} else if (channel != Constants.SEARCH_CONDITION_ALL && subChannel != Constants.SEARCH_CONDITION_ALL) {
 			condition.setChannelId(subChannel);
 		}
+		condition.setWithTags(true);
+		condition.setWithChannel(true);
 		condition.setOrderBy("AddedTime");
 		playLists = playListService.findPlayListByCondition(new Hints(getStartRow(), getPageCount()), condition);
 		return Action.SUCCESS;
