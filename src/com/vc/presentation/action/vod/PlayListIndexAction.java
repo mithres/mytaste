@@ -45,6 +45,8 @@ public class PlayListIndexAction extends BaseAction {
 		condition.setOrderBy("All");
 		playLists = playListService.findPlayListByCondition(new Hints(Constants.DEFAULT_START,Constants.DEFAULT_COUNT),condition);
 		
+		condition.setWithTags(true);
+		condition.setWithChannel(true);
 		condition.setOrderBy("AddedTime");
 		recentlyAddedPlayLists = playListService.findPlayListByCondition(new Hints(Constants.DEFAULT_START,Constants.DEFAULT_COUNT),condition);
 		

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="decorator" content="maindecorator" />
+<meta name="decorator" content="main" />
 <title>Room List</title>
 </head>
 <body>

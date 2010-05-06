@@ -13,7 +13,7 @@ public class PlayListQueueDao extends GenericDAO<PlayListQueue, String> {
 
 	private static final String FIND_USER_QUEUE_COUNT = " select count(plq.id) from PlayListQueue plq where plq.user.userName = ? ";
 
-	private static final String FIND_USER_QUEUE = " from PlayListQueue plq where plq.user.userName = ? order by createdTime desc ";
+	private static final String FIND_USER_QUEUE = " from PlayListQueue plq left join fetch plq.playList where plq.user.userName = ? order by createdTime desc ";
 
 	public static final String FIND_PLAYLIST_IN_USERQUEUE = " from PlayListQueue plq where plq.user.userName = ? and plq.playList.id = ? ";
 
