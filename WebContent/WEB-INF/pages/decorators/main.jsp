@@ -31,11 +31,9 @@
 
 <script type="text/javascript">
 	var webPath = "<web.page:path/>"; 
-
 	$(function() {
 		$("input:button, input:submit").button();
 	});
-	
 </script>
 
 <decorator:head />
@@ -170,7 +168,7 @@
 <div class="container">
 
 <ul id="topnav">
-	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="<web.page:path/>/vod/channels">Channels</a>
+	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;" <s:if test="'Channel'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/channels">Channels</a>
 	<span class="channels-dock"> 
 		<table>
 			<tbody>
@@ -197,9 +195,9 @@
 	</li>
 
 <s:if test="#session.MenuStat.menuStat.equals('vod')">
-	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
-	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/recentAdded">Recently Added</a></li>
-	<li style="font-weight:bold;"><a href="<web.page:path/>/vod/collections">Collections</a></li>
+	<li style="font-weight:bold;" <s:if test="'MostPopular'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
+	<li style="font-weight:bold;" <s:if test="'RecentlyAdded'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/recentAdded">Recently Added</a></li>
+	<li style="font-weight:bold;" <s:if test="'Collection'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/collections">Collections</a></li>
 	
 </ul>
 </s:if><s:elseif test="#session.MenuStat.menuStat.equals('conference')">
