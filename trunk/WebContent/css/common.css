@@ -891,7 +891,7 @@ h3.h2-equiv, h2 {
 	font-weight:normal;
 }
 .form-table-wrapper {
-	margin-top:5px;
+	margin-top:10px;
 	text-align:left;
 	width:500px;
 }
@@ -915,6 +915,23 @@ h3.h2-equiv, h2 {
 	border:0 none;
 	padding:5px;
 }
+
+#createPlayList .wwFormTable .tdLabel{
+	font-size:12px;
+	text-align:right;
+	width:120px;
+}
+
+#createPlayList tr td {
+	border:0 none;
+	padding:5px;
+}
+
+#createPlayList .wwFormTable .tdContent{
+	text-align:left;
+}
+
+
 .base {
 margin-bottom:8px;
 }

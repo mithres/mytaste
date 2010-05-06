@@ -24,9 +24,6 @@ You may use your new Video Share account immediately, but you must first verify 
   </div>
 </div>
 
-
-<div style="position: relative;" class="fixed-lg relative container">
-  
 <div class="signup form-table-wrapper">
 
 		<form method="post" action="<web.page:path/>/signUp/createUser" name="createUser" id="createUser">
@@ -37,7 +34,7 @@ You may use your new Video Share account immediately, but you must first verify 
 				    <td>Please note: Items marked with * are required.</td>
 				</tr>
 				<tr>
-				    <td class="tdLabel"><label class="label" for="createUser_user_userName">User Name:</label></td>
+				    <td class="tdLabel" width="300px;"><label class="label" for="createUser_user_userName">User Name:</label></td>
 				    <td><input type="text" class="form-input" id="createUser_user_userName" value="" name="user.userName"><b class="required">&nbsp;*</b></td>
 				</tr>
 	
@@ -79,8 +76,6 @@ You may use your new Video Share account immediately, but you must first verify 
 		</form>
 </div>
 
-
-</div>
 
 
 </body>
