@@ -33,7 +33,11 @@ public class MostPopularAction extends BaseAction {
 	
 	private String subChannel = Constants.SEARCH_CONDITION_ALL;
 
-
+	@Override
+	public void prepare() throws Exception {
+		this.getSession().setAttribute(Constants.NAV_STAT, Constants.NAV_MOSTPOPULAR);
+	}
+	
 	@Override
 	public String process() {
 
@@ -91,4 +95,5 @@ public class MostPopularAction extends BaseAction {
 	public void setSubChannel(String subChannel) {
 		this.subChannel = subChannel;
 	}
+
 }

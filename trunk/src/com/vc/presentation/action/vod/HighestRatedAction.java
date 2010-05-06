@@ -33,6 +33,11 @@ public class HighestRatedAction extends BaseAction {
 	private String subChannel = Constants.SEARCH_CONDITION_ALL;
 	
 	@Override
+	public void prepare() throws Exception {
+		this.getSession().setAttribute(Constants.NAV_STAT, Constants.NAV_MOSTPOPULAR);
+	}
+	
+	@Override
 	public String process() {
 
 		PlayListSearchCondition condition = new PlayListSearchCondition();

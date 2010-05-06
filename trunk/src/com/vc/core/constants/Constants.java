@@ -60,6 +60,12 @@ public class Constants {
 	
 	//Current menu state
 	public static final String MENU_STAT = "MenuStat";
+	public static final String NAV_STAT = "NavStat";
+	
+	public static final String NAV_CHANNEL = "Channel";
+	public static final String NAV_MOSTPOPULAR = "MostPopular";
+	public static final String NAV_RECENTLYADDED = "RecentlyAdded";
+	public static final String NAV_COLLECTION = "Collection";
 	
 	//Condition for search 
 	public static final String SEARCH_CONDITION_ALL = "All";

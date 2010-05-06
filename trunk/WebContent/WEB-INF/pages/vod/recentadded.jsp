@@ -9,28 +9,32 @@
 <meta name="decorator" content="main" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Video Share - Recently Added Videos</title>
-
-
 </head>
 <body>
-	
-	
-	<div class="fluid">
-<div class="fixed-lg container">
-<div id="profile-tabs-container" class="fixed-lg container relative">
-<ul id="profile-tab-container">
-	<li class="profile-tab-selected">
-	<div>Latest</div>
-	</li>
-	<li class="profile-tab-unselected">
-	<div>Feature Content</div>
-	</li>
-	<li><a href="#"><img border="0" title="Highest Rated RSS link" src="<web.page:path/>/images/btn-rss.gif" id="" class="vl-rss-link" alt="Highest Rated RSS link" style="cursor: pointer;"></a></li>
-	<br style="clear: both;">
-</ul>
-</div>
-	<s:action id="list" namespace="/vod" name="showPlayListTypeAndChannel" executeResult="true"/>
-</div>
+
+<div class="fluid">
+	<div class="fixed-lg container">
+		<div id="profile-tabs-container" class="fixed-lg container relative">
+			<ul id="profile-tab-container">
+				<li class="profile-tab-selected">
+				<div>Latest</div>
+				</li>
+				<li class="profile-tab-unselected">
+				<div>Feature Content</div>
+				</li>
+				<li>
+					<a href="#">
+						<img border="0" onmouseout="this.src='<web.page:path/>/images/btn-rss.gif';" onmouseover="this.src='<web.page:path/>/images/btn-rss-hover.gif';" title="Highest Rated RSS link" src="<web.page:path/>/images/btn-rss.gif" class="vl-rss-link" alt="Highest Rated RSS link" style="cursor: pointer;">
+					</a>
+				</li>
+				<br style="clear: both;">
+			</ul>
+		</div>
+		<s:action id="list" namespace="/vod" name="showPlayListTypeAndChannel" executeResult="true">
+			<s:param name="action">RecentlyAdded</s:param>
+			<s:param name="parentChannelId">${channel}</s:param>
+		</s:action>
+	</div>
 </div>
 
 <div class="playListRender">

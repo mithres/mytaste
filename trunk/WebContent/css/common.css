@@ -79,9 +79,14 @@ ul#topnav li a {
 	text-decoration: none;
 }
 
-ul#topnav li:hover {
+ul#topnav li:hover{
 	background: #1376c9 url(../images/subnav-hover.gif) repeat-x;
 }
+
+ul#topnav li.selected-li{
+	background: #1376c9 url(../images/subnav-hover.gif) repeat-x;
+} 
+
 
 ul#topnav li span {
 	float: left;
@@ -663,53 +668,44 @@ div#profile-sub-section-container ul#tab-container div {
 	padding: 2px 10px 3px;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected
-	{
-	background: url("../images/tab-bg.gif") repeat scroll right center
-		transparent;
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected{
+	background: url("../images/tab-bg.gif") repeat scroll right center transparent;
 	font-weight: bold;
 }
 
 div#profile-sub-section-container ul#tab-container li.tab-unselected {
-	background: url("../images/tab-subtab-bg.gif") repeat scroll right
-		center transparent;
+	background: url("../images/tab-subtab-bg.gif") repeat scroll right center transparent;
 	font-weight: bold;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover
-	{
-	background: url("../images/tab-bg-hover.gif") repeat scroll right center transparent;
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover li.profile-tab-unselected:hover a{
+	
+	background-color:#636363;
 	cursor: pointer;
 }
 
-div#profile-sub-section-container ul#tab-container li.tab-unselected:hover
-	{
+div#profile-sub-section-container ul#tab-container li.tab-unselected:hover{
 	background: url("../images/tab-subtab-bg-hover.gif") repeat scroll right
 		center transparent;
 	cursor: pointer;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected a,div#profile-sub-section-container ul#tab-container li.tab-selected a,div#profile-sub-section-container ul#tab-container li.tab-unselected a
-{
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected a,div#profile-sub-section-container ul#tab-container li.tab-selected a,div#profile-sub-section-container ul#tab-container li.tab-unselected a{
 	color: #FFFFFF;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover a,div#profile-sub-section-container ul#tab-container li.tab-unselected:hover a
-{
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover a,div#profile-sub-section-container ul#tab-container li.tab-unselected:hover a{
 	color: #99CC33;
-
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable,div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected
-{
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable,div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected{
 	background-color:#636363;
 	color: #FFFFFF;
 	cursor: default;
 	font-weight: bold;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable
-	{
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected-but-linkable{
 	cursor: pointer;
 }
 
@@ -731,13 +727,11 @@ div#profile-sub-section-container ul#tab-container li.tab-selected {
 	font-weight: bold;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected div,div#profile-sub-section-container ul#tab-container li.tab-selected div
-{
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected div,div#profile-sub-section-container ul#tab-container li.tab-selected div{
 	cursor: default;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected div,div#profile-sub-section-container ul#tab-container li.tab-unselected div
-{
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected div,div#profile-sub-section-container ul#tab-container li.tab-unselected div{
 	background-color:#b4b4b4;
 	cursor: pointer;
 }

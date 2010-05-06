@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Action;
 import com.vc.core.action.BaseAction;
+import com.vc.core.constants.Constants;
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.Channels;
@@ -32,6 +33,11 @@ public class ChannelDetailAction extends BaseAction {
 	private String cid = null;
 	
 	private String sort = null;
+	
+	@Override
+	public void prepare() throws Exception {
+		this.getSession().setAttribute(Constants.NAV_STAT, Constants.NAV_CHANNEL);
+	}
 	
 	@Override
 	public String process() {
