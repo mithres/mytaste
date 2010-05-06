@@ -667,10 +667,18 @@ div#profile-sub-section-container ul#tab-container div {
 	float: left;
 	padding: 2px 10px 3px;
 }
-
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected{
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected {
 	background: url("../images/tab-bg.gif") repeat scroll right center transparent;
 	font-weight: bold;
+	cursor:pointer;
+}
+
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected a {
+	text-decoration: none;
+}
+div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover {
+	background:url("../images/tab-bg-hover.gif") repeat scroll right center transparent;
+	cursor:pointer;
 }
 
 div#profile-sub-section-container ul#tab-container li.tab-unselected {
@@ -678,11 +686,6 @@ div#profile-sub-section-container ul#tab-container li.tab-unselected {
 	font-weight: bold;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected:hover li.profile-tab-unselected:hover a{
-	
-	background-color:#636363;
-	cursor: pointer;
-}
 
 div#profile-sub-section-container ul#tab-container li.tab-unselected:hover{
 	background: url("../images/tab-subtab-bg-hover.gif") repeat scroll right
@@ -731,10 +734,6 @@ div#profile-tabs-container ul#profile-tab-container li.profile-tab-selected div,
 	cursor: default;
 }
 
-div#profile-tabs-container ul#profile-tab-container li.profile-tab-unselected div,div#profile-sub-section-container ul#tab-container li.tab-unselected div{
-	background-color:#b4b4b4;
-	cursor: pointer;
-}
 
 #divTab .tabs {
 	width: auto;
