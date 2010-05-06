@@ -10,6 +10,24 @@ body {
 	width:220px;
 }
 
+.form-textarea {
+	border:1px solid #CCCCCC;
+	height:100px;
+	width:220px;
+}
+
+.form-file{
+	border:1px solid #CCCCCC;
+	height:22px;
+	width:150px;
+}
+
+.form-select{
+	border:1px solid #CCCCCC;
+	height:22px;
+	width:220px;
+}
+
 .form-table-wrapper {
 	margin-top:5px;
 	text-align:center;
@@ -833,7 +851,9 @@ div.pagination a:hover, div.pagination a:active {
 	margin-bottom:30px;
 }
 .more_link{
-margin-right:80px;margin-top:30px;float:right;
+	margin-right:80px;
+	margin-top:30px;
+	float:right;
 }
 
 
@@ -918,7 +938,7 @@ h3.h2-equiv, h2 {
 #createPlayList .wwFormTable .tdLabel{
 	font-size:12px;
 	text-align:right;
-	width:120px;
+	width:150px;
 }
 
 #createPlayList tr td {

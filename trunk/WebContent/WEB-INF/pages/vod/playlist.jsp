@@ -15,19 +15,18 @@
 				
 <div class="playListRender">
 <h1>Popular Videos</h1>
-
 	<s:iterator value="playLists.records" var="playList">
 		<%@include file="playlistentryshort.jsp" %>
-	</s:iterator> 
+	</s:iterator>
 	<p class="more_link"><a href="#">more</a></p>
 </div>
 
 <div class="playListRender">
 <h1>Recently Added</h1>
-<s:iterator value="recentlyAddedPlayLists.records" var="playList">
+	<s:iterator value="recentlyAddedPlayLists.records" var="playList">
 		<%@include file="playlistentryshort.jsp" %>
 	</s:iterator>
-<p class="more_link"><a href="#">more</a></p>
+	<p class="more_link"><a href="#">more</a></p>
 </div>
 
 

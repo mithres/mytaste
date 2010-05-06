@@ -46,6 +46,8 @@ public class SavePlayListAction extends BaseAction {
 	private String channel = null;
 	private String tags = null;
 
+	private String price = null;
+
 	@Override
 	public void prepare() throws Exception {
 		fileTypes = Arrays.asList(FilmType.values());
@@ -54,6 +56,13 @@ public class SavePlayListAction extends BaseAction {
 
 	@Override
 	public void validate() {
+		
+		if (price == null || price.length() == 0) {
+			playList.setPrice(0f);
+		}else{
+			playList.setPrice(Float.valueOf(price));
+		}
+		
 		if (ItemChecker.checkNull(playList.getPlayListName())) {
 			this.addActionError(this.getText("vc.playlist.playname.empty"));
 
@@ -72,9 +81,9 @@ public class SavePlayListAction extends BaseAction {
 
 	@Override
 	public String process() {
-		
+
 		String[] playListTags = tags.split(Constants.TAG_SPLIT_EXPRESSION);
-		
+
 		if (channel != null) {
 			Channels channels = systemService.findChannelById(channel);
 			if (channels != null) {
@@ -84,7 +93,7 @@ public class SavePlayListAction extends BaseAction {
 
 		if (playList.getId() != null && playList.getId().length() > 0) {
 			PlayList temp = playListService.findPlayListById(playList.getId());
-			if(filmFileName != null){
+			if (filmFileName != null) {
 				temp.setFileName(filmFileName);
 			}
 			temp.setFilmFile(film);
@@ -97,9 +106,9 @@ public class SavePlayListAction extends BaseAction {
 			if (temp.getPrice() == null) {
 				temp.setPrice(new Float(0));
 			}
-			
+
 			playList = playListService.updatePlayList(temp, playListTags);
-		}else{
+		} else {
 			playList.setId(null);
 			playList.setFileName(filmFileName);
 			playList.setFilmFile(film);
@@ -108,7 +117,7 @@ public class SavePlayListAction extends BaseAction {
 			if (playList.getPrice() == null) {
 				playList.setPrice(new Float(0));
 			}
-			
+
 			playListService.savePlayList(playList, playListTags);
 		}
 
@@ -203,6 +212,10 @@ public class SavePlayListAction extends BaseAction {
 
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 }

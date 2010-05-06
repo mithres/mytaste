@@ -111,33 +111,30 @@ public class PlayListService implements IPlayListService {
 	public PlayList savePlayList(PlayList playList, String[] tags) throws FilePersistException {
 
 		if (playList.getFilmFile() != null) {
-			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
-					+ playList.getFileName());
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
 			try {
-
 				FileUtil.copyFile(playList.getFilmFile(), destFile);
-				Long playListIndex = ((BigInteger) playListDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0))
-						.get(0)).longValue();
-				playList.setPlayListIndex(playListIndex);
-
-				// Update playlist tags
-				for (String tag : tags) {
-					Tags temp = tagDao.findById(tag);
-					if (temp == null) {
-						temp = new Tags(tag);
-					} else {
-						temp.setCount(temp.getCount() + 1);
-					}
-					tagDao.update(temp);
-					playList.getTags().add(temp);
-				}
-
-				playListDao.create(playList);
-
 			} catch (IOException e) {
 				throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
 			}
 		}
+		
+		Long playListIndex = ((BigInteger) playListDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+		playList.setPlayListIndex(playListIndex);
+
+		// Update playlist tags
+		for (String tag : tags) {
+			Tags temp = tagDao.findById(tag);
+			if (temp == null) {
+				temp = new Tags(tag);
+			} else {
+				temp.setCount(temp.getCount() + 1);
+			}
+			tagDao.update(temp);
+			playList.getTags().add(temp);
+		}
+
+		playListDao.create(playList);
 
 		return playList;
 	}
