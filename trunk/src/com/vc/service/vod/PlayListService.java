@@ -90,16 +90,14 @@ public class PlayListService implements IPlayListService {
 			}
 		}
 		
+		playList.getTags().clear();
 		// Update playlist tags
 		for (String tag : tags) {
 			Tags temp = tagDao.findById(tag);
 			if (temp == null) {
 				temp = new Tags(tag);
-			} else {
-				temp.setCount(temp.getCount() + 1);
 			}
 			tagDao.update(temp);
-			playList.getTags().clear();
 			playList.getTags().add(temp);
 		}
 		playListDao.update(playList);

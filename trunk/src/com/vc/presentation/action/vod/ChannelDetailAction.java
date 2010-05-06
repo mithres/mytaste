@@ -69,5 +69,9 @@ public class ChannelDetailAction extends BaseAction {
 		return channelList;
 	}
 
+	public String getCid() {
+		return cid;
+	}
+
 
 }

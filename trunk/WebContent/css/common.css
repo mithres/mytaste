@@ -1294,12 +1294,12 @@ div.default-avatar {
 	width:30px;
 	height:77px;
 	position:absolute;
-	left:-20px;
-	margin-top:80px;
+	left:20px;
+	margin-top:70px;
 	float:left;
 }	
 #nextBtn{ 
-	left:880px;
+	left:940px;
 }														
 #prevBtn a, #nextBtn a{  
 	display:block;
