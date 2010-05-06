@@ -18,13 +18,15 @@ public interface IPlayListService {
 
 	@Secured( { "ROLE_ADMIN" })
 	public abstract PlayList savePlayList(PlayList playList, String[] tags) throws FilePersistException;
-	
+
 	@Secured( { "ROLE_ADMIN" })
-	public abstract PlayList updatePlayList(PlayList playList, String[] tags)throws FilePersistException;
+	public abstract PlayList updatePlayList(PlayList playList, String[] tags) throws FilePersistException;
 
 	public abstract Boolean canPlay(Authentication auth, String playListID);
 
 	public abstract IPageList<PlayList> findPlayListByCondition(Hints hints, PlayListSearchCondition condition);
+
+	public abstract IPageList<PlayList> searchPlayListInChannel(Hints hints, String channelId, String text);
 
 	public abstract IPageList<VideoCollection> findVideoCollectionByName(Hints hints, String name);
 

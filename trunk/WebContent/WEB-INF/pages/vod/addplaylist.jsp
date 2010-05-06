@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="decorator" content="maindecorator" />
+<meta name="decorator" content="main" />
 <title><s:text name="vc.playlist.new" /></title>
 </head>
 <body>
@@ -71,8 +71,12 @@
 
 			 <tr>
 				 <td class="tdLabel">&nbsp;</td>
-				 <td><div align="left"><input onmouseover="this.src='<web.page:path/>/images/btn-createanaccount-hover.gif'" onmouseout="this.src='<web.page:path/>/images/btn-createanaccount.gif'" type="image" value="Submit" id="createUser_0" src="<web.page:path/>/images/btn-createanaccount.gif" alt="Submit">
-				 </div></td>
+				 <td>
+				 	<div align="left">
+				 		<input onmouseover="this.src='<web.page:path/>/images/btn-createanaccount-hover.gif'" onmouseout="this.src='<web.page:path/>/images/btn-createanaccount.gif'" type="image" value="Submit" id="createUser_0" src="<web.page:path/>/images/btn-createanaccount.gif" alt="Submit"> 
+				 		
+				 	</div>
+				 </td>
 			 </tr>
 
 		</tbody></table></form>

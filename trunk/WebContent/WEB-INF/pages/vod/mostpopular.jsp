@@ -8,6 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta name="decorator" content="main" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Most Popular Videos</title>
 </head>
@@ -23,7 +24,11 @@
 	<li class="<s:if test="type.equals('Rate')">profile-tab-selected</s:if><s:else>profile-tab-unselected</s:else>">
 	<div><s:if test="type.equals('Rate')">Highest Rated</s:if><s:else><a style="text-decoration: none;" href="<web.page:path/>/vod/highestRate">Highest Rated</a></s:else></div>
 	</li>
-	<li><a href="#"><img border="0" title="Highest Rated RSS link" src="<web.page:path/>/images/btn-rss.gif" id="" class="vl-rss-link" alt="Highest Rated RSS link" style="cursor: pointer;"></a></li>
+	<li>
+		<a href="#">
+			<img border="0" onmouseout="this.src='<web.page:path/>/images/btn-rss.gif';" onmouseover="this.src='<web.page:path/>/images/btn-rss-hover.gif';" title="Highest Rated RSS link" src="<web.page:path/>/images/btn-rss.gif" class="vl-rss-link" alt="Highest Rated RSS link" style="cursor: pointer;">
+		</a>
+	</li>
 	<br style="clear: both;">
 </ul>
 </div>

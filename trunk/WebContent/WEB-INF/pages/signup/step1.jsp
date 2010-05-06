@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="decorator" content="maindecorator" />
+<meta name="decorator" content="main" />
 <title>Sign Up</title>
 </head>
 <body>
@@ -30,49 +30,53 @@ You may use your new Video Share account immediately, but you must first verify 
 <div class="signup form-table-wrapper">
 
 		<form method="post" action="<web.page:path/>/signUp/createUser" name="createUser" id="createUser">
-<table class="wwFormTable">
-			<tbody>
-			<tr>
-			    <td class="tdLabel">&nbsp;</td>
-			    <td>Please note: Items marked with * are required.</td>
-			</tr>
-			<tr>
-			    <td class="tdLabel"><label class="label" for="createUser_user_userName">User Name:</label></td>
-			    <td><input type="text" class="form-input" id="createUser_user_userName" value="" name="user.userName"></td>
-			</tr>
-
-			<tr>
-			    <td class="tdLabel"><label class="label" for="createUser_user_password">Password:</label></td>
-			    <td><input type="password" class="form-input" id="createUser_user_password" name="user.password"></td>
-			</tr>
-
-			<tr>
-			    <td class="tdLabel"><label class="label" for="createUser_password">Confirm Password:</label></td>
-			    <td><input type="password" class="form-input" id="createUser_password" name="password"></td>
-			</tr>
-
-			<tr>
-			    <td class="tdLabel"><label class="label" for="createUser_user_email">User Email:</label></td>
-			    <td><input type="text" class="form-input" id="createUser_user_email" value="" name="user.email"></td>
-			</tr>
-
-			<tr>
-			    <td class="tdLabel"><label class="label" for="createUser_user_firstName">First Name:</label></td>
-			    <td><input type="text" class="form-input" id="createUser_user_firstName" value="" name="user.firstName"></td>
-			</tr>
-
-			<tr>
-			    <td class="tdLabel"><label class="label" for="createUser_user_lastName">Last Name:</label></td>
-			    <td><input type="text" class="form-input" id="createUser_user_lastName" value="" name="user.lastName"></td>
-			</tr>
-
-			 <tr>
-				 <td class="tdLabel">&nbsp;</td>
-				 <td><div align="left"><input onmouseover="this.src='<web.page:path/>/images/btn-createanaccount-hover.gif'" onmouseout="this.src='<web.page:path/>/images/btn-createanaccount.gif'" type="image" value="Submit" id="createUser_0" src="<web.page:path/>/images/btn-createanaccount.gif" alt="Submit">
-				 </div></td>
-			 </tr>
-
-		</tbody></table></form>
+			<table class="wwFormTable">
+				<tbody>
+				<tr>
+				    <td class="tdLabel">&nbsp;</td>
+				    <td>Please note: Items marked with * are required.</td>
+				</tr>
+				<tr>
+				    <td class="tdLabel"><label class="label" for="createUser_user_userName">User Name:</label></td>
+				    <td><input type="text" class="form-input" id="createUser_user_userName" value="" name="user.userName"><b class="required">&nbsp;*</b></td>
+				</tr>
+	
+				<tr>
+				    <td class="tdLabel"><label class="label" for="createUser_user_password">Password:</label></td>
+				    <td><input type="password" class="form-input" id="createUser_user_password" name="user.password"><b class="required">&nbsp;*</b></td>
+				</tr>
+	
+				<tr>
+				    <td class="tdLabel"><label class="label" for="createUser_password">Confirm Password:</label></td>
+				    <td><input type="password" class="form-input" id="createUser_password" name="password"><b class="required">&nbsp;*</b></td>
+				</tr>
+	
+				<tr>
+				    <td class="tdLabel"><label class="label" for="createUser_user_email">User Email:</label></td>
+				    <td><input type="text" class="form-input" id="createUser_user_email" value="" name="user.email"><b class="required">&nbsp;*</b></td>
+				</tr>
+	
+				<tr>
+				    <td class="tdLabel"><label class="label" for="createUser_user_firstName">First Name:</label></td>
+				    <td><input type="text" class="form-input" id="createUser_user_firstName" value="" name="user.firstName">&nbsp;&nbsp;</td>
+				</tr>
+	
+				<tr>
+				    <td class="tdLabel"><label class="label" for="createUser_user_lastName">Last Name:</label></td>
+				    <td><input type="text" class="form-input" id="createUser_user_lastName" value="" name="user.lastName">&nbsp;&nbsp;</td>
+				</tr>
+	
+				 <tr>
+					 <td class="tdLabel">&nbsp;</td>
+					 <td>
+					 	<div align="left">
+					 		<input type="submit" value="Create an account" class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+					 	</div>
+					 </td>
+				 </tr>
+			</tbody>
+		</table>
+		</form>
 </div>
 
 

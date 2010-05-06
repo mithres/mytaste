@@ -54,9 +54,8 @@ function addToQueue(pid, vender) {
 			});
 			if (xml.success) {
 				// showMessage(xml.messages);
-				var img = "<img title='You have queued this video.' style='display: block' src='"
-						+ webPath + "/images/icon-check.gif'>";
-				$('#' + vender).html(img);
+				var html = "<img title='You have queued this video' style='display: block;' src='"+webPath+"/images/icon-check.gif'><a href='"+webPath+"/vod/edit?playListId="+pid+"'>Edit</a>";
+				$('#' + vender).html(html);
 				findUserQueueCount();
 			} else {
 				$('#errorMessage').html(xml.errors);

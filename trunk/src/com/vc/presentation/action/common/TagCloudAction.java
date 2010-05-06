@@ -26,7 +26,7 @@ public class TagCloudAction extends BaseAction {
 	public String process() {
 
 		cloud = new Cloud();
-
+		cloud.setMinWeight(8);
 		cloud.setMaxTagsToDisplay(100);
 		cloud.setMaxWeight(30.0);
 		cloud.setDefaultLink(this.getWebAppPath() + "/vod/tag");

@@ -82,7 +82,7 @@ public class SavePlayListAction extends BaseAction {
 			}
 		}
 
-		if (playList.getId() != null) {
+		if (playList.getId() != null && playList.getId().length() > 0) {
 			PlayList temp = playListService.findPlayListById(playList.getId());
 			if(filmFileName != null){
 				temp.setFileName(filmFileName);
@@ -100,6 +100,7 @@ public class SavePlayListAction extends BaseAction {
 			
 			playList = playListService.updatePlayList(temp, playListTags);
 		}else{
+			playList.setId(null);
 			playList.setFileName(filmFileName);
 			playList.setFilmFile(film);
 			playList.setAddedTime(new Timestamp(System.currentTimeMillis()));

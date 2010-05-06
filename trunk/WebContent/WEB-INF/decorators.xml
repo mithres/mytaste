@@ -3,7 +3,6 @@
 <decorators defaultdir="/WEB-INF/pages/decorators">
 
 	<decorator name="main" page="main.jsp">
-		<pattern>/</pattern>
 	</decorator>
 	
 </decorators>

@@ -12,17 +12,30 @@
 <title><decorator:title default="Welcome!" /></title>
 
 <link rel="stylesheet" type="text/css" href="<web.page:path/>/css/common.css" />
+<link rel="stylesheet" type="text/css" href="<web.page:path/>/css/jquery-ui-1.8.1.custom.css" />
 
 <script src="<web.page:path/>/js/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="<web.page:path/>/js/jquery.easing.min.js" type="text/javascript" charset="utf-8"></script>
-<!--[if IE]><script src="<web.page:path/>/js/excanvas.js" type="text/javascript" charset="utf-8"></script><![endif]-->
 <script src="<web.page:path/>/js/jquery.bt.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/jquery.easing.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/thickbox/thickbox.js" type="text/javascript" charset="utf-8"></script>
+<!--[if IE]><script src="<web.page:path/>/js/excanvas.js" type="text/javascript" charset="utf-8"></script><![endif]-->
+
+<script src="<web.page:path/>/js/ui/jquery-ui-1.8.1.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/ui/jquery.ui.widget.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<web.page:path/>/js/ui/jquery.ui.button.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="<web.page:path/>/js/json.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/js/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/lps/includes/embed-compressed.js" type="text/javascript"></script>
-<script src="<web.page:path/>/js/json.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript">
 	var webPath = "<web.page:path/>"; 
+
+	$(function() {
+		$("input:button, input:submit").button();
+	});
+	
 </script>
 
 <decorator:head />
@@ -30,137 +43,131 @@
 
 <body <decorator:getProperty property="body.onload" writeEntireProperty="true" />>
 
+<div style="position: relative;" id="container" class="fixed-lg relative">
+	<div class="section top">
+		<div class="standard tidy">
+			<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
+			
+			<ul style="" class="usernav" id="logged-out-nav">
+				<li class="first sign-out-link">Welcome : <security:authentication property="name"/></li>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Profile</a></li>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/queue">Queue <span id="queueCount"></span></a></li>
+				<security:authorize ifAllGranted="ROLE_ADMIN"><li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/admin/index">System</a></li></security:authorize>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/logout">Logout</a></li>
+			</ul>
+			<script type="text/javascript">
+					findUserQueueCount();
+			</script>
+			
+			</security:authorize>
 
-<div style="position: relative;" id="container"
-	class="fixed-lg relative">
-<div class="section top">
-<div class="standard tidy">
-
-
-
-<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
-
-<ul style="" class="usernav" id="logged-out-nav">
-	
-	<li class="first sign-out-link">Welcome : <security:authentication property="name"/></li>
-	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Profile</a></li>
-	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/queue">Queue <span id="queueCount"></span></a></li>
-	<security:authorize ifAllGranted="ROLE_ADMIN"><li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/admin/index">System</a></li></security:authorize>
-	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/logout">Logout</a></li>
-	<script>
-		findUserQueueCount();
-	</script>
-</ul>
-</security:authorize>
-
-<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER">
-<script>
-	function showLoginForm(){
-		$('#message_box').animate({ opacity:100 },"slow");  
-	}
-	function hideLoginForm(){
-		$('#loading').animate({opacity:0});	
-		$('#message_box').animate({opacity:0 }, "slow");
-	};
-	
-	function login() {
-
-		$('#loading').animate({opacity:100});	
-		$('#errorMessage').html(""); 
-		
-		var url = "<web.page:path/>/signIn";
-		var param = "userName="+$('#userName').val()+"&password="+$('#userPassword').val()+"&ccode="+$('#checkcode').val();
-		
-		$.ajax( {
-			url : url,
-			data: param,
-			type : 'post',
-			dataType : 'json',
-			error : function(xml) {
-				$('#loading').animate({opacity:0});		
-				alert("Login Error.");
-			},
-			success : function(xml) {
-				$('#loading').animate({opacity:0});
-				if(xml.success){
-					var url = xml.targetUrl;
-					location.href = "<web.page:path/>"+url;
-				}else{
-					$('#errorMessage').html(xml.errors); 
-					flushValidateCode();
+			<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER">
+			<script>
+				function showLoginForm(){
+					$('#message_box').animate({ opacity:100 },"slow");  
 				}
-			}
-		});
-	}
-	
-</script>
-<ul style="" class="usernav" id="logged-out-nav">
-	<li class="first sign-out-link"><a onclick="showLoginForm();" id="login-link" href="javascript:void(0);" style="cursor:pointer;" class="utility-link">Login</a></li>
-	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/forgot_password">Forgot Password?</a></li>
-	<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/signUp/signUpIndex">Sign Up</a></li>
-	<li>
-		<div id="message_box">
-			<div style="float:left;height:14px;width:100%;background:url('<web.page:path/>/images/subnav-hover.gif') repeat-x;"><img id="close_message" onclick="hideLoginForm();" style="float:right;cursor:pointer" src="<web.page:path/>/images/close_12em.png"/></div>
-			<div style="float:left;width:100%;">
+				function hideLoginForm(){
+					$('#loading').animate({opacity:0});	
+					$('#message_box').animate({opacity:0 }, "slow");
+				};
+				
+				function login() {
+			
+					$('#loading').animate({opacity:100});	
+					$('#errorMessage').html(""); 
 					
-							<table width="100%">
-								<tr>
-									<td><img src="<web.page:path/>/images/int-warning.gif"/></td>
-									<td style="text-align:left;">Please enter your account and password.</td>
-								</tr>
-								<tr>
-									<td colspan="2"><span id="errorMessage"></span></td>
-								</tr>
-								<tr>
-									<td class="rp_user flt"><s:text name="vc.index.username" /></td>
-									<td><input id="userName" class="form-input" type='text' name='userName'
-										value="" /></td>
-								</tr>
-								<tr>
-									<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
-									<td><input id="userPassword" class="form-input" type='password' name='password' autocomplete="off" /></td>
-								</tr>
-								<tr>
-									<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
-									<td><input autocomplete="off" id="checkcode" class="form-input" type='text' name='ccode' value="" /></td>
-								</tr>
-								<tr>
-									<td colspan="2" style="text-align:left"><a href="javascript:void(0);" onclick="flushValidateCode();"
-										title='<s:text name="vc.index.reload_checkcode" />'><img id="ccode" src="signUp/captcha" border="0" /></a></td>
-								</tr>
-								<tr>
-									<td colspan='2'>
-									<input type="button" value="Submit" onclick="login();"/> <input type="button" onclick="hideLoginForm();" value="Close"/> <img style="opacity:0;" id="loading" src="<web.page:path/>/images/loading.gif" border="0" />
-									<!-- input type="image"
-										src="<web.page:path/>/images/rp_login.jpg"
-										name='<s:text name="vc.button.submit" />' /--></td>
-								</tr>
-							</table>
-
-			</div>
+					var url = "<web.page:path/>/signIn";
+					var param = "userName="+$('#userName').val()+"&password="+$('#userPassword').val()+"&ccode="+$('#checkcode').val();
+					
+					$.ajax( {
+						url : url,
+						data: param,
+						type : 'post',
+						dataType : 'json',
+						error : function(xml) {
+							$('#loading').animate({opacity:0});		
+							alert("Login Error.");
+						},
+						success : function(xml) {
+							$('#loading').animate({opacity:0});
+							if(xml.success){
+								var url = xml.targetUrl;
+								location.href = "<web.page:path/>"+url;
+							}else{
+								$('#errorMessage').html(xml.errors); 
+								flushValidateCode();
+							}
+						}
+					});
+				}
+				
+			</script>
+			<ul style="" class="usernav" id="logged-out-nav">
+				<li class="first sign-out-link"><a onclick="showLoginForm();" id="login-link" href="javascript:void(0);" style="cursor:pointer;" class="utility-link">Login</a></li>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/forgot_password">Forgot Password?</a></li>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/signUp/signUpIndex">Sign Up</a></li>
+				<li>
+					<div id="message_box">
+						<div style="float:left;height:14px;width:100%;background:url('<web.page:path/>/images/subnav-hover.gif') repeat-x;"><img id="close_message" onclick="hideLoginForm();" style="float:right;cursor:pointer" src="<web.page:path/>/images/close_12em.png"/></div>
+						<div style="float:left;width:100%;">
+								
+										<table width="100%">
+											<tr>
+												<td><img src="<web.page:path/>/images/int-warning.gif"/></td>
+												<td style="text-align:left;">Please enter your account and password.</td>
+											</tr>
+											<tr>
+												<td colspan="2"><span id="errorMessage"></span></td>
+											</tr>
+											<tr>
+												<td class="rp_user flt"><s:text name="vc.index.username" /></td>
+												<td><input id="userName" class="form-input" type='text' name='userName'
+													value="" /></td>
+											</tr>
+											<tr>
+												<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
+												<td><input id="userPassword" class="form-input" type='password' name='password' autocomplete="off" /></td>
+											</tr>
+											<tr>
+												<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
+												<td><input autocomplete="off" id="checkcode" class="form-input" type='text' name='ccode' value="" /></td>
+											</tr>
+											<tr>
+												<td colspan="2" style="text-align:left"><a href="javascript:void(0);" onclick="flushValidateCode();"
+													title='<s:text name="vc.index.reload_checkcode" />'><img id="ccode" src="signUp/captcha" border="0" /></a></td>
+											</tr>
+											<tr>
+												<td colspan='2'>
+													<img style="opacity:0;" id="loading" src="<web.page:path/>/images/loading.gif" border="0"/>
+													<input type="button"  onclick="login();" value="Login" class="ui-button ui-widget ui-state-default ui-corner-all"/> 
+													<input type="button" onclick="hideLoginForm();" value="Close" class="ui-button ui-widget ui-state-default ui-corner-all"/> 
+												</td>
+											</tr>
+										</table>
+			
+						</div>
+					</div>
+				</li>
+			</ul>
+			</security:authorize>
+			
+			
+			<ul class="nv">
+				<li id="home" class="first"><a rel="home" href="<web.page:path/>/"><img	height="42" border="0" title="Video Share" src="<web.page:path/>/images/logo.jpg" /></a> 
+				<li class="tabvc current" id="videos">
+				<a href="<web.page:path/>/vod/playListIndex" class="">
+				Videos</a></li>
+				<li class="tabvc" id="conferences">
+				<a href="<web.page:path/>/conference/roomListIndex">
+				Conferences
+				</a></li>
+			</ul>
 		</div>
-	</li>
-</ul>
-</security:authorize>
-
-
-<ul class="nv">
-	<li id="home" class="first"><a rel="home" href="<web.page:path/>/"><img	height="42" border="0" title="Video Share" src="<web.page:path/>/images/logo.jpg" /></a> 
-	<li class="tabvc current" id="videos">
-	<a href="<web.page:path/>/vod/playListIndex" class="">
-	Videos</a></li>
-	<li class="tabvc" id="conferences">
-	<a href="<web.page:path/>/conference/roomListIndex">
-	Conferences
-	</a></li>
-</ul>
-</div>
-</div>
+	</div>
 </div>
 
 <div class="fluid bar">
 <div class="container">
-
 
 <ul id="topnav">
 	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;"><a href="<web.page:path/>/vod/channels">Channels</a>

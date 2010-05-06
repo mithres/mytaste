@@ -17,6 +17,20 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 
 	private static final String FIND_PLAYLIST_BASE = " from PlayList pl ";
 
+	private static final String FIND_CHANNEL_PLAYLISTS_COUNT = " select count(pl.id) from PlayList pl where pl.channel.id = ? and ( lower(pl.playListName) like ? or lower(pl.description) like ?) ";
+
+	private static final String FIND_CHANNEL_PLAYLISTS = " from PlayList pl where pl.channel.id = ? and ( lower(pl.playListName) like ? or lower(pl.description) like ?) order by pl.addedTime desc ";
+
+	public List<PlayList> searchPlayListInChannel(Hints hnts, String channelId, String text) {
+		text = "%"+text+"%";
+		return this.findPaged(FIND_CHANNEL_PLAYLISTS, hnts, channelId, text, text);
+	}
+
+	public Long searchPlayListInChannelCount(String channelId, String text) {
+		text = "%"+text+"%";
+		return this.findRowCount(FIND_CHANNEL_PLAYLISTS_COUNT, channelId, text, text);
+	}
+
 	public Long findPlayListCount(PlayListSearchCondition condition) {
 		String hql = FIND_PLAYLIST_COUNT_BASE + createHqlCondition(condition);
 		return this.findRowCount(hql);
@@ -29,16 +43,16 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	}
 
 	private static final String createHqlBodyByCondition(PlayListSearchCondition condition) {
-		
+
 		String hql = FIND_PLAYLIST_BASE;
-		
+
 		if (condition.isWithComments()) {
 			hql += " left join fetch pl.comments ";
 		}
 		if (condition.isWithTags()) {
 			hql += " left join fetch pl.tags ";
 		}
-		if(condition.isWithChannel()){
+		if (condition.isWithChannel()) {
 			hql += " left join fetch pl.channel ";
 		}
 		return hql;

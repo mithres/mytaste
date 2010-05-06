@@ -75,21 +75,22 @@ public class PlayListService implements IPlayListService {
 
 		return user.getAccountBalance() >= playList.getPrice();
 	}
-	
+
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList updatePlayList(PlayList playList, String[] tags) throws FilePersistException {
-		
+
 		if (playList.getFilmFile() != null) {
-			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
-	
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
+					+ playList.getFileName());
+
 			try {
 				FileUtil.copyFile(playList.getFilmFile(), destFile);
 			} catch (IOException e) {
 				throw new FilePersistException("Update vod file:" + destFile.getPath() + " error.", e);
 			}
 		}
-		
+
 		playList.getTags().clear();
 		// Update playlist tags
 		for (String tag : tags) {
@@ -101,16 +102,14 @@ public class PlayListService implements IPlayListService {
 			playList.getTags().add(temp);
 		}
 		playListDao.update(playList);
-		
-		
+
 		return playList;
 	}
-	
+
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PlayList savePlayList(PlayList playList, String[] tags) throws FilePersistException {
-		
-		
+
 		if (playList.getFilmFile() != null) {
 			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
 					+ playList.getFileName());
@@ -148,7 +147,8 @@ public class PlayListService implements IPlayListService {
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCount(condition));
 		if (list.getRecordTotal() > 0) {
-			//hints.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+			// hints.setHintParameters(Constants.ENABLE_QUERY_CACHE,
+			// Boolean.TRUE);
 			list.setRecords(playListDao.findPlayList(condition, hints));
 		}
 		return list;
@@ -280,7 +280,8 @@ public class PlayListService implements IPlayListService {
 		IPageList<PlayList> list = new PageListImpl<PlayList>();
 		list.setRecordTotal(playListDao.findPlayListCount(condition));
 		if (list.getRecordTotal() > 0) {
-			//hnts.setHintParameters(Constants.ENABLE_QUERY_CACHE, Boolean.TRUE);
+			// hnts.setHintParameters(Constants.ENABLE_QUERY_CACHE,
+			// Boolean.TRUE);
 			list.setRecords(playListDao.findPlayList(condition, hnts));
 		}
 		return list;
@@ -321,6 +322,14 @@ public class PlayListService implements IPlayListService {
 	@Override
 	public void removePlayListQueue(String id) {
 		playListQueueDao.delete(id);
+	}
+
+	@Override
+	public IPageList<PlayList> searchPlayListInChannel(Hints hints, String channelId, String text) {
+		IPageList<PlayList> list = new PageListImpl<PlayList>();
+		list.setRecordTotal(playListDao.searchPlayListInChannelCount(channelId, text));
+		list.setRecords(playListDao.searchPlayListInChannel(hints, channelId, text));
+		return list;
 	}
 
 }
