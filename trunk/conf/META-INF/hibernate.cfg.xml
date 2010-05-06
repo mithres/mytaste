@@ -18,7 +18,7 @@
 			
 		<property name="hbm2ddl.auto">update</property>
 
-		<property name="generate_statistics">true</property>
+		<property name="generate_statistics">false</property>
 		<property name="cache.use_structured_entries">true</property>
 			
 		<!-- enable use hibernate second level cache -->
