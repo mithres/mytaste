@@ -23,7 +23,9 @@
 		<a style="text-decoration:none;" href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a>&nbsp;
 	</s:iterator>
 	
-	<s:action namespace="/common" name="channelSlider" executeResult="true"/>
+	<s:action namespace="/common" name="channelSlider" executeResult="true">
+		<s:param name="channelId">${cid}</s:param>
+	</s:action>
 	
 	<div id="search-bar" class="embed_search_bar">
 		<div class="fixed-lg container">
