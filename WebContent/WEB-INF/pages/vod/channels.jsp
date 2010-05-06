@@ -5,25 +5,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta name="decorator" content="main" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Video Share - Channels</title>
-
-
-<script type="text/javascript" src="<web.page:path/>/js/ui/jquery.ui.core.js"></script>
-<script type="text/javascript" src="<web.page:path/>/js/ui/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="<web.page:path/>/js/ui/jquery.ui.accordion.js"></script>
-
 <script type="text/javascript" src="<web.page:path/>/js/easyslider1.5.js"></script>
-
 </head>
 <body>
-	
 	<h1>Video Share Channels</h1>
-	Browse all of Video Share's videos by category.<br/>
+	<h4 class="subtag">Browse all of Video Share's videos by category.</h4>
 	
 	<s:action namespace="/common" name="channelSlider" executeResult="true"/>
 	
-	<div id="accordion" class="channel-groups">
+	<div class="channel-groups">
 		<table class="channels-index">
 	        <tbody>
 	        	<tr>
@@ -51,12 +44,6 @@
 		$(document).ready(function(){	
 			$("#slider").easySlider();
 		});	
-
-		$(function() {
-			$("#accordion").accordion({
-				event: "mouseover"
-			});
-		});
 	</script>
 	
 </body>

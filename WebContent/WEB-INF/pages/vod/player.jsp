@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="decorator" content="maindecorator" />
+<meta name="decorator" content="main" />
 <title>Video Share - Video: <s:property value="playList.playListName"/></title>
 
 <script src="<web.page:path/>/js/jquery-ui.custom.min.js" type="text/javascript" charset="utf-8"></script>

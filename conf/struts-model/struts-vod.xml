@@ -58,9 +58,13 @@
 			<result>/WEB-INF/pages/vod/playlistentry.jsp</result>
 		</action>	
 		
-		<action name="alsoLiked"  class="com.vc.presentation.action.vod.AlsoLikedVideoAction">
+		<action name="alsoLiked" class="com.vc.presentation.action.vod.AlsoLikedVideoAction">
 			<result>/WEB-INF/pages/vod/playlistentry.jsp</result>
 		</action>	
+		
+		<action name="search" class="com.vc.presentation.action.vod.SearchVideoAction">
+			<result>/WEB-INF/pages/vod/ajaxsearchresult.jsp</result>
+		</action>
 		
 		<action name="addToQueue"  class="com.vc.presentation.action.vod.AddPlayListQueueAction"/>
 		
