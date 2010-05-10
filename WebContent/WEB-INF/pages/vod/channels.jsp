@@ -21,7 +21,7 @@
 	        <tbody>
 	        	<tr>
 	        	<s:iterator value="channelList" status="stat">
-		          <td style="padding-left: 0pt; width: 320px;text-align:left;">
+		          <td style="padding-left: 0pt; width: 320px;text-align:left;" valign="top">
 		          	<div class="channel-group">
 					<div class="channel-group-title">
 					<h3 style="border-bottom:none;"><a href="<web.page:path/>/vod/channels?cid=<s:property value="id"/>"><s:property value="channelName"/></a></h3>
