@@ -52,7 +52,11 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 	padding: 0;
 	border: 0 none;
 }
-
+select{
+	border-style:solid;
+	border-width:1px;
+	border-color:#949494 #949494 #696969;
+}
 h1 {
 	font: 4.7em normal Georgia, 'Times New Roman', Times, serif;
 	color: #333;
@@ -1511,3 +1515,9 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
   margin-top:1px;
   _margin-bottom:1px;
 }
+.vMenu{
+float:left;
+margin-top:95px;
+margin-left:-45px;
+}
+
