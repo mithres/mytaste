@@ -84,13 +84,6 @@ public class SavePlayListAction extends BaseAction {
 
 		String[] playListTags = tags.split(Constants.TAG_SPLIT_EXPRESSION);
 
-		if (channel != null) {
-			Channels channels = systemService.findChannelById(channel);
-			if (channels != null) {
-				playList.setChannel(channels);
-			}
-		}
-
 		if (playList.getId() != null && playList.getId().length() > 0) {
 			PlayList temp = playListService.findPlayListById(playList.getId());
 			if (filmFileName != null) {
@@ -102,6 +95,12 @@ public class SavePlayListAction extends BaseAction {
 			temp.setFilmType(playList.getFilmType());
 			temp.setPrice(playList.getPrice());
 			temp.setDescription(playList.getDescription());
+			if (channel != null) {
+				Channels channels = systemService.findChannelById(channel);
+				if (channels != null) {
+					temp.setChannel(channels);
+				}
+			}
 
 			if (temp.getPrice() == null) {
 				temp.setPrice(new Float(0));
@@ -116,6 +115,13 @@ public class SavePlayListAction extends BaseAction {
 
 			if (playList.getPrice() == null) {
 				playList.setPrice(new Float(0));
+			}
+			
+			if (channel != null) {
+				Channels channels = systemService.findChannelById(channel);
+				if (channels != null) {
+					playList.setChannel(channels);
+				}
 			}
 
 			playListService.savePlayList(playList, playListTags);
@@ -216,6 +222,10 @@ public class SavePlayListAction extends BaseAction {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 
 }

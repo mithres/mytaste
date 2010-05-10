@@ -13,9 +13,7 @@ import org.springframework.security.context.SecurityContextHolder;
 
 import com.vc.core.adapter.SecurityHandlerBase;
 import com.vc.core.constants.Constants;
-import com.vc.entity.PlayList;
 import com.vc.service.user.IUserService;
-import com.vc.service.vod.IPlayListService;
 import com.vc.util.configuration.ServerConfiguration;
 
 public class VODPlaybackSecurityHandler extends SecurityHandlerBase implements IStreamPlaybackSecurity {
@@ -28,8 +26,6 @@ public class VODPlaybackSecurityHandler extends SecurityHandlerBase implements I
 	private String[] allowedHTMLDomains;
 	private String[] allowedSWFDomains;
 
-	@Autowired
-	private IPlayListService playListService = null;
 	@Autowired
 	private IUserService userService = null;
 

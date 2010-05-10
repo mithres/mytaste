@@ -29,13 +29,7 @@ public class NewPlayListAction extends BaseAction {
 
 		fileTypes = Arrays.asList(FilmType.values());
 		playListTypes = Arrays.asList(PlayListType.values());
-		List<Channels> pChannels = systemService.findParentChannels();
-		for (Channels channel : pChannels) {
-			channels.add(channel);
-			for (Channels subChannel : channel.getChildChannels()) {
-				channels.add(subChannel);
-			}
-		}
+		channels = systemService.findAllChannels();
 
 		return Action.SUCCESS;
 	}

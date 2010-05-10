@@ -50,7 +50,19 @@
 				    <td class="tdLabel"><label class="label" for="createPlayList_price"><s:text name="vc.playlist.price"/>:</label></td>
 				    <td class="tdContent"><input type="text" class="form-input" id="createPlayList_price" value="<s:property value="playList.price"/>" name="price"></td>
 				</tr>
-	
+				
+				<tr>
+				    <td class="tdLabel"><label class="label" for="createPlayList_channel">Channel:</label></td>
+				    <td class="tdContent"><select class="form-select" id="createPlayList_channel" name="channel">
+			    	<s:iterator value="channels" var="state">
+			    		<option <s:if test="playList.channel.id.equals(id)">selected='selected'</s:if> value='<s:property value="id"/>'><s:property value="channelName"/></option>
+			    		<s:iterator value="childChannels" var="subChannel">
+			    			<option <s:if test="playList.channel.id.equals(id)">selected='selected'</s:if> value='<s:property value="id"/>'>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="channelName"/></option>
+						</s:iterator>
+			    	</s:iterator>
+			    </select>&nbsp;&nbsp;</td>
+				</tr>
+				
 				<tr>
 				    <td class="tdLabel"><label class="label" for="createPlayList_playListType"><s:text name="vc.playlist.type"/>:</label></td>
 				    <td class="tdContent"><select class="form-select" id="createPlayList_playListType" name="playList.playListType">
@@ -92,7 +104,7 @@
 				 <tr>
 				 	 <td class="tdLabel">&nbsp;</td>
 					 <td class="tdContent">
-					 	<input type="submit" value="Create an account" class="ui-button ui-widget ui-state-default ui-corner-all">
+					 	<input type="submit" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all">
 					 </td>
 				 </tr>
 			</tbody>

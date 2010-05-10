@@ -42,9 +42,11 @@
 </div>
 <div class="left">
 
+<!--url : '<web.page:path/>/vod/vodplayer.lzx?lzt=swf',-->
+
 	<script>
 		lz.embed.swf( {	
-			url : '<web.page:path/>/vod/vodplayer.swf8.swf',
+			url : '<web.page:path/>/vod/vodplayer.swf8.swf',				
 			allowfullscreen : 'true',
 			width : '640',
 			height : '496',
@@ -75,6 +77,7 @@
 
 
 <div class="right">
+<!-- 
 <div id="likedvideo_wrap">
 	<div params="Object id #75" id="vprelationvideo"><div class="vRelated">
 	<div class="nBox">
@@ -88,7 +91,7 @@
 	</div></div></div></div></div>
 	</div>
 </div>
-
+ -->
 <div id="recommendedvideo_wrap">
 	<div params="Object id #75" id="vprelationvideo"><div class="vRelated">
 	<div class="nBox">
