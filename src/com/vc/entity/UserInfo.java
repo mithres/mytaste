@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Index;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 
@@ -38,6 +39,7 @@ public class UserInfo implements UserDetails {
 	@Column(unique = true)
 	private String email = null;
 
+	@Index(name = "user_index")
 	private Long userIndex = null;
 
 	private UserLevel userLevel = UserLevel.User;
