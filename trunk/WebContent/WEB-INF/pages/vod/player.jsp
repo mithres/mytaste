@@ -42,8 +42,6 @@
 </div>
 <div class="left">
 
-<!--url : '<web.page:path/>/vod/vodplayer.swf8.swf',-->
-
 	<script>
 		lz.embed.swf( {	
 			url : '<web.page:path/>/vod/vodplayer.swf8.swf',	

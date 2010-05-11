@@ -18,6 +18,30 @@ function flushValidateCode() {
 	}, 100);
 }
 
+function retrieveURL(url, id, callback) {
+	var processStateChange = function(text) {	// text=responseText
+		if ($("."+id).length>0){
+			$("."+id).html(text);
+		}else if($("#"+id).length>0){
+			$("#"+id).html(text);
+		}
+		window.scroll(0, -65000);
+		if(callback && callback.constructor == Function){
+			callback();
+		}
+	};
+	var failFunction = function(){
+	};
+	$.ajax({
+		url: url,
+		type: "POST",
+		error: failFunction,
+		success: processStateChange
+	});
+
+}
+
+
 function findUserQueueCount() {
 
 	var url = webPath + "/user/findQueueCount";
@@ -161,15 +185,15 @@ function searchPlayListByCondition(action, timeFrame) {
 		}
 
 	} else if (action == 'RecentlyAdded') {
-		
+
 		var hasCondition = false;
 		url = webPath + "/vod/recentAdded";
-		
+
 		if (vt != 'All') {
 			url = url + "?vt=" + vt;
 			hasCondition = true;
 		}
-		
+
 		if (channel != 'All') {
 			if (hasCondition) {
 				url += "&channel=" + channel;
@@ -187,7 +211,7 @@ function searchPlayListByCondition(action, timeFrame) {
 			}
 
 		}
-		
+
 	}
 
 	location.href = url;
@@ -195,7 +219,7 @@ function searchPlayListByCondition(action, timeFrame) {
 
 // Review js
 
-function addReview(formId) {
+function addReview(formId,playListId) {
 
 	var url = webPath + "/vod/addReview";
 
@@ -209,12 +233,34 @@ function addReview(formId) {
 		},
 		success : function(data) {
 			$('#reviewDiv').hide();
+			ajaxLoadReviews(playListId);
+		}
+	});
+}
+
+function ajaxLoadReviews(playListId) {
+	var url = webPath + "/vod/showComments";
+	var para = "playListID="+playListId; 
+		
+	$.ajax( {
+		url : url,
+		data : para,
+		type : 'post',
+		error : function(data) {
+			showMessage("Ajax load users reviews error.");
+		},
+		success : function(data) {
+			$('#reviews').html(data);
 		}
 	});
 }
 
 function showReview() {
 	$('#reviewDiv').show();
+}
+
+function hideReview() {
+	$('#reviewDiv').hide();
 }
 
 function removeFromQueue(playListId, cp, ps) {

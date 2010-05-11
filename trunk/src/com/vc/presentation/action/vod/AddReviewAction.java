@@ -26,9 +26,13 @@ public class AddReviewAction extends BaseAction {
 
 	private String message = null;
 
-	private String tags = null;
+	private String[] tags = null;
+
+	private String userTags = null;
 
 	private String playListId = null;
+	
+	private String reviewId = null;
 
 	@Override
 	public String process() {
@@ -36,19 +40,31 @@ public class AddReviewAction extends BaseAction {
 		PlayList playList = playListService.findPlayListById(playListId);
 
 		VideoComments review = new VideoComments();
+		review.setId(reviewId);
 		review.setContent(message);
 		review.setCreatedTime(new Timestamp(System.currentTimeMillis()));
 		review.setAuthor(userService.findUserByName(SecurityContextHolder.getContext().getAuthentication().getName()));
 		review.setTitle(title);
 		review.setPlayList(playList);
-		
-		String[] playListTags = null;
-		
-		if (tags != null) {
-			playListTags = tags.split(Constants.TAG_SPLIT_EXPRESSION);
-		}
-		playListService.updateUserReview(review, playListTags);
 
+		String[] playListTags = null;
+
+		if (userTags != null) {
+			playListTags = userTags.split(Constants.TAG_SPLIT_EXPRESSION);
+		}
+
+		int length = (tags != null && tags.length > 0 ? tags.length : 0) + (playListTags != null && playListTags.length > 0 ? playListTags.length : 0);
+		String[] tagArray = new String[length];
+
+		if (tags != null) {
+			System.arraycopy(tags, 0, tagArray, 0, tags.length);
+		}
+		if (playListTags != null) {
+			System.arraycopy(playListTags, 0, tagArray, tags != null ? tags.length : 0, playListTags.length);
+		}
+		
+		playListService.updateUserReview(review, tagArray);
+		
 		String json = "{\"status\":\"success\"}";
 		this.write(json);
 
@@ -65,6 +81,18 @@ public class AddReviewAction extends BaseAction {
 
 	public void setPlayListId(String playListId) {
 		this.playListId = playListId;
+	}
+
+	public void setTags(String[] tags) {
+		this.tags = tags;
+	}
+
+	public void setUserTags(String userTags) {
+		this.userTags = userTags;
+	}
+
+	public void setReviewId(String reviewId) {
+		this.reviewId = reviewId;
 	}
 
 }

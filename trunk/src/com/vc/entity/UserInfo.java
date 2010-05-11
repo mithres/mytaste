@@ -54,8 +54,12 @@ public class UserInfo implements UserDetails {
 	private Set<PurchasesHistory> purchasesHistory = new HashSet<PurchasesHistory>();
 
 	private Float accountBalance = new Float(0);
-	
+
 	private Boolean uploadedAvatar = Boolean.FALSE;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "users")
+	@JoinTable(name = "user_tags", joinColumns = @JoinColumn(name = "user_name"), inverseJoinColumns = @JoinColumn(name = "tag"))
+	private Set<Tags> tags = new HashSet<Tags>();
 
 	@Transient
 	private GrantedAuthority[] authorities = null;
@@ -189,5 +193,13 @@ public class UserInfo implements UserDetails {
 
 	public void setUploadedAvatar(Boolean uploadedAvatar) {
 		this.uploadedAvatar = uploadedAvatar;
+	}
+
+	public Set<Tags> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tags> tags) {
+		this.tags = tags;
 	}
 }
