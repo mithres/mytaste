@@ -82,6 +82,13 @@ public class Constants {
 	public static final double PLAYED = 4d;
 	public static final double COLLECTED = 2d;
 	
+	//Constnats for taste data model
+
+	public final static String PERFERENCETABLE = "playlistrating";
+	public final static String USERID_COLUMN = "userindex";
+	public final static String ITEMID_COLUMN = "playlistindex";
+	public final static String PERFERENCE_COLUMN = "preference";
+	
 	
 	//Constants for security handler
 	public static String ALLOWED_HTML_DOMAINS = null;
