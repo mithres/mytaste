@@ -37,7 +37,6 @@
 	
 	<bean id="userBasedRecommendationJob" class="com.vc.core.jobs.UserBasedRecommendationJob">
 		<property name="recommendationService" ref="recommendationService"/>
-		<property name="ds" ref="dataSource"/>
 	</bean>
 	
 	<bean id="userBasedRecommendationJobrecommender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  

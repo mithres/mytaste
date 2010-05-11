@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.apache.mahout.cf.taste.common.Refreshable;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
@@ -24,8 +22,8 @@ public class UserBasedRecommender implements Recommender {
 
 	private Recommender recommender = null;
 
-	public UserBasedRecommender(DataSource ds) throws IOException, TasteException {
-		this(new PlayListDataModel(ds));
+	public UserBasedRecommender() throws IOException, TasteException {
+		this(new PlayListDataModel());
 	}
 
 	public UserBasedRecommender(DataModel model) throws TasteException {
