@@ -42,14 +42,14 @@
 </div>
 <div class="left">
 
-<!--url : '<web.page:path/>/vod/vodplayer.lzx?lzt=swf',-->
+<!--url : '<web.page:path/>/vod/vodplayer.swf8.swf',-->
 
 	<script>
 		lz.embed.swf( {	
-			url : '<web.page:path/>/vod/vodplayer.swf8.swf',				
+			url : '<web.page:path/>/vod/vodplayer.swf8.swf',	
 			allowfullscreen : 'true',
 			width : '640',
-			height : '496',
+			height : '514',
 			id : 'lzapp',
 			wmode:'opaque'
 		});

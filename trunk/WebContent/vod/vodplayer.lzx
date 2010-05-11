@@ -1,4 +1,4 @@
-<canvas debug="true">
+<canvas>
 	
 	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
 	
@@ -70,30 +70,32 @@
 	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
 	
 	<resource name="fullscreen" src="../images/fullscreen-icon.png"/>
-	<resource name="startplay" src="../images/flashplay-icon.png"/>
 	
 	<view bgcolor="black" width="${parent.width}" layout="axis:y"  valign="middle" align="center">
-		<basebutton resource="startplay" x="${parent.width / 2  - 64}" y="${ (parent.height - 18) / 2 - 64}" clickable="true">
 		
-		</basebutton>
 		<handler name="onclick">
 			if (!s2.playing) {
 				s2.play();
+			}else{
+				s2.pause();	
 			}
 		</handler>
-		<handler name="ondblclick">
-			s2.pause();
-		</handler>
-		<videoview id="vid" width="${parent.width}" height="${canvas.height - 18}" type="rtmp" stream="${s2}"/>
-		<view name="fullScreen" width="${parent.width -2 }" x="1" y="1" height="18" resource="../images/fullscreen-icon.png">
-			<videoslider name="vslider"	width="${parent.width - parent.height}" height="${parent.height}" visible="true" ms="${s2}" showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
-			<basebutton resource="fullscreen" name="ful" width="${parent.height}" height="${parent.height}" x="${parent.width - parent.height}">
+		
+		<videoview id="vid" width="${parent.width}" height="${canvas.height - 36}" type="rtmp" stream="${s2}"/>
+		
+		<view name="fullScreen" width="${parent.width -2 }" x="1" y="1" height="18">
+			<videoslider name="vslider"	width="${parent.width}" height="${parent.height}" visible="true" ms="${s2}" showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
+		</view>
+		
+		<view name="toolBar" bgcolor="white" width="${parent.width}">
+			<basebutton resource="fullscreen" name="ful" width="${parent.width - parent.height}" height="18" x="1"  clickable="true">
 				<handler name="onclick">
 					Debug.write(canvas.width + ":" + canvas.height);
 					canvas.setAttribute("fullscreen", true);
 				</handler>
 			</basebutton>	
 		</view>
+		
 	</view>
 	
 	
