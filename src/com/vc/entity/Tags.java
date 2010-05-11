@@ -26,6 +26,10 @@ public class Tags {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<PlayList> playLists = new HashSet<PlayList>();
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "user_tags", joinColumns = @JoinColumn(name = "tag"), inverseJoinColumns = @JoinColumn(name = "user_name"))
+	private Set<UserInfo> users = new HashSet<UserInfo>();
+
 	private int count = 1;
 
 	public Tags() {
@@ -83,6 +87,14 @@ public class Tags {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public Set<UserInfo> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<UserInfo> users) {
+		this.users = users;
 	}
 
 }

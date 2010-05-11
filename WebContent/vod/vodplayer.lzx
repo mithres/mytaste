@@ -88,7 +88,7 @@
 		</view>
 		
 		<view name="toolBar" bgcolor="white" width="${parent.width}">
-			<basebutton resource="fullscreen" name="ful" width="${parent.width - parent.height}" height="18" x="1"  clickable="true">
+			<basebutton resource="fullscreen" name="ful" width="${parent.width - parent.height}" height="18" x="1">
 				<handler name="onclick">
 					Debug.write(canvas.width + ":" + canvas.height);
 					canvas.setAttribute("fullscreen", true);

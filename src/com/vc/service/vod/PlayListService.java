@@ -10,6 +10,7 @@ import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.Authentication;
+import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -111,15 +112,17 @@ public class PlayListService implements IPlayListService {
 	public PlayList savePlayList(PlayList playList, String[] tags) throws FilePersistException {
 
 		if (playList.getFilmFile() != null) {
-			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH + playList.getFileName());
+			File destFile = new File(ServerConfiguration.getFsUri() + Constants.VIDEO_STREAM_PATH
+					+ playList.getFileName());
 			try {
 				FileUtil.copyFile(playList.getFilmFile(), destFile);
 			} catch (IOException e) {
 				throw new FilePersistException("Save vod file:" + destFile.getPath() + " error.", e);
 			}
 		}
-		
-		Long playListIndex = ((BigInteger) playListDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0)).longValue();
+
+		Long playListIndex = ((BigInteger) playListDao.nativeQuery("SELECT nextval('hibseq')", new Hints(0)).get(0))
+				.longValue();
 		playList.setPlayListIndex(playListIndex);
 
 		// Update playlist tags
@@ -259,6 +262,21 @@ public class PlayListService implements IPlayListService {
 		// Update comment content
 		videoCommentsDao.update(vc);
 		// update tags
+		if(tags != null && tags.length > 0){
+			UserInfo user = userInfoDao.findById(SecurityContextHolder.getContext().getAuthentication().getName());
+			for (String tag : tags) {
+				Tags temp = tagDao.findById(tag);
+				if (temp == null) {
+					temp = new Tags(tag);
+				} else {
+					temp.setCount(temp.getCount() + 1);
+				}
+				temp.getUsers().add(user);
+				tagDao.update(temp);
+				vc.getPlayList().getTags().add(temp);
+			}
+			playListDao.update(vc.getPlayList());
+		}
 	}
 
 	@Override

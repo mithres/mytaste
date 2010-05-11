@@ -30,7 +30,7 @@ public class PageViewTag extends TagSupport {
     private static final String SPACE = "&nbsp;";
 
     private static final String HREF_START = "<a href='";
-    private static final String HREF_AJAX_START = "<a  href='javascript:void(0)' onclick='retrieveURL(\"";
+    private static final String HREF_AJAX_START = "<a  href='javascript:void(0);' onclick='retrieveURL(\"";
 
     private static final String PAGE_DIV_START = "<div class=\"{0}\" style=\"{1}\">";
 
