@@ -30,6 +30,8 @@ public class RatePlayListAction extends BaseAction {
 		PlayListRating plr = new PlayListRating();
 		plr.setPlayList(playList);
 		plr.setUser(user);
+		plr.setUserIndex(user.getUserIndex());
+		plr.setPlayListIndex(playList.getPlayListIndex());
 		plr.setRateVale(rateValue);
 		Double averageRateValue = playListService.ratePlayList(plr);
 		this.write(String.valueOf(averageRateValue.intValue()));

@@ -25,6 +25,10 @@ public class PlayListRating {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo user = null;
 	
+	private Long userIndex = null;
+	
+	private Long playListIndex = null;
+	
 	private Double rateVale = new Double(0);
 
 	public String getId() {
@@ -57,6 +61,22 @@ public class PlayListRating {
 
 	public void setRateVale(Double rateVale) {
 		this.rateVale = rateVale;
+	}
+
+	public Long getUserIndex() {
+		return userIndex;
+	}
+
+	public void setUserIndex(Long userIndex) {
+		this.userIndex = userIndex;
+	}
+
+	public Long getPlayListIndex() {
+		return playListIndex;
+	}
+
+	public void setPlayListIndex(Long playListIndex) {
+		this.playListIndex = playListIndex;
 	}
 
 	

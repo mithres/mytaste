@@ -244,6 +244,8 @@ public class PlayListService implements IPlayListService {
 				plr.setPlayList(playList);
 				plr.setUser(user);
 				plr.setRateVale(Constants.COLLECTED);
+				plr.setUserIndex(user.getUserIndex());
+				plr.setPlayListIndex(playList.getPlayListIndex());
 				playListRatingDao.create(plr);
 				playList.setAverageRateValue(playListRatingDao.findPlayListAverageRateValue(playList.getId()));
 			} else {
@@ -311,8 +313,7 @@ public class PlayListService implements IPlayListService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Double ratePlayList(PlayListRating rating) {
 
-		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser()
-				.getUsername());
+		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser().getUsername());
 		if (plr != null) {
 			plr.setRateVale(rating.getRateVale());
 			playListRatingDao.update(plr);

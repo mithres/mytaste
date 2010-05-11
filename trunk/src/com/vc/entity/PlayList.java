@@ -23,6 +23,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Index;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -33,7 +34,7 @@ public class PlayList {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id = null;
 
-	@GeneratedValue(generator = "hibseq")
+	@Index(name="playlist_index")
 	private Long playListIndex = null;
 
 	private String playListName = null;

@@ -31,20 +31,39 @@
 		class="org.springframework.scheduling.quartz.CronTriggerBean">  
 		<property  name="jobDetail" ref="recommender"/>
 		<property name="cronExpression" value="0 0 6 * * ?"/>
-	</bean>  
+	</bean>
+	
+	<!-- UserBasedRecommendationJob -->
+	
+	<bean id="userBasedRecommendationJob" class="com.vc.core.jobs.UserBasedRecommendationJob">
+		<property name="recommendationService" ref="recommendationService"/>
+		<property name="ds" ref="dataSource"/>
+	</bean>
+	
+	<bean id="userBasedRecommendationJobrecommender" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject" ref="userBasedRecommendationJob"/>
+		<property name="targetMethod" value="doJob"/>
+	</bean> 
+
+	<bean id="userBasedRecommendationJobrecommenderTrigger"   
+		class="org.springframework.scheduling.quartz.CronTriggerBean">  
+		<property  name="jobDetail" ref="userBasedRecommendationJobrecommender"/>
+		<property name="cronExpression" value="10 * * * * ?"/>
+	</bean>
 
 	
 	<!--bean id="recommendTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">	
-		<property name="jobDetail" ref="recommender"/>
-		<property name="startDelay" value="30000"/>
-		<property name="repeatInterval" value="30000"/>
-	</bean-->
+			<property name="jobDetail" ref="recommender"/>
+			<property name="startDelay" value="30000"/>
+			<property name="repeatInterval" value="30000"/>
+		</bean-->
 
 
 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">
 		<property name="triggers">
 			<list>
 				<ref bean="recommendTrigger" />
+				<ref bean="userBasedRecommendationJobrecommenderTrigger"/>
 			</list>
 		</property>
 	</bean>
