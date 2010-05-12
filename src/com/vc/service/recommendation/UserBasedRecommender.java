@@ -18,12 +18,14 @@ import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
+import com.vc.service.vod.IPlayListService;
+
 public class UserBasedRecommender implements Recommender {
 
 	private Recommender recommender = null;
 
-	public UserBasedRecommender() throws IOException, TasteException {
-		this(new PlayListDataModel());
+	public UserBasedRecommender(IPlayListService playListService) throws IOException, TasteException {
+		this(new PlayListDataModel(playListService));
 	}
 
 	public UserBasedRecommender(DataModel model) throws TasteException {

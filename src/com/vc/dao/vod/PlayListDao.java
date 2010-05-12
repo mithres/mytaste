@@ -20,6 +20,12 @@ public class PlayListDao extends GenericDAO<PlayList, String> {
 	private static final String FIND_CHANNEL_PLAYLISTS_COUNT = " select count(pl.id) from PlayList pl where pl.channel.id = ? and ( lower(pl.playListName) like ? or lower(pl.description) like ?) ";
 
 	private static final String FIND_CHANNEL_PLAYLISTS = " from PlayList pl where pl.channel.id = ? and ( lower(pl.playListName) like ? or lower(pl.description) like ?) order by pl.addedTime desc ";
+	
+	private static final String FIND_PLAYLIST_BY_INDEX = " from PlayList pl where pl.playListIndex = ? ";
+	
+	public PlayList findPlayListByIndex(long index){
+		return (PlayList)this.findUnique(FIND_PLAYLIST_BY_INDEX, new Hints(0), index);
+	}
 
 	public List<PlayList> searchPlayListInChannel(Hints hnts, String channelId, String text) {
 		text = "%"+text+"%";

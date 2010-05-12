@@ -1,5 +1,7 @@
 package com.vc.service.vod;
 
+import java.util.List;
+
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
 
@@ -69,5 +71,28 @@ public interface IPlayListService {
 
 	@Secured( { "ROLE_ADMIN", "ROLE_USER" })
 	public abstract void removePlayListQueue(String id);
+
+	// Methods for mahout recommendation engine
+	public abstract List<Long> findUsersIds();
+
+	public abstract List<Long> findItemIds();
+
+	public abstract List<PlayListRating> findUserPreferences(long userIndexId);
+
+	public abstract List<PlayListRating> findItemPreferences(long itemIndexId);
+
+	public abstract Float findPreference(long userIndexId, long itemIndexId);
+
+	public abstract Long findUserNum();
+
+	public abstract Long findItemNum();
+
+	public abstract void setPlayListPreference(long userIndex, long playListIndex, float value);
+
+	public abstract void removePreference(long userIndex, long playListIndex);
+
+	public abstract Long getNumPreferenceForItemsSQL(long... itemIDs);
+
+	public abstract Long getNumPreferenceForItemSQL(long itemId);
 
 }
