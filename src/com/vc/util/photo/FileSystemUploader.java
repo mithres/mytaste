@@ -21,7 +21,7 @@ public class FileSystemUploader implements IFileUploader {
 	
 	@Override
 	public boolean preparePath(String uri, String authString) throws IOException {
-		String filePath = uri.substring(0, uri.lastIndexOf("/"));
+		String filePath = uri.substring(0, uri.lastIndexOf(File.separator));
 		File file = new File(filePath);
 		if (!file.exists()) {
 			return file.mkdirs();
