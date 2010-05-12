@@ -1,5 +1,6 @@
 package com.vc.util.configuration;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 import org.red5.logging.Red5LoggerFactory;
@@ -72,9 +73,9 @@ public class ServerConfiguration {
 	public static final String getPhotoPath(PhotoType photoType) {
 
 		if (photoType.equals(PhotoType.FilmScreenShot)) {
-			return Constants.PHOTO_PATH + "Film/";
+			return Constants.PHOTO_PATH + "Film"+File.separator;
 		} else if (photoType.equals(PhotoType.UserPhoto)) {
-			return Constants.PHOTO_PATH + "User/";
+			return Constants.PHOTO_PATH + "User"+File.separator;
 		}
 		return null;
 	}

@@ -112,7 +112,7 @@ public class PicUtil {
 		String photoPath = ServerConfiguration.getPhotoUrl(photoType);
 		StringBuffer sb = new StringBuffer(photoPath);
 		sb.append(String.valueOf(pathID));
-		sb.append(File.separator);
+		sb.append("/");
 		return sb.toString();
 
 	}
