@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.aspectj.util.FileUtil;
 import org.red5.logging.Red5LoggerFactory;
@@ -264,7 +265,7 @@ public class PlayListService implements IPlayListService {
 		// Update comment content
 		videoCommentsDao.update(vc);
 		// update tags
-		if(tags != null && tags.length > 0){
+		if (tags != null && tags.length > 0) {
 			UserInfo user = userInfoDao.findById(SecurityContextHolder.getContext().getAuthentication().getName());
 			for (String tag : tags) {
 				Tags temp = tagDao.findById(tag);
@@ -313,7 +314,8 @@ public class PlayListService implements IPlayListService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Double ratePlayList(PlayListRating rating) {
 
-		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser().getUsername());
+		PlayListRating plr = playListRatingDao.findUserPlayListRateValue(rating.getPlayList().getId(), rating.getUser()
+				.getUsername());
 		if (plr != null) {
 			plr.setRateVale(rating.getRateVale());
 			playListRatingDao.update(plr);
@@ -346,6 +348,73 @@ public class PlayListService implements IPlayListService {
 		list.setRecordTotal(playListDao.searchPlayListInChannelCount(channelId, text));
 		list.setRecords(playListDao.searchPlayListInChannel(hints, channelId, text));
 		return list;
+	}
+
+	// Methods for mahout recommendation engine
+
+	@Override
+	public List<Long> findItemIds() {
+		return playListRatingDao.findItemsIds();
+	}
+
+	@Override
+	public Long findItemNum() {
+		return playListRatingDao.findItemNum();
+	}
+
+	@Override
+	public List<PlayListRating> findItemPreferences(long itemIndexId) {
+		return playListRatingDao.findItemPreferences(itemIndexId);
+	}
+
+	@Override
+	public Float findPreference(long userIndexId, long itemIndexId) {
+		return playListRatingDao.findPreference(userIndexId, itemIndexId);
+	}
+
+	@Override
+	public Long findUserNum() {
+		return playListRatingDao.findUserNum();
+	}
+
+	@Override
+	public List<PlayListRating> findUserPreferences(long userIndexId) {
+		return playListRatingDao.findUserPreferences(userIndexId);
+	}
+
+	@Override
+	public List<Long> findUsersIds() {
+		return playListRatingDao.findUsersIds();
+	}
+
+	@Override
+	public Long getNumPreferenceForItemSQL(long itemId) {
+		return playListRatingDao.findNumPreferenceForItem(itemId);
+	}
+
+	@Override
+	public Long getNumPreferenceForItemsSQL(long... itemIDs) {
+		return playListRatingDao.findNumPreferenceForItems(itemIDs);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void removePreference(long userIndex, long playListIndex) {
+		playListRatingDao.removePreference(userIndex, playListIndex);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void setPlayListPreference(long userIndex, long playListIndex, float value) {
+		UserInfo user = userInfoDao.findUserByIndex(userIndex);
+		PlayList playList = playListDao.findPlayListByIndex(playListIndex);
+		PlayListRating plr = new PlayListRating();
+		plr.setPlayList(playList);
+		plr.setUser(user);
+		plr.setUserIndex(userIndex);
+		plr.setPlayListIndex(playListIndex);
+		plr.setRateVale(((Float)value).doubleValue());
+		playListRatingDao.create(plr);
 	}
 
 }

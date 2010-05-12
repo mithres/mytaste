@@ -13,22 +13,32 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PlayListRating {
-	
+
+	public PlayListRating() {
+
+	}
+
+	public PlayListRating(long userIndex, long playListIndex, double rateValue) {
+		this.userIndex = userIndex;
+		this.playListIndex = playListIndex;
+		this.rateVale = rateValue;
+	}
+
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id = null;
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private PlayList playList = null;
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo user = null;
-	
+
 	private Long userIndex = null;
-	
+
 	private Long playListIndex = null;
-	
+
 	private Double rateVale = new Double(0);
 
 	public String getId() {
@@ -79,5 +89,4 @@ public class PlayListRating {
 		this.playListIndex = playListIndex;
 	}
 
-	
 }

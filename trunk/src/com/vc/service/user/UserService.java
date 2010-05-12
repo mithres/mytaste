@@ -32,6 +32,7 @@ import com.vc.core.entity.PageListImpl;
 import com.vc.dao.system.ResourceDao;
 import com.vc.dao.system.RoleDao;
 import com.vc.dao.user.UserInfoDao;
+import com.vc.dao.user.UserNeighborhoodDao;
 import com.vc.dao.vod.PlayListDao;
 import com.vc.dao.vod.PlayListQueueDao;
 import com.vc.dao.vod.PlayListRatingDao;
@@ -41,6 +42,7 @@ import com.vc.entity.Resource;
 import com.vc.entity.ResourceType;
 import com.vc.entity.Role;
 import com.vc.entity.UserInfo;
+import com.vc.entity.UserNeighborhood;
 import com.vc.presentation.exception.UserExistException;
 import com.vc.util.photo.PicUtil;
 import com.vc.util.security.MD5;
@@ -63,6 +65,8 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 	private PlayListQueueDao playListQueueDao = null;
 	@Autowired
 	private PlayListRatingDao playListRatingDao = null;
+	@Autowired
+	private UserNeighborhoodDao userNeighborhoodDao = null;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -226,6 +230,17 @@ public class UserService implements IUserService, UserDetailsService, ISecurityM
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void cleanUserNeighborhood() {
+		userNeighborhoodDao.cleanUserNeighborhood();
+	}
+
+	@Override
+	public List<UserNeighborhood> findUserNeighborhood(String userName) {
+		return userNeighborhoodDao.findUserNeighborhood(userName);
 	}
 
 }

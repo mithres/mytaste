@@ -1,6 +1,7 @@
 package com.vc.service.user;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.security.Authentication;
 import org.springframework.security.annotation.Secured;
@@ -8,6 +9,7 @@ import org.springframework.security.annotation.Secured;
 import com.vc.core.dao.Hints;
 import com.vc.core.entity.IPageList;
 import com.vc.entity.UserInfo;
+import com.vc.entity.UserNeighborhood;
 import com.vc.presentation.exception.UserExistException;
 
 public interface IUserService {
@@ -24,9 +26,13 @@ public interface IUserService {
 
 	public abstract IPageList<UserInfo> findPopularUser(Hints hint);
 
-	public Long findUserQueueCount(String userName);
+	public abstract Long findUserQueueCount(String userName);
 
 	@Secured( { "ROLE_USER", "ROLE_ADMIN" })
-	public boolean updateProfilePhoto(File file);
+	public abstract boolean updateProfilePhoto(File file);
+
+	public abstract void cleanUserNeighborhood();
+	
+	public abstract List<UserNeighborhood> findUserNeighborhood(String userName);
 
 }
