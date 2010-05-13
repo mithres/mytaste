@@ -66,6 +66,10 @@
 			<result>/WEB-INF/pages/vod/ajaxsearchresult.jsp</result>
 		</action>
 		
+		<action name="liveBroadcast" class="com.vc.presentation.action.vod.LiveBroadcastIndexAction">
+			<result>/WEB-INF/pages/vod/livebroadcastindex.jsp</result>
+		</action>
+		
 		<action name="addToQueue"  class="com.vc.presentation.action.vod.AddPlayListQueueAction"/>
 		
 		<action name="getSubChannel"  class="com.vc.presentation.action.vod.GetSubChannelAction"/>

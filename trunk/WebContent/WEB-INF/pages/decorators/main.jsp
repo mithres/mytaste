@@ -198,6 +198,8 @@
 	<li style="font-weight:bold;" <s:if test="'MostPopular'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
 	<li style="font-weight:bold;" <s:if test="'RecentlyAdded'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/recentAdded">Recently Added</a></li>
 	<li style="font-weight:bold;" <s:if test="'Collection'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/collections">Collections</a></li>
+	<li style="font-weight:bold;" <s:if test="'LiveBroadcast'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/liveBroadcast">Live Broadcast</a></li>
+	
 	
 </ul>
 </s:if><s:elseif test="#session.MenuStat.menuStat.equals('conference')">

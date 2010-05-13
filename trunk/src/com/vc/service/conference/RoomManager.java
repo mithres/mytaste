@@ -10,6 +10,8 @@ import com.vc.core.entity.IPageList;
 import com.vc.core.entity.PageListImpl;
 import com.vc.dao.conference.RoomDao;
 import com.vc.entity.Room;
+import com.vc.entity.RoomPrivacy;
+import com.vc.entity.RoomType;
 import com.vc.presentation.exception.RoomNotFoundException;
 import com.vc.presentation.exception.RoomPeopleFullException;
 import com.vc.service.cluster.ILoadBalancer;
@@ -23,6 +25,14 @@ public class RoomManager implements IRoomManageService {
 
 	@Autowired
 	private RoomDao roomDao = null;
+
+	@Override
+	public IPageList<Room> findRoomsByType(Hints hnts, RoomType type, RoomPrivacy privacy) {
+		IPageList<Room> list = new PageListImpl<Room>();
+		list.setRecordTotal(roomDao.findRoomCountByType(type, privacy));
+		list.setRecords(roomDao.findRoomByType(hnts, type, privacy));
+		return list;
+	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -78,5 +88,7 @@ public class RoomManager implements IRoomManageService {
 		}
 		roomDao.update(room);
 	}
+
+	
 
 }

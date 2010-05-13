@@ -66,6 +66,7 @@ public class Constants {
 	public static final String NAV_MOSTPOPULAR = "MostPopular";
 	public static final String NAV_RECENTLYADDED = "RecentlyAdded";
 	public static final String NAV_COLLECTION = "Collection";
+	public static final String NAV_LIVEBROADCASE = "LiveBroadcast";
 	
 	//Condition for search 
 	public static final String SEARCH_CONDITION_ALL = "All";
