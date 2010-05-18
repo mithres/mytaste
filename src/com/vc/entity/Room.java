@@ -23,6 +23,8 @@ public class Room {
 	private String roomId = null;
 
 	private String roomName = null;
+	
+	private String roomDescription = null;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private UserInfo creator = null;
@@ -145,6 +147,14 @@ public class Room {
 
 	public void setStreamUrl(String streamUrl) {
 		this.streamUrl = streamUrl;
+	}
+
+	public String getRoomDescription() {
+		return roomDescription;
+	}
+
+	public void setRoomDescription(String roomDescription) {
+		this.roomDescription = roomDescription;
 	}
 
 }
