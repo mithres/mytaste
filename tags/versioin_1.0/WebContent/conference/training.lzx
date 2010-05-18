@@ -1,0 +1,385 @@
+<canvas debug="true">
+	
+	<splash/>
+	
+	<script src="../js/json.js"/>
+	
+	<include href="../lps/videoconference/base/userList.lzx"/>
+	<include href="../lps/videoconference/base/sharedObject.lzx"/>
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
+	
+	<attribute name="myInfo"/>
+	<attribute name="status" value="0"/>	
+	<attribute name="sid" value="" type="string"/>
+	
+	<attribute name="isModerator" value="false" type="boolean"/>
+	<attribute name="conferenceStarted" value="false" type="boolean"/>
+	
+	<event name="onevent"/>
+	
+	<handler name="oninit">
+		canvas.setDefaultContextMenu(new LzContextMenu());
+	</handler>
+	
+	<handler name="onevent" args="evt">
+	<![CDATA[
+		if (evt == "soInited") {
+			canvas.setAttribute("status", canvas.status + 1);
+		} else if (evt == "userInfoInited") {
+			if (canvas.myInfo.userLevel != "User") {
+				startButton.setAttribute("visible", true);
+			}
+		}
+		if (canvas.status == 5) {
+			Debug.write("All shared objects init ok");
+			rc.getUserInfo.callRPC();
+			this['status'] = 0;
+		}
+	]]>
+	</handler>
+	
+	<method name="startConference">
+	<![CDATA[
+		if (conferenceStarted) {
+			startButton.setAttribute("text", "Start Conference");
+		} else {
+			soCurrentModerator.setData("cm", canvas.myInfo);
+			canvas.setAttribute("isModerator",true);
+			startButton.setAttribute("text", "Stop Conference");
+		}
+	]]>
+	</method>
+	
+	<script>
+		function init(roomId, sid, url) {
+			//Debug.write(url + ":" + roomId + ":" + sid);
+
+			//canvas.setAttribute("roomId", roomId);
+
+			canvas.setAttribute("sid", sid);
+
+			//Connect to the special room scope.
+			var roomScope = url + "/" + roomId;
+			rc.setAttribute("src", roomScope);
+			rc.connect(sid);
+			if (cam.show == false) {
+				live.stream.setAttribute('url', roomId);
+			}
+		}
+	</script>
+	
+	<vcrtmpconnection id="rc" autoconnect="false">
+
+		<handler name="onconnect">
+			Debug.write("connected");
+			this.initRoom();
+		</handler>
+
+		<handler name="onerror">
+			Debug.write("error ", this.status);
+		</handler>
+		
+		<method name="initRoom">
+
+
+			//TODO:Display init room dialog
+
+			//Init Shared Objects
+			soMessage.connect("messageSO", this._nc, false);
+			soUserList.connect("userListSO", this._nc, false);
+			soUserListUpdate.connect("userListUpdateSO", this._nc, false);
+			soCurrentModerator.connect("currentModerator", this._nc, false);
+			soWhiteBoard.connect("whiteBoardSO", this._nc, false);
+		</method>
+				
+		<netremotecall name="getUserInfo" funcname="conference.loadUserInfo">
+			<attribute name="param1" value="${canvas.sid}" type="string" />      
+			<netparam name="vars1">
+				<method name="getValue">
+					return parent.param1;
+				</method>
+			</netparam>  
+			<method name="onResult" args="value">
+			<![CDATA[
+				Debug
+						.write("Get my info from server then add to join into user list:["
+								+ value + "]");
+				canvas.setAttribute("myInfo", JSON.parse(value));
+				soUserList.joinUserList(canvas.myInfo);
+			]]>
+			</method>  
+		</netremotecall>
+		
+	</vcrtmpconnection>
+		
+	<mediastream name="s1" type="rtmp"/>
+	<mediastream name="s2" type="rtmp"/>
+	
+	<sharedObject id="soUserListUpdate">
+		<handler name="onStatus" args="evt">
+			if (evt[0].code == "clear") {
+				Debug.write("UserListUpdate Shared Object inited.");
+				parent.onevent.sendEvent("soInited");
+			} else {
+				Debug.write("Updating User List.");
+				ul.updateListItem(this.getData("userInfo"));
+			}
+		</handler>
+	</sharedObject>
+	
+	<sharedObject id="soUserList">
+		<handler name="onStatus" args="evt">
+			if (evt[0].code == "clear") {
+				Debug.write("UserList Shared Object inited.");
+				var userList = this.getData("userList");
+				if (userList != null) {
+					Debug
+							.write("Get user list from server and init user list.");
+					ul.initList(userList);
+				}
+				parent.onevent.sendEvent("soInited");
+			}
+		</handler>
+		<method name="joinUserList" args="userInfo">
+		<![CDATA[
+			var userList = null;
+			if (this.getData("userList") != null) {
+				userList = getData("userList");
+			} else {
+				userList = new Array();
+			}
+			userList.push(userInfo);
+			this.setData("userList", userList);
+			soUserListUpdate.setData("userInfo", userInfo);
+			parent.onevent.sendEvent("userInfoInited");
+		]]>
+		</method>
+	</sharedObject>
+	
+	<sharedObject id="soMessage">
+		<handler name="onStatus" args="evt">
+		<![CDATA[
+			if (evt[0].code == "clear") {
+				Debug.write("Message Shared Object inited.");
+				parent.onevent.sendEvent("soInited");
+			} else {
+				Debug.write("Message received updating message text area.");
+				rmessage.setAttribute("text", rmessage.text + "<br/>"
+								+ this.getData("message"));
+			}
+		]]>
+		</handler>
+	</sharedObject>
+	
+	<sharedObject id="soCurrentModerator">
+		
+		<handler name="onStatus" args="evt">
+
+
+			if (evt[0].code == "clear") {
+				Debug.write("Moderator Shared Object inited.");
+				parent.onevent.sendEvent("soInited");
+			}
+			var cm = this.getData("cm");
+			if (cm != null) {
+				if (cm.userId != canvas.myInfo.userId) {
+					//Hide start button
+					startButton.setAttribute("visible", false);
+					//Display moderator video view
+					moderatorVideoView.setAttribute("visible", true);
+					s2.setAttribute('url', canvas.roomId);
+					s2.play();
+				} else {
+					parent['isModerator'] = true;
+					//Display loop back video view
+					localVideoView.setAttribute("visible", true);
+					if (cam.show) {
+						Debug.write("pub stream stop");
+						live.stream.stop();
+						cam.setAttribute('show', false);
+					} else {
+						Debug.write("pub stream start");
+						live.stream.broadcast();
+						cam.setAttribute('show', true);
+					}
+
+				}
+				conferenceMessage.setAttribute("text", "Moderator : " + cm.userName);
+			}
+		</handler>
+	</sharedObject>	
+	
+	<sharedObject id="soWhiteBoard">
+		<handler name="onStatus" args="evt">
+		<![CDATA[
+			if (evt[0].code == "clear") {
+				Debug.write("Whiteboard Shared Object inited.");
+				parent.onevent.sendEvent("soInited");
+			} else {
+				var params = this.getData("action");
+				Debug.write("Update whiteboard event:" + params[0] + ":"
+						+ canvas.myInfo.userId);
+				if (params[0] != canvas.myInfo.userId) {
+					for (var i = 1; i < params.length; i++) {
+						var actionStr = params[i].split(",");
+						dvCanvas.drawline(actionStr[0], actionStr[1],
+								actionStr[2], actionStr[3]);
+					}
+				}
+			}
+		]]>
+		</handler>
+		<method name="updateWhiteBoard" args="params">
+		<![CDATA[
+			this.setData("action", params);
+		]]>
+		</method>
+	</sharedObject>
+
+	<view x="0" y="0" width="100%" height="100%" bgcolor="#a1c1ea">
+		<!-- This is toolbar view-->
+		<view width="${parent.width-4}" height="23" bgcolor="white" layout="axis:x" y="2" x="2">
+			<button id="startButton" text="Start Conference" align="left" height="16"  visible="false">
+				<handler name="onclick">
+					canvas.startConference();
+				</handler>
+			</button>
+			<text id="conferenceMessage" visible="true"/>					
+		</view>
+		
+		<view width="${parent.width-4}" height="${parent.height - 23}" x="2" y="27" layout="axis:x">
+			<!-- user list view -->
+			<userlist id="ul" width="200" height="580"/>
+			<view width="${parent.width-200}"  height="538" layout="axis:y">
+				<view width="100%" height="20" bgcolor="#bfdbff">
+					<text>White Board</text>
+				</view>
+				<drawview id="dvCanvas" width="100%" height="100%" bgcolor="white">
+					<attribute name="mx" type="number" value="$always{ this.getMouse('x')}" />
+					<attribute name="my" type="number" value="$always{ this.getMouse('y')}" />
+					<attribute name="prevx" type="number" value="0" />
+					<attribute name="prevy" type="number" value="0" />
+					<attribute name="mouseisdown" type="boolean" value="false" />
+					<attribute name="points"/>
+					
+					<handler name="oninit">
+					<![CDATA[
+						this['points'] = new Array();
+					]]>
+					</handler>
+					
+					<handler name="onmousedown">
+					<![CDATA[
+						if (canvas['isModerator']) {
+							this['points'] = new Array();
+							this['points'].push(canvas.myInfo.userId);
+							Debug
+									.write("Method:onmousedown-Create array for whiteboard."
+											+ this['points'][0]);
+							this.prevx = this.mx;
+							this.prevy = this.my;
+							this.setAttribute('mouseisdown', true);
+						}
+					]]>
+					</handler>
+					<handler name="onmouseup">
+					<![CDATA[
+						if (canvas['isModerator']) {
+							this.setAttribute('mouseisdown', false);
+							soWhiteBoard.updateWhiteBoard(this['points']);
+							Debug
+									.write("Method:onmouseup-Send whiteboard update event."
+											+ this['points']);
+							this['points'] = new Array();
+							Debug
+									.write("Method:onmouseup-Clean whiteboard array."
+											+ this['points']);
+						}
+					]]>
+					</handler>
+					<handler name="onmousemove" reference="canvas">
+					<![CDATA[
+						if (this['mouseisdown']) {
+							this.drawline(this['prevx'], this['prevy'],
+									this['mx'], this['my']);
+							this.prevx = this['mx'];
+							this.prevy = this['my'];
+						}
+					]]>
+					</handler>
+					<method name="drawline" args="x1, y1, x2, y2">
+					<![CDATA[
+						if (x2 > 0 && x2 < 700 && y2 > 0 && y2 < 535 && x1 > 0 && x1 < 700 && y1 > 0 && y1 < 535) {
+							Debug.write(x1 + "," + y1 + "," + x2 + "," + y2);
+							var actionStr = x1 + "," + y1 + "," + x2 + "," + y2;
+							this['points'].push(actionStr);
+							this.beginPath();
+							this.moveTo(x1, y1);
+							this.lineTo(x2, y2);
+							this.stroke();
+						}
+					]]>
+					</method>
+				</drawview>
+			</view>
+		</view>
+		
+		<!-- Chat view -->
+		<view width="100%" height="290" y="587" bgcolor="0xA3B2CC">
+			<view name="chatContent" bgcolor="0xd2d2d2" width="${parent.width - 2}" height="120" clip="true" x="1" y="1">
+				<text id="rmessage" multiline="true" width="100%"/>
+				<vscrollbar/>
+			</view>
+			<view height="100%" width="${parent.width - 2}" y="120">
+				<simplelayout axis="x"/>
+				<edittext bgcolor="white" width="${parent.width - 50}" id="smessage"/>
+				<button width="50" onclick="soMessage.setData('message',smessage.text);">Send</button>
+			</view>
+		</view>
+	</view>
+	
+	<!-- Display video stream window -->
+	<window id="videoWindow" width="500" height="375" x="$once{parent.width-500}" y="25" resizable="false" closeable="false" title="Moderator Video">
+		
+		<attribute name="maximized" value="true"/>
+
+		<state name="big" applied="${videoWindow.maximized}">
+			<animatorgroup duration="1000" process="simultaneous">
+				<animator attribute="width" to="500"/>
+				<animator attribute="height" to="375"/>
+			</animatorgroup>
+		</state>
+
+		<state name="small" applied="${! videoWindow.maximized}">
+			<animatorgroup duration="1000" process="simultaneous">
+				<animator attribute="width" to="200"/>
+				<animator attribute="height" to="150"/>
+			</animatorgroup>
+		</state>
+     	
+		<simplelayout axis="y"/>
+     	
+		<button text="Toggle" placement="title_area" align="right" height="16">
+			<handler name="onclick">
+				videoWindow.setAttribute('maximized', (!videoWindow.maximized));
+			</handler>
+		</button>
+		
+		<view id="moderatorVideoView" visible="false" width="100%" height="100%" bgcolor="green">
+			<videoview name="vid" type="rtmp" stream="$once{canvas.s2}" width="100%" height="100%"/>
+		</view>
+     
+		
+		<view id="localVideoView" width="100%" height="100%">
+			<videoview id="live" type="rtmp" stream="$once{canvas.s1}" width="$once{parent.width}" height="$once{parent.height}">
+				<camera id="cam" show="false" fps="10" width="$once{parent.width}" height="$once{parent.height}" picturequality="0.8"/>
+				<microphone id="mic" capturing="false"/>
+			</videoview>
+		</view>
+	</window>
+
+	<window id="whiteBoardToolbar" width="100" height="500" x="$once{dvCanvas.x + 5}" y="$once{dvCanvas.y + 5}" resizable="false" closeable="false" title="Toolbar">
+		
+	</window>
+			
+</canvas>

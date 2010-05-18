@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Mar 3, 2010 11:44:17 AM                                                        
+
+     project    VideoConference
+     description 
+                   
+     ammen                                                                
+     ====================================================================== -->
+
+<project name="project" default="war" basedir=".">
+
+	<description>
+            Build file for videoconference
+    </description>
+
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="target.dir" value="${dist.dir}/target" />
+	<property name="webcontent.dir" value="${basedir}/WebContent" />
+
+	<!-- LPS Properties -->
+	<property name="laszlo.commons.src" value="${basedir}/WebContent/flashcommons" />
+	<property name="laszlo.vod.src" value="${basedir}/WebContent/vod" />
+	<property name="laszlo.conference.src" value="${basedir}/WebContent/conference" />
+	<property name="laszlo.home" value="${basedir}/WebContent" />
+	<property name="laszlo.debug" value="false" />
+	<property name="laszlo.proxied" value="solo" />
+
+	<path id="laszlo.lib">
+		<pathelement location="${laszlo.home}/WEB-INF/lps/server/build" />
+		<pathelement location="${laszlo.home}/WEB-INF/classes" />
+		<fileset dir="${laszlo.home}/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+
+
+	<!-- ================================= 
+          target: build war              
+         ================================= -->
+
+	<target name="war" depends="copyfile" description="build war file">
+		<war destfile="${dist.dir}/VideoConference.war" webxml="${webcontent.dir}/WEB-INF/web.xml">
+			<fileset dir="${target.dir}" />
+		</war>
+	</target>
+
+	<!-- ================================= 
+	          target: copy file             
+	         ================================= -->
+	<target name="copyfile" depends="compile.vodplayer">
+
+		<delete dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<delete dir="${target.dir}" />
+		<mkdir dir="${target.dir}" />
+
+		<copy todir="${target.dir}" overwrite="yes">
+			<fileset dir="${webcontent.dir}">
+				<exclude name="**/*.lzx" />
+				<exclude name="lps/**" />
+				<exclude name="WEB-INF/lps/**" />
+				<exclude name="**/test/**" />
+			</fileset>
+		</copy>
+
+
+
+	</target>
+
+	<target name="copyFlashCommons">
+		<copy file="${laszlo.vod.src}/videoslideshower.lzx.swf8.swf" tofile="${laszlo.commons.src}/videoslideshower.swf"/>
+	</target>
+
+
+	<target name="compile.vodplayer" depends="compile.trainingplayer">
+		<java classname="org.openlaszlo.compiler.Main" fork="true" newenvironment="true" failonerror="true" dir="${laszlo.vod.src}" classpathref="laszlo.lib">
+			<jvmarg value="-DLPS_HOME=${laszlo.home}" />
+			<jvmarg value="-Dlzdebug=${laszlo.debug}" />
+			<jvmarg value="-Dlzproxied=${laszlo.proxied}" />
+			<jvmarg value="-Xms512M" />
+			<jvmarg value="-Xmx512M" />
+			<arg line="--runtime=swf8 --dir ${laszlo.vod.src} --mcache on --onerror warn vodplayer.lzx" />
+		</java>
+	</target>
+
+	<target name="compile.trainingplayer">
+		<java classname="org.openlaszlo.compiler.Main" fork="true" newenvironment="true" failonerror="true" dir="${laszlo.conference.src}" classpathref="laszlo.lib">
+			<jvmarg value="-DLPS_HOME=${laszlo.home}" />
+			<jvmarg value="-Dlzdebug=${laszlo.debug}" />
+			<jvmarg value="-Dlzproxied=${laszlo.proxied}" />
+			<jvmarg value="-Xms512M" />
+			<jvmarg value="-Xmx512M" />
+			<arg line="--runtime=swf8 --dir ${laszlo.conference.src} --mcache on --onerror warn training.lzx" />
+		</java>
+	</target>
+
+</project>

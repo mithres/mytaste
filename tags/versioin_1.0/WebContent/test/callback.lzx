@@ -1,0 +1,10 @@
+
+
+<canvas debug="true">
+	<view name="camwrap" x="160">
+		<videoview name="mycamera" width="320" height="240">
+			<camera name="xx" width="160" height="120" show="true"/>
+		</videoview>
+	</view>
+</canvas>
+    

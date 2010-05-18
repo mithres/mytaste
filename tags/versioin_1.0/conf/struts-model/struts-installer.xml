@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<package name="install" extends="default" namespace="/install">
+		
+		<action name="" method="index" class="com.vc.presentation.action.installer.InstallerAction">
+			<result>/WEB-INF/pages/installer/installer.jsp</result>
+			<result name="home" type="redirect">/</result>
+		</action>	
+		
+		<action name="startup" class="com.vc.presentation.action.installer.InstallerAction">
+			<result type="redirect">/</result>
+		</action>	
+		
+			
+	</package>
+	
+	
+</struts>

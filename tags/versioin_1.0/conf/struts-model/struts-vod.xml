@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<package name="vod" extends="default" namespace="/vod">  
+		
+		<action name="showPlayListTypeAndChannel" class="com.vc.presentation.action.vod.ShowPlayListTypeAndChannelAction">
+			<result>/WEB-INF/pages/vod/playlistypechannelselector.jsp</result>
+		</action>	
+		
+		<action name="edit" class="com.vc.presentation.action.vod.EditPlayListAction">
+			<result>/WEB-INF/pages/vod/addplaylist.jsp</result>
+		</action>
+		
+		<action name="playListIndex" class="com.vc.presentation.action.vod.PlayListIndexAction">
+			<result>/WEB-INF/pages/vod/playlist.jsp</result>
+		</action>
+		
+		<action name="newPlayList" class="com.vc.presentation.action.vod.NewPlayListAction">
+			<result>/WEB-INF/pages/vod/addplaylist.jsp</result>
+		</action>
+		
+		<action name="savePlayList" class="com.vc.presentation.action.vod.SavePlayListAction">
+			<result type="redirect">/vod/playListIndex</result>
+			<result name="input">/WEB-INF/pages/vod/addplaylist.jsp</result>
+		</action>
+		
+		<action name="play" class="com.vc.presentation.action.vod.PlayVideoAction">
+			<result>/WEB-INF/pages/vod/player.jsp</result>
+			<result name="input" type="redirect">/vod/playListIndex</result>
+		</action>
+		
+		<action name="popular"  class="com.vc.presentation.action.vod.MostPopularAction">
+			<result>/WEB-INF/pages/vod/mostpopular.jsp</result>
+		</action>
+		
+		<action name="highestRate"  class="com.vc.presentation.action.vod.HighestRatedAction">
+			<result>/WEB-INF/pages/vod/mostpopular.jsp</result>
+		</action>
+		
+		<action name="recentAdded"  class="com.vc.presentation.action.vod.RecentAddedAction">
+			<result>/WEB-INF/pages/vod/recentadded.jsp</result>
+		</action>
+		
+		<action name="channels"  class="com.vc.presentation.action.vod.ChannelDetailAction">
+			<result>/WEB-INF/pages/vod/channeldetail.jsp</result>
+			<result name="channels">/WEB-INF/pages/vod/channels.jsp</result>
+		</action>
+		
+		<action name="showComments"  class="com.vc.presentation.action.vod.ShowPlayListCommentsAction">
+			<result>/WEB-INF/pages/vod/playlistcomments.jsp</result>
+		</action>	
+		
+		<action name="showRecommented"  class="com.vc.presentation.action.vod.RecommentedVideoAction">
+			<result>/WEB-INF/pages/vod/playlistentry.jsp</result>
+		</action>	
+		
+		<action name="alsoLiked" class="com.vc.presentation.action.vod.AlsoLikedVideoAction">
+			<result>/WEB-INF/pages/vod/playlistentry.jsp</result>
+		</action>	
+		
+		<action name="search" class="com.vc.presentation.action.vod.SearchVideoAction">
+			<result>/WEB-INF/pages/vod/ajaxsearchresult.jsp</result>
+		</action>
+		
+		<action name="liveBroadcast" class="com.vc.presentation.action.vod.LiveBroadcastIndexAction">
+			<result>/WEB-INF/pages/vod/livebroadcastindex.jsp</result>
+		</action>
+		
+		<action name="addToQueue"  class="com.vc.presentation.action.vod.AddPlayListQueueAction"/>
+		
+		<action name="getSubChannel"  class="com.vc.presentation.action.vod.GetSubChannelAction"/>
+		
+		<action name="ratePlayList"  class="com.vc.presentation.action.vod.RatePlayListAction"/>
+		
+		<action name="addReview" class="com.vc.presentation.action.vod.AddReviewAction"/>
+		
+	</package>
+	
+	
+</struts>

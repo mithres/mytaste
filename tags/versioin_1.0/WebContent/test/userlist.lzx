@@ -1,0 +1,40 @@
+<canvas debug="true" height="800">
+	<simplelayout axis="x"/>
+	
+	<inputtext name="vname" width="100"/>
+	
+	<button text="add">
+		<handler name="onclick">
+			parent.addOuterView(tview,vname.text);
+		</handler>
+	</button>
+	
+	<button text="remove">
+		<handler name="onclick">
+			parent.removeView();
+		</handler>
+	</button>
+		
+	<view id="tview" height="800" width="100" bgcolor="green" layout="axis:y">
+			
+			
+	</view>
+	
+	<method name="removeView" args="viewName">
+		Debug.write(tview.subviews);
+		var vi = tview.searchSubviews("id",vname.text);
+		Debug.write(vi);
+		vi.destroy();
+		
+	</method>
+		
+	<method name="addOuterView" args="owner,name">
+		Debug.write("call add view.");
+		// Create outer View
+		var outerView = new LzView(owner, {width : 100,height : 50,bgcolor : "red",layout:"axis:x"});
+		outerView.setAttribute("id",name);
+		var innerView = new LzView(outerView,{width:50,height:20,bgcolor:"white"});
+		var innerText = new LzText(outerView,{text:name,width:50});
+	</method>
+	
+</canvas>

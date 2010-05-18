@@ -1,0 +1,102 @@
+<canvas>
+	
+	<include href="../lps/videoconference/base/vcrtmpconnection.lzx"/>
+	
+	
+	<!--dataset name="authInfo" request="true"/>
+
+		<datapointer xpath="authInfo:/Credential">
+			<handler name="ondata">
+				var credential = this.getNodeText();
+				var url = "rtmp://" + canvas.serverIP + "/" + canvas.vodRTMPAddress;
+				Debug.write("Connect to " + url);
+				rc.setAttribute("src", url);
+				rc.connect(credential);
+				rc.getSignature.callRPC();
+			</handler>
+		</datapointer-->
+	
+	<!--lpsConfig id="lpsConfig"/-->
+	
+	<script>
+		canvas.setDefaultContextMenu(new LzContextMenu());
+
+		function init(filmName, sid, url) {
+			Debug.write(url + ":" + filmName + ":" + sid);
+			rc.setAttribute("src", url);
+			rc.connect(sid);
+			s2.setAttribute("url", filmName);
+			//rc.getSignature.callRPC();
+		}
+	</script>
+
+	<vcrtmpconnection name="rc" autoconnect="false">
+		
+		<handler name="onconnect">
+			Debug.write("connected");
+		</handler>
+		
+		<handler name="onerror">
+			Debug.write("error ", this.status);
+		</handler>
+		
+		<!--netremotecall name="getSignature" funcname="vod.getSignature"-->
+		<!--attribute name="param1" value="ammen" type="string" />      
+			<netparam name="vars1">
+				<method name="getValue">
+					return parent.param1;
+				</method>
+			</netparam-->  
+		<!--method name="onResult" args="value">
+				//aes = new lz.AESCryptLz();
+				//var encryptedName = aes.encryptByAscii(canvas.filmName, value);
+				canvas.loadPlayer(canvas.filmName);
+			</method-->  
+			
+		<!--/netremotecall-->
+		
+		<servercallback name="disPlayErrorMessage" funcname="showErrorMessage">
+			<method name="onResult" args="value">
+				Debug.write("Get result from server" + value);
+			</method>  
+			
+		</servercallback>
+		
+	</vcrtmpconnection>
+	
+	
+	<mediastream name="s2" type="rtmp" autorewind="true"/>
+	
+	<!--videoplayer id="player" type="rtmp" autoplay="true" width="320" height="240" stream="$once{canvas.s2}"/-->
+	
+	<resource name="fullscreen" src="../images/fullscreen-icon.png"/>
+	
+	<view bgcolor="black" width="${parent.width}" layout="axis:y"  valign="middle" align="center">
+		
+		<handler name="onclick">
+			if (!s2.playing) {
+				s2.play();
+			}else{
+				s2.pause();	
+			}
+		</handler>
+		
+		<videoview id="vid" width="${parent.width}" height="${canvas.height - 36}" type="rtmp" stream="${s2}"/>
+		
+		<view name="fullScreen" width="${parent.width -2 }" x="1" y="1" height="18">
+			<videoslider name="vslider"	width="${parent.width}" height="${parent.height}" visible="true" ms="${s2}" showTimeDisplay="true" showVolumeControl="true" time="${s2.time}" totaltime="${s2.totaltime}"/>
+		</view>
+		
+		<view name="toolBar" bgcolor="white" width="${parent.width}">
+			<basebutton resource="fullscreen" name="ful" width="${parent.width - parent.height}" height="18" x="1">
+				<handler name="onclick">
+					Debug.write(canvas.width + ":" + canvas.height);
+					canvas.setAttribute("fullscreen", true);
+				</handler>
+			</basebutton>	
+		</view>
+		
+	</view>
+	
+	
+</canvas>

@@ -1,0 +1,38 @@
+<canvas width="600" height="400" debug="true">
+	
+	<dataset name="myds">
+	</dataset>
+
+	<button>Make XML
+		<method event="onclick">
+
+
+			// Obtain a datapointer
+			var dp = canvas.datasets.myds.getPointer();
+
+			// Create a root node
+			var newNodeName = 'myrootnode';
+			dp.addNode(newNodeName);
+
+			// Move the pointer to the newly created root node
+			dp.setXPath(newNodeName);
+
+			// Create three child nodes
+			newNodeName = 'foo';
+			dp.addNode(newNodeName, 'One', {
+						bar : "1"
+					});
+			dp.addNode(newNodeName, 'Two', {
+						bar : "2"
+					});
+			dp.addNode(newNodeName, 'Three', {
+						bar : "3"
+					});
+
+			// Write out the contents of the dataset for debugging
+			var dspointer = canvas.datasets.myds.getPointer();
+			Debug.write(dspointer.serialize());
+		</method>
+	</button>
+    
+</canvas>

@@ -1,0 +1,54 @@
+<library>
+	
+	<class name="userlist">
+		
+		<view name="rowcontainer" width="$once{parent.width-2}" height="$once{parent.height-22}" clip="true" bgcolor="white">
+			<simplelayout axis="y" />
+			<view height="20" bgcolor="#bfdbff" width="$once{parent.width}">
+				<text>Users</text>
+			</view>
+			<view name="ulist" width="$once{parent.width-2}" height="$once{parent.height-22}" clip="true" bgcolor="white">
+				<view name="userListContent" width="$once{parent.width-2}" layout="axis:y">
+					<simplelayout axis="y" spacing="1"/>
+				</view>
+				<scrollbar/>
+			</view>
+		</view>
+		
+		<method name="initList" args="userInfos">
+		<![CDATA[
+			if (userInfos != null) {
+				for (var i = 0; i < userInfos.length; i++) {
+					this.updateListItem(userInfos[i]);
+				}
+			}
+		]]>
+		</method>
+		
+		<method name="updateListItem" args="userInfo">
+			if (userInfo != null) {
+				Debug.write("=============" + userInfo);
+				if (userInfo.remove) {
+					var vi = rowcontainer.ulist.userListContent.searchSubnodes(
+							"name", userInfo.userId);
+					Debug.write("View need to be removed:" + vi);
+					vi.destroy();
+				} else {
+					var outerView = new LzView(rowcontainer.ulist.userListContent, {
+								name : userInfo.userId
+							});
+					var innerView = new LzView(outerView, {
+								resource : userInfo.userPic
+							});
+					var innerText = new LzText(outerView, {
+								text : userInfo.userId,
+								x : 40
+							});
+				}
+			}
+		</method>
+		
+		
+	</class>
+	
+</library>

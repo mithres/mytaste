@@ -1,0 +1,322 @@
+<library>
+	<!--
+			Visualslider for OpenLaszlo
+			Copyright (C) 2008 Mario Koenig (mk@qiii.de)
+
+			This program is free software: you can redistribute it and/or modify
+			it under the terms of the GNU General Public License as published by
+			the Free Software Foundation, either version 3 of the License, or
+			any later version.
+
+			This program is distributed in the hope that it will be useful,
+			but WITHOUT ANY WARRANTY; without even the implied warranty of
+			MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+			GNU General Public License for more details.
+
+			You should have received a copy of the GNU General Public License
+			along with this program.  If not, see http://www.gnu.org/licenses/.
+		-->
+	<class name="visualslider" defaultplacement="content">
+		<attribute name="currentslide"   type="number"     value="0" />
+		<attribute name="slideduration"  type="number"     value="1500" />
+		<attribute name="circular"       type="boolean"    value="false" />
+		<attribute name="timerms"        type="number"     value="10000" />
+		<attribute name="istimerstarted" type="boolean"    value="false" />
+		<attribute name="_slideto"       type="number"     value="0" />
+		<attribute name="_slideduration" type="number"     value="0" />
+		<attribute name="_slidedonedel"  type="expression" value="null" />
+		<attribute name="_timerdel"      type="expression" value="null" />
+		<attribute name="_timerstop"     type="boolean"    value="false" />
+		<attribute name="_inited"        type="boolean"    value="false" />
+		
+		<handler name="oninit">
+			this._recalculateSlides(currentslide);
+		</handler>
+		<handler name="onwidth">
+			this._recalculateSlides(currentslide);
+		</handler>
+		<handler name="onheight">
+			this._recalculateSlides(currentslide);
+		</handler>
+		<method name="slideUp">
+			if (_inited) {
+				this.slideTo(this.currentslide + 1);
+			}else{
+				this._inited = true;
+				this.slideTo(this.currentslide);
+			}
+		</method>
+		<method name="slideDown">
+			this.slideTo(this.currentslide - 1);
+		</method>
+		<method name="slideTo" args="slidenr">
+		<![CDATA[
+			Debug.write(slidenr);
+			if (slidenr < 0 || slidenr > this.content.subviews.length - 1) {
+				Debug.warn("The selected slide is out of range: " + slidenr);
+				return;
+			}
+			_stopAnimation();
+			this._slideto = slidenr;
+			this._slideduration = slideduration
+					/ ((slidenr - this.currentslide) == 0
+							? 100
+							: (slidenr - this.currentslide));
+			this._slideduration = this._slideduration < 0 ? this._slideduration
+					* (-1) : this._slideduration;
+
+			var nextslidenr = this.currentslide < slidenr ? this.currentslide
+					+ 1 : this.currentslide - 1;
+			nextslidenr = this.currentslide == slidenr
+					? this.currentslide
+					: nextslidenr;
+			nextslidenr = this._recalculateSlides(nextslidenr);
+			this.setAttribute("currentslide", nextslidenr);
+		]]>
+		</method>
+		<method name="_recalculateSlides" args="newopenslide">
+		<![CDATA[
+			if (!this.isinited)
+				return;
+			if (newopenslide != this.currentslide) {
+				if (this.circular)
+					newopenslide = this._switchSlides(newopenslide);
+				if (newopenslide > this.currentslide) {
+					this._recalculateRightFrom(newopenslide > this.currentslide
+							? newopenslide + 1
+							: this.currentslide);
+					this._recalculateLeftTo(newopenslide > this.currentslide
+							? this.currentslide
+							: newopenslide - 1);
+				} else {
+					this._recalculateLeftTo(newopenslide > this.currentslide
+							? this.currentslide
+							: newopenslide - 1);
+					this._recalculateRightFrom(newopenslide > this.currentslide
+							? newopenslide + 1
+							: this.currentslide);
+				}
+				this._recalculateOpenSlide(newopenslide);
+			} else {
+				this._recalculateLeftTo(newopenslide - 1);
+				this._recalculateOpenSlide(newopenslide);
+				this._recalculateRightFrom(newopenslide + 1);
+			}
+			return newopenslide;
+		]]>
+		</method>
+		<method name="_switchSlides" args="newopenslide">
+		<![CDATA[
+			if (newopenslide > this.currentslide) {
+				if (this.currentslide == Math
+						.round(this.content.subviews.length / 2 - 0.5)
+						&& this.content.subviews.length > 3) {
+					var svarray = this.content.subviews;
+					var l = svarray.length - 1
+					var tmp;
+					var tmp1 = this.content.subviews[l];
+					svarray[l] = svarray[0];
+					for (var i = l - 1; i >= 0; i--) {
+						//Debug.write("replacing:", this.content.subviews[i], tempslide);
+						tmp = svarray[i];
+						svarray[i] = tmp1;
+						tmp1 = tmp;
+					}
+					this.content.subviews = svarray;
+					this._slideto--;
+					this.currentslide--;
+					return newopenslide - 1;
+				}
+			}
+			if (newopenslide < this.currentslide) {
+				if (this.currentslide == Math
+						.round(this.content.subviews.length / 2 - 0.5)
+						&& this.content.subviews.length > 3) {
+					var svarray = this.content.subviews;
+					var l = svarray.length - 1
+					var tmp;
+					var tmp1 = this.content.subviews[0];
+					svarray[0] = svarray[l];
+					for (var i = 1; i <= l; i++) {
+						//Debug.write("replacing:", this.content.subviews[i], tempslide);
+						tmp = svarray[i];
+						svarray[i] = tmp1;
+						tmp1 = tmp;
+					}
+					this.content.subviews = svarray;
+					this._slideto++;
+					this.currentslide++;
+					return newopenslide + 1;
+				}
+			}
+			return newopenslide;
+		]]>
+		</method>
+		<method name="_recalculateLeftTo" args="lastslide">
+		<![CDATA[
+			if (lastslide < 0)
+				return;
+			var startspacer = this.width / 100;
+			var spacer = startspacer;
+			var storagewidth = this.width / 5;
+			var maxwidthperslide = storagewidth - spacer * 5;
+			for (var i = 0; i <= lastslide; i++) {
+				var pslide = this._getSlideByNumber(i);
+				pslide.bringToFront();
+			}
+			for (var i = lastslide; i >= 0; i--) {
+				var pslide = this._getSlideByNumber(i);
+				var newwidth = maxwidthperslide - (spacer - startspacer);
+				var newheight = pslide.originalheight
+						* (newwidth / pslide.originalwidth);
+				var newx = storagewidth - newwidth - spacer * 2;
+				var newy = this.height / 2 - newheight - spacer;
+				pslide.setAttribute("currentslide", false);
+				pslide.doSlide(newwidth, newheight, newx, newy,
+						this._slideduration);
+				spacer += 10;
+				if (i == lastslide) {
+					if (!this._slidedonedel) {
+						this._slidedonedel = new LzDelegate(this,
+								"_keepsliding");
+					}
+					this._slidedonedel.register(pslide, "onstop");
+				}
+				pslide.slidenumber = i;
+			}
+		]]>
+		</method>
+		<method name="_recalculateOpenSlide" args="newopenslide">
+		<![CDATA[
+			var pslide = this._getSlideByNumber(newopenslide);
+			var newx = this.width / 2 - pslide.originalwidth / 2;
+			var newy = this.height / 2 - pslide.originalheight / 2;
+			pslide.setAttribute("currentslide", true);
+			pslide.doSlide(pslide.originalwidth, pslide.originalheight, newx,
+					newy, this._slideduration);
+			pslide.slidenumber = newopenslide;
+			pslide.bringToFront();
+		]]>
+		</method>
+		<method name="_recalculateRightFrom" args="firstslide">
+		<![CDATA[
+			if (lastslide < 0)
+				return;
+			var lastslide = this.content.subviews.length - 1;
+			var startspacer = this.width / 100;
+			var spacer = startspacer;
+			var storagewidth = this.width / 5;
+			var storagex = this.width - storagewidth;
+			var maxwidthperslide = storagewidth - spacer * 5;
+			for (var i = lastslide; i >= firstslide - 1; i--) {
+				var pslide = this._getSlideByNumber(i);
+				pslide.bringToFront();
+			}
+			for (var i = firstslide; i <= lastslide; i++) {
+				var pslide = this._getSlideByNumber(i);
+				var newwidth = maxwidthperslide - (spacer - startspacer);
+				var newheight = pslide.originalheight
+						* (newwidth / pslide.originalwidth);
+				var newx = storagex + spacer * 2;
+				var newy = this.height / 2 - newheight - spacer;
+				pslide.setAttribute("currentslide", false);
+				pslide.doSlide(newwidth, newheight, newx, newy,
+						this._slideduration);
+				spacer += 10;
+				pslide.slidenumber = i;
+			}
+		]]>
+		</method>
+		<method name="_getSlideByNumber" args="n">
+		<![CDATA[
+			if (this.content.subviews.length < n) {
+				Debug.warn("The selected view is out of range");
+				return 0;
+			}
+			return this.content.subviews[n];
+		]]>
+		</method>
+		<method name="_stopAnimation">
+		<![CDATA[
+			for (var i = 0; i < this.content.subviews.length - 1; i++) {
+				this.content.subviews[i].anim.stop();
+			}
+		]]>
+		</method>
+		<method name="_keepsliding" args="dummy"> <!-- The argument is cuz of 4.1 delegate problems -->
+            this._slidedonedel.unregisterAll();
+            if (_slideto == this.currentslide)
+                return;
+            this.slideTo(_slideto);
+		</method>
+		<method name="startTimer">
+			if (this._timerstop) {
+				this._timerstop = false;
+				this.setAttribute("istimerstarted", true);
+				return;
+			}
+			if (!this._timerdel)
+				this._timerdel = new LzDelegate(this, "_timerRefresh");
+			lz.Timer.addTimer(this._timerdel, this.timerms);
+			this._timerstop = false;
+			this.setAttribute("istimerstarted", true);
+		</method>
+		<method name="stopTimer">
+			if (this._timerstop || !this.istimerstarted)
+				return;
+			this._timerstop = true;
+			this.setAttribute("istimerstarted", false);
+		</method>
+		<method name="_timerRefresh">
+			if (this._timerstop) {
+				this._timerstop = false;
+				return;
+			}
+			this.slideUp()
+			lz.Timer.addTimer(this._timerdel, this.timerms);
+		</method>
+		<view name="content" width="${parent.width}" height="${parent.height}" />
+	</class>
+	<class name="visualsliderview" defaultplacement="content" extends="view">
+		<attribute name="originalwidth"  type="number" />
+		<attribute name="originalheight" type="number" />
+		<attribute name="currentslide"   type="boolean" value="false" />
+		<attribute name="shadow"         type="boolean" value="true" />
+		<attribute name="factor"         type="number"  value="${this.width/this.originalwidth}" />
+		<attribute name="slidenumber"    type="number"  value="-1"/>
+		<event name="onstop" />
+		<event name="onstart" />
+		<method name="doSlide" args="w,h,x,y,d">
+			d = (d == Infinity) ? 100 : d;
+			this.anim.stop();
+			this.anim.paramx.setAttribute("to", x);
+			this.anim.paramx.setAttribute("duration", d);
+			this.anim.paramy.setAttribute("to", y);
+			this.anim.paramy.setAttribute("duration", d - (d / 10));
+			this.anim.paramw.setAttribute("to", w);
+			this.anim.paramw.setAttribute("duration", d - (d / 10));
+			this.anim.paramh.setAttribute("to", h);
+			this.anim.paramh.setAttribute("duration", d - (d / 10));
+			this.anim.doStart();
+		</method>
+		<_bottomshadow visible="${parent.shadow}" />
+		<view name="content" width="${parent.width}" height="${parent.height}" />
+		<animatorgroup name="anim" process="simultaneous" start="false">
+			<animator name="paramx" attribute="x"      to="0" duration="0" motion="easeboth" />
+			<animator name="paramy" attribute="y"      to="0" duration="0" motion="easeboth" />
+			<animator name="paramw" attribute="width"  to="0" duration="0" motion="easeboth" />
+			<animator name="paramh" attribute="height" to="0" duration="0" motion="easeboth" />
+			<handler name="onstop">
+				parent.onstop.sendEvent();
+			</handler>
+			<handler name="onstart">
+				parent.onstart.sendEvent();
+			</handler>
+		</animatorgroup>
+	</class>
+	<class name="_bottomshadow" width="${parent.width+40}" height="15" x="-20" y="${immediateparent.height-this.height/2}" extends="view">
+		<view resource="../../../images/shadow_l.png" />
+		<view resource="../../../images/shadow.png" stretches="both" x="20" width="${parent.width-40}" />
+		<view x="${parent.width-20}" resource="../../../images/shadow_r.png" />
+	</class>
+</library>
