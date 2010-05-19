@@ -11,7 +11,7 @@
 	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>/WEB-INF/red5-web.properties</value>
+				<value>WEB-INF/classes/videoconference/vc.properties</value>
 				<value>classpath:server-config.properties</value>
 			</list>
 		</property>
