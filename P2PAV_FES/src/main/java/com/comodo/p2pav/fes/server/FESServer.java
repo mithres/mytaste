@@ -48,6 +48,7 @@ public class FESServer implements Runnable {
 	@Override
 	public void run() {
 		try {
+			logger.info("Listernint on " + ServerConfigration.getServerPort());
 			while (true) {
 				if (selector.select() > 0) {
 					Iterator<SelectionKey> iter = selector.selectedKeys().iterator();
@@ -138,7 +139,6 @@ public class FESServer implements Runnable {
 	public static void main(String[] args) {
 		try {
 			FESServer server = new FESServer();
-			logger.info("Listernint on " + ServerConfigration.getServerPort());
 			Thread t = new Thread(server);
 			t.start();
 		} catch (IOException e) {
