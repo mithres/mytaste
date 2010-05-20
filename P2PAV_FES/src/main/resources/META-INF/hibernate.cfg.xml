@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+		
+		<!-- dialect -->
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+			
+		<!-- show sql -->
+		<!--property name="show_sql">true</property-->
+		<property name="format_sql">true</property>
+		<property name="jdbc.batch_size">100</property>
+			
+			
+		<property name="hbm2ddl.auto">update</property>
+
+		<property name="generate_statistics">false</property>
+		<property name="cache.use_structured_entries">true</property>
+			
+		<!-- enable use hibernate second level cache -->
+		<property name="cache.use_second_level_cache">false</property>
+		<property name="cache.use_query_cache">true</property>
+		
+		<property name="cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</property>
+		<!--
+		<property name="cache.provider_class">org.terracotta.hibernate.TerracottaHibernateCacheProvider</property>
+			-->
+		
+	</session-factory>
+
+</hibernate-configuration>

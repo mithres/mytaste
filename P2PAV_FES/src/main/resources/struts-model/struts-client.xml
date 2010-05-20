@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<package name="client" extends="default" namespace="/client">
+		
+		<action name="query" class="com.comodo.p2pav.fes.presentation.actions.client.QueryAction"/>
+
+		<action name="submit" class="com.comodo.p2pav.fes.presentation.actions.client.SaveScanResultAction"/>
+		
+	</package>
+	
+	
+</struts>
