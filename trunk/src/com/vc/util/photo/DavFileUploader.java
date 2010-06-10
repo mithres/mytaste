@@ -108,8 +108,8 @@ public class DavFileUploader implements IFileUploader {
 	private void prepareMethod(HttpMethod method, String authString) throws IOException {
 
 		StringWriter writer = new StringWriter();
-		Base64.encode(new ByteArrayInputStream((authString == null || authString.length() == 0 ? username + ":" + password : authString)
-				.getBytes()), writer);
+		Base64.encode(new ByteArrayInputStream((authString == null || authString.length() == 0 ? username + ":"
+				+ password : authString).getBytes()), writer);
 		String authStr = "Basic " + writer.toString();
 		method.setRequestHeader("Authorization", authStr);
 	}
@@ -190,7 +190,8 @@ public class DavFileUploader implements IFileUploader {
 	}
 
 	private URI buildURI(URI uri, String newPath) throws URISyntaxException {
-		uri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), newPath, uri.getQuery(), uri.getFragment());
+		uri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), newPath, uri.getQuery(), uri
+				.getFragment());
 		return uri;
 	}
 
@@ -216,7 +217,8 @@ public class DavFileUploader implements IFileUploader {
 	 * @return
 	 */
 	private boolean isSuccessfullResponse(int response) {
-		boolean result = response >= HttpServletResponse.SC_CREATED && response < HttpServletResponse.SC_MULTIPLE_CHOICES;
+		boolean result = response >= HttpServletResponse.SC_CREATED
+				&& response < HttpServletResponse.SC_MULTIPLE_CHOICES;
 		if (!result) {
 			log.debug("Not suucessfull response code:" + response);
 		}
