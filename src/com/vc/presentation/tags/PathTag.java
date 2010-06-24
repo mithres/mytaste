@@ -28,7 +28,7 @@ public class PathTag extends TagSupport {
 		StringBuffer path = new StringBuffer(protocol == null ? request.getScheme() : protocol);
 		path.append("://").append(request.getServerName()).append(port != 80 ? ":" + port : "");
 		path.append("/".equals(contextPath) ? "" : contextPath);
-
+		
 		try {
 			pageContext.getOut().write(path.toString());
 		} catch (IOException e) {
