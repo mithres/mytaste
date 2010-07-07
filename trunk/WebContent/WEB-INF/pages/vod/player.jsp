@@ -8,17 +8,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="main" />
+        
 <title>Video Share - Video: <s:property value="playList.playListName"/></title>
 
+<script src="<web.page:path/>/js/swfobject.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/js/jquery-ui.custom.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/js/jquery.uni-form.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/js/jquery.ui.stars.js" type="text/javascript" charset="utf-8"></script>
+
 
 <link rel="stylesheet" type="text/css" href="<web.page:path/>/css/jquery.ui.stars.css" />
 
 </head>
 
-<body onload="initPlayer();">
+<body onload="">
+
+<div id="flashContent">
+
+</div>
+
+
 <div id="vpvideotitle">
 <div class="base">
 <h1 class="videotitle">
@@ -42,16 +51,18 @@
 </div>
 <div class="left">
 
+
 	<script>
-		lz.embed.swf( {	
-			url : '<web.page:path/>/vod/vodplayer.swf8.swf',	
-			allowfullscreen : 'true',
-			width : '640',
-			height : '514',
-			id : 'lzapp',
-			wmode:'opaque'
-		});
-	</script>
+	//url : '<web.page:path/>/conference/training.lzx?lzt=swf',
+	//	lz.embed.swf( {	
+	//		url : '<web.page:path/>/vod/vodplayer.lzx?lzt=swf',	
+	//		allowfullscreen : 'true',
+	//		width : '640',
+	//		height : '514',
+	//		id : 'lzapp',
+	//		wmode:'opaque'
+	//	});
+        </script>
 
 	<div id="vpcomment_wrap">
 		<div id="vpcomment">
@@ -133,6 +144,34 @@
 		vodPlayer.callMethod(callMethod);
 	}
 
+
+    var swfVersionStr = "10.0.0";
+    var xiSwfUrlStr = "<web.page:path/>/vod/playerProductInstall.swf";
+    
+    var flashvars = {};
+    flashvars.sid='<s:property value="sid"/>';
+    flashvars.vodurl='<s:property value="nodeUrl"/>';
+    flashvars.pid='<s:property value="playListID"/>';
+    
+    var params = {};
+    params.quality = "high";
+    params.bgcolor = "#ffffff";
+    params.allowscriptaccess = "sameDomain";
+    params.allowfullscreen = "true";
+    params.wmode = "opaque";
+    
+    
+    var attributes = {};
+    attributes.id = "MyVideoPlayer";
+    attributes.name = "MyVideoPlayer";
+    attributes.align = "middle";
+
+    swfobject.embedSWF(
+        "<web.page:path/>/vod/MyVideoPlayer.swf", "flashContent", 
+        "100%", "100%", swfVersionStr, xiSwfUrlStr, flashvars, params, attributes);
+	swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+	swfobject.switchOffAutoHideShow();
+	
 </script>
 
 </body>
