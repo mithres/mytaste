@@ -3,7 +3,6 @@
 <%@ taglib prefix="web.page" uri="/WEB-INF/tlds/path.tld"%>
 <%@ taglib prefix="security" uri="/WEB-INF/tlds/security.tld"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,12 +21,6 @@
 </head>
 
 <body onload="">
-
-<div id="flashContent">
-
-</div>
-
-
 <div id="vpvideotitle">
 <div class="base">
 <h1 class="videotitle">
@@ -52,6 +45,9 @@
 <div class="left">
 
 
+<div id="flashContent">
+
+</div>
 	<script>
 	//url : '<web.page:path/>/conference/training.lzx?lzt=swf',
 	//	lz.embed.swf( {	
@@ -167,9 +163,9 @@
     attributes.align = "middle";
 
     swfobject.embedSWF(
-        "<web.page:path/>/vod/MyVideoPlayer.swf", "flashContent", 
-        "100%", "100%", swfVersionStr, xiSwfUrlStr, flashvars, params, attributes);
-	swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+        "<web.page:path/>/vod/Player.swf", "flashContent", 
+        "500", "500", swfVersionStr, xiSwfUrlStr, flashvars, params, attributes);
+	swfobject.createCSS("#flashContent", "display:block;text-align:center;");
 	swfobject.switchOffAutoHideShow();
 	
 </script>
