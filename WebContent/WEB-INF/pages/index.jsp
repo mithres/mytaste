@@ -10,11 +10,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="main" />
-<title><s:text name="vc.home.title" /></title>
+<title>华英视频教学</title>
 
 </head>
 <body class="div">
-
+<%--
 <div>
 	<script>
 		lz.embed.swf( {	
@@ -27,20 +27,17 @@
 		});
 	</script>
 </div>
-
-<div style="margin-top: 1px;" class="fixed-lg relative container main">
+ --%>
+<!--div style="margin-top: 1px;height: 900px;" class="fixed-lg relative container main">
 	<div id="playListRender">
 		<h1>Popular Videos</h1>
-		<s:iterator value="playLists.records"
-			var="playList" status="stat">
-			<%@include file="vod/playlistentryshort.jsp"%>
-		</s:iterator>
+		
 	</div>
-</div>
+</div-->
 
-<div style="margin-top: 1px;" class="fixed-lg relative container main">
+<!--div style="margin-top: 1px;" class="fixed-lg relative container main">
 <h1>Popular People</h1>
-</div>
+</div-->
 
 <script type="text/javascript">
 
@@ -49,7 +46,7 @@ function show(id){
 	var url = "<web.page:path/>/vod/play?playListID="+id;
 	location.href = url;
 }
-
+<%--
 $(document).ready(function() {
 
 	$("ul#topnav li").hover(function() { //Hover over event on list item
@@ -84,7 +81,44 @@ $(document).ready(function() {
 	shadowOffsetX: 4,
 	shadowOffsetY: 4
 	});
-});
+});--%>
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="bk">
+   <div class="main">
+       <div class="mainleft">
+	      
+		  
+	   </div>
+	   <div class="mainright">
+	      <div id="right_spkc">
+
+		    <div class="spkc_nr">
+		    <s:iterator value="playLists.records" var="playList" status="stat">
+				<%@include file="vod/playlistentryshort.jsp"%>
+			</s:iterator>
+		    
+		    
+			</div>
+		  </div>
+	   
+	   </div>      
+  </div>  
+</div>
 </body>
 </html>

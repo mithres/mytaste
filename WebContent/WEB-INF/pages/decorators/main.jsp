@@ -34,6 +34,13 @@
 	$(function() {
 		$("input:button, input:submit").button();
 	});
+
+	$(document).ready(function() {
+		if ($('.vidContents').length>0){
+			$('.vidContents').hide();
+		}
+		
+	});
 </script>
 
 <decorator:head />
@@ -48,10 +55,10 @@
 			
 			<ul style="" class="usernav" id="logged-out-nav">
 				<li class="first sign-out-link">Welcome : <security:authentication property="name"/></li>
-				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">Profile</a></li>
-				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/queue">Queue <span id="queueCount"></span></a></li>
-				<security:authorize ifAllGranted="ROLE_ADMIN"><li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/admin/index">System</a></li></security:authorize>
-				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/logout">Logout</a></li>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/accountInfo">个人信息</a></li>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/queue">播放列表 <span id="queueCount"></span></a></li>
+				<security:authorize ifAllGranted="ROLE_ADMIN"><li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/admin/index">系统</a></li></security:authorize>
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/logout">退出</a></li>
 			</ul>
 			<script type="text/javascript">
 					findUserQueueCount();
@@ -101,9 +108,9 @@
 				
 			</script>
 			<ul style="" class="usernav" id="logged-out-nav">
-				<li class="first sign-out-link"><a onclick="showLoginForm();" id="login-link" href="javascript:void(0);" style="cursor:pointer;" class="utility-link">Login</a></li>
-				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/forgot_password">Forgot Password?</a></li>
-				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/signUp/signUpIndex">Sign Up</a></li>
+				<li class="first sign-out-link"><a onclick="showLoginForm();" id="login-link" href="javascript:void(0);" style="cursor:pointer;" class="utility-link">登录</a></li>
+				<!-- li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/user/forgot_password">忘记密码?</a></li -->
+				<li class="signin-border-left"><a class="utility-link" href="<web.page:path/>/signUp/signUpIndex">注册</a></li>
 				<li>
 					<div id="message_box">
 						<div style="float:left;height:14px;width:100%;background:url('<web.page:path/>/images/subnav-hover.gif') repeat-x;"><img id="close_message" onclick="hideLoginForm();" style="float:right;cursor:pointer" src="<web.page:path/>/images/close_12em.png"/></div>
@@ -112,7 +119,7 @@
 										<table width="100%">
 											<tr>
 												<td><img src="<web.page:path/>/images/int-warning.gif"/></td>
-												<td style="text-align:left;">Please enter your account and password.</td>
+												<td style="text-align:left;">请输入档案号和密码</td>
 											</tr>
 											<tr>
 												<td colspan="2"><span id="errorMessage"></span></td>
@@ -152,13 +159,13 @@
 			
 			<ul class="nv">
 				<li id="home" class="first"><a rel="home" href="<web.page:path/>/"><img	height="42" border="0" title="Video Share" src="<web.page:path/>/images/logo.jpg" /></a> 
-				<li class="tabvc current" id="videos">
+				<!--li class="tabvc current" id="videos">
 				<a href="<web.page:path/>/vod/playListIndex" class="">
 				Videos</a></li>
 				<li class="tabvc" id="conferences">
 				<a href="<web.page:path/>/conference/roomListIndex">
 				Conferences
-				</a></li>
+				</a></li-->
 			</ul>
 		</div>
 	</div>
@@ -168,8 +175,8 @@
 <div class="container">
 
 <ul id="topnav">
-	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;" <s:if test="'Channel'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/channels">Channels</a>
-	<span class="channels-dock"> 
+	<li style="border-left: 1px solid #A5A5A5;font-weight:bold;" <s:if test="'Channel'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/channels">金牌教师</a>
+	<%--<span class="channels-dock"> 
 		<table>
 			<tbody>
 				<tr>
@@ -191,11 +198,11 @@
 		</table>
 	
 
-	</span>
+	</span>--%>
 	</li>
 
 <s:if test="#session.MenuStat.menuStat.equals('vod')">
-	<li style="font-weight:bold;" <s:if test="'MostPopular'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/popular">Most Popular</a></li>
+	<li style="font-weight:bold;" <s:if test="'MostPopular'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/popular">最受欢迎</a></li>
 	<li style="font-weight:bold;" <s:if test="'RecentlyAdded'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/recentAdded">Recently Added</a></li>
 	<li style="font-weight:bold;" <s:if test="'Collection'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/collections">Collections</a></li>
 	<li style="font-weight:bold;" <s:if test="'LiveBroadcast'.equals(#session.NavStat)"> class="selected-li" </s:if>><a href="<web.page:path/>/vod/liveBroadcast">Live Broadcast</a></li>
@@ -236,28 +243,15 @@
 <div class="fixed-lg container">
 <div style="width: 96%; text-align: center; height: 20px;"
 	class="searchnav">
-<form
-	onsubmit="if(this.query.value == '') {return false;} if(!$('footer-search-auto-complete').visible()){SearchTracking.trackSearchForm('bottom_search_form')}"
-	method="get" action="http://www.hulu.com/search" name="search_form"
-	id="bottom_search_form"><input type="text"
-	style="margin-right: -3px;" name="query" autocomplete="off" value=""
-	class="search" id="bottom_video_search_term" /> <a
-	href="javascript:void(0)"><img border="0" title="Search"
-	style="vertical-align: middle; margin-left: -1px; margin-bottom: 2px;"
-	src="<web.page:path/>/images/btn-search.gif" id="bottom-nav-search-button" class=""
-	alt="Search" /></a> <a
-	onclick="if (!$('serp-header')) return true; window.scroll(0,0); var el = $('advanced-search'); if (!el || !el.visible()) toggleAdvancedSearch(); return false"
-	href="/search/advanced_search" class="search-footer-link">Advanced
-Search</a> <span class="search-footer-spacer">|</span> <a
-	onclick="installOpenSearch(); return false" href="javascript:void(0)"
-	class="search-footer-link">Search Plugin</a></form>
+
 </div>
 </div>
 </div>
 
-<span class="fp_home flt" style="margin: 20px 0px 0px 340px;">Copyright
-© 2009-2010 Video Share. All rights reserved. Terms of use Powered By <b
-	style="color: #5EACA3;">Video Share</b></span>
+<span class="fp_home flt" style="margin: 20px 0px 0px 340px;text-align:center;">
+(Copyright © 2002-2010) TIANJIN HUAYING SCIENCE TECHNOLOGY AND EDUCATION DEVELOPMENT CO.,LTD.<br>
+<a href="http://www.miibeian.gov.cn/" style="color: #8E8B8B;">津ICP备05004622号</a> 　津教备0151号　建议使用IE6.0以上版本及1024*768分辨率 </span>
+</span>
 
 
 
