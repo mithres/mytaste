@@ -7,8 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="decorator" content="main" />
-        
-<title>Video Share - Video: <s:property value="playList.playListName"/></title>
+<title>华英视频教学: <s:property value="playList.playListName"/></title>
 
 <script src="<web.page:path/>/js/swfobject.js" type="text/javascript" charset="utf-8"></script>
 <script src="<web.page:path/>/js/jquery-ui.custom.min.js" type="text/javascript" charset="utf-8"></script>
@@ -23,18 +22,29 @@
 <body onload="">
 <div id="vpvideotitle">
 <div class="base">
-<h1 class="videotitle">
-<span class="label">Video:</span>
+
+<table>
+<tr>
+	<td><h1 class="videotitle">
+<span class="label"><s:property value="playList.channel.channelName"/>:</span>
 <span class="name"><s:property value="playList.playListName"/> </span>
 <span> | </span>
-</h1>
-<form id="ratings" action="<web.page:path/>/vod/ratePlayList" method="post" style="padding-left:30px;">
-	<input type="radio" id="rate1" name="rateValue" value="1" title="Poor" id="rate1" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 1">checked="checked"</s:if> /><br />
-	<input type="radio" id="rate2" name="rateValue" value="2" title="Fair" id="rate2" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 2">checked="checked"</s:if> /><br />
-	<input type="radio" id="rate3" name="rateValue" value="3" title="Average" id="rate3" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 3">checked="checked"</s:if>  /><br />
-	<input type="radio" id="rate4" name="rateValue" value="4" title="Good" id="rate4" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 4">checked="checked"</s:if> /><br />
-	<input type="radio" id="rate5" name="rateValue" value="5" title="Excellent" id="rate5" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 5">checked="checked"</s:if> /><br />
-</form>
+
+</h1></td>
+	<td><form id="ratings" action="<web.page:path/>/vod/ratePlayList" method="post">
+<input type="radio" id="rate1" name="rateValue" value="1" title="Poor" id="rate1" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 1">checked="checked"</s:if> />
+		<input type="radio" id="rate2" name="rateValue" value="2" title="Fair" id="rate2" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 2">checked="checked"</s:if> />
+		<input type="radio" id="rate3" name="rateValue" value="3" title="Average" id="rate3" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 3">checked="checked"</s:if>  />
+		<input type="radio" id="rate4" name="rateValue" value="4" title="Good" id="rate4" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 4">checked="checked"</s:if> />
+		<input type="radio" id="rate5" name="rateValue" value="5" title="Excellent" id="rate5" <s:if test="playList.averageRateValue != null && playList.averageRateValue.intValue() == 5">checked="checked"</s:if> />
+</form></td>
+</tr>
+
+</table>
+
+
+
+
 
 
 
