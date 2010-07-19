@@ -46,7 +46,7 @@ h4.subtag {
 	font-weight:normal;
 }
 
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,p,blockquote,th,td
 	{
 	margin: 0;
 	padding: 0;
@@ -285,7 +285,7 @@ form#search_form {
 }
 
 input#video_search_term {
-	border-color: #949494 #949494 #696969;
+	border-color: #afcf58 #afcf58 #92b72c;
 	border-style: solid;
 	border-width: 1px;
 	font-size: 11px;
@@ -326,7 +326,7 @@ div.searchnav {
 }
 
 input#bottom_video_search_term {
-	border-color: #949494 #949494 #696969;
+	border-color: #afcf58 #afcf58 #92b72c;
 	border-style: solid;
 	border-width: 1px;
 	font-size: 11px;
@@ -411,7 +411,6 @@ div.main {
 * {
 	margin: 0;
 	padding: 0;
-	border: 0;
 	outline: 0;
 }
 
@@ -479,7 +478,6 @@ div.ie-fix {
 
 .target {
 	text-align: center;
-	border: 1px solid #666666;
 	width: auto;
 	height: auto;
 	display: block;
@@ -593,12 +591,13 @@ p {
 }
 
 .video .videoImg,.video .vImg {
-	height: 80px;
+	height: 120px;
 	left: 0;
 	position: relative;
 	top: 0;
-	width: 145px;
+	width: 155px;
 	z-index: 0;
+	background: url("../images/right_spkc_bg.jpg") no-repeat;
 }
 
 .indexV .iVideo .vTitle {
@@ -608,6 +607,7 @@ p {
 
 .video li,.video_s li {
 	color: #909090;
+	
 }
 
 .video .playMenu,.video .vMenu,.video_s .playMenu,.video_s .vMenu {
@@ -1201,9 +1201,7 @@ vertical-align:middle;
 width:230px;
 }
 #ratings{
-	left:120px;
-	top:7px;
-	position:absolute;
+width:200px;
 }
 div.channel-groups{
 	margin-top:10px;
@@ -1520,4 +1518,30 @@ float:left;
 margin-top:95px;
 margin-left:-45px;
 }
+
+
+
+/*==============================学校新加css=====================================*/
+.nr{ font-size:12px; line-height:24px}
+.js{ font-size:12px; line-height:20px;text-align: left;}
+.bt{font-size:14px; line-height:20px; color:#237433}
+.wz{font-size:12px;line-height:24px; color:#CC3300; font-weight:bold}
+.bk{ width:960px; float:left; font-size:12px;}
+.mainleft{width:208px;}
+#left_spdl{ float:left;width:208px; height:125px;}
+.spdl_top{width:208px;height:28px}
+.spdl_nr{width:208px; height:95px; background:url(images/left_dl_bg.jpg) repeat-y}
+.spdl_bot{width:208px;height:2px}
+#left_jpjs{ float:left;width:208px; height:173px; margin-top:2px}
+.jpjs_top{width:208px;height:22px}
+.jpjs_nr{width:208px;height:151px}
+.mainright{float:left; width:726px;margin-left:7px}
+#right_spkc{ float:left;width:726px;}
+.spkc_top{width:726px;height:28px}
+.spkc_nr{width:726px}
+/*===================================================================*/
+
+
+
+
 
