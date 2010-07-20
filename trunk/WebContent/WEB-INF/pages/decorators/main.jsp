@@ -6,6 +6,7 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"	prefix="decorator"%>
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -69,11 +70,11 @@
 			<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER">
 			<script>
 				function showLoginForm(){
-					$('#message_box').animate({ opacity:100 },"slow");  
+					$('#message_box').css("display","block");  
 				}
 				function hideLoginForm(){
-					$('#loading').animate({opacity:0});	
-					$('#message_box').animate({opacity:0 }, "slow");
+					$('#loading').css("display","block");	
+					$('#message_box').css("display","none");
 				};
 				
 				function login() {
@@ -125,16 +126,16 @@
 												<td colspan="2"><span id="errorMessage"></span></td>
 											</tr>
 											<tr>
-												<td class="rp_user flt"><s:text name="vc.index.username" /></td>
+												<td class="rp_user flt">档案号：</td>
 												<td><input id="userName" class="form-input" type='text' name='userName'
 													value="" /></td>
 											</tr>
 											<tr>
-												<td class="rp_user flt"><s:text name="vc.index.pwssword" /></td>
+												<td class="rp_user flt">密码：</td>
 												<td><input id="userPassword" class="form-input" type='password' name='password' autocomplete="off" /></td>
 											</tr>
 											<tr>
-												<td class="rp_user flt"><s:text name="vc.index.input_checkcode" /></td>
+												<td class="rp_user flt">验证码：</td>
 												<td><input autocomplete="off" id="checkcode" class="form-input" type='text' name='ccode' value="" /></td>
 											</tr>
 											<tr>
@@ -143,7 +144,7 @@
 											</tr>
 											<tr>
 												<td colspan='2'>
-													<img style="opacity:0;" id="loading" src="<web.page:path/>/images/loading.gif" border="0"/>
+													<img style="display:none" id="loading" src="<web.page:path/>/images/loading.gif" border="0"/>
 													<input type="button"  onclick="login();" value="Login" class="ui-button ui-widget ui-state-default ui-corner-all"/> 
 													<input type="button" onclick="hideLoginForm();" value="Close" class="ui-button ui-widget ui-state-default ui-corner-all"/> 
 												</td>
@@ -222,12 +223,12 @@
 </s:elseif>
 
 <div class="searchnav">
-<form method="get" action="#" id="search_form" name="search_form">
+<!--form method="get" action="#" id="search_form" name="search_form">
 <input type="text" name="query" autocomplete="off" value=""
 	style="margin-right: -3px;" id="video_search_term" /> <a
 	href="javascript:void(0)"><img border="0" title="Search"
 	src="<web.page:path/>/images/btn-search.gif" id="top-nav-search-button" class=""
-	alt="Search" style="cursor: pointer;" /></a></form>
+	alt="Search" style="cursor: pointer;" /></a></form-->
 </div>
 </div>
 

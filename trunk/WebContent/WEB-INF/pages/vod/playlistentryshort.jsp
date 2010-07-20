@@ -3,10 +3,10 @@
 	<div style="float:left;width:240px;height:200px;">
 		<ul id="vid<s:property value="id"/>" class="video">
 			<li class="vImg target">
-			<a onmouseover="javascript:vidContents('<s:property value="id"/>');$('#btnplay<s:property value="id"/>').css('visibility','visible')" id="btnplay<s:property value="id"/>" style="visibility: hidden; left: 57px; top: 28px; height: 32px; width: 33px;" class="play" target="" href="#">
+			<a onmouseover="javascript:vidContents('<s:property value="id"/>');$('#btnplay<s:property value="id"/>').css('visibility','visible')" id="btnplay<s:property value="id"/>" style="visibility: hidden; left: 57px; top: 38px; height: 32px; width: 33px;" class="play" target="" href="#">
 			<img border="0" style="height: 32px; width: 33px;" src="<web.page:path/>/images/btn-play-big.png"></a>
 				<a onmouseout="$('#btnplay<s:property value="id"/>').css('visibility','hidden')" onmouseover="javascript:vidContents('<s:property value="id"/>');$('#btnplay<s:property value="id"/>').css('visibility','visible')" name="hotVideoList" href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>" class="tipAnchor">
-				<img height="80" width="145" alt="<s:property value="playListName"/>" src="<p:photo index="${playList.playListIndex}" photoType="FilmScreenShot"/>"></a>	
+				<img border="0" height="112" width="149" style="float:left;margin-left:1px;margin-top:1px;" alt="<s:property value="playListName"/>" src="<p:photo index="${playList.playListIndex}" photoType="FilmScreenShot"/>"></a>	
 			</li>		
 			
 			<li class="vTitle"><a href="<web.page:path/>/vod/play?playListID=<s:property value="id"/>" style="text-decoration: none;font-weight:bold;font-size:14px;" title="<s:property value="playListName"/>"><s:property value="playListName"/></a></li>

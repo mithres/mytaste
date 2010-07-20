@@ -101,23 +101,15 @@ $(document).ready(function() {
 
 <div class="bk">
    <div class="main">
-       <div class="mainleft">
-	      
-		  
-	   </div>
-	   <div class="mainright">
-	      <div id="right_spkc">
 
-		    <div class="spkc_nr">
+
 		    <s:iterator value="playLists.records" var="playList" status="stat">
 				<%@include file="vod/playlistentryshort.jsp"%>
 			</s:iterator>
 		    
-		    
-			</div>
-		  </div>
+
 	   
-	   </div>      
+     
   </div>  
 </div>
 </body>
