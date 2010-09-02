@@ -1,0 +1,72 @@
+<html>
+<header>
+	<title>Chat room</title>
+	<script><!--
+
+		var ws;
+		var username;
+		
+		function addStatus(text){
+	        var date = new Date();
+	        document.getElementById('status').innerHTML = document.getElementById('status').innerHTML
+	           + date + ": " + text + "<br>";
+	     }
+	     function ready(){
+	        if ("WebSocket" in window) {
+	           // browser supports websockets
+	           ws = new WebSocket("ws://localhost:9000/chat");
+	           ws.onopen = function() {
+	              // websocket is connected
+	              addStatus("websocket connected!");
+	              // send hello data to server.
+	              //ws.send("<auth username='ammen' password='123' group='chat1'/>");
+	              //addStatus("sent message to server: 'hello server'!");
+	           };
+	           ws.onerror = function(evt){
+	        	   addStatus(evt);
+	           };
+	           ws.onmessage = function (evt) {
+	              var receivedMsg = evt.data;
+	              //addStatus("server sent the following: '" + receivedMsg + "'");
+	              var content = document.getElementById('content').innerHTML;
+	              document.getElementById('content').innerHTML = content+"\n"+receivedMsg;
+	           };
+	           ws.onclose = function() {
+	              // websocket was closed
+	              addStatus("websocket was closed");
+	           };
+	        } else {
+	           // browser does not support websockets
+	           addStatus("sorry, your browser does not support websockets.");
+	        }
+	     }
+	     
+	     function joinGroup(){
+		   	var userName = document.getElementById('userName').value;
+		   	username = userName;
+		   	var password = document.getElementById('password').value;
+		   	var str = "<auth username='"+userName+"' password='"+password+"' group='chat1'/>";
+	    	ws.send(str);
+	     }
+		function sendMsg(){
+			var msg = document.getElementById('message').value;
+			var m = username + " : " +msg;
+			ws.send(m);
+		}
+	     
+	--></script>
+</header>
+
+<body onload="ready();">
+	<div id="status"></div></br>
+	UserName:<input id="userName" type="text"/></br>
+	Password:<input id="password" type="text"/></br>
+	<button value="Join" name="Join" onclick="joinGroup();">joinGroup</button></br>
+	
+	<textarea cols="50" rows="10" id="content"></textarea></br>
+	
+	<input type="text" id="message" size="50"/><button onclick="sendMsg();">Send</button>
+	
+</body>
+
+</html>
