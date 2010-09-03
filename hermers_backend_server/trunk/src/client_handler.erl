@@ -85,23 +85,30 @@ wait_for_handshake({data,Bin},#state{socket=Socket} = State) ->
     io:format("Write:~p~n",[?HAND_SHAKE]),
     gen_tcp:send(Socket,?HAND_SHAKE),
     {next_state, wait_for_login, State};
-wait_for_handshake(Other, State) ->
+wait_for_handshake(Other, _State) ->
     error_logger:error_msg("State: wait_for_data. Unexpected message: ~p\n", [Other]),
-    {next_state, wait_for_handshake, State}.
+    {exit,normal}.
+    %{next_state, wait_for_handshake, State}.
 
-wait_for_login({data,Bin},#state{socket=Socket,addr=Addr}=State) ->
+wait_for_login({data,Bin}, #state{socket=Socket,addr=Addr} = _State) ->
     LoginMsg = get_msg(Bin),
     io:format("Login Msg:~p~n",[LoginMsg]),
-    {ok,[UserName,Password,Group]} = login(LoginMsg),
+    [UserName,_Password,Group] =  case login(LoginMsg) of
+    	{stop,Reason} ->			      
+	    io:format("Process login data error:~p~n",[Reason]),
+	    exit(Reason);
+	{ok,Result} ->
+	    Result
+    end,
     register(list_to_atom(UserName),self()),
     groupmanager:join_group(Group,self()),
     NewState = #state{socket=Socket,addr=Addr,group=Group},
     io:format("login success~n"),
     {next_state, wait_for_data, NewState};
-wait_for_login(Other,State) ->
+wait_for_login(_Other, State) ->
     {next_state, wait_for_data, State}.
 
-wait_for_data({data,Bin}, #state{socket=Socket,group=Group} = State) ->
+wait_for_data({data,Bin}, #state{group=Group} = State) ->
     Msg = get_msg(Bin),
     io:format("RECV:~p~n",[Msg]),
     groupmanager:send_msg(Group,Msg),
@@ -171,7 +178,7 @@ handle_sync_event(_Event, _From, StateName, State) ->
 handle_info({tcp,Socket,Bin},StateName, State)->
     inet:setopts(Socket, [{active, once}]),
     ?MODULE:StateName({data, Bin}, State);
-handle_info({tcp_closed,Socket},StateName,State) ->
+handle_info({tcp_closed,_Socket},_StateName,State) ->
     io:format("Socket closed.~n"),
     {stop, normal, State};
 handle_info(_Info, StateName, State) ->
@@ -209,25 +216,22 @@ code_change(_OldVsn, StateName, State, _Extra) ->
 get_msg(Bin)->
     BinLen = byte_size(Bin),
     MsgLen = BinLen - 2,
-    <<Begin:8,Msg:MsgLen/binary-unit:8,End/binary>> = Bin,
+    <<_Begin:8,Msg:MsgLen/binary-unit:8,_End/binary>> = Bin,
     binary_to_list(Msg).
     
 login(Msg) ->
-    %try xmerl_scan:string(Msg)
-    %catch
-    %   error:X ->
-    %	    io:format("Error is:~p~n",[X])
-    %end.
-    {Doc,Misc} = xmerl_scan:string(Msg),
-    #xmlElement{name=Xmlname} = Doc,
-    Result = if
-	Xmlname =/="auth" ->
-	    [#xmlAttribute{value=UserName}] = xmerl_xpath:string("//@username", Doc),
-	    [#xmlAttribute{value=Password}] = xmerl_xpath:string("//@password", Doc),
-	    [#xmlAttribute{value=Group}] = xmerl_xpath:string("//@group", Doc),
-	    {ok,[UserName,Password,Group]};
-	true ->
-	    {stop,"It's not a login msg~n"}
-    end,
-    io:format("XMl is:~p~n",[Result]),
-    Result.
+    try xmerl_scan:string(Msg) of
+	{Doc,_Misc} ->
+	    #xmlElement{name=Xmlname} = Doc,
+	    if Xmlname =/="auth" ->
+		[#xmlAttribute{value=UserName}] = xmerl_xpath:string("//@username", Doc),
+		[#xmlAttribute{value=Password}] = xmerl_xpath:string("//@password", Doc),
+	        [#xmlAttribute{value=Group}] = xmerl_xpath:string("//@group", Doc),
+		{ok,[UserName,Password,Group]};
+	     true ->
+	        {stop,"It's not a login msg~n"}
+	    end
+     catch
+	 exit:E  -> {stop,E}
+     end.
+    

@@ -144,7 +144,7 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
-send([],Msg) ->
+send([],_Msg) ->
     ok;
 send(Pids,Msg) ->
     [Pid|T] = Pids,

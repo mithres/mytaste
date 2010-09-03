@@ -63,7 +63,7 @@ receive_data(Socket) ->
 	{ok, Packet} -> 
 	    io:format("CRECV:~p~n",[Packet]),
 	    receive_data(Socket);
-	{error,Reason} ->
+	{error,_Reason} ->
 	    io:format("Error client~n")
     end.
     
