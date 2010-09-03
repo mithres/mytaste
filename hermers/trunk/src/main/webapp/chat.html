@@ -40,6 +40,10 @@
 	           addStatus("sorry, your browser does not support websockets.");
 	        }
 	     }
+
+		function logout(){
+			ws.close();
+		}
 	     
 	     function joinGroup(){
 		   	var userName = document.getElementById('userName').value;
@@ -48,6 +52,7 @@
 		   	var str = "<auth username='"+userName+"' password='"+password+"' group='chat1'/>";
 	    	ws.send(str);
 	     }
+	     
 		function sendMsg(){
 			var msg = document.getElementById('message').value;
 			var m = username + " : " +msg;
@@ -61,7 +66,7 @@
 	<div id="status"></div></br>
 	UserName:<input id="userName" type="text"/></br>
 	Password:<input id="password" type="text"/></br>
-	<button value="Join" name="Join" onclick="joinGroup();">joinGroup</button></br>
+	<button value="Join" name="Join" onclick="joinGroup();">joinGroup</button> <button onclick="logout();">logout</button> </br>
 	
 	<textarea cols="50" rows="10" id="content"></textarea></br>
 	
